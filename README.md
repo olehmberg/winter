@@ -2,7 +2,7 @@
 
 A framework for the pre-processing, matching and fusion of data with focus on data from the web. Enables students and researchers to explore data integration methods and quickly set up experiments with standard methods. Then, the methods can be customised by plugging in different, pre-defined building blocks (such as blockers, matching rules, etc.) or new methods can be created by combining these building blocks in a new way.
 
-**Quick Start**: Have a look at the code examples in our [Wiki](wiki)!
+**Quick Start**: Have a look at the code examples in our [Wiki](../../wiki)!
 
 ## Contents
 - [Functionality](#functionality)
