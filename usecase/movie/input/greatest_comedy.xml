@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>greatest_comedy1</id>
+		<title>Annie Hall</title>
+		<director>
+			<name>Woody Allen</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Carol Kane</name>
+			</actor>
+			<actor>
+				<name>Diane Keaton</name>
+			</actor>
+			<actor>
+				<name>Paul Simon</name>
+			</actor>
+			<actor>
+				<name>Tony Roberts</name>
+			</actor>
+			<actor>
+				<name>Woody Allen</name>
+			</actor>
+		</actors>
+		<date>1977-01-01</date>
+		<genre>Comedy</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_comedy2</id>
+		<title>Borat</title>
+		<director>
+			<name>Larry Charles</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Ken Davitian</name>
+			</actor>
+			<actor>
+				<name>Pamela Anderson</name>
+			</actor>
+			<actor>
+				<name>Sacha Baron Cohen</name>
+			</actor>
+		</actors>
+		<date>2006-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy3</id>
+		<title>Some Like it Hot</title>
+		<director>
+			<name>Billy Wilder</name>
+		</director>
+		<actors>
+			<actor>
+				<name>George Raft</name>
+			</actor>
+			<actor>
+				<name>Jack Lemmon</name>
+			</actor>
+			<actor>
+				<name>Joe E Brown</name>
+			</actor>
+			<actor>
+				<name>Marilyn Monroe</name>
+			</actor>
+			<actor>
+				<name>Tony Curtis</name>
+			</actor>
+		</actors>
+		<date>1959-01-01</date>
+		<genre>Comedy</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_comedy4</id>
+		<title>Team America</title>
+		<director>
+			<name>Trey Parker</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Kristen Miller</name>
+			</actor>
+			<actor>
+				<name>Matt Stone</name>
+			</actor>
+			<actor>
+				<name>Trey Parker</name>
+			</actor>
+		</actors>
+		<date>2004-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy5</id>
+		<title>Dr Strangelove</title>
+		<director>
+			<name>Stanley Kubrick</name>
+		</director>
+		<actors>
+			<actor>
+				<name>George C Scott</name>
+			</actor>
+			<actor>
+				<name>Peter Sellers</name>
+			</actor>
+			<actor>
+				<name>Sterling Hayden</name>
+			</actor>
+		</actors>
+		<date>1964-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy6</id>
+		<title>The Ladykillers</title>
+		<director>
+			<name>Alexander Mackendrick</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alec Guinness</name>
+			</actor>
+			<actor>
+				<name>Cecil Parker</name>
+			</actor>
+			<actor>
+				<name>Herbert Lom</name>
+			</actor>
+			<actor>
+				<name>Peter Sellers</name>
+			</actor>
+		</actors>
+		<date>1955-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy7</id>
+		<title>Duck Soup</title>
+		<director>
+			<name>Leo McCarey</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Chico Marx</name>
+			</actor>
+			<actor>
+				<name>Groucho Marx</name>
+			</actor>
+			<actor>
+				<name>Harpo Marx</name>
+			</actor>
+			<actor>
+				<name>Margaret Dumont</name>
+			</actor>
+			<actor>
+				<name>The Marx Brothers</name>
+			</actor>
+			<actor>
+				<name>Zeppo Marx</name>
+			</actor>
+		</actors>
+		<date>1933-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy8</id>
+		<title>Rushmore</title>
+		<director>
+			<name>Wes Anderson</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Bill Murray</name>
+			</actor>
+			<actor>
+				<name>Brian Cox</name>
+			</actor>
+			<actor>
+				<name>Jason Schwartzman</name>
+			</actor>
+			<actor>
+				<name>Olivia Williams</name>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy9</id>
+		<title>Kind Hearts &amp; Coronets</title>
+		<director>
+			<name>Robert Hamer</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alec Guinness</name>
+			</actor>
+			<actor>
+				<name>Dennis Price</name>
+			</actor>
+			<actor>
+				<name>Joan Greenwood</name>
+			</actor>
+		</actors>
+		<date>1949-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy10</id>
+		<title>Monty Python’s Life of Brian</title>
+		<director>
+			<name>Terry Jones</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Eric Idle</name>
+			</actor>
+			<actor>
+				<name>Graham Chapman</name>
+			</actor>
+			<actor>
+				<name>John Cleese</name>
+			</actor>
+			<actor>
+				<name>Michael Palin</name>
+			</actor>
+			<actor>
+				<name>Terry Gilliam</name>
+			</actor>
+			<actor>
+				<name>Terry Jones</name>
+			</actor>
+		</actors>
+		<date>1979-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy11</id>
+		<title>Airplane!</title>
+		<director>
+			<name>Jim Abrahams, David Zucker and Jerry Zucker</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Julie Hagerty</name>
+			</actor>
+			<actor>
+				<name>Leslie Nielsen</name>
+			</actor>
+			<actor>
+				<name>Robert Hays</name>
+			</actor>
+		</actors>
+		<date>1980-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy12</id>
+		<title>Election</title>
+		<director>
+			<name>Alexander Payne</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Chris Klein</name>
+			</actor>
+			<actor>
+				<name>Matthew Broderick</name>
+			</actor>
+			<actor>
+				<name>Reese Witherspoon</name>
+			</actor>
+		</actors>
+		<date>1999-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy13</id>
+		<title>His Girl Friday</title>
+		<director>
+			<name>Howard Hawkes</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Cary Grant</name>
+			</actor>
+			<actor>
+				<name>Gene Lockhart</name>
+			</actor>
+			<actor>
+				<name>Ralph Bellamy</name>
+			</actor>
+			<actor>
+				<name>Rosalind Russell</name>
+			</actor>
+		</actors>
+		<date>1940-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy14</id>
+		<title>The Big Lebowski</title>
+		<director>
+			<name>Joel Coen</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Jeff Bridges</name>
+			</actor>
+			<actor>
+				<name>John Goodman</name>
+			</actor>
+			<actor>
+				<name>Julianne Moore</name>
+			</actor>
+			<actor>
+				<name>Steve Buscemi</name>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy15</id>
+		<title>This Is Spinal Tap</title>
+		<director>
+			<name>Rob Reiner</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Christopher Guest</name>
+			</actor>
+			<actor>
+				<name>Harry Shearer</name>
+			</actor>
+			<actor>
+				<name>Michael McKean</name>
+			</actor>
+			<actor>
+				<name>Rob Reiner</name>
+			</actor>
+		</actors>
+		<date>1984-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy16</id>
+		<title>Bringing Up Baby</title>
+		<director>
+			<name>Howard Hawkes</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Cary Grant</name>
+			</actor>
+			<actor>
+				<name>Katharine Hepburn</name>
+			</actor>
+			<actor>
+				<name>Katherine Hepburn</name>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy17</id>
+		<title>There’s Something About Mary</title>
+		<director>
+			<name>Peter &amp; Bob Farrelly</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Ben Stiller</name>
+			</actor>
+			<actor>
+				<name>Cameron Diaz</name>
+			</actor>
+			<actor>
+				<name>Lee Evans</name>
+			</actor>
+			<actor>
+				<name>Matt Dillon</name>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy18</id>
+		<title>Dazed and Confused</title>
+		<director>
+			<name>Richard Linklater</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Adam Goldberg</name>
+			</actor>
+			<actor>
+				<name>Jason London</name>
+			</actor>
+			<actor>
+				<name>Joey Lauren Adams</name>
+			</actor>
+			<actor>
+				<name>Joey Lauren Adams</name>
+			</actor>
+			<actor>
+				<name>Milla Jovovich</name>
+			</actor>
+			<actor>
+				<name>Rory Cochrane</name>
+			</actor>
+			<actor>
+				<name>Shawn Andrew</name>
+			</actor>
+		</actors>
+		<date>1993-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy19</id>
+		<title>MASH</title>
+		<director>
+			<name>Robert Altman</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Donald Sutherland</name>
+			</actor>
+			<actor>
+				<name>Elliott Gould</name>
+			</actor>
+			<actor>
+				<name>Sally Kellerman</name>
+			</actor>
+		</actors>
+		<date>1970-01-01</date>
+		<genre>Comedy</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_comedy20</id>
+		<title>Groundhog Day</title>
+		<director>
+			<name>Harold Ramis</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Andie MacDowell</name>
+			</actor>
+			<actor>
+				<name>Bill Murray</name>
+			</actor>
+			<actor>
+				<name>Chris Elliott</name>
+			</actor>
+			<actor>
+				<name>Stephen Tobolowsky</name>
+			</actor>
+		</actors>
+		<date>1993-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy21</id>
+		<title>Clueless</title>
+		<director>
+			<name>Amy Heckerling</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alicia Silverstone</name>
+			</actor>
+			<actor>
+				<name>Dan Hedaya</name>
+			</actor>
+			<actor>
+				<name>Stacey Dash</name>
+			</actor>
+		</actors>
+		<date>1995-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy22</id>
+		<title>The Great Dictator</title>
+		<director>
+			<name>Charlie Chaplin</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Charlie Chaplin</name>
+			</actor>
+			<actor>
+				<name>Jack Oakie</name>
+			</actor>
+			<actor>
+				<name>Paulette Goddard</name>
+			</actor>
+		</actors>
+		<date>1940-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy23</id>
+		<title>Clerks</title>
+		<director>
+			<name>Kevin Smith</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Brian O'Halloran</name>
+			</actor>
+			<actor>
+				<name>Jeff Anderson</name>
+			</actor>
+			<actor>
+				<name>Marilyn Ghigliotti</name>
+			</actor>
+		</actors>
+		<date>1994-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy24</id>
+		<title>The Jerk</title>
+		<director>
+			<name>Carl Reiner</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Steve Martin</name>
+			</actor>
+		</actors>
+		<date>1979-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>greatest_comedy25</id>
+		<title>Shaun of the Dead</title>
+		<director>
+			<name>Edgar Wright</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Dylan Moran</name>
+			</actor>
+			<actor>
+				<name>Kate Ashfield</name>
+			</actor>
+			<actor>
+				<name>Nick Frost</name>
+			</actor>
+			<actor>
+				<name>Simon Pegg</name>
+			</actor>
+		</actors>
+		<date>2004-01-01</date>
+		<genre>Comedy</genre>
+	</movie>
+</movies>

@@ -1,0 +1,7 @@
+"kilometrePerHour"|"km/h","kmh","kilometre per hour","χιλιόμετρα ανά ώρα"
+"metrePerSecond"|"m/s","ms","metre per second"|3.6
+"kilometrePerSecond"|"km/s","kilometre per second"|3600.0
+"milePerHour"|"mph","mi/h","mile per hour"|1.60934
+"footPerSecond"|"ft/s","foot per second"|0.0003048333333
+"footPerMinute"|"ft/min","foot per minute"|0.01829
+"knot"|"kn","knot"|1.852

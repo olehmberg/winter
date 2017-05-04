@@ -1,0 +1,15 @@
+"newton"|"N","newton"
+"nanonewton"|"nN","nanonewton"|1.0E-9
+"millinewton"|"mN","millinewton"|0.001
+"kilonewton"|"kN","kilonewton"|1000.0
+"meganewton"|"MN","meganewton"|1000000.0
+"giganewton"|"GN","giganewton"|1000000000.0
+"tonneForce"|"tf","t-f","tonne-force"|9806.65
+"megapond"|"Mp","megapond"|9806.65
+"kilogramForce"|"kgf","kg-f","kilogram-force"|9.80665
+"kilopond"|"kp","kilopond"|9.80665
+"gramForce"|"gf","g-f","gram-force"|0.00980665
+"pond"|"p","pond"|0.00980665
+"milligramForce"|"mgf","mg-f","milligram-force"|0.00980665
+"millipond"|"mp","millipond"|0.00980665
+"poundal"|"pdl","poundal"|0.1383

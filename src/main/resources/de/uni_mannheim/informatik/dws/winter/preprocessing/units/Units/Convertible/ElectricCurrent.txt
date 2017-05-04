@@ -1,0 +1,4 @@
+"ampere"|"A","ampere"
+"kiloampere"|"kA","kiloampere"|1000.0
+"milliampere"|"mA","milliampere"|0.001
+"microampere"|"µA","microampere"|1.0E-6

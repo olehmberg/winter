@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>greatest_action_1</id>
+		<title>Apocalypse Now</title>
+		<director>
+			<name>Francis Coppola</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Dennis Hopper</name>
+			</actor>
+			<actor>
+				<name>Frederic Forrest</name>
+			</actor>
+			<actor>
+				<name>Laurence Fishburne</name>
+			</actor>
+			<actor>
+				<name>Marlon Brando</name>
+			</actor>
+			<actor>
+				<name>Martin Sheen</name>
+			</actor>
+			<actor>
+				<name>Robert Duvall</name>
+			</actor>
+			<actor>
+				<name>Rpobert Duvall</name>
+			</actor>
+		</actors>
+		<date>1979-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_2</id>
+		<title>North by Northwest</title>
+		<director>
+			<name>Alfred Hitchcock</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Cary Grant</name>
+			</actor>
+			<actor>
+				<name>Eva Marie Saint</name>
+			</actor>
+			<actor>
+				<name>Eva Marie Saint</name>
+			</actor>
+			<actor>
+				<name>James Mason</name>
+			</actor>
+			<actor>
+				<name>Jessie Royce Landis</name>
+			</actor>
+			<actor>
+				<name>Leo G Carroll</name>
+			</actor>
+			<actor>
+				<name>Martin Landau</name>
+			</actor>
+		</actors>
+		<date>1959-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_3</id>
+		<title>Once Upon a Time in the West</title>
+		<director>
+			<name>Sergio Leone</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Charles Bronson</name>
+			</actor>
+			<actor>
+				<name>Claudia Cardinale</name>
+			</actor>
+			<actor>
+				<name>Henry Fonda</name>
+			</actor>
+			<actor>
+				<name>Jason Robards</name>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_4</id>
+		<title>The Wild Bunch</title>
+		<director>
+			<name>Sam Pekinpah</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Ernest Borgnine</name>
+			</actor>
+			<actor>
+				<name>Robert Ryan</name>
+			</actor>
+			<actor>
+				<name>William Holden</name>
+			</actor>
+		</actors>
+		<date>1969-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_5</id>
+		<title>Deliverance</title>
+		<director>
+			<name>John Boorman </name>
+		</director>
+		<actors>
+			<actor>
+				<name>Burt Reynolds</name>
+			</actor>
+			<actor>
+				<name>Jon Voight</name>
+			</actor>
+			<actor>
+				<name>Ned Beatty</name>
+			</actor>
+		</actors>
+		<date>1972-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_6</id>
+		<title>City of God</title>
+		<director>
+			<name>Fernando Meirelles</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alexandre Rodrigues</name>
+			</actor>
+			<actor>
+				<name>Leandro Firmino da Hora</name>
+			</actor>
+			<actor>
+				<name>Matheus Nachtergaele</name>
+			</actor>
+			<actor>
+				<name>Phelipe Haagensen</name>
+			</actor>
+		</actors>
+		<date>2002-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_7</id>
+		<title>Paths of Glory</title>
+		<director>
+			<name>Stanley Kubrick</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Adolphe Menjou</name>
+			</actor>
+			<actor>
+				<name>Kirk Douglas</name>
+			</actor>
+			<actor>
+				<name>Ralph Meeker</name>
+			</actor>
+		</actors>
+		<date>1957-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_8</id>
+		<title>The Wages of Fear</title>
+		<director>
+			<name>Henri-Georges Clouzot</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Charles Vanel</name>
+			</actor>
+			<actor>
+				<name>Folco Lulli</name>
+			</actor>
+			<actor>
+				<name>Yves Montand</name>
+			</actor>
+		</actors>
+		<date>1953-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_9</id>
+		<title>Crouching Tiger Hidden Dragon</title>
+		<director>
+			<name>Ang Lee</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Chang Chen</name>
+			</actor>
+			<actor>
+				<name>Chow Yun-Fat</name>
+			</actor>
+			<actor>
+				<name>Michelle Yeoh</name>
+			</actor>
+			<actor>
+				<name>Zhang Ziyi</name>
+			</actor>
+			<actor>
+				<name>Ziyi Zhang</name>
+			</actor>
+		</actors>
+		<date>2000-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_10</id>
+		<title> The Thin Red Line</title>
+		<director>
+			<name>Terrence Malik</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Adrien Brody</name>
+			</actor>
+			<actor>
+				<name>Ben Chaplin</name>
+			</actor>
+			<actor>
+				<name>Nick Nolte</name>
+			</actor>
+			<actor>
+				<name>Sean Penn</name>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_11</id>
+		<title>Raiders of the Lost Ark</title>
+		<director>
+			<name>Steven Spielberg</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Harrison Ford</name>
+			</actor>
+			<actor>
+				<name>Karen Allen</name>
+			</actor>
+			<actor>
+				<name>Paul Freeman</name>
+			</actor>
+			<actor>
+				<name>Ronald Lacey</name>
+			</actor>
+		</actors>
+		<date>1981-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_12</id>
+		<title> Bullitt</title>
+		<director>
+			<name>Peter Yates</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Jacqueline Bisset</name>
+			</actor>
+			<actor>
+				<name>Robert Vaughn</name>
+			</actor>
+			<actor>
+				<name>Steve McQueen</name>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_13</id>
+		<title>Ran</title>
+		<director>
+			<name>Akira Kurosawa</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Akira Terao</name>
+			</actor>
+			<actor>
+				<name>Daisuke Ryu</name>
+			</actor>
+			<actor>
+				<name>Mieko Harada</name>
+			</actor>
+			<actor>
+				<name>Tatsuya Nakadai</name>
+			</actor>
+		</actors>
+		<date>1985-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_14</id>
+		<title>Die Hard</title>
+		<director>
+			<name>John McTeirnan</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alan Rickman</name>
+			</actor>
+			<actor>
+				<name>Bonnie Bedelia</name>
+			</actor>
+			<actor>
+				<name>Bruce Willis</name>
+			</actor>
+		</actors>
+		<date>1988-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_15</id>
+		<title>The Adventures of Robin Hood</title>
+		<director>
+			<name>Michael Curtiz, William Keighley</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Basil Rathbone</name>
+			</actor>
+			<actor>
+				<name>Claude Rains</name>
+			</actor>
+			<actor>
+				<name>Errol Flynn</name>
+			</actor>
+			<actor>
+				<name>Olivia De Havilland</name>
+			</actor>
+			<actor>
+				<name>Olivia de Havilland</name>
+			</actor>
+			<actor>
+				<name>William Keighley</name>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_16</id>
+		<title> The Searchers</title>
+		<director>
+			<name>John Ford</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Jeffrey Hunter</name>
+			</actor>
+			<actor>
+				<name>John Wayne</name>
+			</actor>
+			<actor>
+				<name>Natalie Wood</name>
+			</actor>
+			<actor>
+				<name>Vera Miles</name>
+			</actor>
+			<actor>
+				<name>Ward Bond</name>
+			</actor>
+		</actors>
+		<date>1956-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_17</id>
+		<title>Goldfinger</title>
+		<director>
+			<name>Guy Hamilton</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Bernard Lee</name>
+			</actor>
+			<actor>
+				<name>Gert Frobe</name>
+			</actor>
+			<actor>
+				<name>Harold Sakata</name>
+			</actor>
+			<actor>
+				<name>Honor Blackman</name>
+			</actor>
+			<actor>
+				<name>Lois Maxwell</name>
+			</actor>
+			<actor>
+				<name>Sean Connery</name>
+			</actor>
+			<actor>
+				<name>Shirley Eaton</name>
+			</actor>
+			<actor>
+				<name>Tania Mallet</name>
+			</actor>
+		</actors>
+		<date>1964-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_18</id>
+		<title>Full Metal Jacket</title>
+		<director>
+			<name>Stanley Kubrick</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Adam Baldwin</name>
+			</actor>
+			<actor>
+				<name>Lee Ermey</name>
+			</actor>
+			<actor>
+				<name>Matthew Modine</name>
+			</actor>
+			<actor>
+				<name>Vincent D'Onofrio</name>
+			</actor>
+		</actors>
+		<date>1987-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_19</id>
+		<title>Last of the Mohicans</title>
+		<director>
+			<name>Michael Mann</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Daniel Day-Lewis</name>
+			</actor>
+			<actor>
+				<name>Jodhi May</name>
+			</actor>
+			<actor>
+				<name>Madeleine Stowe</name>
+			</actor>
+		</actors>
+		<date>1992-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_20</id>
+		<title>Deer Hunter</title>
+		<director>
+			<name>Michael Cimino</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Christopher Walken</name>
+			</actor>
+			<actor>
+				<name>Meryl Streep</name>
+			</actor>
+			<actor>
+				<name>Robert De Niro</name>
+			</actor>
+		</actors>
+		<date>1978-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_21</id>
+		<title>Gladiator</title>
+		<director>
+			<name>Ridley Scott</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Connie Nielsen</name>
+			</actor>
+			<actor>
+				<name>Joaquin Phoenix</name>
+			</actor>
+			<actor>
+				<name>Oliver Reed</name>
+			</actor>
+			<actor>
+				<name>Russell Crowe</name>
+			</actor>
+		</actors>
+		<date>2000-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_22</id>
+		<title>Rome Open City</title>
+		<director>
+			<name>Roberto Rossellini</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Aldo Fabrizi</name>
+			</actor>
+			<actor>
+				<name>Anna Magnani</name>
+			</actor>
+			<actor>
+				<name>Marcello Pagliero</name>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_23</id>
+		<title>Butch Cassidy</title>
+		<director>
+			<name>George Roy Hill</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Katharine Ross</name>
+			</actor>
+			<actor>
+				<name>Paul Newman</name>
+			</actor>
+			<actor>
+				<name>Robert Redford</name>
+			</actor>
+		</actors>
+		<date>1969-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_action_24</id>
+		<title>Where Eagles Dare</title>
+		<director>
+			<name>Brian G. Hutton</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Clint Eastwood</name>
+			</actor>
+			<actor>
+				<name>Mary Ure</name>
+			</actor>
+			<actor>
+				<name>Richard Burton</name>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+		<genre>Action</genre>
+	</movie>
+	<movie>
+		<id>greatest_action_25</id>
+		<title>The Incredibles</title>
+		<director>
+			<name>Brad Bird</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Craig T Nelson</name>
+			</actor>
+			<actor>
+				<name>Holly Hunter</name>
+			</actor>
+			<actor>
+				<name>Jason Lee</name>
+			</actor>
+			<actor>
+				<name>Samuel L Jackson</name>
+			</actor>
+		</actors>
+		<date>2004-01-01</date>
+		<genre>Action</genre>
+		<oscar>yes</oscar>
+	</movie>
+</movies>

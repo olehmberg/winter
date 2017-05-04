@@ -1,0 +1,10 @@
+"pascal"|"Pa","pascal"
+"millipascal"|"mPa","millipascal"|0.001
+"hectopascal"|"hPa","hectopascal"|0.01
+"kilopascal"|"kPa","kilopascal"|1000.0
+"megapascal"|"MPa","megapascal"|1000000.0
+"millibar"|"mbar","mb","millibar"|100.0
+"decibar"|"dbar","decibar"|10000.0
+"bar"|"bar"|100000.0
+"standardAtmosphere"|"atm","standardatmosphere"|101325.0
+"poundPerSquareInch"|"psi","poundpersquareinch"|6894.7572932

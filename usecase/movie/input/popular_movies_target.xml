@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>popular_movies_1</id>
+		<title>Rififi</title>
+		<date>1955-04-13</date>
+	</movie>
+	<movie>
+		<id>popular_movies_2</id>
+		<title>Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb</title>
+		<date>1964-01-29</date>
+	</movie>
+	<movie>
+		<id>popular_movies_3</id>
+		<title>The Pink Panther</title>
+		<date>1963-12-19</date>
+	</movie>
+	<movie>
+		<id>popular_movies_4</id>
+		<title>For a Few Dollars More</title>
+		<date>1965-12-18</date>
+	</movie>
+	<movie>
+		<id>popular_movies_5</id>
+		<title>The Jazz Singer</title>
+		<date>1927-10-06</date>
+	</movie>
+	<movie>
+		<id>popular_movies_6</id>
+		<title>The Lady Vanishes</title>
+		<date>1938-11-01</date>
+	</movie>
+	<movie>
+		<id>popular_movies_7</id>
+		<title>Lethal Weapon</title>
+		<date>1987-03-05</date>
+	</movie>
+	<movie>
+		<id>popular_movies_8</id>
+		<title>Lethal Weapon 2</title>
+		<date>1989-07-06</date>
+	</movie>
+	<movie>
+		<id>popular_movies_9</id>
+		<title>Lethal Weapon 3</title>
+		<date>1992-05-14</date>
+	</movie>
+	<movie>
+		<id>popular_movies_10</id>
+		<title>Lethal Weapon 4</title>
+		<date>1998-07-09</date>
+	</movie>
+	<movie>
+		<id>popular_movies_11</id>
+		<title>Letter from an Unknown Woman</title>
+		<date>1948-04-28</date>
+	</movie>
+	<movie>
+		<id>popular_movies_12</id>
+		<title>Lawrence of Arabia</title>
+		<date>1962-12-10</date>
+	</movie>
+	<movie>
+		<id>popular_movies_13</id>
+		<title>Halloween</title>
+		<date>1978-10-25</date>
+	</movie>
+	<movie>
+		<id>popular_movies_14</id>
+		<title>Heat</title>
+		<date>1995-12-14</date>
+	</movie>
+	<movie>
+		<id>popular_movies_15</id>
+		<title>Ice Age: The Meltdown</title>
+		<date>2006-03-31</date>
+	</movie>
+	<movie>
+		<id>popular_movies_16</id>
+		<title>Kindergarten Cop</title>
+		<date>1990-12-20</date>
+	</movie>
+	<movie>
+		<id>popular_movies_17</id>
+		<title>Madagascar</title>
+		<date>2005-05-26</date>
+	</movie>
+	<movie>
+		<id>popular_movies_18</id>
+		<title>Mission: Impossible</title>
+		<date>1996-05-21</date>
+	</movie>
+	<movie>
+		<id>popular_movies_19</id>
+		<title>Mission: Impossible II</title>
+		<date>2000-05-23</date>
+	</movie>
+	<movie>
+		<id>popular_movies_20</id>
+		<title>Mission: Impossible III</title>
+		<date>2006-05-04</date>
+	</movie>
+	<movie>
+		<id>popular_movies_21</id>
+		<title>Spaceballs</title>
+		<date>1987-06-24</date>
+	</movie>
+	<movie>
+		<id>popular_movies_22</id>
+		<title>The General</title>
+		<date>1927-02-04</date>
+	</movie>
+	<movie>
+		<id>popular_movies_23</id>
+		<title>The Gold Rush</title>
+		<date>1925-06-26</date>
+	</movie>
+	<movie>
+		<id>popular_movies_24</id>
+		<title>The Maltese Falcon</title>
+		<date>1941-10-02</date>
+	</movie>
+	<movie>
+		<id>popular_movies_25</id>
+		<title>The Phantom of the Opera</title>
+		<date>1925-09-06</date>
+	</movie>
+	<movie>
+		<id>popular_movies_26</id>
+		<title>The Magnificent Ambersons</title>
+		<date>1942-07-10</date>
+	</movie>
+	<movie>
+		<id>popular_movies_27</id>
+		<title>The Magnificent Seven</title>
+		<date>1960-10-23</date>
+	</movie>
+	<movie>
+		<id>popular_movies_28</id>
+		<title>Spartacus</title>
+		<date>1960-10-06</date>
+	</movie>
+	<movie>
+		<id>popular_movies_29</id>
+		<title>Dog Day Afternoon</title>
+		<date>1975-09-21</date>
+	</movie>
+	<movie>
+		<id>popular_movies_30</id>
+		<title>Paths of Glory</title>
+		<date>1957-12-25</date>
+	</movie>
+	<movie>
+		<id>popular_movies_31</id>
+		<title>Sweet Smell of Success</title>
+		<date>1957-06-27</date>
+	</movie>
+	<movie>
+		<id>popular_movies_32</id>
+		<title>Tabu: A Story of the South Seas</title>
+		<date>1931-08-01</date>
+	</movie>
+	<movie>
+		<id>popular_movies_33</id>
+		<title>Seven Years in Tibet</title>
+		<date>1997-10-08</date>
+	</movie>
+	<movie>
+		<id>popular_movies_34</id>
+		<title>Irreversible</title>
+		<date>2002-05-22</date>
+	</movie>
+	<movie>
+		<id>popular_movies_35</id>
+		<title>The Ox-Bow Incident</title>
+		<date>1943-05-21</date>
+	</movie>
+	<movie>
+		<id>popular_movies_36</id>
+		<title>The Philadelphia Story</title>
+		<date>1940-12-01</date>
+	</movie>
+	<movie>
+		<id>popular_movies_37</id>
+		<title>The Manchurian Candidate</title>
+		<date>1962-10-24</date>
+	</movie>
+	<movie>
+		<id>popular_movies_38</id>
+		<title>The Man Who Would Be King</title>
+		<date>1975-12-17</date>
+	</movie>
+	<movie>
+		<id>popular_movies_39</id>
+		<title>Dirty Harry</title>
+		<date>1971-12-22</date>
+	</movie>
+	<movie>
+		<id>popular_movies_40</id>
+		<title>Eraserhead</title>
+		<date>1977-03-19</date>
+	</movie>
+</movies>

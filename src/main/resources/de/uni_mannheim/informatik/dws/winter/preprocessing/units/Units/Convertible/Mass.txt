@@ -1,0 +1,9 @@
+"gram"|"g","gram","γραμμάρια","γρ"
+"milligram"|"mg","milligram","χιλιόγραμμάρια"|0.001
+"kilogram"|"kg","kilogram","κιλά"|1000.0
+"tonne"|"t","tonne","τόνοι","τόνος"|1000000.0
+"stone"|"st","stone"|6350.29318
+"pound"|"lb","lbs","lbm","pound"|453.6
+"ounce"|"oz","ounce"|28.35
+"grain"|"gr","grain"|0.0648
+"carat"|"carat","καράτια","καράτι"|0.2
