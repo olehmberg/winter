@@ -1,54 +1,60 @@
 # **W**eb Data **INTE**g**R**ation Framework (WInte.r)
 
-A framework for the pre-processing, matching and fusion of data with focus on data from the web. Enables students and researchers to explore data integration methods and quickly set up experiments with standard methods. Then, the methods can be customised by plugging in different, pre-defined building blocks (such as blockers, matching rules, etc.) or new methods can be created by combining these building blocks in a new way.
-
-**Quick Start**: Have a look at the code examples in our [Wiki](../../wiki)!
+The WInte.r framework provides methods for end-to-end data integration. The framework implements well-known methods for data pre-processing, schema matching, identity resolution, data fusion, and result evaluation.  The methods are designed to be easily customizable by exchanging pre-defined building blocks, such as blockers, matching rules, similarity functions, and conflict resolution functions. In addition, these pre-defined building blocks can be used as foundation for implementing advanced integration methods.
 
 ## Contents
 - [Functionality](#functionality)
+- [Wiki](../../wiki)
 - [Use cases](#use-cases)
 - [Contact](#contact)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
+**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As an alternative to acquaint yourself with the framework, you can also have a look at the code examples in our [Wiki](../../wiki)!
+
 ## Functionality
-WInte.r provides methods for end-to-end data integration: From data loading and pre-processing, via matching of records and attributes to the fusion of values from different sources.
+The WInte.r framework covers all central steps of the data integration process, including data loading, pre-processing, schema matching, identity resolution, as well as data fusion. This section gives an overview of the functionality and the alternative algorithms that are provided for each of these steps.
 
 ![Data Integration Process Example](/img/integration_overview.png)
 
-**Pre-processing**: During pre-processing you load your data and prepare it for the methods that you are going to apply. WInte.r WebTables provides you with specialised pre-processing methods for tabular data, for example, data type detection and unit conversion.
--	Data type detection & Unit conversion
+**Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
+
+**Pre-processing**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialised pre-processing methods for tabular data, such as:
+-	Data type detection
+-	Unit of measurement normalization
 -	Header detection
--	Subject column detection
+-	Subject column detection (also known as entity name column detection)
 
-**Matching Algorithms**: To combine multiple data sources, you must find out which records and which attributes have the same meaning in the different sources. WInte.r provides you with pre-implemented algorithms that can be configure for you specific use case. Alternativelly, you can combine existing building blocks into new matchers.
--	14 pre-defined similarity measures for strings, numbers, dates and lists of values
--	Modifiers allow for easy re-scaling of the values. Example: quadratic modifier re-scales any similarity measure to the square of its similarity.
-
-**Schema Matching**: Methods to find attributes in two data sources that have the same meaning. The pre-implemented algorithms either compare the schemas using features generated from the meta-data (for example label-based schema matching) or exploit an existing mapping of records (duplicate-based schema matching).
+**Schema Matching**: Schema matching methods find attributes in two schemata that have the same meaning. WInte.r provides three pre-implemented schema matching algorithms which either rely on attribute labels or data values, or exploit an existing mapping of records (duplicate-based schema matching) in order to find attribute correspondences.
 -	Label-based schema matching
 -	Instance-based schema matching
 -	Duplicate-based schema matching
 
-**Identity Resolution**: Methods to find records in two data sources that describe the same thing. The pre-implement algorithms can be applied to a single dataset for duplicate detection or to multiple datasets for identity resolution (also known as record linkage).
+**Identity Resolution**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
 -	Blocking by single/multiple blocking key(s)
 -	Sorted-Neighbourhood Method
 -	Token-based identity resolution
 -	Rule-based identity resolution
 
-**Data Fusion**: With the mapping between the data sources, you can combine the data into a single, consolidated dataset. However, the different sources may provide conflicting values. To produce a consistent dataset, WInte.r implements a data fusion process that can be configured with various conflict resolution functions that decide which value to include in the final dataset.
+**Data Fusion**: Data fusion methods combine data from multiple sources into a single, consolidated dataset. For this, they rely on the schema- and record-level correspondences that were discovered in the previous steps of the integration process. However, different sources may provide conflicting data values. WInte.r allows you to resolve such data conflicts (decide which value to include in the final dataset) by applying different conflict resolution functions.
 -	11 pre-defined conflict resolution functions for strings, numbers and lists of values as well as data type independent functions.
 
 ## Use cases
 
-**T2K Match: Integration of data sources using a central, consolidated schema**
+WInte.r can be used out-of-the-box to integrate data from multiple data sources. The framework can also be used as foundation for implementing more advanced, use case-specific integration methods. In the following we provide an example use case from each category.
 
-Many web sites provide data on their web pages in the form of tables and large amounts of such tables have been collected by the Web Data Commons project [3]. To facilitate their content, these tables can be integrated with a cross-domain knowledge base. For this integration step, the T2K Match [1,2] algorithm creates a mapping from millions of extracted tables to a central knowledge base. The full source code of this algorithm, which includes advanced matching rules that combine schema matching and identity resolution without user interaction, is available in the WInter.T2KMatch project.
+**Integration of Multiple Data Sources: Building a Movie Dataset**
+
+The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](http://dws.informatik.uni-mannheim.de/en/teaching/courses-for-master-candidates/ie670webdataintegration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of movie data from multiple Web data sources. In addition, student teams use the WInte.r famework to integrate data about different topics as part of the projects that they conduct during the course.
+
+**Integration of Large Numbers of Data Sources: Augmenting the DBpedia Knowledge base with Web Table Data**
+
+Many web sites provide data in the form of HTML tables. Millions of such data tables have been extracted from the [CommonCrawl](http://commoncrawl.org/) web corpus by the [Web Data Commons](http://webdatacommons.org/webtables/) project [3]. Data from these tables can be used to fill missing values in large cross-domain knowledge bases such as DBpedia [2]. An example of how pre-defined building blocks from the WInte.r framework are combined into an advanced, use-case specific integration method is the T2K Match algorithm [1]. The algorithm is optimized to match millions of Web tables against a central knowledge base describing millions of instances belonging to hundreds of different classes  (such a people or locations) [2]. The full source code of the algorithm, which includes advanced matching methods that combine schema matching and identity resolution, is available in the WInte.r T2KMatch project.
 
 ## Contact
 
-If you have any questions, please refer to the [Wiki](/wiki/) first. For further information contact oli [at] informatik.uni-mannheim.de
+If you have any questions, please refer to the [Wiki](/wiki/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
 
 ## License
 
