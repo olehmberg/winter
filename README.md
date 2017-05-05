@@ -54,7 +54,7 @@ Many web sites provide data in the form of HTML tables. Millions of such data ta
 
 ## Contact
 
-If you have any questions, please refer to the [Wiki](/wiki/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
+If you have any questions, please refer to the [Wiki](/wiki/) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
 
 ## License
 
