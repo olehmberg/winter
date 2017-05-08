@@ -60,6 +60,23 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 		}
 	}
 
+	@Override
+	public Correspondence<TypeA, TypeB> aggregate(Correspondence<TypeA, TypeB> previousResult,
+			Correspondence<TypeA, TypeB> record) {
+		
+		// multiply the similarity score with each vote (causal correspondences)
+		int numVotes = record.getCausalCorrespondences() == null ? 1 : record.getCausalCorrespondences().size();
+		
+		if(previousResult==null) {
+			record.setsimilarityScore(getSimilarityScore(record) * numVotes);
+			return record;
+		} else {
+			previousResult.setsimilarityScore(previousResult.getSimilarityScore() + (getSimilarityScore(record) * numVotes));
+			previousResult.setCausalCorrespondences(previousResult.getCausalCorrespondences().append(record.getCausalCorrespondences()));
+			return previousResult;
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#createFinalValue(java.lang.Object, java.lang.Object, java.lang.Object)
 	 */

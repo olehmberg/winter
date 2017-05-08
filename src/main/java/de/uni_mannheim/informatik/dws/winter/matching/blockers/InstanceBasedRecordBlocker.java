@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 
 /**
  * 
@@ -21,15 +22,15 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class InstanceBasedRecordBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable> 
-	extends StandardBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> 
+public class InstanceBasedRecordBlocker<RecordType extends Matchable, SchemaElementType extends Matchable> 
+	extends ValueBasedBlocker<RecordType, SchemaElementType, RecordType> 
 {
 
-	public InstanceBasedRecordBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, RecordType> blockingFunction) {
+	public InstanceBasedRecordBlocker(BlockingKeyGenerator<RecordType, MatchableValue, RecordType> blockingFunction) {
 		super(blockingFunction);
 	}
 
-	public InstanceBasedRecordBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, RecordType> blockingFunction, BlockingKeyGenerator<RecordType, CorrespondenceType, RecordType> secondBlockingFunction) {
+	public InstanceBasedRecordBlocker(BlockingKeyGenerator<RecordType, MatchableValue, RecordType> blockingFunction, BlockingKeyGenerator<RecordType, MatchableValue, RecordType> secondBlockingFunction) {
 		super(blockingFunction, secondBlockingFunction);
 	}
 	

@@ -55,6 +55,12 @@ public interface Processable<RecordType> extends Serializable {
 	public Processable<RecordType> deduplicate();
 	
 	/**
+	 * 
+	 * @return Returns the first element or null if no elements exist
+	 */
+	public RecordType firstOrNull();
+	
+	/**
 	 * Creates a new {@link Processable} for the type given as parameter.
 	 * @param dummyForTypeInference
 	 * @return a new {@link Processable}

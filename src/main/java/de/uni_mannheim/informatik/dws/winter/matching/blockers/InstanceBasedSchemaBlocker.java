@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 
 /**
  * 
@@ -21,15 +22,15 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class InstanceBasedSchemaBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable> 
-	extends StandardBlocker<RecordType, SchemaElementType, SchemaElementType, CorrespondenceType> 
+public class InstanceBasedSchemaBlocker<RecordType extends Matchable, SchemaElementType extends Matchable> 
+	extends ValueBasedBlocker<RecordType, SchemaElementType, SchemaElementType> 
 {
 
-	public InstanceBasedSchemaBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, SchemaElementType> blockingFunction) {
+	public InstanceBasedSchemaBlocker(BlockingKeyGenerator<RecordType, MatchableValue, SchemaElementType> blockingFunction) {
 		super(blockingFunction);
 	}
 
-	public InstanceBasedSchemaBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, SchemaElementType> blockingFunction, BlockingKeyGenerator<RecordType, CorrespondenceType, SchemaElementType> secondBlockingFunction) {
+	public InstanceBasedSchemaBlocker(BlockingKeyGenerator<RecordType, MatchableValue, SchemaElementType> blockingFunction, BlockingKeyGenerator<RecordType, MatchableValue, SchemaElementType> secondBlockingFunction) {
 		super(blockingFunction, secondBlockingFunction);
 	}
 	

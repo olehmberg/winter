@@ -20,6 +20,8 @@ package de.uni_mannheim.informatik.dws.winter.model;
 public class MatchableValue implements Matchable {
 
 	private Object value;
+	private String recordId;
+	private String attributeId;
 	
 	/**
 	 * @return the value
@@ -28,8 +30,10 @@ public class MatchableValue implements Matchable {
 		return value;
 	}
 	
-	public MatchableValue(Object value) {
+	public MatchableValue(Object value, String recordId, String attributeId) {
 		this.value = value;
+		this.recordId = recordId;
+		this.attributeId = attributeId;
 	}
 	
 	/* (non-Javadoc)
@@ -47,12 +51,21 @@ public class MatchableValue implements Matchable {
 	public String getProvenance() {
 		return null;
 	}
+	
+	public String getRecordId() {
+		return recordId;
+	}
+	
+	public String getAttributeId() {
+		return attributeId;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		result = prime * result + ((attributeId == null) ? 0 : attributeId.hashCode());
+		result = prime * result + ((recordId == null) ? 0 : recordId.hashCode());
 		return result;
 	}
 
@@ -62,16 +75,48 @@ public class MatchableValue implements Matchable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof MatchableValue))
+		if (getClass() != obj.getClass())
 			return false;
 		MatchableValue other = (MatchableValue) obj;
-		if (value == null) {
-			if (other.value != null)
+		if (attributeId == null) {
+			if (other.attributeId != null)
 				return false;
-		} else if (!value.equals(other.value))
+		} else if (!attributeId.equals(other.attributeId))
+			return false;
+		if (recordId == null) {
+			if (other.recordId != null)
+				return false;
+		} else if (!recordId.equals(other.recordId))
 			return false;
 		return true;
 	}
+
+	
+	
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((value == null) ? 0 : value.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (!(obj instanceof MatchableValue))
+//			return false;
+//		MatchableValue other = (MatchableValue) obj;
+//		if (value == null) {
+//			if (other.value != null)
+//				return false;
+//		} else if (!value.equals(other.value))
+//			return false;
+//		return true;
+//	}
 
 	
 }

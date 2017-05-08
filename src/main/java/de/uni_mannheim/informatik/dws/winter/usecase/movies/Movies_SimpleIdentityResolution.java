@@ -36,20 +36,20 @@ public class Movies_SimpleIdentityResolution {
 	public static void main(String[] args) throws Exception {
 		// load data
 		DataSet<Record, Attribute> data1 = new HashedDataSet<>();
-		new CSVRecordReader(-1).loadFromCSV(new File("usecase/movie/input/scifi1.csv"), data1);
+		new CSVRecordReader(0).loadFromCSV(new File("usecase/movie/input/scifi1.csv"), data1);
 		DataSet<Record, Attribute> data2 = new HashedDataSet<>();
-		new CSVRecordReader(-1).loadFromCSV(new File("usecase/movie/input/scifi2.csv"), data2);
+		new CSVRecordReader(0).loadFromCSV(new File("usecase/movie/input/scifi2.csv"), data2);
 	
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
 		// define a blocker that uses the record values to generate pairs
-		InstanceBasedRecordBlocker<Record, Attribute, MatchableValue> blocker = new InstanceBasedRecordBlocker<>(
+		InstanceBasedRecordBlocker<Record, Attribute> blocker = new InstanceBasedRecordBlocker<>(
 				new RecordValueGenerator(data1.getSchema()), 
 				new RecordValueGenerator(data2.getSchema()));
 		
 		// to calculate the similarity score, aggregate the pairs by counting and normalise with the number of attributes in the smaller schema (= the maximum number of attributes that can match)
-		VotingAggregator<Record, MatchableValue> aggregator = new VotingAggregator<>(false, Math.min(data1.getSchema().size(), data2.getSchema().size()), 0.2);
+		VotingAggregator<Record, MatchableValue> aggregator = new VotingAggregator<>(true, Math.min(data1.getSchema().size(), data2.getSchema().size()), 0.3);
 
 		Processable<Correspondence<Record, MatchableValue>> correspondences = engine.runSimpleIdentityResolution(data1, data2, blocker, aggregator);
 		
@@ -57,7 +57,7 @@ public class Movies_SimpleIdentityResolution {
 		for(Correspondence<Record, MatchableValue> cor : correspondences.get()) {
 			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
 			for(SimpleCorrespondence<MatchableValue> cause : cor.getCausalCorrespondences().get()) {
-				System.out.print(cause.getFirstRecord().getValue() + ", ");
+				System.out.print(String.format("%s (%.0f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 			}
 			System.out.println();
 		}

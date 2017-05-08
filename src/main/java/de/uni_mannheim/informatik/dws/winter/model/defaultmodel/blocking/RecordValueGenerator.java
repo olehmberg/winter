@@ -49,7 +49,7 @@ public class RecordValueGenerator extends BlockingKeyGenerator<Record, Matchable
 			if(record.hasValue(a)) {
 				
 				Processable<SimpleCorrespondence<MatchableValue>> causes = new ProcessableCollection<>();
-				MatchableValue value = new MatchableValue(record.getValue(a));
+				MatchableValue value = new MatchableValue(record.getValue(a), record.getIdentifier(), a.getIdentifier());
 				SimpleCorrespondence<MatchableValue> causeCor = new SimpleCorrespondence<>(value, value, 1.0);
 				causes.add(causeCor);
 				

@@ -83,6 +83,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		// so we aggregate the results to get a unique set of BlockedType elements (using the DistributionAggregator)
 		
 		// create the blocking keys for the first data set
+		// results in pairs of [blocking key], distribution of correspondences
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>> grouped1 = 
 				ds1.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>, Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>() {
 
@@ -131,9 +132,15 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 					Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>, 
 					Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>> record,
 					DatasetIterator<Correspondence<BlockedType, CorrespondenceType>> resultCollector) {
+				
+				// iterate over the left pairs [blocked element],[correspondences]
 				for(Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1 : record.getFirst().getSecond().getElements()){
+					
 					BlockedType record1 = p1.getFirst();
+					
+					// iterate over the right pairs [blocked element],[correspondences]
 					for(Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2 : record.getSecond().getSecond().getElements()){
+						
 						BlockedType record2 = p2.getFirst();
 						
 						Processable<SimpleCorrespondence<CorrespondenceType>> causes = 
@@ -141,8 +148,10 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 								.append(p2.getSecond())
 								.deduplicate();
 						
-						resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, causes));	
+						resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, causes));
+						
 					}
+					
 				}
 			}
 		});
@@ -165,8 +174,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		// if we group the records by blocking key, we can obtain duplicates for BlockedType if it is different from RecordType and multiple records generated the same blocking key for BlockedType
 		// so we aggregate the results to get a unique set of BlockedType elements (using the DistributionAggregator)
 		
-		// group all records by their blocking keys
-//		Result<Group<String, Pair<BlockedType, Result<SimpleCorrespondence<CorrespondenceType>>>>> grouped = engine.groupRecords(ds, blockingFunction);		
+		// group all records by their blocking keys		
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>> grouped = ds.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>, Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>>>() {
 
 			private static final long serialVersionUID = 1L;

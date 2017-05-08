@@ -89,6 +89,15 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		return new ProcessableCollection<>(new ArrayList<>(new HashSet<>(elements)));
 	}
 	
+	public RecordType firstOrNull() {
+		Collection<RecordType> data = get();
+		if(data==null || data.size()==0) {
+			return null;
+		} else {
+			return data.iterator().next();
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.dws.winter.processing.Processable#createProcessable(java.lang.Object)
