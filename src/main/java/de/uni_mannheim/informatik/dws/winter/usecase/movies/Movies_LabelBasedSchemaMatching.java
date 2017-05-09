@@ -47,7 +47,12 @@ public class Movies_LabelBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, Record> cor : correspondences.get()) {
-			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
+			System.out.println(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
+					cor.getFirstRecord().getIdentifier(),
+					cor.getFirstRecord().getName(), 
+					cor.getSecondRecord().getIdentifier(),
+					cor.getSecondRecord().getName(), 
+					cor.getSimilarityScore()));
 		}
 	}
 	

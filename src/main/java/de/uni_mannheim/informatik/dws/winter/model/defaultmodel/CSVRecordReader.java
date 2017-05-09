@@ -50,7 +50,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 			
 			for(int i = 0; i < values.length; i++) {
 				String v = values[i];
-				Attribute a = new Attribute(Integer.toString(i), file.getAbsolutePath());
+				String attributeId = String.format("%s_Col%d", file.getName(), i);
+				Attribute a = new Attribute(attributeId, file.getAbsolutePath());
 				a.setName(v);
 				dataset.addAttribute(a);
 			}
