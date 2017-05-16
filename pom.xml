@@ -136,5 +136,10 @@
 		    <version>3.4</version>
 		    <classifier>models</classifier>
 		</dependency>
+		<dependency>
+    		<groupId>nz.ac.waikato.cms.weka</groupId>
+    		<artifactId>weka-stable</artifactId>
+    		<version>3.8.1</version>
+		</dependency>
 	</dependencies>
 </project>
