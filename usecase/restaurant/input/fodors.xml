@@ -1,0 +1,4267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restaurants>
+  <restaurant>
+    <id>fodors_1</id>
+    <Name>Adriano&apos;s Ristorante</Name>
+    <Address>2930 Beverly Glen Circle</Address>
+    <City>Los Angeles</City>
+    <Phone>310-475-9807</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_2</id>
+    <Name>Arnie Morton&apos;s of Chicago</Name>
+    <Address>435 S. La Cienega Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-246-1501</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_3</id>
+    <Name>Art&apos;s Delicatessen</Name>
+    <Address>12224 Ventura Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-762-1221</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_4</id>
+    <Name>Barney Greengrass</Name>
+    <Address>9570 Wilshire Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-777-5877</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_5</id>
+    <Name>Beaurivage</Name>
+    <Address>26025 Pacific Coast Hwy. </Address>
+    <City>Los Angeles</City>
+    <Phone>310-456-5733</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_6</id>
+    <Name>Bistro Garden</Name>
+    <Address>176 N. Canon Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-550-3900</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_7</id>
+    <Name>Border Grill</Name>
+    <Address>4th St.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-451-1655</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_8</id>
+    <Name>Broadway Deli</Name>
+    <Address>3rd St. Promenade</Address>
+    <City>Los Angeles</City>
+    <Phone>310-451-0616</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_9</id>
+    <Name>Ca&apos;Brea</Name>
+    <Address>346 S. La Brea Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-938-2863</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_10</id>
+    <Name>Ca&apos;del Sol</Name>
+    <Address>4100 Cahuenga Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-985-4669</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_11</id>
+    <Name>Cafe Bizou</Name>
+    <Address>14016 Ventura Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-788-3536</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_12</id>
+    <Name>Cafe Pinot</Name>
+    <Address>700 W. Fifth St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-239-6500</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_13</id>
+    <Name>California Pizza Kitchen</Name>
+    <Address>207 S. Beverly Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-275-1101</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_14</id>
+    <Name>Campanile</Name>
+    <Address>624 S. La Brea Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-938-1447</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_15</id>
+    <Name>Canter&apos;s</Name>
+    <Address>419 N. Fairfax Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-651-2030</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_16</id>
+    <Name>Cava</Name>
+    <Address>3rd St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-658-8898</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_17</id>
+    <Name>Cha Cha Cha</Name>
+    <Address>656 N. Virgil Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-664-7723</Phone>
+    <Style>Caribbean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_18</id>
+    <Name>Chan Dara</Name>
+    <Address>310 N. Larchmont Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-467-1052</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_19</id>
+    <Name>Chinois on Main</Name>
+    <Address>2709 Main St.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-392-9025</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_20</id>
+    <Name>Citrus</Name>
+    <Address>6703 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-857-0034</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_21</id>
+    <Name>Clearwater Cafe</Name>
+    <Address>168 W. Colorado Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-356-0959</Phone>
+    <Style>Health Food</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_22</id>
+    <Name>Dining Room</Name>
+    <Address>9500 Wilshire Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-275-5200</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_23</id>
+    <Name>Dive!</Name>
+    <Address>10250 Santa Monica Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-788</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_24</id>
+    <Name>Drago</Name>
+    <Address>2628 Wilshire Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-828-1585</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_25</id>
+    <Name>Drai&apos;s</Name>
+    <Address>730 N. La Cienega Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-358-8585</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_26</id>
+    <Name>Dynasty Room</Name>
+    <Address>930 Hilgard Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-208-8765</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_27</id>
+    <Name>Eclipse</Name>
+    <Address>8800 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-724-5959</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_28</id>
+    <Name>Ed Debevic&apos;s</Name>
+    <Address>134 N. La Cienega</Address>
+    <City>Los Angeles</City>
+    <Phone>310-659-1952</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_29</id>
+    <Name>El Cholo</Name>
+    <Address>1121 S. Western Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-734-2773</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_30</id>
+    <Name>Fenix</Name>
+    <Address>8358 Sunset Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-848-6677</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_31</id>
+    <Name>Gilliland&apos;s</Name>
+    <Address>2424 Main St.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-392-3901</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_32</id>
+    <Name>Gladstone&apos;s</Name>
+    <Address>4 Fish 17300 Pacific Coast Hwy. at Sunset Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-454-3474</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_33</id>
+    <Name>Granita</Name>
+    <Address>23725 W. Malibu Rd. </Address>
+    <City>Los Angeles</City>
+    <Phone>310-456-0488</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_34</id>
+    <Name>Grill on the Alley</Name>
+    <Address>9560 Dayton Way</Address>
+    <City>Los Angeles</City>
+    <Phone>310-276-0615</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_35</id>
+    <Name>Hard Rock Cafe</Name>
+    <Address>8600 Beverly Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-276-7605</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_36</id>
+    <Name>Harry&apos;s Bar &amp; American Grill</Name>
+    <Address>2020 Ave. of the Stars</Address>
+    <City>Los Angeles</City>
+    <Phone>310-277-2333</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_37</id>
+    <Name>Hotel Bel-Air</Name>
+    <Address>701 Stone Canyon Rd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-472-1211</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_38</id>
+    <Name>Il Fornaio Cucina Italiana</Name>
+    <Address>301 N. Beverly Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-550-8330</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_39</id>
+    <Name>Jack Sprat&apos;s Grill</Name>
+    <Address>10668 W. Pico Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-837-6662</Phone>
+    <Style>Health Food</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_40</id>
+    <Name>Jackson&apos;s Farm</Name>
+    <Address>439 N. Beverly Drive</Address>
+    <City>Los Angeles</City>
+    <Phone>310-273-5578</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_41</id>
+    <Name>Jimmy&apos;s</Name>
+    <Address>201 Moreno Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-552-2394</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_42</id>
+    <Name>Joss</Name>
+    <Address>9255 Sunset Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-276-1886</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_43</id>
+    <Name>L&apos;Orangerie</Name>
+    <Address>903 N. La Cienega Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-652-9770</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_44</id>
+    <Name>Le Chardonnay</Name>
+    <Address>8284 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-655-8880</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_45</id>
+    <Name>Le Colonial</Name>
+    <Address>8783 Beverly Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-289-0660</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_46</id>
+    <Name>Le Dome</Name>
+    <Address>8720 Sunset Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-659-6919</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_47</id>
+    <Name>Locanda Veneta</Name>
+    <Address>3rd St.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-274-1893</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_48</id>
+    <Name>Louise&apos;s Trattoria</Name>
+    <Address>4500 Los Feliz Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-667-0777</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_49</id>
+    <Name>Matsuhisa</Name>
+    <Address>129 N. La Cienega Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-659-9639</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_50</id>
+    <Name>Mon Kee Seafood Restaurant</Name>
+    <Address>679 N. Spring St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-628-6717</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_51</id>
+    <Name>Morton&apos;s</Name>
+    <Address>8764 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-276-5205</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_52</id>
+    <Name>Nate &apos;n&apos; Al&apos;s</Name>
+    <Address>414 N. Beverly Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-274-0101</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_53</id>
+    <Name>Nicola</Name>
+    <Address>601 S. Figueroa St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-485-0927</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_54</id>
+    <Name>Ocean Avenue</Name>
+    <Address>1401 Ocean Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-394-5669</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_55</id>
+    <Name>Orleans</Name>
+    <Address>11705 National Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-479-4187</Phone>
+    <Style>Cajun</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_56</id>
+    <Name>Pacific Dining Car</Name>
+    <Address>6th St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-483-6000</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_57</id>
+    <Name>Patina</Name>
+    <Address>5955 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-467-1108</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_58</id>
+    <Name>Paty&apos;s</Name>
+    <Address>10001 Riverside Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-761-9126</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_59</id>
+    <Name>Philippe&apos;s The Original</Name>
+    <Address>1001 N. Alameda St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-628-3781</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_60</id>
+    <Name>Pinot Bistro</Name>
+    <Address>12969 Ventura Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-990-0500</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_61</id>
+    <Name>Pinot Hollywood</Name>
+    <Address>1448 N. Gower St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-461-8800</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_62</id>
+    <Name>Posto</Name>
+    <Address>14928 Ventura Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-784-4400</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_63</id>
+    <Name>Prego</Name>
+    <Address>362 N. Camden Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-277-7346</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_64</id>
+    <Name>RJ&apos;S the Rib Joint</Name>
+    <Address>252 N. Beverly Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-274-7427</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_65</id>
+    <Name>Remi</Name>
+    <Address>3rd St. Promenade</Address>
+    <City>Los Angeles</City>
+    <Phone>310-393-6545</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_66</id>
+    <Name>Restaurant Horikawa</Name>
+    <Address>111 S. San Pedro St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-680-9355</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_67</id>
+    <Name>Restaurant Katsu</Name>
+    <Address>1972 N. Hillhurst Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-665-1891</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_68</id>
+    <Name>Rex Il Ristorante</Name>
+    <Address>617 S. Olive St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-627-2300</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_69</id>
+    <Name>Roscoe&apos;s House of Chicken &apos;n&apos; Waffles</Name>
+    <Address>1514 N. Gower St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-466-9329</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_70</id>
+    <Name>Schatzi on Main</Name>
+    <Address>3110 Main St.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-399-4800</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_71</id>
+    <Name>Sofi</Name>
+    <Address>3rd St.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-651-0346</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_72</id>
+    <Name>Spago</Name>
+    <Address>1114 Horn Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-652-4025</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_73</id>
+    <Name>Swingers</Name>
+    <Address>8020 Beverly Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-653-5858</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_74</id>
+    <Name>Tavola Calda</Name>
+    <Address>7371 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-658-6340</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_75</id>
+    <Name>The Mandarin</Name>
+    <Address>430 N. Camden Dr.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-859-0926</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_76</id>
+    <Name>The Palm</Name>
+    <Address>9001 Santa Monica Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-550-8811</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_77</id>
+    <Name>Tommy Tang&apos;s</Name>
+    <Address>7313 Melrose Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-937-5733</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_78</id>
+    <Name>Tra di Noi</Name>
+    <Address>3835 Cross Creek Rd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-456-0169</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_79</id>
+    <Name>Trader Vic&apos;s</Name>
+    <Address>9876 Wilshire Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-276-6345</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_80</id>
+    <Name>Valentino</Name>
+    <Address>3115 Pico Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-829-4313</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_81</id>
+    <Name>Vida</Name>
+    <Address>1930 North Hillhurst Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>213-660-4446</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_82</id>
+    <Name>West Beach Cafe</Name>
+    <Address>60 N. Venice Blvd.</Address>
+    <City>Los Angeles</City>
+    <Phone>310-823-5396</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_83</id>
+    <Name>Yujean Kang&apos;s Gourmet Chinese Cuisine</Name>
+    <Address>67 N. Raymond Ave.</Address>
+    <City>Los Angeles</City>
+    <Phone>818-585-0855</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_84</id>
+    <Name>21 Club</Name>
+    <Address>21 W. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-582-7200</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_85</id>
+    <Name>20 Mott</Name>
+    <Address>20 Mott St.  between Bowery and Pell St.</Address>
+    <City>New York</City>
+    <Phone>212-964-0380</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_86</id>
+    <Name>9 Jones Street</Name>
+    <Address>9 Jones St.</Address>
+    <City>New York</City>
+    <Phone>212-989-1220</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_87</id>
+    <Name>Adrienne</Name>
+    <Address>700 5th Ave. at 55th St.</Address>
+    <City>New York</City>
+    <Phone>212-903-3918</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_88</id>
+    <Name>Agrotikon</Name>
+    <Address>322 E. 14 St.  between 1st and 2nd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-473-2602</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_89</id>
+    <Name>Aja</Name>
+    <Address>937 Broadway at 22nd St.</Address>
+    <City>New York</City>
+    <Phone>212-473-8388</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_90</id>
+    <Name>Alamo</Name>
+    <Address>304 E. 48th St.</Address>
+    <City>New York</City>
+    <Phone>212- 759-0590</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_91</id>
+    <Name>Alley&apos;s End</Name>
+    <Address>311 W. 17th St.</Address>
+    <City>New York</City>
+    <Phone>212-627-8899</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_92</id>
+    <Name>Ambassador Grill</Name>
+    <Address>1 United Nations Plaza at 44th St.</Address>
+    <City>New York</City>
+    <Phone>212-702-5014</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_93</id>
+    <Name>American Place</Name>
+    <Address>2 Park Ave. at 32nd St.</Address>
+    <City>New York</City>
+    <Phone>212-684-2122</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_94</id>
+    <Name>Anche Vivolo</Name>
+    <Address>222 E. 58th St.  between 2nd and 3rd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-308-0112</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_95</id>
+    <Name>Aquavit</Name>
+    <Address>13 W. 54th St.</Address>
+    <City>New York</City>
+    <Phone>212-307-7311</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_96</id>
+    <Name>Arizona</Name>
+    <Address>206 206 E. 60th St.</Address>
+    <City>New York</City>
+    <Phone>212-838-0440</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_97</id>
+    <Name>Arturo&apos;s</Name>
+    <Address>106 W. Houston St.  off Thompson St.</Address>
+    <City>New York</City>
+    <Phone>212-677-3820</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_98</id>
+    <Name>Au Mandarin</Name>
+    <Address>200-250 Vesey St. World Financial Center</Address>
+    <City>New York</City>
+    <Phone>212-385-0313</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_99</id>
+    <Name>Aureole</Name>
+    <Address>34 E. 61st St.</Address>
+    <City>New York</City>
+    <Phone>212- 319-1660</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_100</id>
+    <Name>Bar Anise</Name>
+    <Address>1022 3rd Ave.  between 60th and 61st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-355-1112</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_101</id>
+    <Name>Barbetta</Name>
+    <Address>321 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-246-9171</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_102</id>
+    <Name>Ben Benson&apos;s</Name>
+    <Address>123 W. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-581-8888</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_103</id>
+    <Name>Big Cup</Name>
+    <Address>228 8th Ave.  between 21st and 22nd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-206-0059</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_104</id>
+    <Name>Billy&apos;s</Name>
+    <Address>948 1st Ave.  between 52nd and 53rd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-753-1870</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_105</id>
+    <Name>Boca Chica</Name>
+    <Address>13 1st Ave.  near 1st St.</Address>
+    <City>New York</City>
+    <Phone>212-473-0108</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_106</id>
+    <Name>Bolo</Name>
+    <Address>23 E. 22nd St.</Address>
+    <City>New York</City>
+    <Phone>212-228-2200</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_107</id>
+    <Name>Boonthai</Name>
+    <Address>1393A 2nd Ave.  between 72nd and 73rd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-249-8484</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_108</id>
+    <Name>Bouterin</Name>
+    <Address>420 E. 59th St.  off 1st Ave.</Address>
+    <City>New York</City>
+    <Phone>212-758-0323</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_109</id>
+    <Name>Brothers Bar-B-Q</Name>
+    <Address>225 Varick St. at Clarkston St.</Address>
+    <City>New York</City>
+    <Phone>212-727-2775</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_110</id>
+    <Name>Bruno</Name>
+    <Address>240 E. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-688-4190</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_111</id>
+    <Name>Bryant Park Grill  Roof Restaurant and BP Cafe</Name>
+    <Address>25 W. 40th St.  between 5th and 6th Aves.</Address>
+    <City>New York</City>
+    <Phone>212-840-6500</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_112</id>
+    <Name>C3</Name>
+    <Address>103 Waverly Pl.  near Washington Sq.</Address>
+    <City>New York</City>
+    <Phone>212-254-1200</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_113</id>
+    <Name>CT</Name>
+    <Address>111 E. 22nd St.  between Park Ave. S and Lexington Ave.</Address>
+    <City>New York</City>
+    <Phone>212-995-8500</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_114</id>
+    <Name>Caf&amp;eacute; Bianco</Name>
+    <Address>1486 2nd Ave.  between 77th and 78th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-988-2655</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_115</id>
+    <Name>Caf&amp;eacute; Botanica</Name>
+    <Address>160 Central Park S</Address>
+    <City>New York</City>
+    <Phone>212-484-5120</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_116</id>
+    <Name>Caf&amp;eacute; La Fortuna</Name>
+    <Address>69 W. 71st St.</Address>
+    <City>New York</City>
+    <Phone>212-724-5846</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_117</id>
+    <Name>Caf&amp;eacute; Lalo</Name>
+    <Address>201 W. 83rd St.</Address>
+    <City>New York</City>
+    <Phone>212-496-6031</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_118</id>
+    <Name>Caf&amp;eacute; Luxembourg</Name>
+    <Address>200 W. 70th St.</Address>
+    <City>New York</City>
+    <Phone>212-873-7411</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_119</id>
+    <Name>Caf&amp;eacute; Pierre</Name>
+    <Address>2 E. 61st St.</Address>
+    <City>New York</City>
+    <Phone>212-940-8185</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_120</id>
+    <Name>Caf&amp;eacute; des Artistes</Name>
+    <Address>1 W. 67th St.</Address>
+    <City>New York</City>
+    <Phone>212-877-3500</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_121</id>
+    <Name>Cafe Centro</Name>
+    <Address>200 Park Ave.  between 45th St. and Vanderbilt Ave.</Address>
+    <City>New York</City>
+    <Phone>212-818-1222</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_122</id>
+    <Name>Cafe Fes</Name>
+    <Address>246 W. 4th St. at Charles St.</Address>
+    <City>New York</City>
+    <Phone>212-924-7653</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_123</id>
+    <Name>Caff&amp;egrave; Dante</Name>
+    <Address>81 Macdougal St.  between Houston and Bleeker Sts.</Address>
+    <City>New York</City>
+    <Phone>212-982-5275</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_124</id>
+    <Name>Caff&amp;egrave; Dell&apos;Artista</Name>
+    <Address>46 Greenwich Ave.</Address>
+    <City>New York</City>
+    <Phone>212-645-4431</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_125</id>
+    <Name>Caff&amp;egrave; Lure</Name>
+    <Address>169 Sullivan St.  between Houston and Bleecker Sts.</Address>
+    <City>New York</City>
+    <Phone>212-473-2642</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_126</id>
+    <Name>Caff&amp;egrave; Reggio</Name>
+    <Address>119 MacDougal St.  between 3rd and Bleecker Sts.</Address>
+    <City>New York</City>
+    <Phone>212-475-9557</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_127</id>
+    <Name>Caff&amp;egrave; Roma</Name>
+    <Address>385 Broome St. at Mulberry</Address>
+    <City>New York</City>
+    <Phone>212-226-8413</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_128</id>
+    <Name>Caff&amp;egrave; Vivaldi</Name>
+    <Address>32 Jones St. at Bleecker St.</Address>
+    <City>New York</City>
+    <Phone>212-691-7538</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_129</id>
+    <Name>Caffe Bondi Ristorante</Name>
+    <Address>7 W. 20th St.</Address>
+    <City>New York</City>
+    <Phone>212-691-8136</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_130</id>
+    <Name>Capsouto Fr&amp;egrave;res</Name>
+    <Address>451 Washington St.  near Watts St.</Address>
+    <City>New York</City>
+    <Phone>212-966-4900</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_131</id>
+    <Name>Captain&apos;s Table</Name>
+    <Address>860 2nd Ave. at 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-697-9538</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_132</id>
+    <Name>Carmine&apos;s</Name>
+    <Address>2450 Broadway  between 90th and 91st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-362-2200</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_133</id>
+    <Name>Carnegie Deli</Name>
+    <Address>854 7th Ave.  between 54th and 55th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-757-2245</Phone>
+    <Style>Delicatessen</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_134</id>
+    <Name>Casa La Femme</Name>
+    <Address>150 Wooster St.  between Houston and Prince Sts.</Address>
+    <City>New York</City>
+    <Phone>212-505-0005</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_135</id>
+    <Name>Cendrillon Asian Grill &amp; Marimba Bar</Name>
+    <Address>45 Mercer St.  between Broome and Grand Sts.</Address>
+    <City>New York</City>
+    <Phone>212-343-9012</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_136</id>
+    <Name>Chanterelle</Name>
+    <Address>2 Harrison St.  near Hudson St.</Address>
+    <City>New York</City>
+    <Phone>212-966-6960</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_137</id>
+    <Name>Chez Jacqueline</Name>
+    <Address>72 MacDougal St.  between W. Houston and Bleecker Sts.</Address>
+    <City>New York</City>
+    <Phone>212-505-0727</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_138</id>
+    <Name>Chiam</Name>
+    <Address>160 E. 48th St.</Address>
+    <City>New York</City>
+    <Phone>212-371-2323</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_139</id>
+    <Name>China Grill</Name>
+    <Address>60 W. 53rd St.</Address>
+    <City>New York</City>
+    <Phone>212-333-7788</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_140</id>
+    <Name>Cit&amp;eacute;</Name>
+    <Address>120 W. 51st St.</Address>
+    <City>New York</City>
+    <Phone>212-956-7100</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_141</id>
+    <Name>Coco Pazzo</Name>
+    <Address>23 E. 74th St.</Address>
+    <City>New York</City>
+    <Phone>212-794-0205</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_142</id>
+    <Name>Columbus Bakery</Name>
+    <Address>53rd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-421-0334</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_143</id>
+    <Name>Corrado Caf&amp;eacute;</Name>
+    <Address>1013 3rd Ave.  between 60th and 61st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-753-5100</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_144</id>
+    <Name>Cupcake Caf&amp;eacute;</Name>
+    <Address>522 9th Ave. at 39th St.</Address>
+    <City>New York</City>
+    <Phone>212-465-1530</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_145</id>
+    <Name>Da Nico</Name>
+    <Address>164 Mulberry St.  between Grand and Broome Sts.</Address>
+    <City>New York</City>
+    <Phone>212-343-1212</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_146</id>
+    <Name>Daniel</Name>
+    <Address>20 E. 76th St.</Address>
+    <City>New York</City>
+    <Phone>212-288-0033</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_147</id>
+    <Name>Dawat</Name>
+    <Address>210 E. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-355-7555</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_148</id>
+    <Name>Dean &amp; Deluca</Name>
+    <Address>121 Prince St.</Address>
+    <City>New York</City>
+    <Phone>212-254-8776</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_149</id>
+    <Name>Diva</Name>
+    <Address>341 W. Broadway  near Grand St.</Address>
+    <City>New York</City>
+    <Phone>212-941-9024</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_150</id>
+    <Name>Dix et Sept</Name>
+    <Address>181 W. 10th St.</Address>
+    <City>New York</City>
+    <Phone>212-645-8023</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_151</id>
+    <Name>Docks</Name>
+    <Address>633 3rd Ave. at 40th St.</Address>
+    <City>New York</City>
+    <Phone>212- 986-8080</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_152</id>
+    <Name>Duane Park Caf&amp;eacute;</Name>
+    <Address>157 Duane St.  between W. Broadway and Hudson St.</Address>
+    <City>New York</City>
+    <Phone>212-732-5555</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_153</id>
+    <Name>El Teddy&apos;s</Name>
+    <Address>219 W. Broadway  between Franklin and White Sts.</Address>
+    <City>New York</City>
+    <Phone>212-941-7070</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_154</id>
+    <Name>Emily&apos;s</Name>
+    <Address>1325 5th Ave. at 111th St.</Address>
+    <City>New York</City>
+    <Phone>212-996-1212</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_155</id>
+    <Name>Empire Korea</Name>
+    <Address>6 E. 32nd St.</Address>
+    <City>New York</City>
+    <Phone>212-725-1333</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_156</id>
+    <Name>Ernie&apos;s</Name>
+    <Address>2150 Broadway  between 75th and 76th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-496-1588</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_157</id>
+    <Name>Evergreen Cafe</Name>
+    <Address>1288 1st Ave. at 69th St.</Address>
+    <City>New York</City>
+    <Phone>212-744-3266</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_158</id>
+    <Name>F. Ille Ponte Ristorante</Name>
+    <Address>39 Desbrosses St.  near West St.</Address>
+    <City>New York</City>
+    <Phone>212-226-4621</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_159</id>
+    <Name>Felidia</Name>
+    <Address>243 E. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-758-1479</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_160</id>
+    <Name>Felix</Name>
+    <Address>340 W. Broadway at Grand St.</Address>
+    <City>New York</City>
+    <Phone>212-431-0021</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_161</id>
+    <Name>Ferrier</Name>
+    <Address>29 E. 65th St.</Address>
+    <City>New York</City>
+    <Phone>212-772-9000</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_162</id>
+    <Name>Fifty Seven Fifty Seven</Name>
+    <Address>57 E. 57th St.</Address>
+    <City>New York</City>
+    <Phone>212-758-5757</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_163</id>
+    <Name>Film Center Cafe</Name>
+    <Address>635 9th Ave.  between 44th and 45th Sts.</Address>
+    <City>New York</City>
+    <Phone>212- 262-2525</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_164</id>
+    <Name>Fiorello&apos;s Roman Caf&amp;eacute;</Name>
+    <Address>1900 Broadway  between 63rd and 64th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-595-5330</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_165</id>
+    <Name>Firehouse</Name>
+    <Address>522 Columbus Ave.  between 85th and 86th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-595-3139</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_166</id>
+    <Name>First</Name>
+    <Address>87 1st Ave.  between 5th and 6th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-674-3823</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_167</id>
+    <Name>Fishin Eddie</Name>
+    <Address>73 W. 71st St.</Address>
+    <City>New York</City>
+    <Phone>212-874-3474</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_168</id>
+    <Name>Fleur de Jour</Name>
+    <Address>348 E. 62nd St.</Address>
+    <City>New York</City>
+    <Phone>212-355-2020</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_169</id>
+    <Name>Flowers</Name>
+    <Address>21 West 17th St.  between 5th and 6th Aves.</Address>
+    <City>New York</City>
+    <Phone>212-691-8888</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_170</id>
+    <Name>Follonico</Name>
+    <Address>6 W. 24th St.</Address>
+    <City>New York</City>
+    <Phone>212-691-6359</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_171</id>
+    <Name>Four Seasons Grill Room</Name>
+    <Address>99 E. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-754-9494</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_172</id>
+    <Name>Fraunces Tavern</Name>
+    <Address>54 Pearl St. at Broad St.</Address>
+    <City>New York</City>
+    <Phone>212-269-0144</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_173</id>
+    <Name>French Roast</Name>
+    <Address>458 6th Ave. at 11th St.</Address>
+    <City>New York</City>
+    <Phone>212-533-2233</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_174</id>
+    <Name>French Roast Caf&amp;eacute;</Name>
+    <Address>2340 Broadway at 85th St.</Address>
+    <City>New York</City>
+    <Phone>212-799-1533</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_175</id>
+    <Name>Frico Bar</Name>
+    <Address>402 W. 43rd St.  off 9th Ave.</Address>
+    <City>New York</City>
+    <Phone>212-564-7272</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_176</id>
+    <Name>Fujiyama Mama</Name>
+    <Address>467 Columbus Ave.  between 82nd and 83rd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-769-1144</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_177</id>
+    <Name>Gabriela&apos;s</Name>
+    <Address>685 Amsterdam Ave. at 93rd St.</Address>
+    <City>New York</City>
+    <Phone>212-961-0574</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_178</id>
+    <Name>Gallagher&apos;s</Name>
+    <Address>228 W. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-245-5336</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_179</id>
+    <Name>Gianni&apos;s</Name>
+    <Address>15 Fulton St.</Address>
+    <City>New York</City>
+    <Phone>212-608-7300</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_180</id>
+    <Name>Girafe</Name>
+    <Address>208 E. 58th St.  between 2nd and 3rd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-752-3054</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_181</id>
+    <Name>Global</Name>
+    <Address>33 93 2nd Ave.  between 5th and 6th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-477-8427</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_182</id>
+    <Name>Golden Unicorn</Name>
+    <Address>18 E. Broadway at Catherine St.</Address>
+    <City>New York</City>
+    <Phone>212- 941-0911</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_183</id>
+    <Name>Gotham Bar &amp; Grill</Name>
+    <Address>12 E. 12th St.</Address>
+    <City>New York</City>
+    <Phone>212-620-4020</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_184</id>
+    <Name>Gramercy Tavern</Name>
+    <Address>42 E. 20th St.  between Park Ave. S and Broadway</Address>
+    <City>New York</City>
+    <Phone>212-477-0777</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_185</id>
+    <Name>Grand Ticino</Name>
+    <Address>228 Thompson St.  between W. 3rd and Bleecker Sts.</Address>
+    <City>New York</City>
+    <Phone>212-777-5922</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_186</id>
+    <Name>Halcyon</Name>
+    <Address>151 W. 54th St.  in the Rihga Royal Hotel</Address>
+    <City>New York</City>
+    <Phone>212-468-8888</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_187</id>
+    <Name>Hard Rock Cafe</Name>
+    <Address>221 W. 57th St.</Address>
+    <City>New York</City>
+    <Phone>212-489-6565</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_188</id>
+    <Name>Hi-Life Restaurant and Lounge</Name>
+    <Address>1340 1st Ave. at 72nd St.</Address>
+    <City>New York</City>
+    <Phone>212-249-3600</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_189</id>
+    <Name>Home</Name>
+    <Address>20 Cornelia St.  between Bleecker and W. 4th St.</Address>
+    <City>New York</City>
+    <Phone>212-243-9579</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_190</id>
+    <Name>Hudson River Club</Name>
+    <Address>4 World Financial Center</Address>
+    <City>New York</City>
+    <Phone>212-786-1500</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_191</id>
+    <Name>I Trulli</Name>
+    <Address>122 E. 27th St.  between Lexington and Park Aves.</Address>
+    <City>New York</City>
+    <Phone>212-481-7372</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_192</id>
+    <Name>Il Cortile</Name>
+    <Address>125 Mulberry St.  between Canal and Hester Sts.</Address>
+    <City>New York</City>
+    <Phone>212-226-6060</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_193</id>
+    <Name>Il Nido</Name>
+    <Address>251 E. 53rd St.</Address>
+    <City>New York</City>
+    <Phone>212-753-8450</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_194</id>
+    <Name>Inca Grill</Name>
+    <Address>492 Broome St.  near W. Broadway</Address>
+    <City>New York</City>
+    <Phone>212-966-3371</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_195</id>
+    <Name>Indochine</Name>
+    <Address>430 Lafayette St.  between 4th St. and Astor Pl.</Address>
+    <City>New York</City>
+    <Phone>212-505-5111</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_196</id>
+    <Name>Internet Cafe</Name>
+    <Address>82 E. 3rd St.  between 1st and 2nd Aves.</Address>
+    <City>New York</City>
+    <Phone>212- 614-0747</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_197</id>
+    <Name>Ipanema</Name>
+    <Address>13 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-730-5848</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_198</id>
+    <Name>Island Spice</Name>
+    <Address>402 W. 44th St.</Address>
+    <City>New York</City>
+    <Phone>212-765-1737</Phone>
+    <Style> tel Caribbean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_199</id>
+    <Name>Jean Lafitte</Name>
+    <Address>68 W. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-751-2323</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_200</id>
+    <Name>Jewel of India</Name>
+    <Address>15 W. 44th St.</Address>
+    <City>New York</City>
+    <Phone>212-869-5544</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_201</id>
+    <Name>Jimmy Sung&apos;s</Name>
+    <Address>219 E. 44th St.  between 2nd and 3rd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-682-5678</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_202</id>
+    <Name>Jo Jo</Name>
+    <Address>160 E. 64th St.</Address>
+    <City>New York</City>
+    <Phone>212-223-5656</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_203</id>
+    <Name>Joe Allen</Name>
+    <Address>326 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-581-6464</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_204</id>
+    <Name>Judson Grill</Name>
+    <Address>152 W. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-582-5252</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_205</id>
+    <Name>L&apos;Absinthe</Name>
+    <Address>227 E. 67th St.</Address>
+    <City>New York</City>
+    <Phone>212-794-4950</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_206</id>
+    <Name>L&apos;Auberge</Name>
+    <Address>1191 1st Ave.  between 64th and 65th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-288-8791</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_207</id>
+    <Name>L&apos;Auberge Du Midi</Name>
+    <Address>310 W. 4th St.  between W. 12th and Bank Sts.</Address>
+    <City>New York</City>
+    <Phone>212-242-4705</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_208</id>
+    <Name>L&apos;Udo</Name>
+    <Address>432 Lafayette St.  near Astor Pl.</Address>
+    <City>New York</City>
+    <Phone>212-388-0978</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_209</id>
+    <Name>La Caravelle</Name>
+    <Address>33 W. 55th St.</Address>
+    <City>New York</City>
+    <Phone>212-586-4252</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_210</id>
+    <Name>La Cote Basque</Name>
+    <Address>60 W. 55th St.  between 5th and 6th Ave.</Address>
+    <City>New York</City>
+    <Phone>212-688-6525</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_211</id>
+    <Name>La Reserve</Name>
+    <Address>4 W. 49th St.</Address>
+    <City>New York</City>
+    <Phone>212-247-2993</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_212</id>
+    <Name>Lanza Restaurant</Name>
+    <Address>168 1st Ave.  between 10th and 11th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-674-7014</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_213</id>
+    <Name>Lattanzi Ristorante</Name>
+    <Address>361 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-315-0980</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_214</id>
+    <Name>Layla</Name>
+    <Address>211 W. Broadway at Franklin St.</Address>
+    <City>New York</City>
+    <Phone>212-431-0700</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_215</id>
+    <Name>Le Bernardin</Name>
+    <Address>155 W. 51st St.</Address>
+    <City>New York</City>
+    <Phone>212-489-1515</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_216</id>
+    <Name>Le Chantilly</Name>
+    <Address>106 E. 57th St.</Address>
+    <City>New York</City>
+    <Phone>212-751-2931</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_217</id>
+    <Name>Le Colonial</Name>
+    <Address>149 E. 57th St.</Address>
+    <City>New York</City>
+    <Phone>212- 752-0808</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_218</id>
+    <Name>Le Gamin</Name>
+    <Address>50 MacDougal St.  between Houston and Prince Sts.</Address>
+    <City>New York</City>
+    <Phone>212-254-4678</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_219</id>
+    <Name>Le Jardin</Name>
+    <Address>25 Cleveland Pl.  near Spring St.</Address>
+    <City>New York</City>
+    <Phone>212-343-9599</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_220</id>
+    <Name>Le Madri</Name>
+    <Address>168 W. 18th St.</Address>
+    <City>New York</City>
+    <Phone>212-727-8022</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_221</id>
+    <Name>Le Marais</Name>
+    <Address>150 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-869-0900</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_222</id>
+    <Name>Le P&amp;eacute;rigord</Name>
+    <Address>405 E. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-755-6244</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_223</id>
+    <Name>Le Select</Name>
+    <Address>507 Columbus Ave.  between 84th and 85th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-875-1993</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_224</id>
+    <Name>Les C&amp;eacute;l&amp;eacute;brit&amp;eacute;s</Name>
+    <Address>160 Central Park S</Address>
+    <City>New York</City>
+    <Phone>212-484-5113</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_225</id>
+    <Name>Les Halles</Name>
+    <Address>411 Park Ave. S  between 28th and 29th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-679-4111</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_226</id>
+    <Name>Lespinasse</Name>
+    <Address>2 E. 55th St.</Address>
+    <City>New York</City>
+    <Phone>212-339-6719</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_227</id>
+    <Name>Lincoln Tavern</Name>
+    <Address>51 W. 64th St.</Address>
+    <City>New York</City>
+    <Phone>212-721-8271</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_228</id>
+    <Name>Lola</Name>
+    <Address>30 West 22nd St.  between 5th and 6th Ave.</Address>
+    <City>New York</City>
+    <Phone>212-675-6700</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_229</id>
+    <Name>Lucky Strike</Name>
+    <Address>59 Grand St.  between Wooster St. and W. Broadway</Address>
+    <City>New York</City>
+    <Phone>212-941-0772 or 212-941-0479 </Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_230</id>
+    <Name>Lut&amp;egrave;ce</Name>
+    <Address>249 E. 50th St.</Address>
+    <City>New York</City>
+    <Phone>212-752-2225</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_231</id>
+    <Name>Mad Fish</Name>
+    <Address>2182 Broadway  between 77th and 78th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-787-0202</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_232</id>
+    <Name>Main Street</Name>
+    <Address>446 Columbus Ave.  between 81st and 82nd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-873-5025</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_233</id>
+    <Name>Mangia e Bevi</Name>
+    <Address>800 9th Ave. at 53rd St.</Address>
+    <City>New York</City>
+    <Phone>212-956-3976</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_234</id>
+    <Name>Manhattan Caf&amp;eacute;</Name>
+    <Address>1161 1st Ave.  between 63rd and 64th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-888-6556</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_235</id>
+    <Name>Manhattan Ocean Club</Name>
+    <Address>57 W. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212- 371-7777</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_236</id>
+    <Name>Manila Garden</Name>
+    <Address>325 E. 14th St.  between 1st and 2nd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-777-6314</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_237</id>
+    <Name>March</Name>
+    <Address>405 E. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-754-6272</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_238</id>
+    <Name>Marichu</Name>
+    <Address>342 E. 46th St.  between 1st and 2nd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-370-1866</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_239</id>
+    <Name>Marquet Patisserie</Name>
+    <Address>15 E. 12th St.  between 5th Ave. and University Pl.</Address>
+    <City>New York</City>
+    <Phone>212-229-9313</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_240</id>
+    <Name>Match</Name>
+    <Address>160 Mercer St.  between Houston and Prince Sts.</Address>
+    <City>New York</City>
+    <Phone>212-906-9173</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_241</id>
+    <Name>Matthew&apos;s</Name>
+    <Address>1030 3rd Ave. at 61st St.</Address>
+    <City>New York</City>
+    <Phone>212-838-4343</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_242</id>
+    <Name>Mavalli Palace</Name>
+    <Address>46 E. 29th St.</Address>
+    <City>New York</City>
+    <Phone>212-679-5535</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_243</id>
+    <Name>Mesa Grill</Name>
+    <Address>102 5th Ave.  between 15th and 16th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-807-7400</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_244</id>
+    <Name>Mi Cocina</Name>
+    <Address>57 Jane St.  off Hudson St.</Address>
+    <City>New York</City>
+    <Phone>212-627-8273</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_245</id>
+    <Name>Milan Caf&amp;eacute; and Coffee Bar</Name>
+    <Address>120 W. 23rd St.</Address>
+    <City>New York</City>
+    <Phone>212-807-1801</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_246</id>
+    <Name>Monkey Bar</Name>
+    <Address>60 E. 54th St.</Address>
+    <City>New York</City>
+    <Phone>212-838-2600</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_247</id>
+    <Name>Montien</Name>
+    <Address>1134 1st Ave.   between 62nd and 63rd Sts.</Address>
+    <City>New York</City>
+    <Phone>212-421-4433</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_248</id>
+    <Name>Montrachet</Name>
+    <Address>239 W. Broadway  between Walker and White Sts.</Address>
+    <City>New York</City>
+    <Phone>212- 219-2777</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_249</id>
+    <Name>Morton&apos;s</Name>
+    <Address>551 5th Ave. at 45th St.</Address>
+    <City>New York</City>
+    <Phone>212-972-3315</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_250</id>
+    <Name>Motown Cafe</Name>
+    <Address>104 W. 57th St.  near 6th Ave.</Address>
+    <City>New York</City>
+    <Phone>212-581-8030</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_251</id>
+    <Name>New York Kom Tang Soot Bul House</Name>
+    <Address>32 W. 32nd St.</Address>
+    <City>New York</City>
+    <Phone>212- 947-8482</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_252</id>
+    <Name>New York Noodletown</Name>
+    <Address>28 1-2 Bowery at Bayard St.</Address>
+    <City>New York</City>
+    <Phone>212-349-0923</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_253</id>
+    <Name>Newsbar</Name>
+    <Address>2 W. 19th St.</Address>
+    <City>New York</City>
+    <Phone>212-255-3996</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_254</id>
+    <Name>Oceana</Name>
+    <Address>55 E. 54th St.</Address>
+    <City>New York</City>
+    <Phone>212-759-5941</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_255</id>
+    <Name>Odeon</Name>
+    <Address>145 W. Broadway at Thomas St.</Address>
+    <City>New York</City>
+    <Phone>212-233-0507</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_256</id>
+    <Name>Orso</Name>
+    <Address>322 W. 46th St.</Address>
+    <City>New York</City>
+    <Phone>212-489-7212</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_257</id>
+    <Name>Osteria al Droge</Name>
+    <Address>142 W. 44th St.</Address>
+    <City>New York</City>
+    <Phone>212-944-3643</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_258</id>
+    <Name>Otabe</Name>
+    <Address>68 E. 56th St.</Address>
+    <City>New York</City>
+    <Phone>212-223-7575</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_259</id>
+    <Name>Pacifica</Name>
+    <Address>138 Lafayette St.  between Canal and Howard Sts.</Address>
+    <City>New York</City>
+    <Phone>212-941-4168</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_260</id>
+    <Name>Palio</Name>
+    <Address>151 W. 51st. St.</Address>
+    <City>New York</City>
+    <Phone>212-245-4850</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_261</id>
+    <Name>Pamir</Name>
+    <Address>1065 1st Ave.  at 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-644-9258</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_262</id>
+    <Name>Parioli Romanissimo</Name>
+    <Address>24 E. 81st St.</Address>
+    <City>New York</City>
+    <Phone>212-288-2391</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_263</id>
+    <Name>Park Avenue Cafe</Name>
+    <Address>100 E. 63rd St.</Address>
+    <City>New York</City>
+    <Phone>212-644-1900</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_264</id>
+    <Name>Patria</Name>
+    <Address>250 Park Ave. S at 20th St.</Address>
+    <City>New York</City>
+    <Phone>212-777-6211</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_265</id>
+    <Name>Peacock Alley</Name>
+    <Address>301 Park Ave.  between 49th and 50th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-872-4895</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_266</id>
+    <Name>Pen &amp; Pencil</Name>
+    <Address>205 E. 45th St.</Address>
+    <City>New York</City>
+    <Phone>212-682-8660</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_267</id>
+    <Name>Penang SoHo</Name>
+    <Address>109 Spring St.  between Greene and Mercer Sts.</Address>
+    <City>New York</City>
+    <Phone>212-274-8883</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_268</id>
+    <Name>Persepolis</Name>
+    <Address>1423 2nd Ave.  between 74th and 75th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-535-1100</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_269</id>
+    <Name>Petrossian</Name>
+    <Address>182 W. 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-245-2214</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_270</id>
+    <Name>Picholine</Name>
+    <Address>35 W. 64th St.</Address>
+    <City>New York</City>
+    <Phone>212-724-8585</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_271</id>
+    <Name>Pisces</Name>
+    <Address>95 Ave. A at 6th St.</Address>
+    <City>New York</City>
+    <Phone>212-260-6660</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_272</id>
+    <Name>Planet Hollywood</Name>
+    <Address>140 W. 57th St.</Address>
+    <City>New York</City>
+    <Phone>212-333-7827</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_273</id>
+    <Name>Pomaire</Name>
+    <Address>371 W. 46th St.  off 9th Ave.</Address>
+    <City>New York</City>
+    <Phone>212- 956-3055</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_274</id>
+    <Name>Popover Caf&amp;eacute;</Name>
+    <Address>551 Amsterdam Ave.  between 86th and 87th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-595-8555</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_275</id>
+    <Name>Post House</Name>
+    <Address>28 E. 63rd St.</Address>
+    <City>New York</City>
+    <Phone>212-935-2888</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_276</id>
+    <Name>Rain</Name>
+    <Address>100 W. 82nd St.</Address>
+    <City>New York</City>
+    <Phone>212-501-0776</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_277</id>
+    <Name>Rainbow Room</Name>
+    <Address>30 Rockefeller Plaza</Address>
+    <City>New York</City>
+    <Phone>212-632-5100 or 212-632-5000 </Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_278</id>
+    <Name>Red Tulip</Name>
+    <Address>439 E. 75th St.</Address>
+    <City>New York</City>
+    <Phone>212-734-4893</Phone>
+    <Style>Eastern European</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_279</id>
+    <Name>Remi</Name>
+    <Address>145 W. 53rd St.</Address>
+    <City>New York</City>
+    <Phone>212-581-4242</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_280</id>
+    <Name>Republic</Name>
+    <Address>37A Union Sq. W  between 16th and 17th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-627-7172</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_281</id>
+    <Name>River Caf&amp;eacute;</Name>
+    <Address>1 Water St. at the East River </Address>
+    <City>New York</City>
+    <Phone>718-522-5200</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_282</id>
+    <Name>Roettelle A. G</Name>
+    <Address>126 E. 7th St.  between 1st Ave. and Ave. A</Address>
+    <City>New York</City>
+    <Phone>212-674-4140</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_283</id>
+    <Name>Rosa Mexicano</Name>
+    <Address>1063 1st Ave. at 58th St.</Address>
+    <City>New York</City>
+    <Phone>212-753-7407</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_284</id>
+    <Name>Ruth&apos;s Chris</Name>
+    <Address>148 W. 51st St.</Address>
+    <City>New York</City>
+    <Phone>212-245-9600</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_285</id>
+    <Name>S.P.Q.R</Name>
+    <Address>133 Mulberry St.  between Hester and Grand Sts.</Address>
+    <City>New York</City>
+    <Phone>212-925-3120</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_286</id>
+    <Name>Sal Anthony&apos;s</Name>
+    <Address>55 Irving Pl.</Address>
+    <City>New York</City>
+    <Phone>212-982-9030</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_287</id>
+    <Name>Sammy&apos;s Roumanian Steak House</Name>
+    <Address>157 Chrystie St. at Delancey St.</Address>
+    <City>New York</City>
+    <Phone>212-673-0330</Phone>
+    <Style>East European</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_288</id>
+    <Name>San Domenico</Name>
+    <Address>240 Central Park S</Address>
+    <City>New York</City>
+    <Phone>212-265-5959</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_289</id>
+    <Name>San Pietro</Name>
+    <Address>18 E. 54th St.</Address>
+    <City>New York</City>
+    <Phone>212-753-9015</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_290</id>
+    <Name>Sant Ambroeus</Name>
+    <Address>1000 Madison Ave.  between 77th and 78th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-570-2211</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_291</id>
+    <Name>Sarabeth&apos;s Kitchen</Name>
+    <Address>423 Amsterdam Ave.  between 80th and 81st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-496-6280</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_292</id>
+    <Name>Sea Grill</Name>
+    <Address>19 W. 49th St.</Address>
+    <City>New York</City>
+    <Phone>212-332-7610</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_293</id>
+    <Name>Second Avenue Deli</Name>
+    <Address>156 2nd Ave. at 10th St.</Address>
+    <City>New York</City>
+    <Phone>212-677-0606</Phone>
+    <Style>Delicatessen</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_294</id>
+    <Name>Serendipity</Name>
+    <Address>3 225 E. 60th St.</Address>
+    <City>New York</City>
+    <Phone>212-838-3531</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_295</id>
+    <Name>Seryna</Name>
+    <Address>11 E. 53rd St.</Address>
+    <City>New York</City>
+    <Phone>212-980-9393</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_296</id>
+    <Name>Seventh Regiment Mess and Bar</Name>
+    <Address>643 Park Ave. at 66th St.</Address>
+    <City>New York</City>
+    <Phone>212-744-4107</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_297</id>
+    <Name>Sfuzzi</Name>
+    <Address>58 W. 65th St.</Address>
+    <City>New York</City>
+    <Phone>212-873-3700</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_298</id>
+    <Name>Shaan</Name>
+    <Address>57 W. 48th St.</Address>
+    <City>New York</City>
+    <Phone>212- 977-8400</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_299</id>
+    <Name>Shun Lee West</Name>
+    <Address>43 W. 65th St.</Address>
+    <City>New York</City>
+    <Phone>212-371-8844</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_300</id>
+    <Name>Sign of the Dove</Name>
+    <Address>1110 3rd Ave. at 65th St.</Address>
+    <City>New York</City>
+    <Phone>212-861-8080</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_301</id>
+    <Name>Smith &amp; Wollensky</Name>
+    <Address>201 E. 49th St.</Address>
+    <City>New York</City>
+    <Phone>212-753-1530</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_302</id>
+    <Name>Sofia Fabulous Pizza</Name>
+    <Address>1022 Madison Ave.  near 79th St.</Address>
+    <City>New York</City>
+    <Phone>212-734-2676</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_303</id>
+    <Name>Spring Street Natural Restaurant &amp; Bar</Name>
+    <Address>62 Spring St. at Lafayette St.</Address>
+    <City>New York</City>
+    <Phone>212-966-0290</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_304</id>
+    <Name>Stage Deli</Name>
+    <Address>834 7th Ave.  between 53rd and 54th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-245-7850</Phone>
+    <Style>Delicatessen</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_305</id>
+    <Name>Stingray</Name>
+    <Address>428 Amsterdam Ave.  between 80th and 81st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-501-7515</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_306</id>
+    <Name>Sweet&apos;n&apos;Tart Cafe</Name>
+    <Address>76 Mott St. at Canal St.</Address>
+    <City>New York</City>
+    <Phone>212-334-8088</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_307</id>
+    <Name>T Salon</Name>
+    <Address>143 Mercer St. at Prince St.</Address>
+    <City>New York</City>
+    <Phone>212-925-3700</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_308</id>
+    <Name>Tang Pavillion</Name>
+    <Address>65 W. 55th St.</Address>
+    <City>New York</City>
+    <Phone>212-956-6888</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_309</id>
+    <Name>Tapika</Name>
+    <Address>950 8th Ave. at 56th St.</Address>
+    <City>New York</City>
+    <Phone>212- 397-3737</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_310</id>
+    <Name>Tavern on the Green In Central Park at</Name>
+    <Address>67th St.</Address>
+    <City>New York</City>
+    <Phone>212-873-3200</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_311</id>
+    <Name>Teresa&apos;s</Name>
+    <Address>103 1st Ave.  between 6th and 7th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-228-0604</Phone>
+    <Style>East European</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_312</id>
+    <Name>Terrace</Name>
+    <Address>400 W. 119th St.  between Amsterdam and Morningside Aves.</Address>
+    <City>New York</City>
+    <Phone>212-666-9490</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_313</id>
+    <Name>The Coffee Pot</Name>
+    <Address>350 9th Ave. at 49th St.</Address>
+    <City>New York</City>
+    <Phone>212-265-3566</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_314</id>
+    <Name>The Savannah Club</Name>
+    <Address>2420 Broadway at 89th St.</Address>
+    <City>New York</City>
+    <Phone>212-496-1066</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_315</id>
+    <Name>Trattoria Dell&apos;Arte</Name>
+    <Address>900 7th Ave.  between 56th and 57th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-245-9800</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_316</id>
+    <Name>Triangolo</Name>
+    <Address>345 E. 83rd St.</Address>
+    <City>New York</City>
+    <Phone>212-472-4488</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_317</id>
+    <Name>Tribeca Grill</Name>
+    <Address>375 Greenwich St.  near Franklin St.</Address>
+    <City>New York</City>
+    <Phone>212-941-3900</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_318</id>
+    <Name>Trois Jean</Name>
+    <Address>154 E. 79th St.  between Lexington and 3rd Aves.</Address>
+    <City>New York</City>
+    <Phone>212-988-4858</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_319</id>
+    <Name>Tse Yang</Name>
+    <Address>34 E. 51st St.</Address>
+    <City>New York</City>
+    <Phone>212-688-5447</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_320</id>
+    <Name>Turkish Kitchen</Name>
+    <Address>386 3rd Ave.  between 27th and 28th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-679-1810</Phone>
+    <Style>Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_321</id>
+    <Name>Two Two Two</Name>
+    <Address>222 W. 79th St.</Address>
+    <City>New York</City>
+    <Phone>212-799-0400</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_322</id>
+    <Name>Uncle Nick&apos;s</Name>
+    <Address>747 9th Ave.  between 50th and 51st Sts.</Address>
+    <City>New York</City>
+    <Phone>212-315-1726</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_323</id>
+    <Name>Union Square Cafe</Name>
+    <Address>21 E. 16th St.</Address>
+    <City>New York</City>
+    <Phone>212-243-4020</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_324</id>
+    <Name>Veniero&apos;s Pasticceria</Name>
+    <Address>342 E. 11th St.  near 1st Ave.</Address>
+    <City>New York</City>
+    <Phone>212-674-7264</Phone>
+    <Style>Coffee Bar</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_325</id>
+    <Name>Verbena</Name>
+    <Address>54 Irving Pl. at 17th St.</Address>
+    <City>New York</City>
+    <Phone>212-260-5454</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_326</id>
+    <Name>Victor&apos;s Caf&amp;eacute;</Name>
+    <Address>52 236 W. 52nd St.</Address>
+    <City>New York</City>
+    <Phone>212-586-7714</Phone>
+    <Style>Latin American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_327</id>
+    <Name>Vince &amp; Eddie&apos;s</Name>
+    <Address>70 W. 68th St.</Address>
+    <City>New York</City>
+    <Phone>212-721-0068</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_328</id>
+    <Name>Virgil&apos;s</Name>
+    <Address>152 W. 44th St.</Address>
+    <City>New York</City>
+    <Phone>212- 921-9494</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_329</id>
+    <Name>Vong</Name>
+    <Address>200 E. 54th St.</Address>
+    <City>New York</City>
+    <Phone>212-486-9592</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_330</id>
+    <Name>Water Club</Name>
+    <Address>500 E. 30th St.</Address>
+    <City>New York</City>
+    <Phone>212-683-3333</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_331</id>
+    <Name>West</Name>
+    <Address>63rd Street Steakhouse 44 W. 63rd St.</Address>
+    <City>New York</City>
+    <Phone>212-246-6363</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_332</id>
+    <Name>Xunta</Name>
+    <Address>174 1st Ave.  between 10th and 11th Sts.</Address>
+    <City>New York</City>
+    <Phone>212-614-0620</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_333</id>
+    <Name>Zen Palate</Name>
+    <Address>34 Union Sq. E at 16th St.</Address>
+    <City>New York</City>
+    <Phone>212-614-9345 and 212-614-9291 </Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_334</id>
+    <Name>Zo&amp;euml;</Name>
+    <Address>90 Prince St.  between Broadway and Mercer St.</Address>
+    <City>New York</City>
+    <Phone>212-966-6722</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_335</id>
+    <Name>Abbey</Name>
+    <Address>163 Ponce de Leon Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-876-8532</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_336</id>
+    <Name>Abruzzi</Name>
+    <Address>2355 Peachtree Rd.  Peachtree Battle Shopping Center </Address>
+    <City>Atlanta</City>
+    <Phone>404-261-8186</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_337</id>
+    <Name>Aleck&apos;s Barbecue Heaven</Name>
+    <Address>783 Martin Luther King Jr. Dr. </Address>
+    <City>Atlanta</City>
+    <Phone>404-525-2062</Phone>
+    <Style>Barbecue</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_338</id>
+    <Name>Annie&apos;s Thai Castle</Name>
+    <Address>3195 Roswell Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-264-9546</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_339</id>
+    <Name>Anthonys</Name>
+    <Address>3109 Piedmont Rd.  just south of Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-262-7379</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_340</id>
+    <Name>Atlanta Fish Market</Name>
+    <Address>265 Pharr Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-262-3165</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_341</id>
+    <Name>Bacchanalia</Name>
+    <Address>3125 Piedmont Rd.  near Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-365-0410</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_342</id>
+    <Name>Beesley&apos;s of Buckhead</Name>
+    <Address>260 E. Paces Ferry Road </Address>
+    <City>Atlanta</City>
+    <Phone>404-264-1334</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_343</id>
+    <Name>Bertolini&apos;s</Name>
+    <Address>3500 Peachtree Rd.  Phipps Plaza </Address>
+    <City>Atlanta</City>
+    <Phone>404-233-2333</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_344</id>
+    <Name>Bistango</Name>
+    <Address>1100 Peachtree St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-724-0901</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_345</id>
+    <Name>Bone&apos;s</Name>
+    <Address>3130 Piedmont Road </Address>
+    <City>Atlanta</City>
+    <Phone>404-237-2663</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_346</id>
+    <Name>Brasserie Le Coze</Name>
+    <Address>3393 Peachtree Rd.  Lenox Square Mall  near Neiman Marcus </Address>
+    <City>Atlanta</City>
+    <Phone>404-266-1440</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_347</id>
+    <Name>Buckhead Diner</Name>
+    <Address>3073 Piedmont Road </Address>
+    <City>Atlanta</City>
+    <Phone>404-262-3336</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_348</id>
+    <Name>Caf&amp;eacute;  Ritz-Carlton  Buckhead</Name>
+    <Address>3434 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-237-2700  ext 6108</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_349</id>
+    <Name>Cafe Renaissance</Name>
+    <Address>7050 Jimmy Carter Blvd.  Norcross </Address>
+    <City>Atlanta</City>
+    <Phone>770-441--0291</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_350</id>
+    <Name>Camille&apos;s</Name>
+    <Address>1186 N. Highland Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-872-7203</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_351</id>
+    <Name>Cassis</Name>
+    <Address>3300 Peachtree Rd.  Grand Hyatt </Address>
+    <City>Atlanta</City>
+    <Phone>404-365-8100</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_352</id>
+    <Name>Ciboulette</Name>
+    <Address>1529 Piedmont Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-874-7600</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_353</id>
+    <Name>City Grill</Name>
+    <Address>50 Hurt Plaza </Address>
+    <City>Atlanta</City>
+    <Phone>404-524-2489</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_354</id>
+    <Name>Coco Loco</Name>
+    <Address>40  Buckhead Crossing Mall on the Sidney Marcus Blvd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-364-0212</Phone>
+    <Style>Caribbean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_355</id>
+    <Name>Colonnade Restaurant</Name>
+    <Address>1879 Cheshire Bridge Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-874-5642</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_356</id>
+    <Name>Dante&apos;s Down the Hatch  Buckhead</Name>
+    <Address>3380 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-266-1600</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_357</id>
+    <Name>Dante&apos;s Down the Hatch  Underground </Name>
+    <Address>Underground Mall  Underground Atlanta</Address>
+    <City>Atlanta</City>
+    <Phone>404-577-1800</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_358</id>
+    <Name>Delectables</Name>
+    <Address>1 Margaret Mitchell Sq. </Address>
+    <City>Atlanta</City>
+    <Phone>404-681-2909</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_359</id>
+    <Name>Dining Room  Ritz-Carlton  Buckhead</Name>
+    <Address>3434 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-237-2700</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_360</id>
+    <Name>Fat Matt&apos;s Rib Shack</Name>
+    <Address>1811 Piedmont Ave.  near Cheshire Bridge Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-607-1622</Phone>
+    <Style>Barbecue</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_361</id>
+    <Name>French Quarter Food Shop</Name>
+    <Address>923 Peachtree St.  at 8th St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-875-2489</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_362</id>
+    <Name>Georgia Grille</Name>
+    <Address>2290 Peachtree Rd.  Peachtree Square Shopping Center </Address>
+    <City>Atlanta</City>
+    <Phone>404-352-3517</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_363</id>
+    <Name>Hedgerose Heights Inn</Name>
+    <Address>490 E. Paces Ferry Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-233-7673</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_364</id>
+    <Name>Heera of India</Name>
+    <Address>595 Piedmont Ave.  Rio Shopping Mall </Address>
+    <City>Atlanta</City>
+    <Phone>404-876-4408</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_365</id>
+    <Name>Holt Bros. Bar-B-Q</Name>
+    <Address>6359 Jimmy Carter Blvd.  at Buford Hwy.  Norcross </Address>
+    <City>Atlanta</City>
+    <Phone>770-242-3984</Phone>
+    <Style>Barbecue</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_366</id>
+    <Name>Horseradish Grill</Name>
+    <Address>4320 Powers Ferry Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-255-7277</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_367</id>
+    <Name>Hsu&apos;s Gourmet</Name>
+    <Address>192 Peachtree Center Ave.  at International Blvd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-659-2788</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_368</id>
+    <Name>Imperial Fez</Name>
+    <Address>2285 Peachtree Rd.  Peachtree Battle Condominium </Address>
+    <City>Atlanta</City>
+    <Phone>404-351-0870</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_369</id>
+    <Name>Indigo Coastal Grill</Name>
+    <Address>1397 N. Highland Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-876-0676</Phone>
+    <Style>Caribbean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_370</id>
+    <Name>Kamogawa</Name>
+    <Address>3300 Peachtree Rd.  Grand Hyatt </Address>
+    <City>Atlanta</City>
+    <Phone>404-841-0314</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_371</id>
+    <Name>La Grotta</Name>
+    <Address>2637 Peachtree Rd.  Peachtree House Condominium </Address>
+    <City>Atlanta</City>
+    <Phone>404-231-1368</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_372</id>
+    <Name>La Grotta at Ravinia </Name>
+    <Address>Dunwoody Rd.  Holiday Inn\Crowne Plaza at Ravinia  Dunwoody</Address>
+    <City>Atlanta</City>
+    <Phone>770-395-9925</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_373</id>
+    <Name>Little Szechuan </Name>
+    <Address>C Buford Hwy.  Northwoods Plaza  Doraville</Address>
+    <City>Atlanta</City>
+    <Phone>770-451-0192</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_374</id>
+    <Name>Lowcountry Barbecue</Name>
+    <Address>6301 Roswell Rd.  Sandy Springs Plaza  Sandy Springs </Address>
+    <City>Atlanta</City>
+    <Phone>404-255-5160</Phone>
+    <Style>Barbecue</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_375</id>
+    <Name>Luna S&amp;iacute;</Name>
+    <Address>1931 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-355-5993</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_376</id>
+    <Name>Mambo Restaurante Cubano</Name>
+    <Address>1402 N. Highland Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-874-2626</Phone>
+    <Style>Caribbean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_377</id>
+    <Name>Mary Mac&apos;s Tea Room</Name>
+    <Address>224 Ponce de Leon Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-876-1800</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_378</id>
+    <Name>McKinnon&apos;s Louisiane</Name>
+    <Address>3209 Maple Dr. </Address>
+    <City>Atlanta</City>
+    <Phone>404-237-1313</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_379</id>
+    <Name>Mi Spia</Name>
+    <Address>Dunwoody Rd.  Park Place  across from Perimeter Mall  Dunwoody</Address>
+    <City>Atlanta</City>
+    <Phone>770-393-1333</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_380</id>
+    <Name>Nickiemoto&apos;s: A Sushi Bar</Name>
+    <Address>247 Buckhead Ave.  East Village Sq. </Address>
+    <City>Atlanta</City>
+    <Phone>404-842-0334</Phone>
+    <Style>Fusion</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_381</id>
+    <Name>Nikolai&apos;s Roof</Name>
+    <Address>255 Courtland St.  at Harris St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-221-6362</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_382</id>
+    <Name>Palisades</Name>
+    <Address>1829 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-350-6755</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_383</id>
+    <Name>Pano&apos;s and Paul&apos;s</Name>
+    <Address>1232 W. Paces Ferry Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-261-3662</Phone>
+    <Style>International</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_384</id>
+    <Name>Pleasant Peasant</Name>
+    <Address>555 Peachtree St.  at Linden Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-874-3223</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_385</id>
+    <Name>Pricci</Name>
+    <Address>500 Pharr Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-237-2941</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_386</id>
+    <Name>R.J.&apos;s Uptown Kitchen &amp; Wine Bar</Name>
+    <Address>870 N. Highland Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-875-7775</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_387</id>
+    <Name>Restaurant  Ritz-Carlton  Atlanta</Name>
+    <Address>181 Peachtree St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-659-0400</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_388</id>
+    <Name>Rib Ranch</Name>
+    <Address>25 Irby Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-233-7644</Phone>
+    <Style>Barbecue</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_389</id>
+    <Name>Sa Tsu Ki</Name>
+    <Address>3043 Buford Hwy. </Address>
+    <City>Atlanta</City>
+    <Phone>404-325-5285</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_390</id>
+    <Name>Sato Sushi and Thai</Name>
+    <Address>6050 Peachtree Pkwy.  Norcross </Address>
+    <City>Atlanta</City>
+    <Phone>770-449-0033</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_391</id>
+    <Name>South City Kitchen</Name>
+    <Address>1144 Crescent Ave. </Address>
+    <City>Atlanta</City>
+    <Phone>404-873-7358</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_392</id>
+    <Name>South of France</Name>
+    <Address>2345 Cheshire Bridge Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-325-6963</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_393</id>
+    <Name>Stringer&apos;s Fish Camp and Oyster Bar</Name>
+    <Address>3384 Shallowford Rd.  Chamblee </Address>
+    <City>Atlanta</City>
+    <Phone>770-458-7145</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_394</id>
+    <Name>Sundown Cafe</Name>
+    <Address>2165 Cheshire Bridge Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-321-1118</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_395</id>
+    <Name>Taste of New Orleans</Name>
+    <Address>889 W. Peachtree St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-874-5535</Phone>
+    <Style>Southern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_396</id>
+    <Name>TomTom</Name>
+    <Address>3393 Peachtree Rd. </Address>
+    <City>Atlanta</City>
+    <Phone>404-264-1163</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_397</id>
+    <Name>Toulouse B </Name>
+    <Address>Peachtree Rd.</Address>
+    <City>Atlanta</City>
+    <Phone>404-351-9533</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_398</id>
+    <Name>Veni Vidi Vici</Name>
+    <Address>41 14th St. </Address>
+    <City>Atlanta</City>
+    <Phone>404-875-8424</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_399</id>
+    <Name>Antonio&apos;s</Name>
+    <Address>3700 W. Flamingo</Address>
+    <City>Las Vegas</City>
+    <Phone>702-252-7737</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_400</id>
+    <Name>Bally&apos;s Big Kitchen</Name>
+    <Address>3645 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-739-4111</Phone>
+    <Style>Buffets</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_401</id>
+    <Name>Bamboo Garden</Name>
+    <Address>4850 Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-871-3262</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_402</id>
+    <Name>Battista&apos;s Hole in the Wall</Name>
+    <Address>4041 Audrie St. at Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-732-1424</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_403</id>
+    <Name>Bertolini&apos;s</Name>
+    <Address>3570 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-735-4663</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_404</id>
+    <Name>Binion&apos;s Coffee Shop</Name>
+    <Address>128 Fremont St.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-382-1600</Phone>
+    <Style>Coffee Shops/Diners</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_405</id>
+    <Name>Bistro</Name>
+    <Address>3400 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-791-7111</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_406</id>
+    <Name>Broiler</Name>
+    <Address>4111 Boulder Hwy.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-432-7777</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_407</id>
+    <Name>Bugsy&apos;s Diner</Name>
+    <Address>3555 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-733-3111</Phone>
+    <Style>Coffee Shops/Diners</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_408</id>
+    <Name>Caf&amp;eacute; Michelle</Name>
+    <Address>1350 E. Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-735-8686</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_409</id>
+    <Name>Cafe Roma</Name>
+    <Address>3570 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-7547</Phone>
+    <Style>Coffee Shops/Diners</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_410</id>
+    <Name>Capozzoli&apos;s</Name>
+    <Address>3333 S. Maryland Pkwy.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-5311</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_411</id>
+    <Name>Carnival World</Name>
+    <Address>3700 W. Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-252-7777</Phone>
+    <Style>Buffets</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_412</id>
+    <Name>Center Stage Plaza Hotel </Name>
+    <Address>1 Main St.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-386-2512</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_413</id>
+    <Name>Chin&apos;s</Name>
+    <Address>3200 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-733-8899</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_414</id>
+    <Name>Circus Circus</Name>
+    <Address>2880 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-734-0410</Phone>
+    <Style>Buffets</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_415</id>
+    <Name>Coyote Caf&amp;eacute;</Name>
+    <Address>3799 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-891-7349</Phone>
+    <Style>Southwestern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_416</id>
+    <Name>Empress Court</Name>
+    <Address>3570 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-7888</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_417</id>
+    <Name>Feast</Name>
+    <Address>2411 W. Sahara Ave.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-367-2411</Phone>
+    <Style>Buffets</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_418</id>
+    <Name>Golden Nugget Hotel</Name>
+    <Address>129 E. Fremont St.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-385-7111</Phone>
+    <Style>Buffets</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_419</id>
+    <Name>Golden Steer</Name>
+    <Address>308 W. Sahara Ave.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-384-4470</Phone>
+    <Style>Steak Houses</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_420</id>
+    <Name>Le Montrachet</Name>
+    <Address>3000 W. Paradise Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-732-5111</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_421</id>
+    <Name>Lillie Langtry&apos;s</Name>
+    <Address>129 E. Fremont St.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-385-7111</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_422</id>
+    <Name>Mandarin Court</Name>
+    <Address>1510 E. Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-737-1234</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_423</id>
+    <Name>Margarita&apos;s Mexican Cantina</Name>
+    <Address>3120 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-794-8200</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_424</id>
+    <Name>Mary&apos;s Diner</Name>
+    <Address>5111 W. Boulder Hwy.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-454-8073</Phone>
+    <Style>Coffee Shops/Diners</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_425</id>
+    <Name>Mikado</Name>
+    <Address>3400 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-791-7111</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_426</id>
+    <Name>Palace Court</Name>
+    <Address>3570 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-7547</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_427</id>
+    <Name>Pamplemousse</Name>
+    <Address>400 E. Sahara Ave.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-733-2066</Phone>
+    <Style>Continental</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_428</id>
+    <Name>Ralph&apos;s Diner</Name>
+    <Address>3000 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-732-6330</Phone>
+    <Style>Coffee Shops/Diners</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_429</id>
+    <Name>Second Street Grille</Name>
+    <Address>200 E. Fremont St.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-385-3232</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_430</id>
+    <Name>Steak House</Name>
+    <Address>2880 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-734-0410</Phone>
+    <Style>Steak Houses</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_431</id>
+    <Name>The Bacchanal</Name>
+    <Address>3570 Las Vegas Blvd. S</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-7525</Phone>
+    <Style>Only in Las Vegas</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_432</id>
+    <Name>Tillerman</Name>
+    <Address>2245 E. Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-731-4036</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_433</id>
+    <Name>Venetian</Name>
+    <Address>3713 W. Sahara Ave.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-876-4190</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_434</id>
+    <Name>Viva Mercado&apos;s</Name>
+    <Address>6182 W. Flamingo Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-871-8826</Phone>
+    <Style>Mexican</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_435</id>
+    <Name>Yolie&apos;s</Name>
+    <Address>3900 Paradise Rd.</Address>
+    <City>Las Vegas</City>
+    <Phone>702-794-0700</Phone>
+    <Style>Steak Houses</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_436</id>
+    <Name>2223</Name>
+    <Address>2223 Market St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-431-0692</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_437</id>
+    <Name>Acquarello</Name>
+    <Address>1722 Sacramento St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-567-5432</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_438</id>
+    <Name>Alain Rondelli</Name>
+    <Address>126 Clement St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-387-0408</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_439</id>
+    <Name>Aqua</Name>
+    <Address>252 California St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-956-9662</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_440</id>
+    <Name>Bardelli&apos;s</Name>
+    <Address>243 O&apos;Farrell St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-982-0243</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_441</id>
+    <Name>Betelnut</Name>
+    <Address>2030 Union St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-929-8855</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_442</id>
+    <Name>Bistro Roti</Name>
+    <Address>155 Steuart St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-495-6500</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_443</id>
+    <Name>Bix</Name>
+    <Address>56 Gold St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-433-6300</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_444</id>
+    <Name>Bizou</Name>
+    <Address>598 Fourth St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-543-2222</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_445</id>
+    <Name>Boulevard</Name>
+    <Address>1 Mission St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-543-6084</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_446</id>
+    <Name>Buca Giovanni</Name>
+    <Address>800 Greenwich St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-776-7766</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_447</id>
+    <Name>Caf&amp;eacute; Adriano</Name>
+    <Address>3347 Fillmore St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-474-4180</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_448</id>
+    <Name>Caf&amp;eacute; Claude</Name>
+    <Address>7 Claude La.</Address>
+    <City>San Francisco</City>
+    <Phone>415-392-3505</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_449</id>
+    <Name>Caf&amp;eacute; Marimba</Name>
+    <Address>2317 Chestnut St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-776-1506</Phone>
+    <Style>Mexican/Latin American/Spanish</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_450</id>
+    <Name>California Culinary Academy</Name>
+    <Address>625 Polk St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-771-3500</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_451</id>
+    <Name>Campton Place</Name>
+    <Address>340 Stockton St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-955-5555</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_452</id>
+    <Name>Capp&apos;s Corner</Name>
+    <Address>1600 Powell St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-989-2589</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_453</id>
+    <Name>Carta</Name>
+    <Address>1772 Market St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-863-3516</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_454</id>
+    <Name>Chevys</Name>
+    <Address>4th and Howard Sts.</Address>
+    <City>San Francisco</City>
+    <Phone>415-543-8060</Phone>
+    <Style>Mexican/Latin American/Spanish</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_455</id>
+    <Name>Chez Michel</Name>
+    <Address>804 Northpoint</Address>
+    <City>San Francisco</City>
+    <Phone>415-775-7036</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_456</id>
+    <Name>Cypress Club</Name>
+    <Address>500 Jackson St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-296-8555</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_457</id>
+    <Name>Des Alpes</Name>
+    <Address>732 Broadway</Address>
+    <City>San Francisco</City>
+    <Phone>415-788-9900</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_458</id>
+    <Name>Faz</Name>
+    <Address>161 Sutter St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-362-0404</Phone>
+    <Style>Greek and Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_459</id>
+    <Name>Fleur de Lys</Name>
+    <Address>777 Sutter St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-673-7779</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_460</id>
+    <Name>Fog City Diner</Name>
+    <Address>1300 Battery St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-982-2000</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_461</id>
+    <Name>Fringale</Name>
+    <Address>570 4th St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-543-0573</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_462</id>
+    <Name>Garden </Name>
+    <Address>Court Market and New Montgomery Sts.</Address>
+    <City>San Francisco</City>
+    <Phone>415-546-5011</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_463</id>
+    <Name>Gaylord&apos;s </Name>
+    <Address>Ghirardelli Sq.</Address>
+    <City>San Francisco</City>
+    <Phone>415-771-8822</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_464</id>
+    <Name>Grand Caf&amp;eacute; Hotel Monaco</Name>
+    <Address>501 Geary St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-292-0101</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_465</id>
+    <Name>Greens</Name>
+    <Address>Bldg. A Fort Mason</Address>
+    <City>San Francisco</City>
+    <Phone>415-771-6222</Phone>
+    <Style>Vegetarian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_466</id>
+    <Name>Harbor Village</Name>
+    <Address>4 Embarcadero Center</Address>
+    <City>San Francisco</City>
+    <Phone>415-781-8833</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_467</id>
+    <Name>Harris&apos;</Name>
+    <Address>2100 Van Ness Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-673-1888</Phone>
+    <Style>Steak Houses</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_468</id>
+    <Name>Harry Denton&apos;s</Name>
+    <Address>161 Steuart St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-882-1333</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_469</id>
+    <Name>Hawthorne Lane</Name>
+    <Address>22 Hawthorne St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-777-9779</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_470</id>
+    <Name>Hayes Street Grill</Name>
+    <Address>320 Hayes St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-863-5545</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_471</id>
+    <Name>Helmand</Name>
+    <Address>430 Broadway</Address>
+    <City>San Francisco</City>
+    <Phone>415-362-0641</Phone>
+    <Style>Greek and Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_472</id>
+    <Name>Hong Kong Flower Lounge</Name>
+    <Address>5322 Geary Blvd.</Address>
+    <City>San Francisco</City>
+    <Phone>415-668-8998</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_473</id>
+    <Name>Hong Kong Villa</Name>
+    <Address>2332 Clement St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-752-8833</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_474</id>
+    <Name>Hyde Street Bistro</Name>
+    <Address>1521 Hyde St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-441-7778</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_475</id>
+    <Name>Il Fornaio Levi&apos;s Plaza</Name>
+    <Address>1265 Battery St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-986-0100</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_476</id>
+    <Name>Izzy&apos;s Steak &amp; Chop House</Name>
+    <Address>3345 Steiner St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-563-0487</Phone>
+    <Style>Steak Houses</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_477</id>
+    <Name>Jack&apos;s</Name>
+    <Address>615 Sacramento St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-986-9854</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_478</id>
+    <Name>Kabuto Sushi</Name>
+    <Address>5116 Geary Blvd.</Address>
+    <City>San Francisco</City>
+    <Phone>415-752-5652</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_479</id>
+    <Name>Katia&apos;s</Name>
+    <Address>600 5th Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-668-9292</Phone>
+    <Style>*</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_480</id>
+    <Name>Khan Toke Thai House</Name>
+    <Address>5937 Geary Blvd.</Address>
+    <City>San Francisco</City>
+    <Phone>415-668-6654</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_481</id>
+    <Name>Kuleto&apos;s</Name>
+    <Address>221 Powell St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-397-7720</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_482</id>
+    <Name>Kyo-ya. Sheraton Palace Hotel </Name>
+    <Address>2 New Montgomery St.  at Market St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-546-5000</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_483</id>
+    <Name>L&apos;Osteria del Forno</Name>
+    <Address>519 Columbus Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-982-1124</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_484</id>
+    <Name>La Folie</Name>
+    <Address>2316 Polk St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-776-5577</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_485</id>
+    <Name>Le Central</Name>
+    <Address>453 Bush St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-391-2233</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_486</id>
+    <Name>Le Soleil</Name>
+    <Address>133 Clement St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-668-4848</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_487</id>
+    <Name>LuLu</Name>
+    <Address>816 Folsom St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-495-5775</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_488</id>
+    <Name>MacArthur Park</Name>
+    <Address>607 Front St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-398-5700</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_489</id>
+    <Name>Manora</Name>
+    <Address>3226 Mission St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-861-6224</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_490</id>
+    <Name>Masa&apos;s</Name>
+    <Address>648 Bush St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-989-7154</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_491</id>
+    <Name>Maykadeh</Name>
+    <Address>470 Green St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-362-8286</Phone>
+    <Style>Greek and Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_492</id>
+    <Name>McCormick &amp; Kuleto&apos;s </Name>
+    <Address>Ghirardelli Sq.</Address>
+    <City>San Francisco</City>
+    <Phone>415-929-1730</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_493</id>
+    <Name>Mifune Japan Center  Kintetsu Building </Name>
+    <Address>1737 Post St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-922-0337</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_494</id>
+    <Name>Millennium</Name>
+    <Address>246 McAllister St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-487-9800</Phone>
+    <Style>Vegetarian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_495</id>
+    <Name>Moose&apos;s</Name>
+    <Address>1652 Stockton St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-989-7800</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_496</id>
+    <Name>North India</Name>
+    <Address>3131 Webster St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-931-1556</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_497</id>
+    <Name>One Market</Name>
+    <Address>1 Market St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-777-5577</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_498</id>
+    <Name>Oritalia</Name>
+    <Address>1915 Fillmore St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-346-1333</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_499</id>
+    <Name>Pacific Pan Pacific Hotel </Name>
+    <Address>500 Post St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-929-2087</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_500</id>
+    <Name>Palio d&apos;Asti</Name>
+    <Address>640 Sacramento St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-395-9800</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_501</id>
+    <Name>Pane e Vino</Name>
+    <Address>3011 Steiner St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-346-2111</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_502</id>
+    <Name>Pastis</Name>
+    <Address>1015 Battery St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-391-2555</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_503</id>
+    <Name>Perry&apos;s</Name>
+    <Address>1944 Union St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-922-9022</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_504</id>
+    <Name>PlumpJack Caf&amp;eacute;</Name>
+    <Address>3201 Fillmore St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-563-4755</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_505</id>
+    <Name>Postrio</Name>
+    <Address>545 Post St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-776-7825</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_506</id>
+    <Name>R&amp;G Lounge</Name>
+    <Address>631 B Kearny St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-982-3811 or 415-982-7877 </Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_507</id>
+    <Name>Ritz-Carlton Restaurant and Dining Room</Name>
+    <Address>600 Stockton St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-296-7465</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_508</id>
+    <Name>Rose Pistola</Name>
+    <Address>532 Columbus Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-399-0499</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_509</id>
+    <Name>Rubicon</Name>
+    <Address>558 Sacramento St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-434-4100</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_510</id>
+    <Name>Rumpus</Name>
+    <Address>1 Tillman Pl.</Address>
+    <City>San Francisco</City>
+    <Phone>415-421-2300</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_511</id>
+    <Name>Sanppo</Name>
+    <Address>1702 Post St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-346-3486</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_512</id>
+    <Name>Scala&apos;s Bistro</Name>
+    <Address>432 Powell St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-395-8555</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_513</id>
+    <Name>South Park Cafe</Name>
+    <Address>108 South Park</Address>
+    <City>San Francisco</City>
+    <Phone>415-495-7275</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_514</id>
+    <Name>Splendido Embarcadero</Name>
+    <Address>4</Address>
+    <City>San Francisco</City>
+    <Phone>415-986-3222</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_515</id>
+    <Name>Stars</Name>
+    <Address>150 Redwood Alley</Address>
+    <City>San Francisco</City>
+    <Phone>415-861-7827</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_516</id>
+    <Name>Stars Cafe</Name>
+    <Address>500 Van Ness Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-861-4344</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_517</id>
+    <Name>Stoyanof&apos;s Cafe</Name>
+    <Address>1240 9th Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-664-3664</Phone>
+    <Style>Greek and Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_518</id>
+    <Name>Straits Cafe</Name>
+    <Address>3300 Geary Blvd.</Address>
+    <City>San Francisco</City>
+    <Phone>415-668-1783</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_519</id>
+    <Name>Suppenkuche</Name>
+    <Address>601 Hayes St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-252-9289</Phone>
+    <Style>Russian/German</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_520</id>
+    <Name>Tadich Grill</Name>
+    <Address>240 California St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-391-2373</Phone>
+    <Style>Seafood</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_521</id>
+    <Name>The Heights</Name>
+    <Address>3235 Sacramento St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-474-8890</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_522</id>
+    <Name>Thepin</Name>
+    <Address>298 Gough St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-863-9335</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_523</id>
+    <Name>Ton Kiang</Name>
+    <Address>3148 Geary Blvd.</Address>
+    <City>San Francisco</City>
+    <Phone>415-752-4440</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_524</id>
+    <Name>Vertigo</Name>
+    <Address>600 Montgomery St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-433-7250</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_525</id>
+    <Name>Vivande Porta Via</Name>
+    <Address>2125 Fillmore St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-346-4430</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_526</id>
+    <Name>Vivande Ristorante</Name>
+    <Address>670 Golden Gate Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-673-9245</Phone>
+    <Style>Italian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_527</id>
+    <Name>World Wrapps</Name>
+    <Address>2257 Chestnut St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-563-9727</Phone>
+    <Style>American</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_528</id>
+    <Name>Wu Kong</Name>
+    <Address>101 Spear St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-957-9300</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_529</id>
+    <Name>Yank Sing</Name>
+    <Address>427 Battery St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-541-4949</Phone>
+    <Style>Asian</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_530</id>
+    <Name>Yaya Cuisine</Name>
+    <Address>1220 9th Ave.</Address>
+    <City>San Francisco</City>
+    <Phone>415-566-6966</Phone>
+    <Style>Greek and Middle Eastern</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_531</id>
+    <Name>Yoyo Tsumami Bistro</Name>
+    <Address>1611 Post St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-922-7788</Phone>
+    <Style>French</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_532</id>
+    <Name>Zarzuela</Name>
+    <Address>2000 Hyde St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-346-0800</Phone>
+    <Style>Mexican/Latin American/Spanish</Style>
+  </restaurant>
+  <restaurant>
+    <id>fodors_533</id>
+    <Name>Zuni Caf&amp;eacute; &amp; Grill</Name>
+    <Address>1658 Market St.</Address>
+    <City>San Francisco</City>
+    <Phone>415-552-2522</Phone>
+    <Style>Mediterranean</Style>
+  </restaurant>
+</restaurants>
