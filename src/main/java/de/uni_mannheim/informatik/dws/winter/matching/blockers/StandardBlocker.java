@@ -146,7 +146,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						Processable<SimpleCorrespondence<CorrespondenceType>> causes = 
 								new ProcessableCollection<>(p1.getSecond())
 								.append(p2.getSecond())
-								.deduplicate();
+								.distinct();
 						
 						resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, causes));
 						
@@ -197,7 +197,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				for(int j = i+1; j < list.size(); j++) {
 					Pair<BlockedType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2 = list.get(j);
 					
-					Processable<SimpleCorrespondence<CorrespondenceType>> causes = new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).deduplicate();
+					Processable<SimpleCorrespondence<CorrespondenceType>> causes = new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 					
 					collector.next(new Correspondence<>(p1.getFirst(), p2.getFirst(), 1.0, causes));
 				}
