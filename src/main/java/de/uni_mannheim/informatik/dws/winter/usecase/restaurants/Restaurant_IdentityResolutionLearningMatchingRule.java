@@ -15,23 +15,19 @@
  * limitations under the License.
  *
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.LearningMatchingRules;
+package de.uni_mannheim.informatik.dws.winter.usecase.restaurants;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.Restaurant.Restaurant;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.RecordBlockingKeyGenerator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -42,9 +38,14 @@ import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.XMLRecordReader;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorEqual;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseJaccard;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
 /**
  * //TODO Change Comments
@@ -86,25 +87,25 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.NAME, Restaurant.NAME));
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.NAME, Restaurant.NAME));
+		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true));
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.ADDRESS, Restaurant.ADDRESS));
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS));
+		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS, 0.3, true));
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.PHONE, Restaurant.PHONE));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.PHONE, Restaurant.PHONE));
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.PHONE, Restaurant.PHONE));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.PHONE, Restaurant.PHONE));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.PHONE, Restaurant.PHONE));
+		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.PHONE, Restaurant.PHONE, 0.3, true));
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.STYLE, Restaurant.STYLE));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.STYLE, Restaurant.STYLE));
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.STYLE, Restaurant.STYLE));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.STYLE, Restaurant.STYLE));
+		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true));
 		
 
 		// create a blocker (blocking strategy)

@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.LearningMatchingRules;
+package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,9 +31,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.FilteringMatchingRule;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;

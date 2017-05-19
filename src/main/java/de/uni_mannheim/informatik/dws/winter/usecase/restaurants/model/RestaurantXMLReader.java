@@ -9,7 +9,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.Restaurant;
+package de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Node;
-
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;

@@ -10,9 +10,8 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution;
+package de.uni_mannheim.informatik.dws.winter.usecase.restaurants.identityresolution;
 
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.Restaurant.Restaurant;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.RecordBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
@@ -20,6 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
 /**
  * {@link BlockingKeyGenerator} for {@link Restaurant}s, which generates a blocking

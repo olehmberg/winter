@@ -9,8 +9,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution;
-
+package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
@@ -19,51 +18,43 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 
 /**
- * {@link Comparator} for {@link Record}s based on their
- *  values, and their
- * {@link TokenizingJaccardSimilarity} similarity, with a lower casing
- * beforehand.
+ * {@link Comparator} for {@link Record}s based on the
+ * {@link Attribute} values, and their
+ * {@link TokenizingJaccardSimilarity} similarity.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorLowerCaseJaccard extends RecordComparator {
-
-	public RecordComparatorLowerCaseJaccard(Attribute attributeRecord1, Attribute attributeRecord2) {
-		super(attributeRecord1, attributeRecord2);
-		// TODO Auto-generated constructor stub
-	}
+public class RecordComparatorJaccard extends RecordComparator {
 
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
+	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2) {
+		super(attributeRecord1, attributeRecord2);
+	}
+	
+
 	@Override
 	public double compare(Record record1, Record record2, SimpleCorrespondence<Attribute> schemaCorrespondence) {
 		// preprocessing
-				String s1 = record1.getValue(this.getAttributeRecord1());
-				if (s1 != null) {
-					s1 = s1.toLowerCase();
-				} else {
-					s1 = "";
-				}
-				String s2 = record2.getValue(this.getAttributeRecord2());
-				if (s2 != null) {
-					s2 = s2.toLowerCase();
-				} else {
-					s2 = "";
-				}
+		String s1 = record1.getValue(this.getAttributeRecord1());
+		String s2 = record2.getValue(this.getAttributeRecord2());
+			
+		// calculate similarity
+		double similarity = sim.calculate(s1, s2);
 
-				// calculate similarity
-				double similarity = sim.calculate(s1, s2);
+		// postprocessing
+		if (similarity <= 0.3) {
+			similarity = 0;
+		}
 
-				// postprocessing
-				if (similarity <= 0.3) {
-					similarity = 0;
-				}
-
-				similarity *= similarity;
-
-				return similarity;
+		similarity *= similarity;
+		
+		return similarity;
 	}
+
+
+
 
 }

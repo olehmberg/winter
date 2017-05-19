@@ -9,7 +9,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.LearningMatchingRules;
+package de.uni_mannheim.informatik.dws.winter.usecase.restaurants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,11 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.IdentityResolution.RecordComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.DataIntegration.Restaurant.Restaurant;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
@@ -38,9 +33,12 @@ import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.XMLRecordReader;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
 
 /**

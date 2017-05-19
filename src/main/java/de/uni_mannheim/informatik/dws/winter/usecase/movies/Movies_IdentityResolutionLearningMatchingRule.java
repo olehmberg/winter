@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-package de.uni_mannheim.informatik.dws.winter.DataIntegration.LearningMatchingRules;
+package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
@@ -53,7 +54,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  * 
  */
-public class Movies_IdentityResolutionLearningMatchingRule_Main {
+public class Movies_IdentityResolutionLearningMatchingRule {
 
 	public static void main(String[] args) throws Exception {
 		// loading data
