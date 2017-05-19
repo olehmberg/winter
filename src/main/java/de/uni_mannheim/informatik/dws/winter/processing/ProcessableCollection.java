@@ -85,10 +85,6 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		elements.removeAll(element);
 	}
 	
-	public Processable<RecordType> deduplicate() {
-		return new ProcessableCollection<>(new ArrayList<>(new HashSet<>(elements)));
-	}
-	
 	public RecordType firstOrNull() {
 		Collection<RecordType> data = get();
 		if(data==null || data.size()==0) {

@@ -119,6 +119,6 @@ public abstract class Blocker<RecordType extends Matchable, BlockedType extends 
 	protected Processable<SimpleCorrespondence<CorrespondenceType>> createCausalCorrespondences(
 			Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1,
 			Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2) {
-		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).deduplicate();
+		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 	}
 }

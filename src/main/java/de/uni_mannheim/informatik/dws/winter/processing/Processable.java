@@ -52,7 +52,6 @@ public interface Processable<RecordType> extends Serializable {
 		
 	public void remove(RecordType element);
 	public void remove(Collection<RecordType> element);	
-	public Processable<RecordType> deduplicate();
 	
 	/**
 	 * 
