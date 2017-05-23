@@ -4,7 +4,6 @@ The WInte.r framework provides methods for end-to-end data integration. The fram
 
 ## Contents
 - [Functionality](#functionality)
-- [Wiki](../../wiki)
 - [Use cases](#use-cases)
 - [Contact](#contact)
 - [License](#license)
@@ -20,7 +19,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 
 **Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
 
-**Pre-processing**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialised pre-processing methods for tabular data, such as:
+**Pre-processing**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as:
 -	Data type detection
 -	Unit of measurement normalization
 -	Header detection
@@ -46,7 +45,7 @@ WInte.r can be used out-of-the-box to integrate data from multiple data sources.
 
 **Integration of Multiple Data Sources: Building a Movie Dataset**
 
-The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](http://dws.informatik.uni-mannheim.de/en/teaching/courses-for-master-candidates/ie670webdataintegration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of movie data from multiple Web data sources. In addition, student teams use the WInte.r famework to integrate data about different topics as part of the projects that they conduct during the course.
+The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](http://dws.informatik.uni-mannheim.de/en/teaching/courses-for-master-candidates/ie670webdataintegration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of movie data from multiple Web data sources. In addition, student teams use the WInte.r framework to integrate data about different topics as part of the projects that they conduct during the course.
 
 **Integration of Large Numbers of Data Sources: Augmenting the DBpedia Knowledge base with Web Table Data**
 
@@ -54,7 +53,7 @@ Many web sites provide data in the form of HTML tables. Millions of such data ta
 
 ## Contact
 
-If you have any questions, please refer to the [Wiki](/wiki/) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
+If you have any questions, please refer to the [Wiki](../../wiki) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
 
 ## License
 
