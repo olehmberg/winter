@@ -97,7 +97,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 				record2 = dataset1.getRecord(correspondence.getSecond());
 			}
 
-			Record features = rule.generateFeatures(record1, record2, Correspondence.simplify(schemaCorrespondences), result);
+			Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
 			features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "1");
 			result.add(features);
 
@@ -119,7 +119,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 				record2 = dataset1.getRecord(correspondence.getSecond());
 			}
 
-			Record features = rule.generateFeatures(record1, record2, Correspondence.simplify(schemaCorrespondences), result);
+			Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
 			features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "0");
 			result.add(features);
 

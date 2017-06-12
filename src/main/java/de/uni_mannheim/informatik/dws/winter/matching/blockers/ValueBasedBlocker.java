@@ -21,7 +21,6 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -31,7 +30,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.aggregators.Distribution
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 
 /**
- * Implementation of a {@link Blocker} based on values. 
+ * Implementation of a {@link AbstractBlocker} based on values. 
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
@@ -41,9 +40,9 @@ import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
  * @param <CorrespondenceType>
  */
 public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable>
-	extends Blocker<RecordType, BlockedType, MatchableValue>
-	implements CrossDataSetBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>,
-	SingleDataSetBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>
+	extends AbstractBlocker<RecordType, BlockedType, MatchableValue>
+	implements Blocker<RecordType, SchemaElementType, BlockedType, MatchableValue>,
+	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>
 {
 
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction;
@@ -74,25 +73,25 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	public Processable<Correspondence<BlockedType, MatchableValue>> runBlocking(
 			DataSet<RecordType, SchemaElementType> dataset1,
 			DataSet<RecordType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<MatchableValue>> schemaCorrespondences){
+			Processable<Correspondence<MatchableValue, Matchable>> schemaCorrespondences){
 
 		// combine the datasets with the schema correspondences
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<MatchableValue>>>> ds1 = combineDataWithCorrespondences(dataset1, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<MatchableValue>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getSecondRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<MatchableValue, Matchable>>>> ds1 = combineDataWithCorrespondences(dataset1, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<MatchableValue, Matchable>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getSecondRecord().getDataSourceIdentifier(),r)));
 	
 		// if we group the records by blocking key, we can obtain duplicates for BlockedType if it is different from RecordType and multiple records generated the same blocking key for BlockedType
 		// so we aggregate the results to get a unique set of BlockedType elements (using the DistributionAggregator)
 		
 		// create the blocking keys for the first data set
 		// results in pairs of [blocking key], [blocked type]
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>> grouped1 = 
-				ds1.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>() {
+		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped1 = 
+				ds1.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> getInnerKey(
-					Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> record) {
+			public Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> getInnerKey(
+					Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> record) {
 				// change the pairs such that they are considered equal if the first element is equal (ignoring the second element)
 				return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
 			}
@@ -100,14 +99,14 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		});
 
 		// create the blocking keys for the second data set
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>> grouped2 = 
-				ds2.aggregateRecords(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>() {
+		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped2 = 
+				ds2.aggregateRecords(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> getInnerKey(
-					Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> record) {
+			public Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> getInnerKey(
+					Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> record) {
 				// change the pairs such that they are considered equal if the first element is equal (ignoring the second element)
 				return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
 			}
@@ -116,35 +115,35 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	
 		// join the datasets via their blocking keys
 		Processable<Pair<
-		Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>,
-		Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>>> 
+		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>,
+		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>>> 
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
 		
 		// transform the blocks into pairs of records		
 		Processable<Correspondence<BlockedType, MatchableValue>> result = blockedData.transform(new RecordMapper<Pair<
-				Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>,
-				Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>>, 
+				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>,
+				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>>, 
 				Correspondence<BlockedType, MatchableValue>>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void mapRecord(
 					Pair<
-					Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>, 
-					Pair<String,Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>> record,
+					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>, 
+					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> record,
 					DatasetIterator<Correspondence<BlockedType, MatchableValue>> resultCollector) {
 				
-				Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>> dist1 = record.getFirst().getSecond();
+				Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist1 = record.getFirst().getSecond();
 				
 				// iterate over the left pairs [blocked element],[correspondences]
-				for(Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> p1 : dist1.getElements()){
+				for(Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p1 : dist1.getElements()){
 					
 					BlockedType record1 = p1.getFirst();
 					
-					Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>> dist2 = record.getSecond().getSecond();
+					Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist2 = record.getSecond().getSecond();
 					
 					// iterate over the right pairs [blocked element],[correspondences]
-					for(Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> p2 : dist2.getElements()){
+					for(Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p2 : dist2.getElements()){
 						
 						BlockedType record2 = p2.getFirst();
 						
@@ -153,13 +152,13 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 						// generate causes from the distribution: min number of occurrences for both records is the number of possible matches
 						// for simplicity, we just generate one cause with this number as similarity score
 						// alternatively, we could generate causes from p1.getSecond() and p2.getSecond()
-						Processable<SimpleCorrespondence<MatchableValue>> causes = new ProcessableCollection<>();
+						Processable<Correspondence<MatchableValue, Matchable>> causes = new ProcessableCollection<>();
 						// get the first cause from p1
-						SimpleCorrespondence<MatchableValue> c1 = p1.getSecond().firstOrNull();
+						Correspondence<MatchableValue, Matchable> c1 = p1.getSecond().firstOrNull();
 						// get the first cause from p2
-						SimpleCorrespondence<MatchableValue> c2 = p2.getSecond().firstOrNull();
+						Correspondence<MatchableValue, Matchable> c2 = p2.getSecond().firstOrNull();
 						
-						causes.add(new SimpleCorrespondence<MatchableValue>(c1.getFirstRecord(), c2.getFirstRecord(), matchCount));
+						causes.add(new Correspondence<MatchableValue, Matchable>(c1.getFirstRecord(), c2.getFirstRecord(), matchCount));
 						
 						resultCollector.next(new Correspondence<BlockedType, MatchableValue>(record1, record2, matchCount, causes));
 						
@@ -178,24 +177,23 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	@Override
 	public  Processable<Correspondence<BlockedType, MatchableValue>> runBlocking(
 			DataSet<RecordType, SchemaElementType> dataset,
-			boolean isSymmetric,
-			Processable<SimpleCorrespondence<MatchableValue>> schemaCorrespondences) {
+			Processable<Correspondence<MatchableValue, Matchable>> schemaCorrespondences) {
 
 		// combine the datasets with the schema correspondences
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<MatchableValue>>>> ds = combineDataWithCorrespondences(dataset, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<MatchableValue, Matchable>>>> ds = combineDataWithCorrespondences(dataset, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
 		
 		// if we group the records by blocking key, we can obtain duplicates for BlockedType if it is different from RecordType and multiple records generated the same blocking key for BlockedType
 		// so we aggregate the results to get a unique set of BlockedType elements (using the DistributionAggregator)
 		
 		// group all records by their blocking keys
 //		Result<Group<String, Pair<BlockedType, Result<SimpleCorrespondence<CorrespondenceType>>>>> grouped = engine.groupRecords(ds, blockingFunction);		
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>>> grouped = ds.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>, Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>>() {
+		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped = ds.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> getInnerKey(
-					Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> record) {
+			public Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> getInnerKey(
+					Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> record) {
 				// change the pairs such that they are considered equal if the first element is equal (ignoring the second element)
 				return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
 			}
@@ -205,21 +203,21 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		Processable<Correspondence<BlockedType, MatchableValue>> blocked = grouped.transform((g, collector) ->
 		{
 			
-			Distribution<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>> dist = g.getSecond();
+			Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist = g.getSecond();
 			
-			List<Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>>> list = new ArrayList<>(g.getSecond().getElements());
+			List<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> list = new ArrayList<>(g.getSecond().getElements());
 			
 			for(int i = 0; i < list.size(); i++) {
-				Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> p1 = list.get(i);
+				Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p1 = list.get(i);
 				for(int j = i+1; j < list.size(); j++) {
-					Pair<BlockedType, Processable<SimpleCorrespondence<MatchableValue>>> p2 = list.get(j);
+					Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p2 = list.get(j);
 					
 					double matchCount = dist.getFrequency(p1);
 					
-					Processable<SimpleCorrespondence<MatchableValue>> causes = new ProcessableCollection<>();
+					Processable<Correspondence<MatchableValue, Matchable>> causes = new ProcessableCollection<>();
 					// we simply use the first cause and change the similarity value into the match count
-					SimpleCorrespondence<MatchableValue> c = p1.getSecond().firstOrNull();
-					SimpleCorrespondence<MatchableValue> cause = new SimpleCorrespondence<>(c.getFirstRecord(), c.getSecondRecord(), matchCount);
+					Correspondence<MatchableValue, Matchable> c = p1.getSecond().firstOrNull();
+					Correspondence<MatchableValue, Matchable> cause = new Correspondence<>(c.getFirstRecord(), c.getSecondRecord(), matchCount);
 					causes.add(cause);
 					
 					collector.next(new Correspondence<>(p1.getFirst(), p2.getFirst(), matchCount, causes));

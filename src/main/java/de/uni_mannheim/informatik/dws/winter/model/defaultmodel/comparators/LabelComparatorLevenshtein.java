@@ -12,7 +12,8 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
@@ -34,7 +35,7 @@ public class LabelComparatorLevenshtein implements Comparator<Attribute, Record>
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
-	public double compare(Attribute record1, Attribute record2, SimpleCorrespondence<Record> schemaCorrespondence) {
+	public double compare(Attribute record1, Attribute record2, Correspondence<Record, Matchable> schemaCorrespondence) {
 		return similarity.calculate(record1.getName(), record2.getName());
 	}
 

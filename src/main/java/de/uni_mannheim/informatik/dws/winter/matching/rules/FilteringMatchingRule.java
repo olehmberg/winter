@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
@@ -58,5 +57,5 @@ public abstract class FilteringMatchingRule<RecordType extends Matchable, Schema
 	 * @return the correspondence between the first and the second records
 	 */
 	public abstract Correspondence<RecordType, SchemaElementType> apply(RecordType record1,
-			RecordType record2, Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences); 
+			RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences); 
 }

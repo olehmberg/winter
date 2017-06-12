@@ -21,12 +21,11 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
 /**
- * Implementation of the Sorted-Neighbourhood {@link Blocker}, which based on
+ * Implementation of the Sorted-Neighbourhood {@link AbstractBlocker}, which based on
  * the blocking key of the {@link BlockingKeyGenerator} compares only the
  * surrounding {@link AbstractRecord}s.
  * 
@@ -39,9 +38,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
  * @param <RecordType>
  */
 public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable> 
-	extends Blocker<RecordType, SchemaElementType, CorrespondenceType>
-	implements CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType>,
-	SingleDataSetBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType>
+	extends AbstractBlocker<RecordType, SchemaElementType, CorrespondenceType>
+	implements Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType>,
+	SymmetricBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType>
 {
 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, RecordType> blockingFunction;
@@ -58,15 +57,14 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 	 */
 	@Override
 	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(
-			DataSet<RecordType, SchemaElementType> dataset, boolean isSymmetric,
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences) {
+			DataSet<RecordType, SchemaElementType> dataset, Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 		Processable<Correspondence<RecordType, CorrespondenceType>> result = new ProcessableCollection<>();
 
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> ds = combineDataWithCorrespondences(dataset, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds = combineDataWithCorrespondences(dataset, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
 		
 		// add all instances to one list, and compute the keys
-		Processable<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> blockingKeys = ds.transform(blockingFunction);
-		ArrayList<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>(blockingKeys.get());
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blockingKeys = ds.transform(blockingFunction);
+		ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>(blockingKeys.get());
 //		for (RecordType record : dataset.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction
 //					.getBlockingKey(record), record));
@@ -74,36 +72,23 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 		
 		
 		// sort the list by the keys
-		Comparator<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> pairComparator = new Comparator<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>() {
+		Comparator<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> pairComparator = new Comparator<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>() {
 
 			@Override
-			public int compare(Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> o1,
-					Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> o2) {
+			public int compare(Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> o1,
+					Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> o2) {
 				return o1.getFirst().compareTo(o2.getFirst());
 			}
 
 		};
 		Collections.sort(keyIdentifierList, pairComparator);
-		if (isSymmetric) {
-			for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
-				Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1 = keyIdentifierList.get(i).getSecond();
-				for (int j = i + 1; ((j - i) < windowSize)
-						&& (j < keyIdentifierList.size()); j++) {
-					Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2 = keyIdentifierList.get(j).getSecond();
-					
-					result.add(new Correspondence<RecordType, CorrespondenceType>(p1.getFirst(),p2.getFirst(), 1.0, createCausalCorrespondences(p1, p2)));
-				}
-			}
-		} else {
-			for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
-				Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1 = keyIdentifierList.get(i).getSecond();
-				for (int j = Math.max(0, i - windowSize + 1); ((j - i) < windowSize)
-						&& (j < keyIdentifierList.size()); j++) {
-					Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2 = keyIdentifierList.get(j).getSecond();
-					
-					result.add(new Correspondence<RecordType, CorrespondenceType>(p1.getFirst(),
-							p2.getFirst(), 1.0, createCausalCorrespondences(p1, p2)));
-				}
+		for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
+			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1 = keyIdentifierList.get(i).getSecond();
+			for (int j = i + 1; ((j - i) < windowSize)
+					&& (j < keyIdentifierList.size()); j++) {
+				Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2 = keyIdentifierList.get(j).getSecond();
+				
+				result.add(new Correspondence<RecordType, CorrespondenceType>(p1.getFirst(),p2.getFirst(), 1.0, createCausalCorrespondences(p1, p2)));
 			}
 		}
 
@@ -117,31 +102,31 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 	@Override
 	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(
 			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences) {
+			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 		Processable<Correspondence<RecordType, CorrespondenceType>> result = new ProcessableCollection<>();
 
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> ds1 = combineDataWithCorrespondences(dataset1, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
-		Processable<Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds1 = combineDataWithCorrespondences(dataset1, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
+		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
 		
 		// add all instances to one list, and compute the keys
-		Processable<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> blocked1 = ds1.transform(blockingFunction);
-		ArrayList<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>(blocked1.get());
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked1 = ds1.transform(blockingFunction);
+		ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>(blocked1.get());
 //		for (RecordType record : dataset1.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction
 //					.getBlockingKey(record), record));
 //		}
-		Processable<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> blocked2 = ds2.transform(blockingFunction);
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked2 = ds2.transform(blockingFunction);
 		keyIdentifierList.addAll(blocked2.get());
 //		for (RecordType record : dataset2.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction
 //					.getBlockingKey(record), record));
 //		}
 		// sort the list by the keys
-		Comparator<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>> pairComparator = new Comparator<Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>>>() {
+		Comparator<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> pairComparator = new Comparator<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>() {
 
 			@Override
-			public int compare(Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> o1,
-					Pair<String, Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> o2) {
+			public int compare(Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> o1,
+					Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> o2) {
 				return o1.getFirst().compareTo(o2.getFirst());
 			}
 
@@ -149,7 +134,7 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 		Collections.sort(keyIdentifierList, pairComparator);
 
 		for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
-			Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1 = keyIdentifierList.get(i).getSecond();
+			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1 = keyIdentifierList.get(i).getSecond();
 			
 			// make sure r1 belongs to dataset1
 			if(dataset1.getRecord(p1.getFirst().getIdentifier())!=null) {
@@ -158,7 +143,7 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 				int j = i;
 				while ((counter < windowSize)
 						&& (j < (keyIdentifierList.size() - 1))) {
-					Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2 = keyIdentifierList.get(++j).getSecond();
+					Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2 = keyIdentifierList.get(++j).getSecond();
 					// check if they belong *not* to the same dataset
 					if (!p2.getFirst().getProvenance().equals(p1.getFirst().getProvenance())) {
 						result.add(new Correspondence<RecordType, CorrespondenceType>(p1.getFirst(), p2.getFirst(), 1.0, createCausalCorrespondences(p1, p2)));

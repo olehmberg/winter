@@ -19,8 +19,8 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedReco
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -56,7 +56,7 @@ public class Movies_SimpleIdentityResolution {
 		// print results
 		for(Correspondence<Record, MatchableValue> cor : correspondences.get()) {
 			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
-			for(SimpleCorrespondence<MatchableValue> cause : cor.getCausalCorrespondences().get()) {
+			for(Correspondence<MatchableValue, Matchable> cause : cor.getCausalCorrespondences().get()) {
 				System.out.print(String.format("%s (%.0f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 			}
 			System.out.println();

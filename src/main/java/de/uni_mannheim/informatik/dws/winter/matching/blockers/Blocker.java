@@ -12,113 +12,41 @@
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
-import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
-import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 
 /**
- * The super class for all blocking strategies. The generation of pairs
- * based on the {@link Blocker} can be executed for one dataset, by implementing {@link SingleDataSetBlocker} or for two
- * datasets, by implementing {@link CrossDataSetBlocker}
- * resolution.
+ * 
+ * Interface for a blocker that generates pairs of records from two data sets
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
- * @author Robert Meusel (robert@dwslab.de)
- * 
+ *
  * @param <RecordType>
  * 			The type of Records in the input dataset(s)
+ * @param <SchemaElementType>
+ * 			The type of Schema Elements in the input dataset(s)
  * @param <BlockedType>
  * 			The type of Records in the Correspondences (Pairs) that are the result of the blocking
  * @param <CorrespondenceType>
  * 			The type of Records in the causes of the Correspondences (Pairs) that are the result of the blocking
  */
-public abstract class Blocker<RecordType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable>
-{
-
-	private double reductionRatio = 1.0;
+public interface Blocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> {
 
 	/**
-	 * Returns the reduction ratio of the last blocking operation. Only
-	 * available after calculatePerformance(...) has been called.
-	 * 
-	 * @return the reduction ratio
-	 */
-	public double getReductionRatio() {
-		return reductionRatio;
-	}
-	
-	private Processable<Correspondence<BlockedType, CorrespondenceType>> result;
-	/**
-	 * @param result the result to set
-	 */
-	protected void setResult(Processable<Correspondence<BlockedType, CorrespondenceType>> result) {
-		this.result = result;
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @return Returns the result of the blocking operation.
-	 */
-	public Processable<Correspondence<BlockedType, CorrespondenceType>> getBlockedPairs() {
-		return result;
-	}
-	
-	/**
-	 * Calculates the reduction ratio. Must be called by all sub classes in
-	 * generatePairs(...).
-	 * 
+	 * Gives the possible candidates for the correspondences between the first and second data sets.
 	 * @param dataset1
-	 *            the first data set (must not be null)
+	 * 			the first data set (must not be null)
 	 * @param dataset2
-	 *            the second data set (must not be null)
-	 * @param blocked
-	 *            the list of pairs that resulted from the blocking (must not be null)
+	 * 			the second data set (must not be null)
+	 * @param schemaCorrespondences
+	 * 			schema correspondences between the first and second data sets (must not be null)
+	 * @return the blocked pairs between the first and second data sets.
 	 */
-	protected void calculatePerformance(Processable<? extends Matchable> dataset1,
-			Processable<? extends Matchable> dataset2,
-			Processable<? extends Correspondence<? extends Matchable, ? extends Matchable>> blocked) {
-		long size1 = (long) dataset1.size();
-		long size2 = (long) dataset2.size();
-		long maxPairs = size1 * size2;
-
-		reductionRatio = 1.0 - ((double)blocked.size() / (double)maxPairs);
-	}
+	Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
+			DataSet<RecordType, SchemaElementType> dataset1, 
+			DataSet<RecordType, SchemaElementType> dataset2, 
+			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences);
 	
-	public 
-	Processable<Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>>> 
-	combineDataWithCorrespondences(
-			Processable<RecordType> dataset1, 
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences,
-			RecordKeyValueMapper<Object, SimpleCorrespondence<CorrespondenceType>, SimpleCorrespondence<CorrespondenceType>> correspondenceJoinKey) {
-		
-		if(schemaCorrespondences!=null) {
-			// group the schema correspondences by data source (if no data sources are defined, all schema correspondences are used)
-			Processable<Group<Object, SimpleCorrespondence<CorrespondenceType>>> leftCors = schemaCorrespondences.groupRecords(correspondenceJoinKey);
-	
-			// join the dataset with the correspondences
-			Processable<Pair<RecordType, Group<Object, SimpleCorrespondence<CorrespondenceType>>>> joined = dataset1.leftJoin(leftCors, (r)->r.getDataSourceIdentifier(), (r)->r.getKey());
-			
-			return joined.transform((p,c)-> {
-				if(p.getSecond()!=null) {
-					c.next(new Pair<>(p.getFirst(), p.getSecond().getRecords()));
-				} else {
-					c.next(new Pair<>(p.getFirst(), null));
-				}
-				
-			});
-		} else {
-			return dataset1.transform((r,c)->c.next(new Pair<>(r,null)));
-		}
-	}
-	
-	protected Processable<SimpleCorrespondence<CorrespondenceType>> createCausalCorrespondences(
-			Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p1,
-			Pair<RecordType, Processable<SimpleCorrespondence<CorrespondenceType>>> p2) {
-		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
-	}
+	double getReductionRatio();
 }

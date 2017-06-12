@@ -14,12 +14,11 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
  * 
- * Interface for a blocker that generates pairs of records from two data sets
+ * Interface for a blocker that generates pairs of records from a single data set
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
@@ -32,22 +31,13 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @param <CorrespondenceType>
  * 			The type of Records in the causes of the Correspondences (Pairs) that are the result of the blocking
  */
-public interface CrossDataSetBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> {
+public interface SymmetricBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> {
 
-	/**
-	 * Gives the possible candidates for the correspondences between the first and second data sets.
-	 * @param dataset1
-	 * 			the first data set (must not be null)
-	 * @param dataset2
-	 * 			the second data set (must not be null)
-	 * @param schemaCorrespondences
-	 * 			schema correspondences between the first and second data sets (must not be null)
-	 * @return the blocked pairs between the first and second data sets.
-	 */
-	Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
-			DataSet<RecordType, SchemaElementType> dataset1, 
-			DataSet<RecordType, SchemaElementType> dataset2, 
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences);
-	
 	double getReductionRatio();
+	
+	Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
+			DataSet<RecordType, SchemaElementType> dataset, 
+			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences);
+	
+	
 }

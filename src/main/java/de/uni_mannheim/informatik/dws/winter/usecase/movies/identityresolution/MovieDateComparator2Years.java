@@ -12,7 +12,8 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.similarity.date.YearSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -34,7 +35,7 @@ public class MovieDateComparator2Years implements Comparator<Movie, Attribute> {
 	public double compare(
 			Movie record1,
 			Movie record2,
-			SimpleCorrespondence<Attribute> schemaCorrespondences) {
+			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		double similarity = sim.calculate(record1.getDate(), record2.getDate());
 
 		return similarity * similarity;

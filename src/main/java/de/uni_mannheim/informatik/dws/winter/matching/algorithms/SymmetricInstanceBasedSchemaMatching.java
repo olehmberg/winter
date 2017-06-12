@@ -9,10 +9,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
+
+
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.IdentityMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -23,45 +25,34 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
  * 
- * Implementation of instance-based schema matching: the schemas are matched by comparing the values of the schema elements.
- * 
- * A blocker is used to determine the values for the schema elements, an aggregator calculates a similarity score based on the value overlap.
+ * A variant of the {@link InstanceBasedSchemaMatchingAlgorithm} that uses only a single input dataset.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
+ * @param <RecordType>
+ * @param <SchemaElementType>
  */
-public class SimpleIdentityResolutionAlgorithm<RecordType extends Matchable, SchemaElementType extends Matchable> 
-	implements MatchingAlgorithm<RecordType, MatchableValue> {
+public class SymmetricInstanceBasedSchemaMatching<RecordType extends Matchable, SchemaElementType extends Matchable> implements MatchingAlgorithm<SchemaElementType, MatchableValue> {
 
-	public SimpleIdentityResolutionAlgorithm(DataSet<RecordType, SchemaElementType> dataset1,
-			DataSet<RecordType, SchemaElementType> dataset2,
-			Blocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
-			CorrespondenceAggregator<RecordType, MatchableValue> aggregator) {
-		this.dataset1 = dataset1;
-		this.dataset2 = dataset2;
+	public SymmetricInstanceBasedSchemaMatching(DataSet<RecordType, SchemaElementType> dataset,
+			SymmetricBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
+			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
+		this.dataset = dataset;
 		this.blocker = blocker;
 		this.aggregator = aggregator;
 	}
 	
-	DataSet<RecordType, SchemaElementType> dataset1;
-	DataSet<RecordType, SchemaElementType> dataset2;
-	Blocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker;
-	CorrespondenceAggregator<RecordType, MatchableValue> aggregator;
-	Processable<Correspondence<RecordType, MatchableValue>> result;
+	DataSet<RecordType, SchemaElementType> dataset;
+	SymmetricBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker;
+	CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator;
+	Processable<Correspondence<SchemaElementType, MatchableValue>> result;
 	
 	/**
 	 * @return the dataset1
 	 */
-	public DataSet<RecordType, SchemaElementType> getDataset1() {
-		return dataset1;
+	public DataSet<RecordType, SchemaElementType> getDataset() {
+		return dataset;
 	}
-	/**
-	 * @return the dataset2
-	 */
-	public DataSet<RecordType, SchemaElementType> getDataset2() {
-		return dataset2;
-	}
-	
 	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.matching.algorithms.MatchingAlgorithm#run()
@@ -69,13 +60,13 @@ public class SimpleIdentityResolutionAlgorithm<RecordType extends Matchable, Sch
 	@Override
 	public void run() {
 		// run the blocker to generate initial correspondences between the schema elements 
-		Processable<Correspondence<RecordType, MatchableValue>> blocked = blocker.runBlocking(getDataset1(), getDataset2(), null);
+		Processable<Correspondence<SchemaElementType, MatchableValue>> blocked = blocker.runBlocking(getDataset(), null);
 		
 		// aggregate the correspondences to calculate a similarity score
-		Processable<Pair<Pair<RecordType, RecordType>, Correspondence<RecordType, MatchableValue>>> aggregated = blocked.aggregateRecords(new IdentityMatchingRule<RecordType, MatchableValue>(0.0), aggregator);
+		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, MatchableValue>>> aggregated = blocked.aggregateRecords(new IdentityMatchingRule<SchemaElementType, MatchableValue>(0.0), aggregator);
 		
 		// transform the result to the expected correspondence format
-		Processable<Correspondence<RecordType, MatchableValue>> result = aggregated.transform((p, collector) -> {
+		Processable<Correspondence<SchemaElementType, MatchableValue>> result = aggregated.transform((p, collector) -> {
 			if(p.getSecond()!=null)
 			{
 				collector.next(p.getSecond());
@@ -88,7 +79,7 @@ public class SimpleIdentityResolutionAlgorithm<RecordType extends Matchable, Sch
 	/**
 	 * @param result the result to set
 	 */
-	public void setResult(Processable<Correspondence<RecordType, MatchableValue>> result) {
+	public void setResult(Processable<Correspondence<SchemaElementType, MatchableValue>> result) {
 		this.result = result;
 	}
 	
@@ -96,7 +87,7 @@ public class SimpleIdentityResolutionAlgorithm<RecordType extends Matchable, Sch
 	 * @see de.uni_mannheim.informatik.wdi.matching.algorithms.MatchingAlgorithm#getResult()
 	 */
 	@Override
-	public Processable<Correspondence<RecordType, MatchableValue>> getResult() {
+	public Processable<Correspondence<SchemaElementType, MatchableValue>> getResult() {
 		return result;
 	}
 

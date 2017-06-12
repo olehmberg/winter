@@ -19,8 +19,8 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedSche
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -59,7 +59,7 @@ public class Movies_InstanceBasedSchemaMatching {
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
 			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
 			if(cor.getCausalCorrespondences()!=null) {
-				for(SimpleCorrespondence<MatchableValue> cause : cor.getCausalCorrespondences().get()) {
+				for(Correspondence<MatchableValue, Matchable> cause : cor.getCausalCorrespondences().get()) {
 					System.out.print(String.format("%s (%.0f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 				}
 				System.out.println();

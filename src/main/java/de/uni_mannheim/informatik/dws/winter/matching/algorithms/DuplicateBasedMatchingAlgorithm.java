@@ -16,13 +16,12 @@ import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.CrossDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
@@ -37,11 +36,11 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 
 	private DataSet<SchemaElementType, SchemaElementType> dataset1; 
 	private DataSet<SchemaElementType, SchemaElementType> dataset2;
-	private Processable<SimpleCorrespondence<RecordType>> correspondences;
+	private Processable<Correspondence<RecordType, Matchable>> correspondences;
 	private VotingMatchingRule<SchemaElementType, RecordType> rule;
 	private TopKVotesAggregator<SchemaElementType, RecordType> voteFilter;
 	private CorrespondenceAggregator<SchemaElementType, RecordType> voting;
-	private CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker;
+	private Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker;
 	private Processable<Correspondence<SchemaElementType, RecordType>> result;
 
 	/**
@@ -63,10 +62,10 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	 */
 	public DuplicateBasedMatchingAlgorithm(DataSet<SchemaElementType, SchemaElementType> dataset1,
 			DataSet<SchemaElementType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<RecordType>> instanceCorrespondences,
+			Processable<Correspondence<RecordType, Matchable>> instanceCorrespondences,
 			VotingMatchingRule<SchemaElementType, RecordType> rule,
 			CorrespondenceAggregator<SchemaElementType, RecordType> voting,
-			CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
+			Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
 		super();
 		this.dataset1 = dataset1;
 		this.dataset2 = dataset2;
@@ -97,11 +96,11 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	 */
 	public DuplicateBasedMatchingAlgorithm(DataSet<SchemaElementType, SchemaElementType> dataset1,
 			DataSet<SchemaElementType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<RecordType>> instanceCorrespondences,
+			Processable<Correspondence<RecordType, Matchable>> instanceCorrespondences,
 			VotingMatchingRule<SchemaElementType, RecordType> rule,
 			TopKVotesAggregator<SchemaElementType, RecordType> voteFilter,
 			CorrespondenceAggregator<SchemaElementType, RecordType> voting,
-			CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
+			Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
 		super();
 		this.dataset1 = dataset1;
 		this.dataset2 = dataset2;
@@ -118,14 +117,14 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	public DataSet<SchemaElementType, SchemaElementType> getDataset2() {
 		return dataset2;
 	}
-	public Processable<SimpleCorrespondence<RecordType>> getCorrespondences() {
+	public Processable<Correspondence<RecordType, Matchable>> getCorrespondences() {
 		return correspondences;
 	}
 	public VotingMatchingRule<SchemaElementType, RecordType> getRule() {
 		return rule;
 	}
 
-	public CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> getBlocker() {
+	public Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> getBlocker() {
 		return blocker;
 	}
 	
@@ -134,7 +133,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		return result;
 	}
 	
-	public Processable<Correspondence<SchemaElementType, RecordType>> runBlocking(DataSet<SchemaElementType, SchemaElementType> dataset1, DataSet<SchemaElementType, SchemaElementType> dataset2, Processable<SimpleCorrespondence<RecordType>> correspondences) {
+	public Processable<Correspondence<SchemaElementType, RecordType>> runBlocking(DataSet<SchemaElementType, SchemaElementType> dataset1, DataSet<SchemaElementType, SchemaElementType> dataset2, Processable<Correspondence<RecordType, Matchable>> correspondences) {
 		return getBlocker().runBlocking(getDataset1(), getDataset2(), getCorrespondences());
 	}
 	
@@ -151,7 +150,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
 		// run the blocking
-		Processable<Correspondence<SchemaElementType, RecordType>> blocked = runBlocking(getDataset1(), getDataset2(), getCorrespondences());
+		Processable<Correspondence<SchemaElementType, RecordType>> blocked = runBlocking(getDataset1(), getDataset2(), Correspondence.toMatchable(getCorrespondences()));
 		
 		System.out
 		.println(String
@@ -170,7 +169,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 			
 			Processable<Pair<Pair<SchemaElementType, RecordType>, Processable<Correspondence<SchemaElementType, RecordType>>>> filteredVotes = votes.aggregateRecords((r,c) -> 
 			{
-				SimpleCorrespondence<RecordType> cause = Q.firstOrDefault(r.getCausalCorrespondences().get());
+				Correspondence<RecordType, Matchable> cause = Q.firstOrDefault(r.getCausalCorrespondences().get());
 				if(cause!=null) {
 					c.next(new Pair<Pair<SchemaElementType, RecordType>, Correspondence<SchemaElementType, RecordType>>(
 							new Pair<SchemaElementType, RecordType>(r.getFirstRecord(), cause.getFirstRecord()),

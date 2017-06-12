@@ -19,7 +19,6 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -102,7 +101,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2, Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences) {
+	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
 		double similarity = compare(record1, record2, null);
 
@@ -118,7 +117,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 */
 	@Override
 	public double compare(RecordType record1, RecordType record2,
-			SimpleCorrespondence<SchemaElementType> schemaCorrespondence) {
+			Correspondence<SchemaElementType, Matchable> schemaCorrespondence) {
 		double sum = 0.0;
 		double wSum = 0.0;
 		for (int i = 0; i < comparators.size(); i++) {
@@ -136,7 +135,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 	
 	@Override
-	public Record generateFeatures(RecordType record1, RecordType record2, Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences, FeatureVectorDataSet features) {
+	public Record generateFeatures(RecordType record1, RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, FeatureVectorDataSet features) {
 		Record model = new Record(String.format("%s-%s",
 				record1.getIdentifier(), record2.getIdentifier()), this
 				.getClass().getSimpleName());

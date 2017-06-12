@@ -17,7 +17,6 @@ import java.util.Iterator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -35,9 +34,9 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
  * @param <CorrespondenceType>
  */
 public class CorrespondenceCombiningBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> 
-	extends Blocker<RecordType, BlockedType, CorrespondenceType>
-	implements CrossDataSetBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType>,
-	SingleDataSetBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType>
+	extends AbstractBlocker<RecordType, BlockedType, CorrespondenceType>
+	implements Blocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType>,
+	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType>
 {
 
 	private boolean createCorrespondencesWithIdenticalDataSource = true;
@@ -70,8 +69,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 	 */
 	@Override
 	public Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
-			DataSet<RecordType, SchemaElementType> dataset, boolean isSymmetric,
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences) {
+			DataSet<RecordType, SchemaElementType> dataset, Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 		
 		Processable<Correspondence<BlockedType, CorrespondenceType>> result;
 		
@@ -85,15 +83,15 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 				(c) -> Q.toSet(c.getFirstRecord().getDataSourceIdentifier(), c.getSecondRecord().getDataSourceIdentifier()),
 				(p, c) -> {
 					// collect all schema correspondences
-					Processable<SimpleCorrespondence<CorrespondenceType>> causes = new ProcessableCollection<>();
-					Iterator<SimpleCorrespondence<CorrespondenceType>> it = p.getSecond().iterator();
+					Processable<Correspondence<CorrespondenceType, Matchable>> causes = new ProcessableCollection<>();
+					Iterator<Correspondence<CorrespondenceType, Matchable>> it = p.getSecond().iterator();
 					while(it.hasNext()) {
 						causes.add(it.next());
 					}
 					// create a correspondence for each record pair
 					for(Correspondence<BlockedType, CorrespondenceType> pair : p.getFirst()) {
 						
-						if(createCorrespondencesWithIdenticalDataSource || !pair.getFirstRecord().getDataSourceIdentifier().equals(pair.getSecondRecord().getDataSourceIdentifier())) {
+						if(createCorrespondencesWithIdenticalDataSource || pair.getFirstRecord().getDataSourceIdentifier()!=pair.getSecondRecord().getDataSourceIdentifier()) {
 							c.next(new Correspondence<BlockedType, CorrespondenceType>(pair.getFirstRecord(), pair.getSecondRecord(), 1.0, causes));
 						}
 					}					
@@ -101,7 +99,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 		} else {
 			// no schema correspondences available, so just produce the record pairs as output
 			result = correspondences.transform((p, collector) -> {
-				if(createCorrespondencesWithIdenticalDataSource || !p.getFirstRecord().getDataSourceIdentifier().equals(p.getSecondRecord().getDataSourceIdentifier())) {
+				if(createCorrespondencesWithIdenticalDataSource || p.getFirstRecord().getDataSourceIdentifier()!=p.getSecondRecord().getDataSourceIdentifier()) {
 					collector.next(new Correspondence<BlockedType, CorrespondenceType>(p.getFirstRecord(), p.getSecondRecord(), 1.0, null));
 				}
 			});	
@@ -120,7 +118,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 	@Override
 	public Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
 			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<CorrespondenceType>> schemaCorrespondences) {
+			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 		
 		Processable<Correspondence<BlockedType, CorrespondenceType>> result;
 		
@@ -134,14 +132,14 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 				(c) -> Q.toSet(c.getFirstRecord().getDataSourceIdentifier(), c.getSecondRecord().getDataSourceIdentifier()),
 				(p, c) -> {
 					// collect all schema correspondences
-					Processable<SimpleCorrespondence<CorrespondenceType>> causes = new ProcessableCollection<>();
-					Iterator<SimpleCorrespondence<CorrespondenceType>> it = p.getSecond().iterator();
+					Processable<Correspondence<CorrespondenceType, Matchable>> causes = new ProcessableCollection<>();
+					Iterator<Correspondence<CorrespondenceType, Matchable>> it = p.getSecond().iterator();
 					while(it.hasNext()) {
 						causes.add(it.next());
 					}
 					// create a correspondence for each record pair
 					for(Correspondence<BlockedType, CorrespondenceType> pair : p.getFirst()) {
-						if(createCorrespondencesWithIdenticalDataSource || !pair.getFirstRecord().getDataSourceIdentifier().equals(pair.getSecondRecord().getDataSourceIdentifier())) {
+						if(createCorrespondencesWithIdenticalDataSource || pair.getFirstRecord().getDataSourceIdentifier()!=pair.getSecondRecord().getDataSourceIdentifier()) {
 							c.next(new Correspondence<BlockedType, CorrespondenceType>(pair.getFirstRecord(), pair.getSecondRecord(), 1.0, causes));
 						}
 					}					
@@ -149,7 +147,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 		} else {
 			// no schema correspondences available, so just produce the record pairs as output
 			result = correspondences.transform((p, collector) -> {
-				if(createCorrespondencesWithIdenticalDataSource || !p.getFirstRecord().getDataSourceIdentifier().equals(p.getSecondRecord().getDataSourceIdentifier())) {
+				if(createCorrespondencesWithIdenticalDataSource || p.getFirstRecord().getDataSourceIdentifier()!=p.getSecondRecord().getDataSourceIdentifier()) {
 					collector.next(new Correspondence<BlockedType, CorrespondenceType>(p.getFirstRecord(), p.getSecondRecord(), 1.0, null));
 				}
 			});	

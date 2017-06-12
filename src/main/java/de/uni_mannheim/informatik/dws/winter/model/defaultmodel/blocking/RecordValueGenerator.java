@@ -12,10 +12,11 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
@@ -41,16 +42,16 @@ public class RecordValueGenerator extends BlockingKeyGenerator<Record, Matchable
 	 * @see de.uni_mannheim.informatik.wdi.matching.blocking.generators.BlockingKeyGenerator#mapRecordToKey(de.uni_mannheim.informatik.wdi.model.Pair, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void mapRecordToKey(Pair<Record, Processable<SimpleCorrespondence<MatchableValue>>> pair,
-			DatasetIterator<Pair<String, Pair<Record, Processable<SimpleCorrespondence<MatchableValue>>>>> resultCollector) {
+	public void mapRecordToKey(Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>> pair,
+			DatasetIterator<Pair<String, Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
 
 		Record record = pair.getFirst();
 		for(Attribute a : schema.get()) {
 			if(record.hasValue(a)) {
 				
-				Processable<SimpleCorrespondence<MatchableValue>> causes = new ProcessableCollection<>();
+				Processable<Correspondence<MatchableValue, Matchable>> causes = new ProcessableCollection<>();
 				MatchableValue value = new MatchableValue(record.getValue(a), record.getIdentifier(), a.getIdentifier());
-				SimpleCorrespondence<MatchableValue> causeCor = new SimpleCorrespondence<>(value, value, 1.0);
+				Correspondence<MatchableValue, Matchable> causeCor = new Correspondence<>(value, value, 1.0);
 				causes.add(causeCor);
 				
 				resultCollector.next(new Pair<>(value.getValue().toString(), new Pair<>(record, causes)));
@@ -63,7 +64,7 @@ public class RecordValueGenerator extends BlockingKeyGenerator<Record, Matchable
 	 * @see de.uni_mannheim.informatik.wdi.matching.blocking.generators.BlockingKeyGenerator#generateBlockingKeys(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Result, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void generateBlockingKeys(Record record, Processable<SimpleCorrespondence<MatchableValue>> correspondences,
+	public void generateBlockingKeys(Record record, Processable<Correspondence<MatchableValue, Matchable>> correspondences,
 			DatasetIterator<Pair<String, Record>> resultCollector) {
 		// not needed as we re-implement mapRecordToKey
 	}

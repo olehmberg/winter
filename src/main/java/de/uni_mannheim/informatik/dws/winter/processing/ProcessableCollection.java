@@ -85,6 +85,11 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		elements.removeAll(element);
 	}
 	
+	@Override
+	public Processable<RecordType> copy() {
+		return createProcessableFromCollection(get());
+	}
+	
 	public RecordType firstOrNull() {
 		Collection<RecordType> data = get();
 		if(data==null || data.size()==0) {

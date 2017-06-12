@@ -20,11 +20,11 @@ import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSc
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedDuplicateDetectionAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleIdentityResolutionAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.CrossDataSetBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedSchemaBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.SingleDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.FlattenAggregatedCorrespondencesRule;
@@ -66,20 +66,49 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * 
 	 * @param dataset
 	 *            The data set
-	 * @param symmetric
-	 *            indicates of the used {@link MatchingRule} is symmetric,
-	 *            meaning that the order of elements does not matter.
 	 * @param rule
 	 * 			  The {@link MatchingRule} that is used to compare the records. 
 	 * @return A list of correspondences
 	 */
 	public Processable<Correspondence<RecordType, SchemaElementType>> runDuplicateDetection(
 			DataSet<RecordType, SchemaElementType> dataset, 
-			boolean symmetric, 
-			MatchingRule<RecordType, SchemaElementType> rule,
-			SingleDataSetBlocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
+			MatchingRule<RecordType, SchemaElementType> rule, 
+			SymmetricBlocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
 
-		RuleBasedDuplicateDetectionAlgorithm<RecordType, SchemaElementType> algorithm = new RuleBasedDuplicateDetectionAlgorithm<>(dataset, rule, blocker, symmetric);
+		RuleBasedDuplicateDetectionAlgorithm<RecordType, SchemaElementType> algorithm = new RuleBasedDuplicateDetectionAlgorithm<>(dataset, rule, blocker);
+		algorithm.setTaskName("Duplicate Detection");
+		
+		algorithm.run();
+		
+		return algorithm.getResult();
+	}
+	
+	/**
+	 * Runs the Duplicate Detection on a given {@link DataSet} with additional schema correspondences. In order to
+	 * reduce the number of internally compared {@link AbstractRecord}s the functions
+	 * can be executed in a <i>symmetric</i>-mode. Here it will be assumed, that
+	 * that the {@link MatchingRule} is symmetric, meaning that score(a,b) =
+	 * score(b,a). Therefore the pair (b,a) can be omitted. Normally, this
+	 * option can be set to <b>true</b> in most of the cases, as most of the
+	 * common similarity functions (e.g. {@link LevenshteinSimilarity}, and
+	 * {@link TokenizingJaccardSimilarity}) are symmetric, meaning sim(a,b) =
+	 * sim(b,a).
+	 * 
+	 * @param dataset
+	 *            The data set
+	 * @param schemaCorrespondences
+	 * 			  The schema correspondences            
+	 * @param rule
+	 * 			  The {@link MatchingRule} that is used to compare the records. 
+	 * @return A list of correspondences
+	 */
+	public Processable<Correspondence<RecordType, SchemaElementType>> runDuplicateDetection(
+			DataSet<RecordType, SchemaElementType> dataset,
+			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
+			MatchingRule<RecordType, SchemaElementType> rule, 
+			SymmetricBlocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
+
+		RuleBasedDuplicateDetectionAlgorithm<RecordType, SchemaElementType> algorithm = new RuleBasedDuplicateDetectionAlgorithm<>(dataset, Correspondence.toMatchable(schemaCorrespondences), rule, blocker);
 		algorithm.setTaskName("Duplicate Detection");
 		
 		algorithm.run();
@@ -99,7 +128,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param rule
 	 * 			  The {@link MatchingRule} that is used to compare the records.
 	 * @param blocker
-	 * 			  The {@link Blocker} that generates the pairs, which are then checked by the {@link MatchingRule}.
+	 * 			  The {@link AbstractBlocker} that generates the pairs, which are then checked by the {@link MatchingRule}.
 	 * @return A list of correspondences
 	 */
 	public Processable<Correspondence<RecordType, SchemaElementType>> runIdentityResolution(
@@ -107,9 +136,9 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 			DataSet<RecordType, SchemaElementType> dataset2, 
 			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
 			MatchingRule<RecordType, SchemaElementType> rule,
-			CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
+			Blocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
 
-		RuleBasedMatchingAlgorithm<RecordType, SchemaElementType, SchemaElementType> algorithm = new RuleBasedMatchingAlgorithm<>(dataset1, dataset2, Correspondence.simplify(schemaCorrespondences), rule, blocker);
+		RuleBasedMatchingAlgorithm<RecordType, SchemaElementType, SchemaElementType> algorithm = new RuleBasedMatchingAlgorithm<>(dataset1, dataset2, Correspondence.toMatchable(schemaCorrespondences), rule, blocker);
 		algorithm.setTaskName("Identity Resolution");
 		
 		algorithm.run();
@@ -131,7 +160,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	public Processable<Correspondence<RecordType, MatchableValue>> runSimpleIdentityResolution(
 			DataSet<RecordType, SchemaElementType> dataset1, 
 			DataSet<RecordType, SchemaElementType> dataset2,
-			CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
+			Blocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
 			CorrespondenceAggregator<RecordType, MatchableValue> aggregator) {
 
 		SimpleIdentityResolutionAlgorithm<RecordType, SchemaElementType> algorithm = new SimpleIdentityResolutionAlgorithm<RecordType, SchemaElementType>(dataset1, dataset2, blocker, aggregator);
@@ -156,7 +185,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param rule
 	 * 			  The {@link MatchingRule} that is used to compare the records.
 	 * @param blocker
-	 * 			  The {@link Blocker} that generates the pairs, which are then checked by the {@link MatchingRule}.
+	 * 			  The {@link AbstractBlocker} that generates the pairs, which are then checked by the {@link MatchingRule}.
 	 * @return A list of correspondences
 	 */
 	public Processable<Correspondence<SchemaElementType, RecordType>> runSchemaMatching(
@@ -164,9 +193,9 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 			DataSet<SchemaElementType, SchemaElementType> schema2,
 			Processable<? extends Correspondence<RecordType, ?>> instanceCorrespondences,
 			MatchingRule<SchemaElementType, RecordType> rule,
-			CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker) {
+			Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker) {
 
-		RuleBasedMatchingAlgorithm<SchemaElementType, SchemaElementType, RecordType> algorithm = new RuleBasedMatchingAlgorithm<>(schema1, schema2, Correspondence.simplify(instanceCorrespondences), rule, blocker);
+		RuleBasedMatchingAlgorithm<SchemaElementType, SchemaElementType, RecordType> algorithm = new RuleBasedMatchingAlgorithm<>(schema1, schema2, Correspondence.toMatchable(instanceCorrespondences), rule, blocker);
 		algorithm.setTaskName("Schema Matching");
 		
 		algorithm.run();
@@ -191,18 +220,18 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * 			The discovered schema correspondences
 	 * @throws Exception
 	 */
-	public Processable<Correspondence<SchemaElementType, RecordType>> runLabelBasedSchemaMatching(
+	public Processable<Correspondence<SchemaElementType, SchemaElementType>> runLabelBasedSchemaMatching(
 			DataSet<SchemaElementType, SchemaElementType> schema1, 
 			DataSet<SchemaElementType, SchemaElementType> schema2,
-			Comparator<SchemaElementType, RecordType> labelComparator,
+			Comparator<SchemaElementType, SchemaElementType> labelComparator,
 			double similarityThreshold) throws Exception {
 
-		CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker = new NoSchemaBlocker<>();
+		Blocker<SchemaElementType, SchemaElementType, SchemaElementType, SchemaElementType> blocker = new NoSchemaBlocker<>();
 		
-		LinearCombinationMatchingRule<SchemaElementType, RecordType> rule = new LinearCombinationMatchingRule<>(similarityThreshold);
+		LinearCombinationMatchingRule<SchemaElementType, SchemaElementType> rule = new LinearCombinationMatchingRule<>(similarityThreshold);
 		rule.addComparator(labelComparator, 1.0);
 		
-		RuleBasedMatchingAlgorithm<SchemaElementType, SchemaElementType, RecordType> algorithm = new RuleBasedMatchingAlgorithm<>(schema1, schema2, null, rule, blocker);
+		RuleBasedMatchingAlgorithm<SchemaElementType, SchemaElementType, SchemaElementType> algorithm = new RuleBasedMatchingAlgorithm<>(schema1, schema2, null, rule, blocker);
 		algorithm.setTaskName("Schema Matching");
 		
 		algorithm.run();
@@ -211,6 +240,40 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		
 	}
 
+	/**
+	 * 
+	 * Runs label-based schema matching on the provided dataset using the specified comparator.
+	 * 
+	 * @param schema1
+	 * 			The schema
+	 * @param labelComparator
+	 * 			The comparator that compares the labels of two attributes
+	 * @param similarityThreshold
+	 * 			The similarity threshold for creating correspondences
+	 * @return
+	 * 			The discovered schema correspondences
+	 * @throws Exception
+	 */
+	public Processable<Correspondence<SchemaElementType, SchemaElementType>> runLabelBasedSchemaMatching(
+			DataSet<SchemaElementType, SchemaElementType> schema, 
+			Comparator<SchemaElementType, SchemaElementType> labelComparator,
+			double similarityThreshold) throws Exception {
+
+		SymmetricBlocker<SchemaElementType, SchemaElementType, SchemaElementType, SchemaElementType> blocker = new NoSchemaBlocker<>();
+		
+		LinearCombinationMatchingRule<SchemaElementType, SchemaElementType> rule = new LinearCombinationMatchingRule<>(similarityThreshold);
+		rule.addComparator(labelComparator, 1.0);
+		
+		RuleBasedDuplicateDetectionAlgorithm<SchemaElementType, SchemaElementType> algorithm = new RuleBasedDuplicateDetectionAlgorithm<SchemaElementType, SchemaElementType>(schema, rule, blocker);
+
+		algorithm.setTaskName("Schema Matching");
+		
+		algorithm.run();
+		
+		return algorithm.getResult();
+	}
+			
+	
 	/**
 	 * 
 	 * Runs instance-based schema matching on the provided datasets. The blocker creates initial correspondences between the schemas, which are then evaluated by the aggregator.
@@ -231,7 +294,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	public Processable<Correspondence<SchemaElementType, MatchableValue>> runInstanceBasedSchemaMatching(
 			DataSet<RecordType, SchemaElementType> dataset1, 
 			DataSet<RecordType, SchemaElementType> dataset2,
-			CrossDataSetBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
+			Blocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
 			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
 
 		InstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new InstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType>(dataset1, dataset2, blocker, aggregator);
@@ -272,9 +335,9 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 			VotingMatchingRule<SchemaElementType, RecordType> rule,
 			TopKVotesAggregator<SchemaElementType, RecordType> voteFilter,
 			CorrespondenceAggregator<SchemaElementType, RecordType> voteAggregator,
-			CrossDataSetBlocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
+			Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> schemaBlocker) {
 		
-		DuplicateBasedMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new DuplicateBasedMatchingAlgorithm<>(schema1, schema2, Correspondence.simplify(instanceCorrespondences), rule, voteFilter, voteAggregator, schemaBlocker);
+		DuplicateBasedMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new DuplicateBasedMatchingAlgorithm<>(schema1, schema2, Correspondence.toMatchable(instanceCorrespondences), rule, voteFilter, voteAggregator, schemaBlocker);
 
 		algorithm.run();
 		
