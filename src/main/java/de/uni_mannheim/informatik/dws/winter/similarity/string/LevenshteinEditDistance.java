@@ -1,7 +1,7 @@
-package de.uni_mannheim.informatik.wdi.similarity.string;
+package de.uni_mannheim.informatik.dws.winter.similarity.string;
 
 import com.wcohen.ss.Levenstein;
-import de.uni_mannheim.informatik.wdi.similarity.SimilarityMeasure;
+import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
 /**
  * {@link SimilarityMeasure}, that calculates the abslute Levenshtein edit distance
