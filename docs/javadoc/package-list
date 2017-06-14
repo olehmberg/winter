@@ -40,6 +40,7 @@ de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution
 de.uni_mannheim.informatik.dws.winter.usecase.movies.model
 de.uni_mannheim.informatik.dws.winter.utils
 de.uni_mannheim.informatik.dws.winter.utils.graph
+de.uni_mannheim.informatik.dws.winter.utils.mining
 de.uni_mannheim.informatik.dws.winter.utils.parallel
 de.uni_mannheim.informatik.dws.winter.utils.query
 de.uni_mannheim.informatik.dws.winter.webtables
