@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers.generators;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollector;
@@ -40,7 +40,7 @@ public abstract class BlockingKeyGenerator<RecordType extends Matchable, Corresp
 	 * @see de.uni_mannheim.informatik.wdi.processing.RecordMapper#mapRecord(java.lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void mapRecord(Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> record, DatasetIterator<Pair<String, Pair<BlockedType,Processable<Correspondence<CorrespondenceType, Matchable>>>>> resultCollector) {
+	public void mapRecord(Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> record, DataIterator<Pair<String, Pair<BlockedType,Processable<Correspondence<CorrespondenceType, Matchable>>>>> resultCollector) {
 		mapRecordToKey(record, resultCollector);
 	}
 	
@@ -49,7 +49,7 @@ public abstract class BlockingKeyGenerator<RecordType extends Matchable, Corresp
 	 */
 	@Override
 	public void mapRecordToKey(Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> record,
-			DatasetIterator<Pair<String, Pair<BlockedType,Processable<Correspondence<CorrespondenceType, Matchable>>>>> resultCollector) {
+			DataIterator<Pair<String, Pair<BlockedType,Processable<Correspondence<CorrespondenceType, Matchable>>>>> resultCollector) {
 		
 		ProcessableCollector<Pair<String, BlockedType>> collector = new ProcessableCollector<>();
 		collector.setResult(new ProcessableCollection<>());
@@ -74,6 +74,6 @@ public abstract class BlockingKeyGenerator<RecordType extends Matchable, Corresp
 	 * @param correspondences
 	 * @param resultCollector
 	 */
-	public abstract void generateBlockingKeys(RecordType record, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences, DatasetIterator<Pair<String, BlockedType>> resultCollector);
+	public abstract void generateBlockingKeys(RecordType record, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences, DataIterator<Pair<String, BlockedType>> resultCollector);
 
 }

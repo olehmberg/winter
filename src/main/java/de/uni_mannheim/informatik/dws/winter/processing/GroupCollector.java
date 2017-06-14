@@ -23,7 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class GroupCollector<KeyType, RecordType> implements DatasetIterator<Pair<KeyType, RecordType>>, Serializable{
+public class GroupCollector<KeyType, RecordType> implements DataIterator<Pair<KeyType, RecordType>>, Serializable{
 
 
 	/**

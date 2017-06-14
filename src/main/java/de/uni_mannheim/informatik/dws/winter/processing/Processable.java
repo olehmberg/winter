@@ -87,7 +87,7 @@ public interface Processable<RecordType> extends Serializable {
 	 * Iterates over the given dataset without producing a result
 	 * @param iterator
 	 */
-	void iterateDataset(DatasetIterator<RecordType> iterator);
+	void iterateDataset(DataIterator<RecordType> iterator);
 
 	/**
 	 * Iterates over the given dataset and produces a result

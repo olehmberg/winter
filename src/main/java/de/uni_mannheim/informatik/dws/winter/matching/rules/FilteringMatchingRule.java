@@ -13,7 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -38,7 +38,7 @@ public abstract class FilteringMatchingRule<RecordType extends Matchable, Schema
 	 */
 	@Override
 	public void mapRecord(Correspondence<RecordType, SchemaElementType> record,
-			DatasetIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
+			DataIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
 		Correspondence<RecordType, SchemaElementType> cor = apply(record.getFirstRecord(), record.getSecondRecord(), record.getCausalCorrespondences());
 		
 		if(cor!=null && cor.getSimilarityScore()>0.0 && cor.getSimilarityScore()>=getFinalThreshold()) {

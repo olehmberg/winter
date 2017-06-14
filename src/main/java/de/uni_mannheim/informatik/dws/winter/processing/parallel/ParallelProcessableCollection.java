@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.AggregateCollector;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
 import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.GroupCollector;
@@ -81,7 +81,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#iterateDataset(de.uni_mannheim.informatik.wdi.model.DataSet, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void iterateDataset(final DatasetIterator<RecordType> iterator) {
+	public void iterateDataset(final DataIterator<RecordType> iterator) {
 		iterator.initialise();
 		
 		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {

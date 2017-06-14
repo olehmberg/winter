@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public interface DatasetIterator<RecordType> extends Serializable{
+public interface DataIterator<RecordType> extends Serializable{
 
 	void initialise();
 	

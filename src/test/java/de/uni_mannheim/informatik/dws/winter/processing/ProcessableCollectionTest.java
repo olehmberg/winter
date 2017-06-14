@@ -21,7 +21,7 @@ import java.util.Set;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
@@ -174,12 +174,12 @@ public class ProcessableCollectionTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#iterateDataset(de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator)}.
+	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#iterateDataset(de.uni_mannheim.informatik.dws.winter.processing.DataIterator)}.
 	 */
 	public void testIterateDataset() {
 		final Collection<Record> iterated = new LinkedList<>();
 		
-		getTestData().iterateDataset(new DatasetIterator<Record>() {
+		getTestData().iterateDataset(new DataIterator<Record>() {
 			
 			private static final long serialVersionUID = 1L;
 

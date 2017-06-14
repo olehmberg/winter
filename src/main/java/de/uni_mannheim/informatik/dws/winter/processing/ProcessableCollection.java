@@ -150,7 +150,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	void 
 	iterateDataset( 
-			DatasetIterator<RecordType> iterator) {
+			DataIterator<RecordType> iterator) {
 		
 		iterator.initialise();
 		
@@ -302,7 +302,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void mapRecord(KeyType key1, DatasetIterator<Pair<RecordType, RecordType2>> resultCollector) {
+			public void mapRecord(KeyType key1, DataIterator<Pair<RecordType, RecordType2>> resultCollector) {
 				List<RecordType> block = joinKeys1.get(key1);
 				List<RecordType2> block2 = joinKeys2.get(key1);
 				
@@ -500,7 +500,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			private static final long serialVersionUID = 1L;
 		
 			@Override
-			public void mapRecordToKey(RecordType record, DatasetIterator<Pair<KeyType, RecordType>> resultCollector) {
+			public void mapRecordToKey(RecordType record, DataIterator<Pair<KeyType, RecordType>> resultCollector) {
 				resultCollector.next(new Pair<KeyType, RecordType>(groupingKeyGenerator1.execute(record), record));
 			}
 		});
@@ -510,7 +510,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			private static final long serialVersionUID = 1L;
 		
 			@Override
-			public void mapRecordToKey(RecordType2 record, DatasetIterator<Pair<KeyType, RecordType2>> resultCollector) {
+			public void mapRecordToKey(RecordType2 record, DataIterator<Pair<KeyType, RecordType2>> resultCollector) {
 				resultCollector.next(new Pair<KeyType, RecordType2>(groupingKeyGenerator2.execute(record), record));
 			}
 		});
@@ -548,7 +548,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 
 			@Override
 			public void mapRecord(Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>> record,
-					DatasetIterator<OutputRecordType> resultCollector) {
+					DataIterator<OutputRecordType> resultCollector) {
 				resultMapper.mapRecord(new Pair<Iterable<RecordType>, Iterable<RecordType2>>(record.getFirst().getRecords().get(), record.getSecond().getRecords().get()), resultCollector);
 			}
 		});

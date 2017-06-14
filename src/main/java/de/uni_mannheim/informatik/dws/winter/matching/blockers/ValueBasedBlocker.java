@@ -21,7 +21,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
@@ -131,7 +131,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					Pair<
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>, 
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> record,
-					DatasetIterator<Correspondence<BlockedType, MatchableValue>> resultCollector) {
+					DataIterator<Correspondence<BlockedType, MatchableValue>> resultCollector) {
 				
 				Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist1 = record.getFirst().getSecond();
 				
@@ -206,6 +206,9 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 			Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist = g.getSecond();
 			
 			List<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> list = new ArrayList<>(g.getSecond().getElements());
+			
+			// sort the list before generating the pairs, so all pairs have the lower data source id on the left-hand side.
+			list.sort((o1,o2)->Integer.compare(o1.getFirst().getDataSourceIdentifier(), o2.getFirst().getDataSourceIdentifier()));
 			
 			for(int i = 0; i < list.size(); i++) {
 				Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p1 = list.get(i);

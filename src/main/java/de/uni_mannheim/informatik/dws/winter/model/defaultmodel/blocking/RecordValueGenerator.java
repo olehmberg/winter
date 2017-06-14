@@ -19,7 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
@@ -43,7 +43,7 @@ public class RecordValueGenerator extends BlockingKeyGenerator<Record, Matchable
 	 */
 	@Override
 	public void mapRecordToKey(Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>> pair,
-			DatasetIterator<Pair<String, Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
+			DataIterator<Pair<String, Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
 
 		Record record = pair.getFirst();
 		for(Attribute a : schema.get()) {
@@ -65,7 +65,7 @@ public class RecordValueGenerator extends BlockingKeyGenerator<Record, Matchable
 	 */
 	@Override
 	public void generateBlockingKeys(Record record, Processable<Correspondence<MatchableValue, Matchable>> correspondences,
-			DatasetIterator<Pair<String, Record>> resultCollector) {
+			DataIterator<Pair<String, Record>> resultCollector) {
 		// not needed as we re-implement mapRecordToKey
 	}
 

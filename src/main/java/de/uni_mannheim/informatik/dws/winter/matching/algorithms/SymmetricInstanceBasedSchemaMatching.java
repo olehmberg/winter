@@ -72,6 +72,8 @@ public class SymmetricInstanceBasedSchemaMatching<RecordType extends Matchable, 
 				collector.next(p.getSecond());
 			}
 		});
+		
+		Correspondence.setDirectionByDataSourceIdentifier(result);
 	
 		setResult(result);
 	}
