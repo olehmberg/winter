@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.processing.Action;
 import de.uni_mannheim.informatik.dws.winter.processing.AggregateCollector;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
@@ -92,6 +93,11 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 			}
 		});
 		iterator.finalise();
+	}
+	
+	@Override
+	public void iterate(Action<RecordType> action) {
+		new Parallel<RecordType>().tryForeach(get(), (r)->action.execute(r));
 	}
 	
 	/* (non-Javadoc)

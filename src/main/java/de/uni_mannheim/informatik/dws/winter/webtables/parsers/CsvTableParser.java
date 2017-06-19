@@ -50,6 +50,7 @@ public class CsvTableParser extends TableParser {
 		setTableHeaderDetector(new TableHeaderDetectorFirstRow());
 	}
 
+	@Override
 	public Table parseTable(File file) {
 		Reader r = null;
 		Table t = null;
@@ -71,6 +72,7 @@ public class CsvTableParser extends TableParser {
 		return t;
 	}
 
+	@Override
 	public Table parseTable(Reader reader, String fileName) throws IOException {
 		// create new table
 		Table table = new Table();

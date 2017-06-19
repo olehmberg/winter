@@ -24,17 +24,17 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
 /**
- * A blocking key generator that uses the values of an attribute as blocking keys
+ * A blocking key generator that uses the values of a record as blocking keys
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class AttributeValueGenerator extends BlockingKeyGenerator<Record, MatchableValue, Attribute> {
+public class DefaultRecordValueGenerator extends BlockingKeyGenerator<Record, MatchableValue, Record> {
 
 	private static final long serialVersionUID = 1L;
 	DataSet<Attribute, Attribute> schema;
 	
-	public AttributeValueGenerator(DataSet<Attribute, Attribute> schema) {
+	public DefaultRecordValueGenerator(DataSet<Attribute, Attribute> schema) {
 		this.schema = schema;
 	}
 	
@@ -43,10 +43,9 @@ public class AttributeValueGenerator extends BlockingKeyGenerator<Record, Matcha
 	 */
 	@Override
 	public void mapRecordToKey(Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>> pair,
-			DataIterator<Pair<String, Pair<Attribute, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
+			DataIterator<Pair<String, Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
 
 		Record record = pair.getFirst();
-		
 		for(Attribute a : schema.get()) {
 			if(record.hasValue(a)) {
 				
@@ -55,7 +54,7 @@ public class AttributeValueGenerator extends BlockingKeyGenerator<Record, Matcha
 				Correspondence<MatchableValue, Matchable> causeCor = new Correspondence<>(value, value, 1.0);
 				causes.add(causeCor);
 				
-				resultCollector.next(new Pair<>(value.getValue().toString(), new Pair<>(a, causes)));
+				resultCollector.next(new Pair<>(value.getValue().toString(), new Pair<>(record, causes)));
 			}
 		}
 		
@@ -66,7 +65,7 @@ public class AttributeValueGenerator extends BlockingKeyGenerator<Record, Matcha
 	 */
 	@Override
 	public void generateBlockingKeys(Record record, Processable<Correspondence<MatchableValue, Matchable>> correspondences,
-			DataIterator<Pair<String, Attribute>> resultCollector) {
+			DataIterator<Pair<String, Record>> resultCollector) {
 		// not needed as we re-implement mapRecordToKey
 	}
 

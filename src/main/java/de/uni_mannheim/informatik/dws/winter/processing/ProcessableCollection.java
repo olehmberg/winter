@@ -161,6 +161,13 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		iterator.finalise();
 	}
 	
+	@Override
+	public void iterate(Action<RecordType> action) {
+		for(RecordType r : get()) {
+			action.execute(r);
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.dws.winter.processing.Processable#transform(de.uni_mannheim.informatik.dws.winter.processing.RecordMapper)

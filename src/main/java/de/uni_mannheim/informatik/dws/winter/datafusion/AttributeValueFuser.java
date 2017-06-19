@@ -20,8 +20,15 @@ import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
-import de.uni_mannheim.informatik.dws.winter.model.*;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
+import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
+import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -38,13 +45,13 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @param group
 	 * @return A list of fusable values
 	 */
-	protected List<FusableValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement) {
+	protected List<FusableValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		List<FusableValue<ValueType, RecordType, SchemaElementType>> values = new LinkedList<>();
 		
 		for(Pair<RecordType, FusibleDataSet<RecordType, SchemaElementType>> p : group.getRecordsWithDataSets()) {
 			// only consider existing values
 			RecordType record = p.getFirst();
-			Correspondence<SchemaElementType, RecordType> correspondence = group.getSchemaCorrespondenceForRecord(p.getFirst(), schemaCorrespondences, schemaElement); 
+			Correspondence<SchemaElementType, Matchable> correspondence = group.getSchemaCorrespondenceForRecord(p.getFirst(), schemaCorrespondences, schemaElement); 
 			if(hasValue(record, correspondence)) {
 				ValueType v = getValue(record, correspondence);
 				FusableValue<ValueType, RecordType, SchemaElementType> value = new FusableValue<ValueType, RecordType, SchemaElementType>(v, p.getFirst(), p.getSecond());
@@ -60,11 +67,11 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @param record
 	 * @return The value to fuse
 	 */
-	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, RecordType> correspondence);
+	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
 	
 	@Override
 	public Double getConsistency(RecordGroup<RecordType, SchemaElementType> group,
-			EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement) {
+			EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		
 		List<RecordType> records = new ArrayList<>(group.getRecords());
 
@@ -72,7 +79,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		Iterator<RecordType> it = records.iterator();
 		while(it.hasNext()) {
 			RecordType record = it.next();
-			Correspondence<SchemaElementType, RecordType> cor = group.getSchemaCorrespondenceForRecord(record, schemaCorrespondences, schemaElement);
+			Correspondence<SchemaElementType, Matchable> cor = group.getSchemaCorrespondenceForRecord(record, schemaCorrespondences, schemaElement);
 
 			if(cor==null || !hasValue(record, cor)) {
 				it.remove();
@@ -90,17 +97,17 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		// calculate pair-wise similarities
 		for(int i=0; i<records.size();i++) {
 			RecordType r1 = records.get(i);
-			Correspondence<SchemaElementType, RecordType> cor1 = group.getSchemaCorrespondenceForRecord(r1, schemaCorrespondences, schemaElement);
+			Correspondence<SchemaElementType, Matchable> cor1 = group.getSchemaCorrespondenceForRecord(r1, schemaCorrespondences, schemaElement);
 			if(cor1!=null) {
 				for(int j=i+1; j<records.size(); j++) {
 					RecordType r2 = records.get(j);
-					Correspondence<SchemaElementType, RecordType> cor2 = group.getSchemaCorrespondenceForRecord(r2, schemaCorrespondences, schemaElement);
+					Correspondence<SchemaElementType, Matchable> cor2 = group.getSchemaCorrespondenceForRecord(r2, schemaCorrespondences, schemaElement);
 				
 					if(cor2!=null && !con.isEdgeAlreadyInCluster(r1, r2)) {
 
 						// assumption: in fusion we have a target schema, so all schema correspondences refer to the target schema 
 						// this means that we can simply combine both schema correspondences to get a schema correspondence between the two records
-						Correspondence<SchemaElementType, RecordType> cor = Correspondence.<SchemaElementType, RecordType>combine(cor1, cor2);
+						Correspondence<SchemaElementType, Matchable> cor = Correspondence.<SchemaElementType, Matchable>combine(cor1, cor2);
 						
 						if(rule.isEqual(r1, r2, cor)) {
 							con.addEdge(new Triple<>(r1, r2, 1.0));
@@ -141,7 +148,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @param group
 	 * @return  the fused value
 	 */
-	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement) {
+	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		return conflictResolution.resolveConflict(getFusableValues(group, schemaCorrespondences, schemaElement));
 	}
 }

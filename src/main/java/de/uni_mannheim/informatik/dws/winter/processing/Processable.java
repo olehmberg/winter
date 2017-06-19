@@ -90,6 +90,12 @@ public interface Processable<RecordType> extends Serializable {
 	void iterateDataset(DataIterator<RecordType> iterator);
 
 	/**
+	 * Iterates over the processable and executes the provided action for each element.
+	 * @param iterator
+	 */
+	void iterate(Action<RecordType> action);
+	
+	/**
 	 * Iterates over the given dataset and produces a result
 	 * @param transformation
 	 * @return A {@link Processable} with the result of the operation

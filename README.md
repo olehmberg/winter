@@ -25,18 +25,18 @@ The WInte.r framework covers all central steps of the data integration process, 
 -	Header detection
 -	Subject column detection (also known as entity name column detection)
 
-**Schema Matching**: Schema matching methods find attributes in two schemata that have the same meaning. WInte.r provides three pre-implemented schema matching algorithms which either rely on attribute labels or data values, or exploit an existing mapping of records (duplicate-based schema matching) in order to find attribute correspondences.
+**[Schema Matching](../../wiki/SchemaMatching)**: Schema matching methods find attributes in two schemata that have the same meaning. WInte.r provides three pre-implemented schema matching algorithms which either rely on attribute labels or data values, or exploit an existing mapping of records (duplicate-based schema matching) in order to find attribute correspondences.
 -	Label-based schema matching
 -	Instance-based schema matching
 -	Duplicate-based schema matching
 
-**Identity Resolution**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
+**[Identity Resolution](../../wiki/IdentityResolution)**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
 -	Blocking by single/multiple blocking key(s)
 -	Sorted-Neighbourhood Method
 -	Token-based identity resolution
 -	Rule-based identity resolution
 
-**Data Fusion**: Data fusion methods combine data from multiple sources into a single, consolidated dataset. For this, they rely on the schema- and record-level correspondences that were discovered in the previous steps of the integration process. However, different sources may provide conflicting data values. WInte.r allows you to resolve such data conflicts (decide which value to include in the final dataset) by applying different conflict resolution functions.
+**[Data Fusion](../../wiki/DataFusion)**: Data fusion methods combine data from multiple sources into a single, consolidated dataset. For this, they rely on the schema- and record-level correspondences that were discovered in the previous steps of the integration process. However, different sources may provide conflicting data values. WInte.r allows you to resolve such data conflicts (decide which value to include in the final dataset) by applying different conflict resolution functions.
 -	11 pre-defined conflict resolution functions for strings, numbers and lists of values as well as data type independent functions.
 
 ## Use cases

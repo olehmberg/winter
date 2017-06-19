@@ -10,6 +10,10 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+
 import org.apache.commons.lang.ArrayUtils;
 
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
@@ -116,4 +120,7 @@ public abstract class TableParser {
 			}
 		}
 	}
+	
+	public abstract Table parseTable(File file);
+	public abstract Table parseTable(Reader reader, String fileName) throws IOException;
 }

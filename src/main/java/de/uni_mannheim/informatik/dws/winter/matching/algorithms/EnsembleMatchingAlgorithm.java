@@ -37,6 +37,7 @@ public class EnsembleMatchingAlgorithm<TypeA extends Matchable, TypeB extends Ma
 	
 	public EnsembleMatchingAlgorithm(CorrespondenceAggregator<TypeA, TypeB> aggregator) {
 		this.baseMatcherResults = new LinkedList<>();
+		this.aggregator = aggregator;
 	}
 	
 	public void addBaseMatcherResult(Processable<Correspondence<TypeA, TypeB>> result, double weight) {
@@ -60,7 +61,7 @@ public class EnsembleMatchingAlgorithm<TypeA extends Matchable, TypeB extends Ma
 			if(combined==null) {
 				combined = weighted;
 			} else {
-				combined.append(weighted);
+				combined = combined.append(weighted);
 			}
 			
 		}

@@ -72,6 +72,7 @@ public class JsonTableParser extends TableParser {
 		this.inferSchema = inferSchema;
 	}
 
+	@Override
 	public Table parseTable(File file) {
 		FileReader fr;
 		Table t = null;
@@ -88,6 +89,7 @@ public class JsonTableParser extends TableParser {
 		return t;
 	}
 
+	@Override
 	public Table parseTable(Reader reader, String fileName) throws IOException {
 		Gson gson = new Gson();
 
