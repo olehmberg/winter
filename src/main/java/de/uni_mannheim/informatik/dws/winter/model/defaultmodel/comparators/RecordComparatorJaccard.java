@@ -30,11 +30,15 @@ public class RecordComparatorJaccard extends RecordComparator {
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
-	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2) {
+	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold, boolean squared) {
 		super(attributeRecord1, attributeRecord2);
+		this.threshold 	= threshold;
+		this.squared	= squared;
 	}
 	
-
+	private double threshold;
+	private boolean squared;
+	
 	@Override
 	public double compare(Record record1, Record record2, SimpleCorrespondence<Attribute> schemaCorrespondence) {
 		// preprocessing
@@ -45,12 +49,12 @@ public class RecordComparatorJaccard extends RecordComparator {
 		double similarity = sim.calculate(s1, s2);
 
 		// postprocessing
-		if (similarity <= 0.3) {
+		if (similarity <= this.threshold) {
 			similarity = 0;
 		}
+		if(squared)
+			similarity *= similarity;
 
-		similarity *= similarity;
-		
 		return similarity;
 	}
 

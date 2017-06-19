@@ -43,15 +43,20 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByYearGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator2Years;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorJaccard;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLowerCaseJaccard;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
-//import weka.classifiers.trees.J48;
 
 /**
- //TODO Change Comments
+ * Class containing the standard setup to perform a identity resolution task by
+ * learning a matching rule and reading input data from the movie usecase.
  * 
+ * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
 public class Movies_IdentityResolutionLearningMatchingRule {
@@ -59,84 +64,82 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 	public static void main(String[] args) throws Exception {
 		// loading data
 		HashedDataSet<Movie, Attribute> dataAcademyAwards = new HashedDataSet<>();
-		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie", dataAcademyAwards);
+		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie",
+				dataAcademyAwards);
 		HashedDataSet<Movie, Attribute> dataActors = new HashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/actors.xml"), "/movies/movie", dataActors);
-		
+
 		// load the gold standard (test set)
 		// load the gold standard (training set)
 		MatchingGoldStandard gsTraining = new MatchingGoldStandard();
-		gsTraining.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
-		
-		// create a matching rule + provide classifier, options + Feature Selection --> Comparators / Standard
+		gsTraining.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+
+		// create a matching rule + provide classifier, options + Feature
+		// Selection --> Comparators / Standard
 		String options[] = new String[1];
-		options[0] = "-U"; // unpruned tree
+		options[0] = "";
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
-		
+
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
 		matchingRule.addComparator(new MovieDateComparator2Years());
 		matchingRule.addComparator(new MovieDateComparator10Years());
+		matchingRule.addComparator(new MovieDirectorComparatorJaccard());
+		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein());
+		matchingRule.addComparator(new MovieDirectorComparatorLowerCaseJaccard());
+		matchingRule.addComparator(new MovieTitleComparatorLevenshtein());
+		matchingRule.addComparator(new MovieTitleComparatorJaccard());
 
 		// create a blocker (blocking strategy)
-		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
-		
-		//learning Matching rule
+		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(
+				new MovieBlockingKeyByDecadeGenerator());
+
+		// learning Matching rule
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataAcademyAwards, dataActors, null, matchingRule, gsTraining);
-		
+
 		// Store Matching Rule
-		
-		
-		
+
 		// Initialize Matching Engine
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
 
 		// Execute the matching
-		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(
-				dataAcademyAwards, dataActors, null, matchingRule,
-				blocker);
+		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(dataAcademyAwards,
+				dataActors, null, matchingRule, blocker);
 
 		// write the correspondences to the output file
-		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
+		new CSVCorrespondenceFormatter().writeCSV(
+				new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
+		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
-		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
-				gsTest);
+		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
 		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
+				perfTest.getRecall(), perfTest.getF1()));
 	}
 
 	public static void createDatasetToTrain() throws Exception {
 		// loading data
 		HashedDataSet<Movie, Attribute> dataAcademyAwards = new HashedDataSet<>();
-		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie", dataAcademyAwards);
+		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie",
+				dataAcademyAwards);
 		HashedDataSet<Movie, Attribute> dataActors = new HashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/actors.xml"), "/movies/movie", dataActors);
 
-		// load the gold standard (test set)
 		// load the gold standard (training set)
 		MatchingGoldStandard gsTraining = new MatchingGoldStandard();
-		gsTraining.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+		gsTraining.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
 
 		// create a matching rule
-		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
-				0.0);
+		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(0.0);
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.5);
 		matchingRule.addComparator(new MovieDateComparator10Years(), 0.5);
@@ -145,22 +148,22 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// RapidMiner)
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(dataAcademyAwards, dataActors,
-						gsTraining, matchingRule, null);
-		new RecordCSVFormatter().writeCSV(
-				new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				gsTraining, matchingRule, null);
+		new RecordCSVFormatter()
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
 	}
 
 	public static void firstMatching() throws Exception {
 
 		// loading data
 		HashedDataSet<Movie, Attribute> dataAcademyAwards = new HashedDataSet<>();
-		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie", dataAcademyAwards);
+		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie",
+				dataAcademyAwards);
 		HashedDataSet<Movie, Attribute> dataActors = new HashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/actors.xml"), "/movies/movie", dataActors);
 
 		// create a matching rule
-		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
-				0.0);
+		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(0.0);
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual(), 1);
 		matchingRule.addComparator(new MovieDateComparator10Years(), 1);
@@ -175,36 +178,30 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
 
 		// Execute the matching
-		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(
-				dataAcademyAwards, dataActors, null, matchingRule,
-				blocker);
+		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(dataAcademyAwards,
+				dataActors, null, matchingRule, blocker);
 
 		// write the correspondences to the output file
-		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
+		new CSVCorrespondenceFormatter().writeCSV(
+				new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
+		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
-		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
-				gsTest);
+		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
 		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
+				perfTest.getRecall(), perfTest.getF1()));
 	}
 
 	public static void runWhole() throws Exception {
 		// define the matching rule
-		LinearCombinationMatchingRule<Movie, Attribute> rule = new LinearCombinationMatchingRule<>(
-				-1.497, 0.5);
+		LinearCombinationMatchingRule<Movie, Attribute> rule = new LinearCombinationMatchingRule<>(-1.497, 0.5);
 		rule.addComparator(new MovieTitleComparatorLevenshtein(), 1.849);
 		rule.addComparator(new MovieDateComparator10Years(), 0.822);
 
@@ -222,94 +219,78 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/golden_globes.xml"), "/movies/movie", ds3);
 
 		// run the matching
-		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(ds1,
-				ds2, null, rule, blocker);
-		Processable<Correspondence<Movie, Attribute>> correspondences2 = engine.runIdentityResolution(ds2,
-				ds3, null, rule, blocker);
+		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(ds1, ds2, null,
+				rule, blocker);
+		Processable<Correspondence<Movie, Attribute>> correspondences2 = engine.runIdentityResolution(ds2, ds3, null,
+				rule, blocker);
 
 		// write the correspondences to the output file
-		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
-		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/actors_2_golden_globes_correspondences.csv"), correspondences2);
+		new CSVCorrespondenceFormatter().writeCSV(
+				new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
+		new CSVCorrespondenceFormatter().writeCSV(
+				new File("usecase/movie/output/actors_2_golden_globes_correspondences.csv"), correspondences2);
 
 		printCorrespondences(new ArrayList<>(correspondences2.get()));
 
 		// load the gold standard (training set)
 		MatchingGoldStandard gsTraining = new MatchingGoldStandard();
-		gsTraining.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+		gsTraining.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
 
 		// create the data set for learning a matching rule (use this file in
 		// RapidMiner)
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
-		 FeatureVectorDataSet features = learner.generateTrainingDataForLearning(ds1, ds2, gsTraining, rule, null);
-		new RecordCSVFormatter().writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(ds1, ds2, gsTraining, rule, null);
+		new RecordCSVFormatter()
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
+		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 		MatchingGoldStandard gs2 = new MatchingGoldStandard();
-		gs2.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_actors_2_golden_globes.csv"));
+		gs2.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_actors_2_golden_globes.csv"));
 
 		// evaluate the result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<>(true);
-		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
-				gsTest);
+		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 		Performance perf2 = evaluator.evaluateMatching(correspondences2.get(), gs2);
 
 		// print the evaluation result
 		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
+				perfTest.getRecall(), perfTest.getF1()));
 
 		System.out.println("Actors <-> Golden Globes");
-		System.out.println(String.format(
-				"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-				perf2.getPrecision(), perf2.getRecall(), perf2.getF1()));
+		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perf2.getPrecision(),
+				perf2.getRecall(), perf2.getF1()));
 	}
 
-	private static void printCorrespondences(
-			List<Correspondence<Movie, Attribute>> correspondences) {
+	private static void printCorrespondences(List<Correspondence<Movie, Attribute>> correspondences) {
 		// sort the correspondences
-		Collections.sort(correspondences,
-				new Comparator<Correspondence<Movie, Attribute>>() {
+		Collections.sort(correspondences, new Comparator<Correspondence<Movie, Attribute>>() {
 
-					@Override
-					public int compare(Correspondence<Movie, Attribute> o1,
-							Correspondence<Movie, Attribute> o2) {
-						int score = Double.compare(o1.getSimilarityScore(),
-								o2.getSimilarityScore());
-						int title = o1.getFirstRecord().getTitle()
-								.compareTo(o2.getFirstRecord().getTitle());
+			@Override
+			public int compare(Correspondence<Movie, Attribute> o1, Correspondence<Movie, Attribute> o2) {
+				int score = Double.compare(o1.getSimilarityScore(), o2.getSimilarityScore());
+				int title = o1.getFirstRecord().getTitle().compareTo(o2.getFirstRecord().getTitle());
 
-						if (score != 0) {
-							return -score;
-						} else {
-							return title;
-						}
-					}
+				if (score != 0) {
+					return -score;
+				} else {
+					return title;
+				}
+			}
 
-				});
+		});
 
 		// print the correspondences
 		for (Correspondence<Movie, Attribute> correspondence : correspondences) {
-			System.out.println(String
-					.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
-							correspondence.getFirstRecord().getIdentifier(),
-							correspondence.getSecondRecord().getIdentifier(),
-							correspondence.getSimilarityScore(),
-							correspondence.getFirstRecord().getIdentifier(),
-							correspondence.getFirstRecord().getTitle(),
-							correspondence.getFirstRecord().getDate()
-									.toString("YYYY-MM-DD"), correspondence
-									.getSecondRecord().getIdentifier(),
-							correspondence.getSecondRecord().getTitle(),
-							correspondence.getSecondRecord().getDate()
-									.toString("YYYY-MM-DD")));
+			System.out.println(String.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
+					correspondence.getFirstRecord().getIdentifier(), correspondence.getSecondRecord().getIdentifier(),
+					correspondence.getSimilarityScore(), correspondence.getFirstRecord().getIdentifier(),
+					correspondence.getFirstRecord().getTitle(),
+					correspondence.getFirstRecord().getDate().toString("YYYY-MM-DD"),
+					correspondence.getSecondRecord().getIdentifier(), correspondence.getSecondRecord().getTitle(),
+					correspondence.getSecondRecord().getDate().toString("YYYY-MM-DD")));
 		}
 	}
 

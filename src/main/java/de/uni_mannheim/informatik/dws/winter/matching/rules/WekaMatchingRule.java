@@ -39,10 +39,17 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 
 import weka.classifiers.evaluation.Evaluation;
 import weka.core.*;
+import weka.core.pmml.PMMLFactory;
+import weka.attributeSelection.AttributeSelection;
+import weka.attributeSelection.GreedyStepwise;
+import weka.attributeSelection.WrapperSubsetEval;
 import weka.classifiers.Classifier;
+import weka.classifiers.SingleClassifierEnhancer;
+import weka.classifiers.MultipleClassifiersCombiner;
 
 /**
  * Class that creates and applies a matching Rule based on supervised learning
@@ -59,12 +66,19 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private static final long serialVersionUID = 1L;
 	private String[] parameters;
 	private Classifier classifier;
+	private Classifier[] baseClassifiers;
 	private List<Comparator<RecordType, SchemaElementType>> comparators;
+
+	// Handling of feature subset selection
+	private boolean forwardSelection = false;
+	private boolean backwardSelection = false;
+	private AttributeSelection fs;
 
 	public final String trainingSet = "trainingSet";
 	public final String machtSet = "matchSet";
-	
-	// TODO Discuss finalThreshold --> Can be set via options -C <confidence factor for pruning>
+
+	// TODO Discuss finalThreshold --> Can be set via options -C <confidence
+	// factor for pruning>
 	/**
 	 * Create a MatchingRule, which can be trained using the Weka library for
 	 * identity resolution.
@@ -72,10 +86,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 * @param finalThreshold
 	 *            determines the confidence level, which needs to be exceeded by
 	 *            the classifier, so that it can classify a record as match.
-	 *            
+	 * 
 	 * @param classifierName
 	 *            Has the name of a specific classifier from the Weka library.
-	 *            
+	 * 
 	 * @param parameters
 	 *            Hold the parameters to tune the classifier.
 	 */
@@ -93,6 +107,78 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		}
 		// create list for comparators
 		this.comparators = new LinkedList<>();
+	}
+	
+	/**
+	 * Create a MatchingRule using an ensemble with a single base learner, which can be trained using the Weka library for
+	 * identity resolution.
+	 * 
+	 * @param finalThreshold
+	 *            determines the confidence level, which needs to be exceeded by
+	 *            the classifier, so that it can classify a record as match.
+	 * 
+	 * @param metaClassifier
+	 *            Has the name of a specific meta classifier from the Weka library.
+	 *
+	 * @param baseClassifier
+	 *            Has the name of a specific base classifier from the Weka library.
+	 * 
+	 * @param parametersMetaClassifier
+	 *            Hold the parameters to tune the metaClassifier.
+	 *            
+	 * @param parametersBaseClassifier
+	 *            Hold the parameters to tune the baseClassifier.
+	 */
+
+	public WekaMatchingRule(double finalThreshold, String metaClassifier, String baseClassifier, String parametersMetaClassifier[], String parametersBaseClassifier[]) {
+		this(finalThreshold, metaClassifier, parametersMetaClassifier);
+		
+		// create base Classifier --> single Classifier
+		try {
+			this.baseClassifiers = new Classifier [] {(Classifier) Utils.forName(Classifier.class, baseClassifier, parametersBaseClassifier)};
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		((SingleClassifierEnhancer)this.classifier).setClassifier(this.baseClassifiers[0]);
+		
+	}
+	
+	/**
+	 * Create a MatchingRule using an ensemble with multiple base learners, which can be trained using the Weka library for
+	 * identity resolution.
+	 * 
+	 * @param finalThreshold
+	 *            determines the confidence level, which needs to be exceeded by
+	 *            the classifier, so that it can classify a record as match.
+	 * 
+	 * @param metaClassifier
+	 *            Has the name of a specific meta classifier from the Weka library.
+	 *
+	 * @param baseClassifier
+	 *            Has the name of a specific base classifier from the Weka library.
+	 * 
+	 * @param parametersMetaClassifier
+	 *            Hold the parameters to tune the metaClassifier.
+	 *            
+	 * @param parametersBaseClassifier
+	 *            Hold the parameters to tune the baseClassifier.
+	 */
+
+	public WekaMatchingRule(double finalThreshold, String metaClassifier, String[] baseClassifier, String parametersMetaClassifier[], String parametersBaseClassifier[][]) {
+		this(finalThreshold, metaClassifier, parametersMetaClassifier);
+		
+		// create base Classifiers
+		this.baseClassifiers = new Classifier[baseClassifier.length];
+		
+		for(int i = 0; i< baseClassifier.length; i++){
+			try {
+				this.baseClassifiers[i] = (Classifier) Utils.forName(Classifier.class, baseClassifier[i], parametersBaseClassifier[i]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// Assign baseClassifiers 
+		((MultipleClassifiersCombiner)this.classifier).setClassifiers(this.baseClassifiers);
 	}
 
 	public String[] getparameters() {
@@ -124,7 +210,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	/**
 	 * 
-	 * learns the rule from parsed features in a cross validation
+	 * Learns the rule from parsed features in a cross validation and the set
+	 * parameters. Additionally feature subset selection is conducted, if the
+	 * parameters this.forwardSelection or this.backwardSelection are set
+	 * accordingly.
 	 * 
 	 * @param features
 	 *            Contains features to learn a classifier
@@ -134,13 +223,39 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	public Performance learnParameters(FeatureVectorDataSet features) {
 		// create training
 		Instances trainingData = transformToWeka(features, this.trainingSet);
+
 		try {
 			Evaluation eval = new Evaluation(trainingData);
+			// apply feature subset selection
+			if (this.forwardSelection || this.backwardSelection) {
 
+				GreedyStepwise search = new GreedyStepwise();
+				search.setSearchBackwards(this.backwardSelection);
+
+				this.fs = new AttributeSelection();
+				WrapperSubsetEval wrapper = new WrapperSubsetEval();
+
+				// Do feature subset selection, but using a 10-fold cross
+				// validation
+				wrapper.buildEvaluator(trainingData);
+				wrapper.setClassifier(this.classifier);
+				wrapper.setFolds(10);
+				wrapper.setThreshold(0.01);
+
+				this.fs.setEvaluator(wrapper);
+				this.fs.setSearch(search);
+
+				this.fs.SelectAttributes(trainingData);
+
+				trainingData = fs.reduceDimensionality(trainingData);
+
+			}
+			// perform 10-fold Cross Validation to evaluate classifier
 			eval.crossValidateModel(this.classifier, trainingData, 10, new Random(1));
-			this.classifier.buildClassifier(trainingData);
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
-
+			
+			this.classifier.buildClassifier(trainingData);
+			
 			int truePositive = (int) eval.numTruePositives(trainingData.classIndex());
 			int falsePositive = (int) eval.numFalsePositives(trainingData.classIndex());
 			int falseNegative = (int) eval.numFalseNegatives(trainingData.classIndex());
@@ -272,7 +387,18 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 			double similarity = comp.compare(record1, record2, null);
 
-			String name = String.format("[%d] %s", i, comp.getClass().getSimpleName());
+			String attribute1 = "";
+			String attribute2 = "";
+			try{
+				attribute1 = ((RecordComparator)comp).getAttributeRecord1().toString();
+				attribute2 = ((RecordComparator)comp).getAttributeRecord2().toString();
+			
+			} catch (ClassCastException  e) {
+				// Not possible to add attribute names
+				//e.printStackTrace();
+			}
+			
+			String name = String.format("[%d] %s %s %s", i, comp.getClass().getSimpleName(), attribute1, attribute2);
 			Attribute att = null;
 			for (Attribute elem : features.getSchema().get()) {
 				if (elem.toString().equals(name)) {
@@ -314,9 +440,18 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		FeatureVectorDataSet matchSet = this.initialiseFeatures();
 		Record matchRecord = generateFeatures(record1, record2, schemaCorrespondences, matchSet);
 
+		// transform entry for classification.
 		matchSet.add(matchRecord);
 		Instances matchInstances = this.transformToWeka(matchSet, this.machtSet);
-
+		
+		// reduce dimensions if feature subset selection was applied before.
+		if((this.backwardSelection|| this.forwardSelection) && this.fs != null)
+			try {
+				matchInstances = this.fs.reduceDimensionality(matchInstances);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		// Apply matching rule
 		try {
 			double result = this.classifier.classifyInstance(matchInstances.firstInstance());
 			return new Correspondence<RecordType, SchemaElementType>(record1, record2, result, schemaCorrespondences);
@@ -364,6 +499,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	@Override
 	public void readModel(File location) {
 		// deserialize model
+
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(location));
 			this.setClassifier((Classifier) ois.readObject());
@@ -371,7 +507,12 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				this.setClassifier((Classifier) PMMLFactory.getPMMLModel(location, null));
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -392,7 +533,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	/**
 	 * Create a new FeatureVectorDataSet with the corresponding features, which
-	 * result form the added comparators.
+	 * result from the added comparators.
 	 * 
 	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule#initialiseFeatures()
 	 */
@@ -404,8 +545,19 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		for (int i = 0; i < comparators.size(); i++) {
 
 			Comparator<RecordType, SchemaElementType> comp = comparators.get(i);
-
-			String name = String.format("[%d] %s", i, comp.getClass().getSimpleName());
+			
+			String attribute1 = "";
+			String attribute2 = "";
+			try{
+				attribute1 = ((RecordComparator)comp).getAttributeRecord1().toString();
+				attribute2 = ((RecordComparator)comp).getAttributeRecord2().toString();
+			
+			} catch (ClassCastException  e) {
+				// Not possible to add attribute names
+				//e.printStackTrace();
+			}
+			
+			String name = String.format("[%d] %s %s %s", i, comp.getClass().getSimpleName(), attribute1, attribute2);
 
 			Attribute att = new Attribute(name);
 			result.addAttribute(att);
@@ -414,6 +566,22 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		// Add label to feature
 		result.addAttribute(FeatureVectorDataSet.ATTRIBUTE_LABEL);
 		return result;
+	}
+
+	public boolean isForwardSelection() {
+		return forwardSelection;
+	}
+
+	public void setForwardSelection(boolean forwardSelection) {
+		this.forwardSelection = forwardSelection;
+	}
+
+	public boolean isBackwardSelection() {
+		return backwardSelection;
+	}
+
+	public void setBackwardSelection(boolean backwardSelection) {
+		this.backwardSelection = backwardSelection;
 	}
 
 }

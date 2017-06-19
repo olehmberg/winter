@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
-
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -19,8 +18,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 
 /**
- * {@link Comparator} for {@link Record}s based on their
- *  values, and their
+ * {@link Comparator} for {@link Record}s based on their values, and their
  * {@link TokenizingJaccardSimilarity} similarity, with a lower casing
  * beforehand.
  * 
@@ -29,46 +27,46 @@ import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccard
  */
 public class RecordComparatorLowerCaseJaccard extends RecordComparator {
 
-	public RecordComparatorLowerCaseJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold, boolean squared) {
+	public RecordComparatorLowerCaseJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold,
+			boolean squared) {
 		super(attributeRecord1, attributeRecord2);
-		this.threshold 	= threshold;
-		this.squared	= squared;
+		this.threshold = threshold;
+		this.squared = squared;
 	}
 
 	private static final long serialVersionUID = 1L;
 	private double threshold;
 	private boolean squared;
-	
-	
+
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
 	@Override
 	public double compare(Record record1, Record record2, SimpleCorrespondence<Attribute> schemaCorrespondence) {
 		// preprocessing
-				String s1 = record1.getValue(this.getAttributeRecord1());
-				if (s1 != null) {
-					s1 = s1.toLowerCase();
-				} else {
-					s1 = "";
-				}
-				String s2 = record2.getValue(this.getAttributeRecord2());
-				if (s2 != null) {
-					s2 = s2.toLowerCase();
-				} else {
-					s2 = "";
-				}
+		String s1 = record1.getValue(this.getAttributeRecord1());
+		if (s1 != null) {
+			s1 = s1.toLowerCase();
+		} else {
+			s1 = "";
+		}
+		String s2 = record2.getValue(this.getAttributeRecord2());
+		if (s2 != null) {
+			s2 = s2.toLowerCase();
+		} else {
+			s2 = "";
+		}
 
-				// calculate similarity
-				double similarity = sim.calculate(s1, s2);
+		// calculate similarity
+		double similarity = sim.calculate(s1, s2);
 
-				// postprocessing
-				if (similarity <= this.threshold) {
-					similarity = 0;
-				}
-				if(squared)
-					similarity *= similarity;
+		// postprocessing
+		if (similarity <= this.threshold) {
+			similarity = 0;
+		}
+		if (squared)
+			similarity *= similarity;
 
-				return similarity;
+		return similarity;
 	}
 
 }

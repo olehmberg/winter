@@ -56,7 +56,7 @@ public class Restaurants_IdentityResolution_Main {
 		nodeMapping.put("Name", Restaurant.NAME);
 		nodeMapping.put("Address", Restaurant.ADDRESS);
 		nodeMapping.put("City", Restaurant.CITY);
-		nodeMapping.put("Phone", Restaurant.PHONE);
+		//nodeMapping.put("Phone", Restaurant.PHONE);
 		nodeMapping.put("Style", Restaurant.STYLE);
 		
 		DataSet<Record, Attribute> dataZagats = new HashedDataSet<>();
@@ -66,12 +66,11 @@ public class Restaurants_IdentityResolution_Main {
 				
 		// create a matching rule
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
-				0.9);
+				0.7);
 		// add comparators
-		//matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
-		//matchingRule.addComparator((m1, m2, c) -> new YearSimilarity(10).calculate(m1.getDate(), m2.getDate()), 0.2);
-		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS), 0.6);
-		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE), 0.4);
+		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true),0.4);
+		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS), 0.4);
+		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true), 0.2);
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new RecordBlockingKeyGenerator<Record, Attribute>(){
@@ -107,7 +106,7 @@ public class Restaurants_IdentityResolution_Main {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File(
-				"usecase/restaurant/goldstandard/gs_restaurant.csv"));
+				"usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
 
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
@@ -125,6 +124,11 @@ public class Restaurants_IdentityResolution_Main {
 						perfTest.getF1()));
 	}
 	
+	/**
+	 * Prints a list of correspondences, which are not evaluated via the gold standard.
+	 * @param correspondences
+	 * @param goldStandard
+	 */
 	private static void printCorrespondences(
 			 List<Correspondence<Record, Attribute>> correspondences, MatchingGoldStandard goldStandard) {
 		// sort the correspondences

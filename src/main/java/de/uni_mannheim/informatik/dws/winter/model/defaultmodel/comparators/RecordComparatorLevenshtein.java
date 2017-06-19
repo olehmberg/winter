@@ -36,7 +36,11 @@ public class RecordComparatorLevenshtein extends RecordComparator {
 
 	@Override
 	public double compare(Record record1, Record record2, SimpleCorrespondence<Attribute> schemaCorrespondence) {
-		return sim.calculate(record1.getValue(this.getAttributeRecord1()), record2.getValue(this.getAttributeRecord2()));
+		
+		// calculate similarity
+		double similarity = sim.calculate(record1.getValue(this.getAttributeRecord1()), record2.getValue(this.getAttributeRecord2()));
+
+		return similarity;
 	}
 
 

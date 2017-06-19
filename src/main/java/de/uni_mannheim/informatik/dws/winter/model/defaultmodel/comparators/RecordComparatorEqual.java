@@ -18,11 +18,10 @@ import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.EqualsSimilarity;
-import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
 
 /**
  * {@link Comparator} for {@link Record}s
- * values and their {@link LevenshteinSimilarity} value.
+ * exactly matching.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
