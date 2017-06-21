@@ -26,6 +26,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlockerWithBlockFiltering;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -59,6 +60,9 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
 public class Events_IdentityResolution_Main {
 
 	public static void main(String[] args) throws Exception {
+
+		double ratio = 0.5;
+
 		char separator = '+';
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
 		boolean filterFrom = false;
@@ -96,7 +100,7 @@ public class Events_IdentityResolution_Main {
 		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);//0.8);
 		//matchingRule.addComparator(new EventDateComparator(), 0.2);
 //new blocking
-		StandardRecordBlocker<Event, Attribute> blocker = new StandardRecordBlocker<Event, Attribute>(new EventBlockingKeyByLabelsTokens());
+		StandardRecordBlockerWithBlockFiltering<Event, Attribute> blocker = new StandardRecordBlockerWithBlockFiltering<Event, Attribute>(new EventBlockingKeyByLabelsTokens(), ratio);
 
 //old blocking
 		/*
