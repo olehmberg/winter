@@ -52,12 +52,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule1.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule1);
+		correspondences = correspondences.map(rule1);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule1.apply(movie1, movie2, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
-		correspondences = correspondences.transform(rule1);
+		correspondences = correspondences.map(rule1);
 		assertEquals(0, correspondences.size());
 		
 		LinearCombinationMatchingRule<Movie, Attribute> rule2 = new LinearCombinationMatchingRule<>(0.0, 0.9);
@@ -66,12 +66,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule2.apply(movie2, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie2, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule2);
+		correspondences = correspondences.map(rule2);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule2.apply(movie1, movie2, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
-		correspondences = correspondences.transform(rule2);
+		correspondences = correspondences.map(rule2);
 		assertEquals(0, correspondences.size());
 		
 		LinearCombinationMatchingRule<Movie, Attribute> rule3 = new LinearCombinationMatchingRule<>(0.0, 0.8);
@@ -81,12 +81,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule3.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule3);
+		correspondences = correspondences.map(rule3);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule3.apply(movie2, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie2, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule3);
+		correspondences = correspondences.map(rule3);
 		assertEquals(0, correspondences.size());
 	}
 

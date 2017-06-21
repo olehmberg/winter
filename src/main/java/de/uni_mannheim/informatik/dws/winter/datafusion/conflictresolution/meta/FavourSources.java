@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -34,11 +34,11 @@ public class FavourSources<ValueType, RecordType extends Matchable & Fusible<Sch
 
 	@Override
 	public FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values) {
 
-		FusableValue<ValueType, RecordType, SchemaElementType> highestScore = null;
+		FusibleValue<ValueType, RecordType, SchemaElementType> highestScore = null;
 
-		for (FusableValue<ValueType, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<ValueType, RecordType, SchemaElementType> value : values) {
 			if (highestScore == null
 					|| value.getDataSourceScore() > highestScore
 							.getDataSourceScore()) {

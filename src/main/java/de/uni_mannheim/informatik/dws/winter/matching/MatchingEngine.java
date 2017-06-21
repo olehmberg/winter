@@ -414,8 +414,8 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		TopKCorrespondencesAggregator<RecordType, SchemaElementType> aggregator = new TopKCorrespondencesAggregator<>(k);
 		
 		return correspondences
-				.aggregateRecords(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
-				.transform(new FlattenAggregatedCorrespondencesRule<>());
+				.aggregate(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
+				.map(new FlattenAggregatedCorrespondencesRule<>());
 	}
 	
 	/**
@@ -437,8 +437,8 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		TopKCorrespondencesAggregator<SchemaElementType, RecordType> aggregator = new TopKCorrespondencesAggregator<>(k);
 		
 		return correspondences
-				.aggregateRecords(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
-				.transform(new FlattenAggregationResultMapper<>());
+				.aggregate(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
+				.map(new FlattenAggregationResultMapper<>());
 	}
 
 }

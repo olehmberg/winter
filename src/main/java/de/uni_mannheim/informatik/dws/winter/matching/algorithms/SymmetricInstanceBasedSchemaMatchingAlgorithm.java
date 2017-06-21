@@ -63,10 +63,10 @@ public class SymmetricInstanceBasedSchemaMatchingAlgorithm<RecordType extends Ma
 		Processable<Correspondence<SchemaElementType, MatchableValue>> blocked = blocker.runBlocking(getDataset(), null);
 		
 		// aggregate the correspondences to calculate a similarity score
-		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, MatchableValue>>> aggregated = blocked.aggregateRecords(new IdentityMatchingRule<SchemaElementType, MatchableValue>(0.0), aggregator);
+		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, MatchableValue>>> aggregated = blocked.aggregate(new IdentityMatchingRule<SchemaElementType, MatchableValue>(0.0), aggregator);
 		
 		// transform the result to the expected correspondence format
-		Processable<Correspondence<SchemaElementType, MatchableValue>> result = aggregated.transform((p, collector) -> {
+		Processable<Correspondence<SchemaElementType, MatchableValue>> result = aggregated.map((p, collector) -> {
 			if(p.getSecond()!=null)
 			{
 				collector.next(p.getSecond());

@@ -18,7 +18,7 @@ package de.uni_mannheim.informatik.dws.winter.model;
  * 
  * @param <RecordType>
  */
-public interface FusableFactory<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
+public interface FusibleFactory<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
 	/**
 	 * Creates a record that will receive all the values from the data fusion

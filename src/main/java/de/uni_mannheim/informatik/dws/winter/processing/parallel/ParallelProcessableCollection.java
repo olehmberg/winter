@@ -82,7 +82,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#iterateDataset(de.uni_mannheim.informatik.wdi.model.DataSet, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void iterateDataset(final DataIterator<RecordType> iterator) {
+	public void foreach(final DataIterator<RecordType> iterator) {
 		iterator.initialise();
 		
 		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
@@ -96,7 +96,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	}
 	
 	@Override
-	public void iterate(Action<RecordType> action) {
+	public void foreach(Action<RecordType> action) {
 		new Parallel<RecordType>().tryForeach(get(), (r)->action.execute(r));
 	}
 	
@@ -104,7 +104,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#transform(de.uni_mannheim.informatik.wdi.model.BasicCollection, de.uni_mannheim.informatik.wdi.processing.RecordMapper)
 	 */
 	@Override
-	public <OutputRecordType> Processable<OutputRecordType> transform(final RecordMapper<RecordType, OutputRecordType> transformation) {
+	public <OutputRecordType> Processable<OutputRecordType> map(final RecordMapper<RecordType, OutputRecordType> transformation) {
 		final ProcessableCollector<OutputRecordType> resultCollector = new ProcessableCollector<>();
 		
 		resultCollector.setResult(createProcessable((OutputRecordType)null));
@@ -129,7 +129,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#groupRecords(de.uni_mannheim.informatik.wdi.model.BasicCollection, de.uni_mannheim.informatik.wdi.processing.RecordMapper)
 	 */
 	@Override
-	public <KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> groupRecords(
+	public <KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> group(
 			final RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
 		
 		final GroupCollector<KeyType, OutputRecordType> groupCollector = new ThreadSafeGroupCollector<>();
@@ -153,7 +153,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	public 
 	<KeyType, OutputRecordType, ResultType> 
 	Processable<Pair<KeyType, ResultType>> 
-	aggregateRecords( 
+	aggregate( 
 			final RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy, 
 			DataAggregator<KeyType, OutputRecordType, ResultType> aggregator) {
 

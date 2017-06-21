@@ -149,7 +149,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	@Override
 	public 
 	void 
-	iterateDataset( 
+	foreach( 
 			DataIterator<RecordType> iterator) {
 		
 		iterator.initialise();
@@ -162,7 +162,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	}
 	
 	@Override
-	public void iterate(Action<RecordType> action) {
+	public void foreach(Action<RecordType> action) {
 		for(RecordType r : get()) {
 			action.execute(r);
 		}
@@ -176,7 +176,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<OutputRecordType> 
 	Processable<OutputRecordType> 
-	transform( 
+	map( 
 			RecordMapper<RecordType, OutputRecordType> transformation) {
 		
 		ProgressReporter progress = new ProgressReporter(size(),"");
@@ -304,7 +304,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		final Map<KeyType, List<RecordType>> joinKeys1 = hashRecords(this, joinKeyGenerator1);
 		final Map<KeyType, List<RecordType2>> joinKeys2 = hashRecords(dataset2, joinKeyGenerator2);
 		
-		Processable<Pair<RecordType, RecordType2>> result = createProcessableFromCollection(joinKeys1.keySet()).transform(new RecordMapper<KeyType, Pair<RecordType, RecordType2>>() {
+		Processable<Pair<RecordType, RecordType2>> result = createProcessableFromCollection(joinKeys1.keySet()).map(new RecordMapper<KeyType, Pair<RecordType, RecordType2>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -388,7 +388,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<KeyType, OutputRecordType> 
 	Processable<Group<KeyType, OutputRecordType>> 
-	groupRecords( RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
+	group( RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
 				
 		GroupCollector<KeyType, OutputRecordType> groupCollector = new GroupCollector<>();
 		
@@ -411,7 +411,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<KeyType, OutputRecordType, ResultType> 
 	Processable<Pair<KeyType, ResultType>> 
-	aggregateRecords(
+	aggregate(
 			RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy, 
 			DataAggregator<KeyType, OutputRecordType, ResultType> aggregator) {
 
@@ -477,7 +477,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	@Override
 	public 
 	Processable<RecordType> 
-	filter(Function<Boolean, RecordType> criteria) {
+	where(Function<Boolean, RecordType> criteria) {
 		Processable<RecordType> result = createProcessable((RecordType)null);
 		
 		for(RecordType element : get()) {
@@ -502,7 +502,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			final Function<KeyType, RecordType> groupingKeyGenerator1, 
 			final Function<KeyType, RecordType2> groupingKeyGenerator2, 
 			final RecordMapper<Pair<Iterable<RecordType>, Iterable<RecordType2>>, OutputRecordType> resultMapper) {
-		 Processable<Group<KeyType, RecordType>> group1 = groupRecords(new RecordKeyValueMapper<KeyType, RecordType, RecordType>() {
+		 Processable<Group<KeyType, RecordType>> group1 = group(new RecordKeyValueMapper<KeyType, RecordType, RecordType>() {
 
 			private static final long serialVersionUID = 1L;
 		
@@ -512,7 +512,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			}
 		});
 		
-		 Processable<Group<KeyType, RecordType2>> group2 = data2.groupRecords(new RecordKeyValueMapper<KeyType, RecordType2, RecordType2>() {
+		 Processable<Group<KeyType, RecordType2>> group2 = data2.group(new RecordKeyValueMapper<KeyType, RecordType2, RecordType2>() {
 
 			private static final long serialVersionUID = 1L;
 		
@@ -546,7 +546,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			}
 		});
 		
-		 return joined.transform(new RecordMapper<Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>>, OutputRecordType>() {
+		 return joined.map(new RecordMapper<Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>>, OutputRecordType>() {
 
 			/**
 			 * 

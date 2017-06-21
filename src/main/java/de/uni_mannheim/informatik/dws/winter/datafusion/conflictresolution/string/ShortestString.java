@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -28,10 +28,10 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 public class ShortestString<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends ConflictResolutionFunction<String, RecordType, SchemaElementType> {
 
 	@Override
-	public FusedValue<String, RecordType, SchemaElementType> resolveConflict(Collection<FusableValue<String, RecordType, SchemaElementType>> values) {
-		FusableValue<String, RecordType, SchemaElementType> shortest = null;
+	public FusedValue<String, RecordType, SchemaElementType> resolveConflict(Collection<FusibleValue<String, RecordType, SchemaElementType>> values) {
+		FusibleValue<String, RecordType, SchemaElementType> shortest = null;
 		
-		for(FusableValue<String, RecordType, SchemaElementType> value : values) {
+		for(FusibleValue<String, RecordType, SchemaElementType> value : values) {
 			if(shortest == null || value.getValue().length()<shortest.getValue().length()) {
 				shortest = value;
 			}

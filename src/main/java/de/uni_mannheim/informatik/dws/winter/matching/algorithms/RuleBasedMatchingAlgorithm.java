@@ -108,7 +108,7 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 								allPairs.size(), Double.toString(getReductionRatio())));
 
 		// compare the pairs using the matching rule
-		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.transform(rule);
+		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.map(rule);
 		
 		// report total matching time
 		long end = System.currentTimeMillis();

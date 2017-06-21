@@ -21,7 +21,7 @@ import java.util.Map;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
@@ -45,8 +45,8 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @param group
 	 * @return A list of fusable values
 	 */
-	protected List<FusableValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
-		List<FusableValue<ValueType, RecordType, SchemaElementType>> values = new LinkedList<>();
+	protected List<FusibleValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
+		List<FusibleValue<ValueType, RecordType, SchemaElementType>> values = new LinkedList<>();
 		
 		for(Pair<RecordType, FusibleDataSet<RecordType, SchemaElementType>> p : group.getRecordsWithDataSets()) {
 			// only consider existing values
@@ -54,7 +54,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 			Correspondence<SchemaElementType, Matchable> correspondence = group.getSchemaCorrespondenceForRecord(p.getFirst(), schemaCorrespondences, schemaElement); 
 			if(hasValue(record, correspondence)) {
 				ValueType v = getValue(record, correspondence);
-				FusableValue<ValueType, RecordType, SchemaElementType> value = new FusableValue<ValueType, RecordType, SchemaElementType>(v, p.getFirst(), p.getSecond());
+				FusibleValue<ValueType, RecordType, SchemaElementType> value = new FusibleValue<ValueType, RecordType, SchemaElementType>(v, p.getFirst(), p.getSecond());
 				values.add(value);
 			}
 		}

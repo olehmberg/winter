@@ -174,12 +174,12 @@ public class ProcessableCollectionTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#iterateDataset(de.uni_mannheim.informatik.dws.winter.processing.DataIterator)}.
+	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#foreach(de.uni_mannheim.informatik.dws.winter.processing.DataIterator)}.
 	 */
 	public void testIterateDataset() {
 		final Collection<Record> iterated = new LinkedList<>();
 		
-		getTestData().iterateDataset(new DataIterator<Record>() {
+		getTestData().foreach(new DataIterator<Record>() {
 			
 			private static final long serialVersionUID = 1L;
 
@@ -201,10 +201,10 @@ public class ProcessableCollectionTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#transform(de.uni_mannheim.informatik.dws.winter.processing.RecordMapper)}.
+	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection#map(de.uni_mannheim.informatik.dws.winter.processing.RecordMapper)}.
 	 */
 	public void testTransform() {
-		Processable<String> transformed = getTestData().transform((r,c)->c.next(r.getIdentifier()));
+		Processable<String> transformed = getTestData().map((r,c)->c.next(r.getIdentifier()));
 		
 		Set<String> expected = new HashSet<String>(Arrays.asList(TEST_RECORD_IDS));
 		Set<String> actual = new HashSet<>(transformed.get());
@@ -256,7 +256,7 @@ public class ProcessableCollectionTest extends TestCase {
 
 
 	public void testGroupRecords() {
-		Processable<Group<Object, Record>> grouped = getTestData().groupRecords((r,c)->c.next(new Pair<>(r.getDataSourceIdentifier(),r)));
+		Processable<Group<Object, Record>> grouped = getTestData().group((r,c)->c.next(new Pair<>(r.getDataSourceIdentifier(),r)));
 		
 		assertEquals(1, grouped.size());
 		
@@ -268,7 +268,7 @@ public class ProcessableCollectionTest extends TestCase {
 
 
 	public void testAggregateRecords() {
-		Processable<Pair<Object, Integer>> aggregated = getTestData().aggregateRecords((r,c)->c.next(new Pair<>(r.getDataSourceIdentifier(), r)), new CountAggregator<>());
+		Processable<Pair<Object, Integer>> aggregated = getTestData().aggregate((r,c)->c.next(new Pair<>(r.getDataSourceIdentifier(), r)), new CountAggregator<>());
 		
 		assertEquals(1, aggregated.size());
 		
@@ -292,7 +292,7 @@ public class ProcessableCollectionTest extends TestCase {
 
 
 	public void testFilter() {
-		Processable<Record> filtered = getTestData().filter((r)->Integer.parseInt(r.getIdentifier())>3);
+		Processable<Record> filtered = getTestData().where((r)->Integer.parseInt(r.getIdentifier())>3);
 		
 		assertEquals(2, filtered.size());
 	}

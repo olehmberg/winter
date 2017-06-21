@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.numeric.Median;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -26,10 +26,10 @@ public class MedianTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfDoubleRecordType() {
 		Median<Movie, Attribute> crf = new Median<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(1.0, resolvedValue.getValue());
@@ -38,7 +38,7 @@ public class MedianTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfDoubleRecordType2() {
 		Median<Movie, Attribute> crf = new Median<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster2 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster2 = new ArrayList<>();
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster2);
 		assertEquals(null, resolvedValue.getValue());

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.list.IntersectionKSources;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -28,12 +28,12 @@ public class IntersectionKSourcesTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType() {
 		IntersectionKSources<String, Movie, Attribute> crf = new IntersectionKSources<>(
 				2);
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -43,12 +43,12 @@ public class IntersectionKSourcesTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType2() {
 		IntersectionKSources<String, Movie, Attribute> crf = new IntersectionKSources<>(
 				2);
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h1", "h2"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h2", "h3"), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -58,12 +58,12 @@ public class IntersectionKSourcesTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType3() {
 		IntersectionKSources<String, Movie, Attribute> crf = new IntersectionKSources<>(
 				1);
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h1", "h2"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h2", "h3"), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -73,12 +73,12 @@ public class IntersectionKSourcesTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType4() {
 		IntersectionKSources<String, Movie, Attribute> crf = new IntersectionKSources<>(
 				3);
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h1", "h2"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h2", "h1"), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);

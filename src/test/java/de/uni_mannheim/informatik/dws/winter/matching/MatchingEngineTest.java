@@ -190,7 +190,7 @@ public class MatchingEngineTest extends TestCase {
 		assertEquals(6, m.getTopKInstanceCorrespondences(cors, 3, 0.0).size());
 		assertEquals(3, m.getTopKInstanceCorrespondences(cors, 3, 0.7).size());
 		result = m.getTopKInstanceCorrespondences(cors, 2, 0.0);
-		result.iterateDataset(new SysOutDatasetIterator<>());
+		result.foreach(new SysOutDatasetIterator<>());
 		assertEquals(4, result.size());
 		assertEquals(3, m.getTopKInstanceCorrespondences(cors, 2, 0.5).size());
 		assertEquals(2, m.getTopKInstanceCorrespondences(cors, 1, 0.0).size());

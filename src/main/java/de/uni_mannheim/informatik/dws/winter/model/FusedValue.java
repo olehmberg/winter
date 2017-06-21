@@ -44,7 +44,7 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	 * 
 	 * @param value
 	 */
-	public FusedValue(FusableValue<ValueType, RecordType, SchemaElementType> value) {
+	public FusedValue(FusibleValue<ValueType, RecordType, SchemaElementType> value) {
 		if (value != null) {
 			this.value = value.getValue();
 			addOriginalRecord(value.getRecord(), value.getDataset());
@@ -95,7 +95,7 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	 * 
 	 * @param value
 	 */
-	public void addOriginalRecord(FusableValue<ValueType, RecordType, SchemaElementType> value) {
+	public void addOriginalRecord(FusibleValue<ValueType, RecordType, SchemaElementType> value) {
 		originalRecords.put(value.getRecord(), value.getDataset());
 	}
 }

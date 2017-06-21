@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
  * @param <ValueType>
  * @param <RecordType>
  */
-public class FusableValue<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
+public class FusibleValue<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
 	private ValueType value;
 	private RecordType record;
@@ -35,7 +35,7 @@ public class FusableValue<ValueType, RecordType extends Matchable & Fusible<Sche
 	 * @param record
 	 * @param dataset
 	 */
-	public FusableValue(ValueType value, RecordType record,
+	public FusibleValue(ValueType value, RecordType record,
 			FusibleDataSet<RecordType, SchemaElementType> dataset) {
 		this.value = value;
 		this.record = record;

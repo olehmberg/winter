@@ -97,12 +97,12 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 		
 		if(schemaCorrespondences!=null) {
 			// group the schema correspondences by data source (if no data sources are defined, all schema correspondences are used)
-			Processable<Group<Object, Correspondence<CorrespondenceType, Matchable>>> leftCors = schemaCorrespondences.groupRecords(correspondenceJoinKey);
+			Processable<Group<Object, Correspondence<CorrespondenceType, Matchable>>> leftCors = schemaCorrespondences.group(correspondenceJoinKey);
 	
 			// join the dataset with the correspondences
 			Processable<Pair<RecordType, Group<Object, Correspondence<CorrespondenceType, Matchable>>>> joined = dataset1.leftJoin(leftCors, (r)->r.getDataSourceIdentifier(), (r)->r.getKey());
 			
-			return joined.transform((p,c)-> {
+			return joined.map((p,c)-> {
 				if(p.getSecond()!=null) {
 					c.next(new Pair<>(p.getFirst(), p.getSecond().getRecords()));
 				} else {
@@ -111,7 +111,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 				
 			});
 		} else {
-			return dataset1.transform((r,c)->c.next(new Pair<>(r,null)));
+			return dataset1.map((r,c)->c.next(new Pair<>(r,null)));
 		}
 	}
 	

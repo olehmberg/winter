@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
@@ -36,7 +36,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 	private Map<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> attributeFusers;
 	private Map<SchemaElementType, EvaluationRule<RecordType, SchemaElementType>> evaluationRules;
-	private FusableFactory<RecordType, SchemaElementType> factory;
+	private FusibleFactory<RecordType, SchemaElementType> factory;
 
 	/**
 	 * @return the evaluationRules
@@ -51,7 +51,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * 
 	 * @param factory
 	 */
-	public DataFusionStrategy(FusableFactory<RecordType, SchemaElementType> factory) {
+	public DataFusionStrategy(FusibleFactory<RecordType, SchemaElementType> factory) {
 		attributeFusers = new HashMap<>();
 		evaluationRules = new HashMap<>();
 		this.factory = factory;

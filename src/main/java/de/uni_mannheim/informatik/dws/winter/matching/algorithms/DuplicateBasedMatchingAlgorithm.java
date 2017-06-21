@@ -162,12 +162,12 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, RecordType>>> aggregatedVotes;
 		if(voteFilter==null) {
 			// vote and aggregate without filtering
-			aggregatedVotes = blocked.aggregateRecords(rule, voting);
+			aggregatedVotes = blocked.aggregate(rule, voting);
 		} else {
 			// vote
-			Processable<Correspondence<SchemaElementType, RecordType>> votes = blocked.transform(rule);
+			Processable<Correspondence<SchemaElementType, RecordType>> votes = blocked.map(rule);
 			
-			Processable<Pair<Pair<SchemaElementType, RecordType>, Processable<Correspondence<SchemaElementType, RecordType>>>> filteredVotes = votes.aggregateRecords((r,c) -> 
+			Processable<Pair<Pair<SchemaElementType, RecordType>, Processable<Correspondence<SchemaElementType, RecordType>>>> filteredVotes = votes.aggregate((r,c) -> 
 			{
 				Correspondence<RecordType, Matchable> cause = Q.firstOrDefault(r.getCausalCorrespondences().get());
 				if(cause!=null) {
@@ -179,7 +179,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 			}, voteFilter);
 			
 			// aggregate the votes
-			aggregatedVotes = filteredVotes.aggregateRecords((r,c) -> {
+			aggregatedVotes = filteredVotes.aggregate((r,c) -> {
 				if(r!=null) {
 					for(Correspondence<SchemaElementType, RecordType> cor : r.getSecond().get()) {
 						c.next(new Pair<>(new Pair<>(cor.getFirstRecord(), cor.getSecondRecord()), cor));
@@ -189,7 +189,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 			
 		}
 
-		result = aggregatedVotes.transform((p,c) -> {
+		result = aggregatedVotes.map((p,c) -> {
 			if(p.getSecond()!=null) {
 				c.next(p.getSecond());
 			}
