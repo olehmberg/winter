@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.events.model;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import org.joda.time.DateTime;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,14 +38,42 @@ public class LocationXMLReader extends XMLMatchableReader<Location, Attribute> {
         Location location = new Location(uri, provenanceInfo);
 
         // fill the attributes
+        // set labels
         List<String> labels = getListFromChildElement(node, "label");
+        //remove language tags from labels
+        for (int i = 0; i < labels.size(); i++) {
+            labels.set(i, removeLanguageTag(labels.get(i)));
+        }
         location.setLabels(labels);
 
-        //...
-
-
+        // set coordinates
+        List<String> coordinateStrings = getListFromChildElement(node, "coordinates");
+        if (coordinateStrings != null) {
+            for (String coordinateString : coordinateStrings) {
+                if (!coordinateString.contains("NAN")) { //check for NAN that can appear in DBpedia
+                    String[] coordinatePair = coordinateString.split(",");
+                    Pair<Double, Double> p = new Pair<>(
+                            Double.valueOf(coordinatePair[0].substring(0, coordinatePair[0].indexOf("^"))),
+                            Double.valueOf(coordinatePair[1].substring(0, coordinatePair[1].indexOf("^")))
+                    );
+                    location.addCoordinates(p);
+                }
+            }
+        }
+        // set sameAs links
+        List<String> sames = getListFromChildElement(node, "same");
+        if (sames != null) {
+            location.setSames(sames);
+        }
 
         return location;
+    }
+
+    private String removeLanguageTag(String s) {
+        if (s.contains("@")) {
+            s =  s.substring(0, s.indexOf("@"));
+        }
+        return s;
     }
 
 }

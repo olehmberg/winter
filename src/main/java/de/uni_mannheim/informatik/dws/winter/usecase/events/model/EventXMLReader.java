@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.w3c.dom.Element;
@@ -62,29 +63,53 @@ public class EventXMLReader extends XMLMatchableReader<Event, Attribute> impleme
         // create the object with id and provenance information
         Event event = new Event(uri, provenanceInfo);
 
-        event.setSingleURI(uri);
-
         // fill the attributes
-
-        //event.set(getValueFromChildElement(node, "director"));
-
+        // set uri
+        event.setSingleURI(uri);
+        // set labels
         List<String> labels = getListFromChildElement(node, "label");
-
         //remove language tags from labels
         for (int i = 0; i < labels.size(); i++) {
             labels.set(i, removeLanguageTag(labels.get(i)));
         }
-
         event.setLabels(labels);
 
-        //... uri
+        // set coordinates
+        List<String> coordinateStrings = getListFromChildElement(node, "coordinates");
+        if (coordinateStrings != null) {
+            for (String coordinateString : coordinateStrings) {
+                if (!coordinateString.contains("NAN")) { //check for NAN that can appear in DBpedia
+                    String[] coordinatePair = coordinateString.split(",");
+                    Pair<Double, Double> p = new Pair<>(
+                            Double.valueOf(coordinatePair[0].substring(0, coordinatePair[0].indexOf("^"))),
+                            Double.valueOf(coordinatePair[1].substring(0, coordinatePair[1].indexOf("^")))
+                    );
+                    event.addCoordinates(p);
+                }
+            }
+        }
+
+        // set sameAs links
+        List<String> sames = getListFromChildElement(node, "same");
+        if (sames != null) {
+            event.setSames(sames);
+        }
 
         // convert the date string into a DateTime object
         try {
-            String date = getValueFromChildElement(node, "date");
-            if (date != null && !date.isEmpty()) {
-                DateTime dt = DateTime.parse(date.substring(0,10));
-                event.setSingleDate(dt);
+            List<String> dates = getListFromChildElement(node, "date");
+            if (dates != null) {
+                for (String date : dates) {
+                    if (date != null && !date.isEmpty()
+                            // filter negative dates
+                            && date.indexOf('-') != 0) {
+                        if (date.contains("##")) {
+                            date = date.replace("##", "01");
+                        }
+                        DateTime dt = DateTime.parse(date.substring(0, 10));
+                        event.addDate(dt);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
