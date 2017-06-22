@@ -42,6 +42,13 @@ public class ParallelHashedDataSet<RecordType extends Matchable, SchemaElementTy
 		records = new HashMap<>();
 	}
 
+	public ParallelHashedDataSet(Collection<RecordType> records) {
+		this.records = new HashMap<>();
+		for(RecordType record : records) {
+			add(record);
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.dws.winter.model.DataSet#getRecord(java.lang.String)
