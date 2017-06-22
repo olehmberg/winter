@@ -137,12 +137,8 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 		if(column.getProvenance()!=null && column.getProvenance().size() > 0) {
 			getProvenance().addAll(column.getProvenance());
 		} else {
-			getProvenance().add(column.getProvenanceString());
+			getProvenance().add(column.getIdentifier());
 		}
-	}
-	
-	public String getProvenanceString() {
-		return String.format("%s;%d;%s", getTable().getPath(), getColumnIndex(), getHeader());
 	}
 	
 	public String getIdentifier() {
