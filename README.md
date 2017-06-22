@@ -12,6 +12,27 @@ The WInte.r framework provides methods for end-to-end data integration. The fram
 
 **Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As an alternative to acquaint yourself with the framework, you can also have a look at the code examples in our [Wiki](../../wiki)!
 
+## Using WInte.r
+
+You can include the WInte.r framework via the following Maven dependency:
+
+```xml
+<repositories>
+	<repository>
+		<id>releases</id>
+		<url>https://breda.informatik.uni-mannheim.de/nexus/content/repositories/releases/</url>
+	</repository>
+</repositories>
+
+<dependency>
+  <groupId>de.uni_mannheim.informatik.dws</groupId>
+  <artifactId>winter</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
+
+
 ## Functionality
 The WInte.r framework covers all central steps of the data integration process, including data loading, pre-processing, schema matching, identity resolution, as well as data fusion. This section gives an overview of the functionality and the alternative algorithms that are provided for each of these steps.
 
