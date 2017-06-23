@@ -217,7 +217,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				for(int j = i+1; j < list.size(); j++) {
 					Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2 = list.get(j);
 					
-					Processable<Correspondence<CorrespondenceType, Matchable>> causes = new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
+					Processable<Correspondence<CorrespondenceType, Matchable>> causes = new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond());
 					
 					int[] pairIds = new int[] { p1.getFirst().getDataSourceIdentifier(), p2.getFirst().getDataSourceIdentifier() };
 					Arrays.sort(pairIds);
@@ -229,7 +229,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						Arrays.sort(causeIds);
 						
 						return Arrays.equals(pairIds, causeIds);
-					});
+					}).distinct();
 					
 					collector.next(new Correspondence<>(p1.getFirst(), p2.getFirst(), 1.0, causes));
 				}
