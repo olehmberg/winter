@@ -48,8 +48,6 @@ import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.GreedyStepwise;
 import weka.attributeSelection.WrapperSubsetEval;
 import weka.classifiers.Classifier;
-import weka.classifiers.SingleClassifierEnhancer;
-import weka.classifiers.MultipleClassifiersCombiner;
 
 /**
  * Class that creates and applies a matching Rule based on supervised learning
@@ -66,7 +64,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private static final long serialVersionUID = 1L;
 	private String[] parameters;
 	private Classifier classifier;
-	private Classifier[] baseClassifiers;
 	private List<Comparator<RecordType, SchemaElementType>> comparators;
 
 	// Handling of feature subset selection
@@ -109,77 +106,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		this.comparators = new LinkedList<>();
 	}
 	
-	/**
-	 * Create a MatchingRule using an ensemble with a single base learner, which can be trained using the Weka library for
-	 * identity resolution.
-	 * 
-	 * @param finalThreshold
-	 *            determines the confidence level, which needs to be exceeded by
-	 *            the classifier, so that it can classify a record as match.
-	 * 
-	 * @param metaClassifier
-	 *            Has the name of a specific meta classifier from the Weka library.
-	 *
-	 * @param baseClassifier
-	 *            Has the name of a specific base classifier from the Weka library.
-	 * 
-	 * @param parametersMetaClassifier
-	 *            Hold the parameters to tune the metaClassifier.
-	 *            
-	 * @param parametersBaseClassifier
-	 *            Hold the parameters to tune the baseClassifier.
-	 */
-
-	public WekaMatchingRule(double finalThreshold, String metaClassifier, String baseClassifier, String parametersMetaClassifier[], String parametersBaseClassifier[]) {
-		this(finalThreshold, metaClassifier, parametersMetaClassifier);
-		
-		// create base Classifier --> single Classifier
-		try {
-			this.baseClassifiers = new Classifier [] {(Classifier) Utils.forName(Classifier.class, baseClassifier, parametersBaseClassifier)};
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		((SingleClassifierEnhancer)this.classifier).setClassifier(this.baseClassifiers[0]);
-		
-	}
-	
-	/**
-	 * Create a MatchingRule using an ensemble with multiple base learners, which can be trained using the Weka library for
-	 * identity resolution.
-	 * 
-	 * @param finalThreshold
-	 *            determines the confidence level, which needs to be exceeded by
-	 *            the classifier, so that it can classify a record as match.
-	 * 
-	 * @param metaClassifier
-	 *            Has the name of a specific meta classifier from the Weka library.
-	 *
-	 * @param baseClassifier
-	 *            Has the name of a specific base classifier from the Weka library.
-	 * 
-	 * @param parametersMetaClassifier
-	 *            Hold the parameters to tune the metaClassifier.
-	 *            
-	 * @param parametersBaseClassifier
-	 *            Hold the parameters to tune the baseClassifier.
-	 */
-
-	public WekaMatchingRule(double finalThreshold, String metaClassifier, String[] baseClassifier, String parametersMetaClassifier[], String parametersBaseClassifier[][]) {
-		this(finalThreshold, metaClassifier, parametersMetaClassifier);
-		
-		// create base Classifiers
-		this.baseClassifiers = new Classifier[baseClassifier.length];
-		
-		for(int i = 0; i< baseClassifier.length; i++){
-			try {
-				this.baseClassifiers[i] = (Classifier) Utils.forName(Classifier.class, baseClassifier[i], parametersBaseClassifier[i]);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// Assign baseClassifiers 
-		((MultipleClassifiersCombiner)this.classifier).setClassifiers(this.baseClassifiers);
-	}
 
 	public String[] getparameters() {
 		return parameters;
