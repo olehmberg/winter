@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Implementation of a standard {@link AbstractBlocker} based on blocking keys. All records for which the same blocking key is generated are returned as pairs.
  * After building the block, block filtering is applied to remove redundant and superfluous comparisons.
+ * Block filtering is implemented based on the 'Scaling Entity Resolution to Large, Heterogeneous Data with Enhanced Meta-blocking' paper by Papadakis et al. in 2016: dx.doi.org/10.5441/002/edbt.2016.22
  * Based on the StandardBlocker class.
  *
  * @author Daniel Ringler
@@ -114,7 +115,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
 
-		printBlockedData(blockedData);
+		//printBlockedData(blockedData);
 
 		//BLOCK FILTERING
 		// 1. BLOCK CARDINALITIES
@@ -238,7 +239,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 				}
 		);
 		//DONE WITH BLOCK FILTERING
-		printBlockedData(blockedData);
+		//printBlockedData(blockedData);
 
 			// transform the blocks into pairs of records
 		Processable<Correspondence<BlockedType, CorrespondenceType>> result = blockedData.transform(new RecordMapper<Pair<
@@ -348,11 +349,11 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 
 				//calcluate the number of blocks that should be deleted using the user-defined ratio
 				int blocksToDelete = (int) Math.floor(sortedBlockCardinalities.size() * ratio);
-				System.out.println(record.getKey().getFirst().getIdentifier().toString() + " has " + sortedBlockCardinalities.size() + " keys. Deleting "+ blocksToDelete);
+				//System.out.println(record.getKey().getFirst().getIdentifier().toString() + " has " + sortedBlockCardinalities.size() + " keys. Deleting "+ blocksToDelete);
 				int deletedBlocks = 0;
 				//iterate over sortedBlockCardinalities and add recordValues that should be deleted to the recordValuesToDelete-HashSet
 				for (Map.Entry<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>, Long> entry : sortedBlockCardinalities.entrySet()) {
-					System.out.println(entry.getKey().getSecond() + ": " + entry.getValue().toString());
+					//System.out.println(entry.getKey().getSecond() + ": " + entry.getValue().toString());
 					if (deletedBlocks<blocksToDelete) {
 						deletedBlocks++;
 					} else {

@@ -50,7 +50,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
 
 /**
  * Class containing the standard setup to perform a identity resolution task,
- * reading input data from the movie usecase.
+ * reading input data from the event usecase. Based on the movie usecase.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * @author Robert Meusel (robert@dwslab.de)
@@ -61,58 +61,25 @@ public class Events_IdentityResolution_Main {
 
 	public static void main(String[] args) throws Exception {
 
+		// Ratio for Block Filtering
 		double ratio = 0.5;
 
-		char separator = '+';
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-		boolean filterFrom = false;
-		boolean filterTo = false;
-		boolean applyKeywordSearch = false;
-		LocalDate fromDate = LocalDate.MIN;
-		LocalDate toDate = LocalDate.MAX;
-        String keyword = "";
-
 		// loading data
-		/*DefaultDataSet<Movie, DefaultSchemaElement> dataAcademyAwards = new DefaultDataSet<>();
-		dataAcademyAwards.loadFromXML(new File(
-				"usecase/movie/input/academy_awards.xml"), new MovieFactory(),
-				"/movies/movie");
-		DefaultDataSet<Movie, DefaultSchemaElement> dataActors = new DefaultDataSet<>();
-		dataActors.loadFromXML(new File("usecase/movie/input/actors.xml"),
-				new MovieFactory(), "/movies/movie");
-		*/
 		HashedDataSet<Event, Attribute> dataDBpedia = new HashedDataSet<>();
-		new EventXMLReader().loadFromXML(new File("usecase/events/input/dbpedia_events_s_5.xml"), "/events/event", dataDBpedia);
+		new EventXMLReader().loadFromXML(new File("usecase/events/input/dbpedia_events_sample.xml"), "/events/event", dataDBpedia);
 
-		/*dataDBpedia.loadFromXML(new File("WDI/usecase/event/input/dbpedia_events_s_5.xml"),
-				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, false, keyword);
-		*/
 		HashedDataSet<Event, Attribute> dataYAGO = new HashedDataSet<>();
-		new EventXMLReader().loadFromXML(new File("usecase/events/input/yago_events_s_5.xml"), "/events/event", dataYAGO);
-		/*dataYAGO.loadFromXML(new File("WDI/usecase/event/input/yago-1.tsv"),
-				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, false, keyword);
-		*/
+		new EventXMLReader().loadFromXML(new File("usecase/events/input/yago_events_sample.xml"), "/events/event", dataYAGO);
 
 		// create a matching rule
 		LinearCombinationMatchingRule<Event, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
 		// add comparators
-		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);//0.8);
-		//matchingRule.addComparator(new EventDateComparator(), 0.2);
-//new blocking
+		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);
+
+		// Blocking with block filtering
 		StandardRecordBlockerWithBlockFiltering<Event, Attribute> blocker = new StandardRecordBlockerWithBlockFiltering<Event, Attribute>(new EventBlockingKeyByLabelsTokens(), ratio);
 
-//old blocking
-		/*
-		// create a blocker (blocking strategy)
-		//NoBlocker<Event, Attribute> blocker = new NoBlocker<>();
-        //BlockingKeyGenerator<Event> firstLabel = BlockingFunction.getFirstLabel();
-        MultiBlockingKeyGenerator<Event> tokenizedAttributes = BlockingFunction.getStandardBlockingFunctionAllAttributes();
-
-
-		//StandardBlocker<Event, DefaultSchemaElement> blocker = new StandardBlocker<Event, DefaultSchemaElement>(firstLabel);
-        MultiKeyBlocker<Event, Attribute> blocker = new MultiKeyBlocker<Event, Attribute>(tokenizedAttributes);
-*/
 		// Initialize Matching Engine
 		MatchingEngine<Event, Attribute> engine = new MatchingEngine<>();
 
@@ -120,28 +87,22 @@ public class Events_IdentityResolution_Main {
 		Processable<Correspondence<Event, Attribute>> correspondences = engine.runIdentityResolution(
 				dataDBpedia, dataYAGO, null, matchingRule,
 				blocker);
-//, true, 0.5);
 
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/events/output/dbpedia_2_yago_correspondences.csv"), correspondences);
-		/*engine.writeCorrespondences(
-				correspondences.get(),
-				new File(
-						"WDI/usecase/event/output/dbpedia_2_yago_correspondences_s.csv"));
-		*/
+
 		// print the correspondences to console
 		// printCorrespondences(correspondences);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromTSVFile(new File(
-				"usecase/events/goldstandard/dbpedia_2_yago_s.tsv"));
+				"usecase/events/goldstandard/dbpedia_2_yago_sample.tsv"));
 
 		// evaluate your result
 		MatchingEvaluator<Event, Attribute> evaluator = new MatchingEvaluator<Event, Attribute>(true);
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
-//, false);
 
 		// print the evaluation result
 		System.out.println("DBpedia <-> YAGO");
