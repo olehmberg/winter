@@ -115,10 +115,12 @@ public class EventXMLReader extends XMLMatchableReader<Event, Attribute> impleme
             e.printStackTrace();
         }
 
-        // load the list of actors
+        // load the list of locations
         List<Location> locations = getObjectListFromChildElement(node, "locations",
                 "location", new LocationXMLReader(), provenanceInfo);
-        event.setLocations(locations);
+        if (locations != null) {
+            event.setLocations(locations);
+        }
 
         return event;
     }
