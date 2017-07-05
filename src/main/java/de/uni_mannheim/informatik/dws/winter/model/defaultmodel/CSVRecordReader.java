@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.model.defaultmodel;
 
 import java.io.File;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -28,16 +29,24 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVMatchableReader;
 public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
+	private Map<String, Attribute> attributeMapping;
 
 	/**
 	 * 
 	 * @param idColumnIndex
 	 * 		The index of the column that contains the ID attribute. Specify -1 if the file does not contain a unique ID attribute.
+	 * @param attributeMapping
+	 * 		The position of a column and the corresponding attribute
 	 */
 	public CSVRecordReader(int idColumnIndex) {
 		this.idIndex = idColumnIndex;
 	}
 	
+	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
+		this.idIndex = idColumnIndex;
+		this.attributeMapping = attributeMapping;
+	}
+
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVMatchableReader#readLine(java.lang.String[], de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
@@ -75,8 +84,15 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 			Record r = new Record(id, file.getAbsolutePath());
 			
 			for(int i = 0; i < values.length; i++) {
-				String attributeId = String.format("%s_Col%d", file.getName(), i);
-				Attribute a = dataset.getAttribute(attributeId);
+				Attribute a;
+				if(this.attributeMapping == null){
+					String attributeId = String.format("%s_Col%d", file.getName(), i);
+					a = dataset.getAttribute(attributeId);
+				}
+				else{
+					a = this.attributeMapping.get(Integer.toString(i));
+				}
+				
 				String v = values[i];
 				
 				if(v.isEmpty()) {

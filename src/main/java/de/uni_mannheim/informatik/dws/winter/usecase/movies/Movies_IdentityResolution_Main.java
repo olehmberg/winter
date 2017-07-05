@@ -35,8 +35,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByDecadeGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByYearGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
@@ -64,9 +64,9 @@ public class Movies_IdentityResolution_Main {
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
 //		matchingRule.addComparator((m1, m2, c) -> new YearSimilarity(10).calculate(m1.getDate(), m2.getDate()), 0.2);
-		
-		matchingRule.addComparator(new MovieTitleComparatorJaccard(), 0.8);
-		matchingRule.addComparator(new MovieDateComparator10Years(), 0.2);
+
+		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
+		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
@@ -118,8 +118,8 @@ public class Movies_IdentityResolution_Main {
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.0);
 		// add comparators
-		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.5);
-		matchingRule.addComparator(new MovieDateComparator10Years(), 0.5);
+		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
+		matchingRule.addComparator(new MovieDateComparator10Years(), 0.2);
 
 		// create the data set for learning a matching rule (use this file in
 		// RapidMiner)

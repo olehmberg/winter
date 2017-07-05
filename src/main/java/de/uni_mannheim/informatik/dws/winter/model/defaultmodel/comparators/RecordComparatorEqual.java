@@ -19,16 +19,15 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.EqualsSimilarity;
-import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
 
 /**
  * {@link Comparator} for {@link Record}s
- * values and their {@link LevenshteinSimilarity} value.
+ * exactly matching.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorEqual extends RecordComparator {
+public class RecordComparatorEqual extends StringComparator {
 
 	public RecordComparatorEqual(Attribute attributeRecord1, Attribute attributeRecord2) {
 		super(attributeRecord1, attributeRecord2);
@@ -45,6 +44,9 @@ public class RecordComparatorEqual extends RecordComparator {
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
 				
+		s1 = preprocess(s1);
+		s2 = preprocess(s2);
+		
 		double similarity = sim.calculate(s1, s2);
 
 		return similarity;

@@ -26,32 +26,43 @@ import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccard
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorJaccard extends RecordComparator {
+public class RecordComparatorJaccard extends StringComparator {
 
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
-	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2) {
+	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold, boolean squared) {
 		super(attributeRecord1, attributeRecord2);
+		this.threshold 	= threshold;
+		this.squared	= squared;
 	}
 	
-
+	private double threshold;
+	private boolean squared;
+	
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
 		// preprocessing
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
-			
+	
+		if(s1==null || s2==null) {
+			return 0.0;
+		}
+		
+		s1 = preprocess(s1);
+		s2 = preprocess(s2);
+		
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
 
 		// postprocessing
-		if (similarity <= 0.3) {
+		if (similarity <= this.threshold) {
 			similarity = 0;
 		}
+		if(squared)
+			similarity *= similarity;
 
-		similarity *= similarity;
-		
 		return similarity;
 	}
 

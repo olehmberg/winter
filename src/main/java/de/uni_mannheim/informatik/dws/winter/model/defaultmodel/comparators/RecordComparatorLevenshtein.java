@@ -26,7 +26,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimila
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorLevenshtein extends RecordComparator {
+public class RecordComparatorLevenshtein extends StringComparator {
 
 	public RecordComparatorLevenshtein(Attribute attributeRecord1, Attribute attributeRecord2) {
 		super(attributeRecord1, attributeRecord2);
@@ -37,7 +37,17 @@ public class RecordComparatorLevenshtein extends RecordComparator {
 
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		return sim.calculate(record1.getValue(this.getAttributeRecord1()), record2.getValue(this.getAttributeRecord2()));
+		
+		String s1 = record1.getValue(this.getAttributeRecord1());
+		String s2 = record2.getValue(this.getAttributeRecord2());
+		
+		s1 = preprocess(s1);
+		s2 = preprocess(s2);
+		
+		// calculate similarity
+		double similarity = sim.calculate(s1, s2);
+
+		return similarity;
 	}
 
 
