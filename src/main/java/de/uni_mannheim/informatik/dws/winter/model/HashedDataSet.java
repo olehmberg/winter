@@ -41,6 +41,13 @@ public class HashedDataSet<RecordType extends Matchable, SchemaElementType exten
 	public HashedDataSet() {
 		records = new HashMap<>();
 	}
+	
+	public HashedDataSet(Collection<RecordType> records) {
+		this.records = new HashMap<>();
+		for(RecordType r : records) {
+			add(r);
+		}
+	}
 
 	/**
 	 * 

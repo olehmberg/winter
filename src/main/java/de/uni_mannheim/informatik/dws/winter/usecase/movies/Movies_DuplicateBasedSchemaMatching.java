@@ -20,7 +20,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -57,7 +57,7 @@ public class Movies_DuplicateBasedSchemaMatching {
 
 					@Override
 					public double compare(Attribute a1, Attribute a2,
-							SimpleCorrespondence<Record> c) {
+							Correspondence<Record, Matchable> c) {
 						String value1 = c.getFirstRecord().getValue(a1);
 						String value2 = c.getSecondRecord().getValue(a2);
 						

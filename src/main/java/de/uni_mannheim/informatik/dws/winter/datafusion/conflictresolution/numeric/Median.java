@@ -18,7 +18,7 @@ import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -34,11 +34,11 @@ public class Median<RecordType extends Matchable & Fusible<SchemaElementType>, S
 
 	@Override
 	public FusedValue<Double, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<Double, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<Double, RecordType, SchemaElementType>> values) {
 
 		List<Double> list = new LinkedList<>();
 
-		for (FusableValue<Double, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<Double, RecordType, SchemaElementType> value : values) {
 			list.add(value.getValue());
 		}
 

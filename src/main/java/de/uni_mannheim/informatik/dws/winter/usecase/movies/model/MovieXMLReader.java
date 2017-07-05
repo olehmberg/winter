@@ -20,7 +20,7 @@ import org.joda.time.DateTime;
 import org.w3c.dom.Node;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
@@ -32,7 +32,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
  * 
  */
 public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> implements
-		FusableFactory<Movie, Attribute> {
+		FusibleFactory<Movie, Attribute> {
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.model.io.XMLMatchableReader#initialiseDataset(de.uni_mannheim.informatik.wdi.model.DataSet)

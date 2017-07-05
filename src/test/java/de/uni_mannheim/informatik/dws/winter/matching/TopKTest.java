@@ -36,9 +36,9 @@ public class TopKTest extends TestCase {
 		correspondences.add(c1);
 		correspondences.add(c2);
 		
-		Processable<Pair<Pair<Record, Record>, Processable<Correspondence<Record, Attribute>>>> aggregated = correspondences.aggregateRecords(new AggregateByFirstRecordRule<>(0.0), new TopKCorrespondencesAggregator<>(1));
+		Processable<Pair<Pair<Record, Record>, Processable<Correspondence<Record, Attribute>>>> aggregated = correspondences.aggregate(new AggregateByFirstRecordRule<>(0.0), new TopKCorrespondencesAggregator<>(1));
 		
-		correspondences = aggregated.transform((p,c)->
+		correspondences = aggregated.map((p,c)->
 		{
 			for(Correspondence<Record, Attribute> cor : p.getSecond().get()) {
 				
@@ -67,9 +67,9 @@ public class TopKTest extends TestCase {
 		correspondences.add(c1);
 		correspondences.add(c2);
 		
-		Processable<Pair<Pair<Record, Record>, Processable<Correspondence<Record, Attribute>>>> aggregated = correspondences.aggregateRecords(new AggregateByFirstRecordRule<>(0.6), new TopKCorrespondencesAggregator<>(1));
+		Processable<Pair<Pair<Record, Record>, Processable<Correspondence<Record, Attribute>>>> aggregated = correspondences.aggregate(new AggregateByFirstRecordRule<>(0.6), new TopKCorrespondencesAggregator<>(1));
 		
-		correspondences = aggregated.transform((p,c)->
+		correspondences = aggregated.map((p,c)->
 		{
 			for(Correspondence<Record, Attribute> cor : p.getSecond().get()) {
 				

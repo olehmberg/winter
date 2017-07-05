@@ -39,7 +39,7 @@ public abstract class EvaluationRule<RecordType extends Matchable, SchemaElement
 	 * @param schemaCorrespondence
 	 * @return Returns whether the values of the given records are equal according to this evaluation rule (assuming the records are in different schemas)
 	 */
-	public abstract boolean isEqual(RecordType record1, RecordType record2, Correspondence<SchemaElementType, RecordType> schemaCorrespondence);
+	public abstract boolean isEqual(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
 	
 	
 }

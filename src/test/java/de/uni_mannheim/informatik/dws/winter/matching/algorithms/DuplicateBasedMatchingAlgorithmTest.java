@@ -18,7 +18,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -75,7 +75,7 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 			TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 			
 			@Override
-			public double compare(Attribute record1, Attribute record2, SimpleCorrespondence<Record> schemaCorrespondences) {
+			public double compare(Attribute record1, Attribute record2, Correspondence<Record, Matchable> schemaCorrespondences) {
 				String v1 = schemaCorrespondences.getFirstRecord().getValue(record1);
 				String v2 = schemaCorrespondences.getSecondRecord().getValue(record2);
 				
@@ -92,7 +92,7 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 		DuplicateBasedMatchingAlgorithm<Record, Attribute> algo = new DuplicateBasedMatchingAlgorithm<>(
 				dataset1.getSchema(), 
 				dataset2.getSchema(), 
-				Correspondence.simplify(duplicates), 
+				Correspondence.toMatchable(duplicates), 
 				rule,
 				new TopKVotesAggregator<>(1),
 				new VotingAggregator<>(true, 0.6), 
@@ -105,7 +105,7 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 		for(Correspondence<Attribute, Record> cor : result.get()) {
 			System.out.println(String.format("%s<->%s %f", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
 			
-			for(SimpleCorrespondence<Record> cause : cor.getCausalCorrespondences().get()) {
+			for(Correspondence<Record, Matchable> cause : cor.getCausalCorrespondences().get()) {
 				System.out.println(String.format("\t%s<->%s %f", cause.getFirstRecord().getValue(cor.getFirstRecord()), cause.getSecondRecord().getValue(cor.getSecondRecord()), cause.getSimilarityScore()));
 			}
 		}

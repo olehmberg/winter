@@ -408,4 +408,21 @@ public class Q {
     	return result;
     }
 
+    public static boolean equals(Object value1, Object value2, boolean nullEqualsNull) {
+    	
+    	// if only one of the values if null, return false
+    	if(value1==null && value2!=null || value1!=null && value2==null) {
+    		return false;
+    	} else {
+    		
+    		// if both values are null, return nullEqualsNull
+    		if(value1==null && value2==null) {
+    			return nullEqualsNull;
+    		} else {
+    			
+    			// otherwise, compare the values
+    			return value1.equals(value2);
+    		}
+    	}
+    }
 }

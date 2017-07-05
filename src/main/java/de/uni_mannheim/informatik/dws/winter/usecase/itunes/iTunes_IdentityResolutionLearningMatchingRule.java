@@ -32,17 +32,13 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorEqual;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccardWithBrackets;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccardWithoutBrackets;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseEqual;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorOverlapMultipleAttributes;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.ITunesBlockingKeyByArtistTitleGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.ITunesRuntimeComparatorDeviationSimilarity;
+import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.RecordComparatorJaccardWithBrackets;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
 
@@ -106,21 +102,37 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
-		matchingRule.addComparator(new RecordComparatorLowerCaseEqual(Song.ARTIST, iTunesSong.ARTIST));
+		RecordComparatorEqual artistLowerCaseEqual = new RecordComparatorEqual(Song.ARTIST, iTunesSong.ARTIST);
+		artistLowerCaseEqual.setLowerCase(true);
+		matchingRule.addComparator(artistLowerCaseEqual);
 		matchingRule.addComparator(new RecordComparatorJaccard(Song.ARTIST, iTunesSong.ARTIST, 0.3, true));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Song.ARTIST, iTunesSong.ARTIST, 0.3, true));
-		matchingRule.addComparator(new RecordComparatorJaccardWithoutBrackets(Song.ARTIST, iTunesSong.ARTIST, 0.3, true));
+		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
+		artistLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(artistLowerCaseLevenshtein);
+		RecordComparatorJaccard lowerCaseArtistJaccard = new RecordComparatorJaccard(Song.ARTIST, iTunesSong.ARTIST, 0.3, true);
+		lowerCaseArtistJaccard.setLowerCase(true);
+		matchingRule.addComparator(lowerCaseArtistJaccard);
+		RecordComparatorJaccard artistNoBrackets = new RecordComparatorJaccard(Song.ARTIST, iTunesSong.ARTIST, 0.3, true);
+		artistNoBrackets.setRemoveBrackets(true);
+		matchingRule.addComparator(artistNoBrackets);
 		matchingRule.addComparator(new RecordComparatorJaccardWithBrackets(Song.ARTIST, iTunesSong.ARTIST, 0.3, true));
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseEqual(Song.RDFSCHEMA, iTunesSong.NAME));
+		RecordComparatorEqual labelNameLowerCaseEqual = new RecordComparatorEqual(Song.RDFSCHEMA, iTunesSong.NAME);
+		labelNameLowerCaseEqual.setLowerCase(true);
+		matchingRule.addComparator(labelNameLowerCaseEqual);
 		matchingRule.addComparator(new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true));
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true));
-		matchingRule.addComparator(new RecordComparatorJaccardWithoutBrackets(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true));
+		RecordComparatorLevenshtein labelNameLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME);
+		labelNameLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(labelNameLowerCaseLevenshtein);
+		RecordComparatorJaccard lowerCaseLabelJaccard = new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true);
+		lowerCaseLabelJaccard.setLowerCase(true);
+		matchingRule.addComparator(lowerCaseLabelJaccard);
+		RecordComparatorJaccard labelNoBrackets = new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true);
+		labelNoBrackets.setRemoveBrackets(true);
+		matchingRule.addComparator(labelNoBrackets);
 		matchingRule.addComparator(new RecordComparatorJaccardWithBrackets(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true));
 		
 		matchingRule.addComparator(new RecordComparatorEqual(Song.TRACKNUMBER, iTunesSong.POSITION));

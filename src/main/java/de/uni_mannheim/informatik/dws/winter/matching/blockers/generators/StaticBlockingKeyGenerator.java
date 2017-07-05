@@ -11,16 +11,16 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers.generators;
 
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
  * Implementation of a {@link BlockingKeyGenerator} which assigns to all given
- * records, always the same static key. Which means that a {@link Blocker}
+ * records, always the same static key. Which means that a {@link AbstractBlocker}
  * making use of this {@link BlockingKeyGenerator} will not do any sophisticated
  * blocking.
  * 
@@ -44,8 +44,8 @@ public class StaticBlockingKeyGenerator<RecordType extends Matchable, Correspond
 	 */
 	@Override
 	public void generateBlockingKeys(RecordType record,
-			Processable<SimpleCorrespondence<CorrespondenceType>> correspondences,
-			DatasetIterator<Pair<String, RecordType>> resultCollector) {
+			Processable<Correspondence<CorrespondenceType, Matchable>> correspondences,
+			DataIterator<Pair<String, RecordType>> resultCollector) {
 		resultCollector.next(new Pair<>(STATIC_BLOCKING_KEY, record));
 	}
 

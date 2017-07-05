@@ -13,8 +13,13 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.util.HashMap;
 
-import de.uni_mannheim.informatik.dws.winter.model.*;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -68,7 +73,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	 * @return the accuracy of the data fusion result
 	 */
 	public double evaluate(FusibleDataSet<RecordType, SchemaElementType> dataset,
-			DataSet<RecordType, SchemaElementType> goldStandard, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+			DataSet<RecordType, SchemaElementType> goldStandard, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
 		int correctValues = 0;
 		int totalValues = goldStandard.size()

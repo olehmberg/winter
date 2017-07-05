@@ -85,6 +85,11 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		elements.removeAll(element);
 	}
 	
+	@Override
+	public Processable<RecordType> copy() {
+		return createProcessableFromCollection(get());
+	}
+	
 	public RecordType firstOrNull() {
 		Collection<RecordType> data = get();
 		if(data==null || data.size()==0) {
@@ -144,8 +149,8 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	@Override
 	public 
 	void 
-	iterateDataset( 
-			DatasetIterator<RecordType> iterator) {
+	foreach( 
+			DataIterator<RecordType> iterator) {
 		
 		iterator.initialise();
 		
@@ -156,6 +161,13 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		iterator.finalise();
 	}
 	
+	@Override
+	public void foreach(Action<RecordType> action) {
+		for(RecordType r : get()) {
+			action.execute(r);
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.dws.winter.processing.Processable#transform(de.uni_mannheim.informatik.dws.winter.processing.RecordMapper)
@@ -164,7 +176,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<OutputRecordType> 
 	Processable<OutputRecordType> 
-	transform( 
+	map( 
 			RecordMapper<RecordType, OutputRecordType> transformation) {
 		
 		ProgressReporter progress = new ProgressReporter(size(),"");
@@ -292,12 +304,12 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		final Map<KeyType, List<RecordType>> joinKeys1 = hashRecords(this, joinKeyGenerator1);
 		final Map<KeyType, List<RecordType2>> joinKeys2 = hashRecords(dataset2, joinKeyGenerator2);
 		
-		Processable<Pair<RecordType, RecordType2>> result = createProcessableFromCollection(joinKeys1.keySet()).transform(new RecordMapper<KeyType, Pair<RecordType, RecordType2>>() {
+		Processable<Pair<RecordType, RecordType2>> result = createProcessableFromCollection(joinKeys1.keySet()).map(new RecordMapper<KeyType, Pair<RecordType, RecordType2>>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void mapRecord(KeyType key1, DatasetIterator<Pair<RecordType, RecordType2>> resultCollector) {
+			public void mapRecord(KeyType key1, DataIterator<Pair<RecordType, RecordType2>> resultCollector) {
 				List<RecordType> block = joinKeys1.get(key1);
 				List<RecordType2> block2 = joinKeys2.get(key1);
 				
@@ -376,7 +388,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<KeyType, OutputRecordType> 
 	Processable<Group<KeyType, OutputRecordType>> 
-	groupRecords( RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
+	group( RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
 				
 		GroupCollector<KeyType, OutputRecordType> groupCollector = new GroupCollector<>();
 		
@@ -399,7 +411,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	public 
 	<KeyType, OutputRecordType, ResultType> 
 	Processable<Pair<KeyType, ResultType>> 
-	aggregateRecords(
+	aggregate(
 			RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy, 
 			DataAggregator<KeyType, OutputRecordType, ResultType> aggregator) {
 
@@ -465,7 +477,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	@Override
 	public 
 	Processable<RecordType> 
-	filter(Function<Boolean, RecordType> criteria) {
+	where(Function<Boolean, RecordType> criteria) {
 		Processable<RecordType> result = createProcessable((RecordType)null);
 		
 		for(RecordType element : get()) {
@@ -490,22 +502,22 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			final Function<KeyType, RecordType> groupingKeyGenerator1, 
 			final Function<KeyType, RecordType2> groupingKeyGenerator2, 
 			final RecordMapper<Pair<Iterable<RecordType>, Iterable<RecordType2>>, OutputRecordType> resultMapper) {
-		 Processable<Group<KeyType, RecordType>> group1 = groupRecords(new RecordKeyValueMapper<KeyType, RecordType, RecordType>() {
+		 Processable<Group<KeyType, RecordType>> group1 = group(new RecordKeyValueMapper<KeyType, RecordType, RecordType>() {
 
 			private static final long serialVersionUID = 1L;
 		
 			@Override
-			public void mapRecordToKey(RecordType record, DatasetIterator<Pair<KeyType, RecordType>> resultCollector) {
+			public void mapRecordToKey(RecordType record, DataIterator<Pair<KeyType, RecordType>> resultCollector) {
 				resultCollector.next(new Pair<KeyType, RecordType>(groupingKeyGenerator1.execute(record), record));
 			}
 		});
 		
-		 Processable<Group<KeyType, RecordType2>> group2 = data2.groupRecords(new RecordKeyValueMapper<KeyType, RecordType2, RecordType2>() {
+		 Processable<Group<KeyType, RecordType2>> group2 = data2.group(new RecordKeyValueMapper<KeyType, RecordType2, RecordType2>() {
 
 			private static final long serialVersionUID = 1L;
 		
 			@Override
-			public void mapRecordToKey(RecordType2 record, DatasetIterator<Pair<KeyType, RecordType2>> resultCollector) {
+			public void mapRecordToKey(RecordType2 record, DataIterator<Pair<KeyType, RecordType2>> resultCollector) {
 				resultCollector.next(new Pair<KeyType, RecordType2>(groupingKeyGenerator2.execute(record), record));
 			}
 		});
@@ -534,7 +546,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			}
 		});
 		
-		 return joined.transform(new RecordMapper<Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>>, OutputRecordType>() {
+		 return joined.map(new RecordMapper<Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>>, OutputRecordType>() {
 
 			/**
 			 * 
@@ -543,7 +555,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 
 			@Override
 			public void mapRecord(Pair<Group<KeyType, RecordType>, Group<KeyType, RecordType2>> record,
-					DatasetIterator<OutputRecordType> resultCollector) {
+					DataIterator<OutputRecordType> resultCollector) {
 				resultMapper.mapRecord(new Pair<Iterable<RecordType>, Iterable<RecordType2>>(record.getFirst().getRecords().get(), record.getSecond().getRecords().get()), resultCollector);
 			}
 		});

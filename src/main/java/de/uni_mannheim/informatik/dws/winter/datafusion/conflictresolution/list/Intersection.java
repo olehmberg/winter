@@ -19,7 +19,7 @@ import java.util.Set;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -38,11 +38,11 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 
 	@Override
 	public FusedValue<List<ValueType>, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<List<ValueType>, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<List<ValueType>, RecordType, SchemaElementType>> values) {
 		// determine the intersection of values
 		Set<ValueType> allValues = null;
 
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 
 			if (allValues == null) {
 				allValues = new HashSet<>();
@@ -57,7 +57,7 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 				intersection);
 
 		// list the original records that contributed to this intersection
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 
 			for (ValueType v : value.getValue()) {
 				if (allValues.contains(v)) {

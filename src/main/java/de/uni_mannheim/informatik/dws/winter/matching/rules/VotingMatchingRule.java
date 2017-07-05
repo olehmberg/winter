@@ -13,8 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
@@ -40,10 +39,10 @@ public abstract class VotingMatchingRule<RecordType extends Matchable, SchemaEle
 	 */
 	@Override
 	public void mapRecord(Correspondence<RecordType, SchemaElementType> record,
-			DatasetIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
+			DataIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
 		
 		// create one correspondence for each causal correspondence
-		for(SimpleCorrespondence<SchemaElementType> cor : record.getCausalCorrespondences().get()) {
+		for(Correspondence<SchemaElementType, Matchable> cor : record.getCausalCorrespondences().get()) {
 			Correspondence<RecordType, SchemaElementType> newCor = apply(record.getFirstRecord(), record.getSecondRecord(), cor);
 			
 			if(newCor!=null) {
@@ -54,10 +53,10 @@ public abstract class VotingMatchingRule<RecordType extends Matchable, SchemaEle
 	
 	
 	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1,
-			RecordType record2, SimpleCorrespondence<SchemaElementType> correspondence) {
+			RecordType record2, Correspondence<SchemaElementType, Matchable> correspondence) {
 		double sim = compare(record1, record2, correspondence);
 		
-		Processable<SimpleCorrespondence<SchemaElementType>> cause = new ProcessableCollection<>();
+		Processable<Correspondence<SchemaElementType, Matchable>> cause = new ProcessableCollection<>();
 		cause.add(correspondence);
 		return new Correspondence<RecordType, SchemaElementType>(record1, record2, sim, cause);
 	}
@@ -66,6 +65,6 @@ public abstract class VotingMatchingRule<RecordType extends Matchable, SchemaEle
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(java.lang.Object, java.lang.Object, de.uni_mannheim.informatik.wdi.model.Correspondence)
 	 */
 	@Override
-	public abstract double compare(RecordType record1, RecordType record2, SimpleCorrespondence<SchemaElementType> correspondence);
+	public abstract double compare(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> correspondence);
 
 }

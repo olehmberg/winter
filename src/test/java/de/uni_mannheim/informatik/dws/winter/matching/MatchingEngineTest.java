@@ -15,7 +15,7 @@ package de.uni_mannheim.informatik.dws.winter.matching;
 import java.io.File;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.CrossDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
@@ -23,7 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMat
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -75,7 +75,7 @@ public class MatchingEngineTest extends TestCase {
 				new StaticBlockingKeyGenerator<Movie, Attribute>());
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
 
-		engine.runDuplicateDetection(ds, true, rule, blocker);
+		engine.runDuplicateDetection(ds, rule, blocker);
 	}
 
 //	public void testGenerateFeaturesForOptimisation()
@@ -119,13 +119,13 @@ public class MatchingEngineTest extends TestCase {
 			public double compare(
 					Attribute record1,
 					Attribute record2,
-					SimpleCorrespondence<Movie> schemaCorrespondences) {
+					Correspondence<Movie, Matchable> schemaCorrespondences) {
 				return record1.getIdentifier().equals(record2.getIdentifier()) ? 1.0 : 0.0;
 			}
 		};
 		rule.addComparator(comp, 1.0);
 		
-		CrossDataSetBlocker<Attribute, Attribute, Attribute, Movie> blocker = new CrossDataSetBlocker<Attribute, Attribute, Attribute, Movie>()  {
+		Blocker<Attribute, Attribute, Attribute, Movie> blocker = new Blocker<Attribute, Attribute, Attribute, Movie>()  {
 			
 			
 			/* (non-Javadoc)
@@ -135,7 +135,7 @@ public class MatchingEngineTest extends TestCase {
 			public Processable<Correspondence<Attribute, Movie>> runBlocking(
 					DataSet<Attribute, Attribute> schema1,
 					DataSet<Attribute, Attribute> schema2,
-					Processable<SimpleCorrespondence<Movie>> instanceCorrespondences) {
+					Processable<Correspondence<Movie, Matchable>> instanceCorrespondences) {
 				Processable<Correspondence<Attribute, Movie>> result = new ProcessableCollection<>();
 				
 				for(Attribute s1 : schema1.get()) {
@@ -190,7 +190,7 @@ public class MatchingEngineTest extends TestCase {
 		assertEquals(6, m.getTopKInstanceCorrespondences(cors, 3, 0.0).size());
 		assertEquals(3, m.getTopKInstanceCorrespondences(cors, 3, 0.7).size());
 		result = m.getTopKInstanceCorrespondences(cors, 2, 0.0);
-		result.iterateDataset(new SysOutDatasetIterator<>());
+		result.foreach(new SysOutDatasetIterator<>());
 		assertEquals(4, result.size());
 		assertEquals(3, m.getTopKInstanceCorrespondences(cors, 2, 0.5).size());
 		assertEquals(2, m.getTopKInstanceCorrespondences(cors, 1, 0.0).size());

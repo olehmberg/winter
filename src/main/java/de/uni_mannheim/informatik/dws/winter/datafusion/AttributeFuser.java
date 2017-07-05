@@ -32,7 +32,7 @@ public abstract class AttributeFuser<RecordType extends Matchable & Fusible<Sche
 	 * @param schemaCorrespondences
 	 * @param schemaElement
 	 */
-	public abstract void fuse(RecordGroup<RecordType, SchemaElementType> group, RecordType fusedRecord, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement);	
+	public abstract void fuse(RecordGroup<RecordType, SchemaElementType> group, RecordType fusedRecord, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement);	
 	
 	/**
 	 * Determines whether the record has a value for the attribute that is used by this fuser. Required for the collection of fusable values.
@@ -40,7 +40,7 @@ public abstract class AttributeFuser<RecordType extends Matchable & Fusible<Sche
 	 * @param correspondence
 	 * @return true if the record has a value for the attribute in the correspondence
 	 */
-	public abstract boolean hasValue(RecordType record, Correspondence<SchemaElementType, RecordType> correspondence);
+	public abstract boolean hasValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
 	
 	/**
 	 * Determines if the given group of records has conflicting values
@@ -50,6 +50,6 @@ public abstract class AttributeFuser<RecordType extends Matchable & Fusible<Sche
 	 * @param schemaElement
 	 * @return the consistency value if any values are available. NULL if no values are available
 	 */
-	public abstract Double getConsistency(RecordGroup<RecordType, SchemaElementType> group, EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement);
+	public abstract Double getConsistency(RecordGroup<RecordType, SchemaElementType> group, EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement);
 
 }

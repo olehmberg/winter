@@ -18,7 +18,7 @@ import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.clustering.CentreClusterer;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
@@ -43,15 +43,15 @@ public class ClusteredVote<ValueType, RecordType extends Matchable & Fusible<Sch
 	
 	@Override
 	public FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values) {
 		
 		// calculate similarities
-		Collection<Triple<FusableValue<ValueType, RecordType, SchemaElementType>, FusableValue<ValueType, RecordType, SchemaElementType>, Double>> similarityGraph = new LinkedList<>();
-		ArrayList<FusableValue<ValueType, RecordType, SchemaElementType>> valueList = new ArrayList<>(values);
+		Collection<Triple<FusibleValue<ValueType, RecordType, SchemaElementType>, FusibleValue<ValueType, RecordType, SchemaElementType>, Double>> similarityGraph = new LinkedList<>();
+		ArrayList<FusibleValue<ValueType, RecordType, SchemaElementType>> valueList = new ArrayList<>(values);
 		for(int i = 0; i < valueList.size(); i++) {
-			FusableValue<ValueType, RecordType, SchemaElementType> v1 = valueList.get(i);
+			FusibleValue<ValueType, RecordType, SchemaElementType> v1 = valueList.get(i);
 			for(int j = i + 1; j <valueList.size(); j++) {
-				FusableValue<ValueType, RecordType, SchemaElementType> v2 = valueList.get(j);
+				FusibleValue<ValueType, RecordType, SchemaElementType> v2 = valueList.get(j);
 				
 				double similarity = similarityMeasure.calculate(v1.getValue(), v2.getValue());
 				
@@ -62,14 +62,14 @@ public class ClusteredVote<ValueType, RecordType extends Matchable & Fusible<Sch
 		}
 		
 		// run clustering
-		CentreClusterer<FusableValue<ValueType, RecordType, SchemaElementType>> clusterer = new CentreClusterer<>();
-		Map<Collection<FusableValue<ValueType, RecordType, SchemaElementType>>,FusableValue<ValueType, RecordType, SchemaElementType>> clusters = clusterer.cluster(similarityGraph);
+		CentreClusterer<FusibleValue<ValueType, RecordType, SchemaElementType>> clusterer = new CentreClusterer<>();
+		Map<Collection<FusibleValue<ValueType, RecordType, SchemaElementType>>,FusibleValue<ValueType, RecordType, SchemaElementType>> clusters = clusterer.cluster(similarityGraph);
 		
 		// select largest cluster
-		FusableValue<ValueType, RecordType, SchemaElementType> centroid = null;
-		Collection<FusableValue<ValueType, RecordType, SchemaElementType>> largestCluster = null;
-		for(Collection<FusableValue<ValueType, RecordType, SchemaElementType>> clu : clusters.keySet()) {
-			FusableValue<ValueType, RecordType, SchemaElementType> centre = clusters.get(clu);
+		FusibleValue<ValueType, RecordType, SchemaElementType> centroid = null;
+		Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> largestCluster = null;
+		for(Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> clu : clusters.keySet()) {
+			FusibleValue<ValueType, RecordType, SchemaElementType> centre = clusters.get(clu);
 			if(largestCluster==null || clu.size()>largestCluster.size()) {
 				largestCluster = clu;
 				centroid = centre;

@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution;
 import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -32,6 +32,6 @@ public abstract class ConflictResolutionFunction<ValueType, RecordType extends M
 	 * @param values
 	 * @return The fused value
 	 */
-	public abstract FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values);
+	public abstract FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values);
 	
 }

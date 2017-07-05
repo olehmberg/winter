@@ -14,6 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.model;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
  * 
  * @param <RecordType>
  */
-public class Correspondence<RecordType extends Matchable, CausalType extends Matchable> extends SimpleCorrespondence<RecordType> {
+public class Correspondence<RecordType extends Matchable, CausalType extends Matchable> implements Serializable  {
 
 	public static class BySimilarityComparator<RecordType extends Matchable, CausalType extends Matchable> implements Comparator<Correspondence<RecordType, CausalType>> {
 
@@ -91,65 +92,62 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	}
 	
 	private static final long serialVersionUID = 1L;
-//	private RecordType firstRecord;
-//	private RecordType secondRecord;
-//	private double similarityScore;
-	private Processable<SimpleCorrespondence<CausalType>> causalCorrespondences;
-//
-//	/**
-//	 * returns the first record
-//	 * 
-//	 * @return
-//	 */
-//	public RecordType getFirstRecord() {
-//		return firstRecord;
-//	}
-//
-//	/**
-//	 * sets the first record
-//	 * 
-//	 * @param firstRecord
-//	 */
-//	public void setFirstRecord(RecordType firstRecord) {
-//		this.firstRecord = firstRecord;
-//	}
-//
-//	/**
-//	 * returns the second record
-//	 * 
-//	 * @return
-//	 */
-//	public RecordType getSecondRecord() {
-//		return secondRecord;
-//	}
-//
-//	/**
-//	 * sets the second record
-//	 * 
-//	 * @param secondRecord
-//	 */
-//	public void setSecondRecord(RecordType secondRecord) {
-//		this.secondRecord = secondRecord;
-//	}
-//
-//	/**
-//	 * returns the similarity score
-//	 * 
-//	 * @return
-//	 */
-//	public double getSimilarityScore() {
-//		return similarityScore;
-//	}
-//
-//	/**
-//	 * sets the similarity score
-//	 * 
-//	 * @param similarityScore
-//	 */
-//	public void setsimilarityScore(double similarityScore) {
-//		this.similarityScore = similarityScore;
-//	}
+	private Processable<Correspondence<CausalType, Matchable>> causalCorrespondences;
+	private RecordType firstRecord;
+	private RecordType secondRecord;
+	private double similarityScore;
 
+	/**
+	 * 
+	 * @return returns the first record
+	 */
+	public RecordType getFirstRecord() {
+		return firstRecord;
+	}
+
+	/**
+	 * sets the first record
+	 * 
+	 * @param firstRecord
+	 */
+	public void setFirstRecord(RecordType firstRecord) {
+		this.firstRecord = firstRecord;
+	}
+
+	/**
+	 * 
+	 * @return returns the second record
+	 */
+	public RecordType getSecondRecord() {
+		return secondRecord;
+	}
+
+	/**
+	 * sets the second record
+	 * 
+	 * @param secondRecord
+	 */
+	public void setSecondRecord(RecordType secondRecord) {
+		this.secondRecord = secondRecord;
+	}
+
+	/**
+	 * 
+	 * @return returns the similarity score
+	 */
+	public double getSimilarityScore() {
+		return similarityScore;
+	}
+
+	/**
+	 * sets the similarity score
+	 * 
+	 * @param similarityScore
+	 */
+	public void setsimilarityScore(double similarityScore) {
+		this.similarityScore = similarityScore;
+	}
+	
 	public Correspondence() {
 		
 	}
@@ -157,19 +155,33 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	public Correspondence(
 			RecordType first, 
 			RecordType second,
+			double similarityScore) {
+		firstRecord = first;
+		secondRecord = second;
+		this.similarityScore = similarityScore;
+	}
+
+	
+	public Correspondence(
+			RecordType first, 
+			RecordType second,
 			double similarityScore, 
-			Processable<SimpleCorrespondence<CausalType>> correspondences) {
-		super(first, second, similarityScore);
-//		firstRecord = first;
-//		secondRecord = second;
-//		this.similarityScore = similarityScore;
+			Processable<Correspondence<CausalType, Matchable>> correspondences) {
+//		super(first, second, similarityScore);
+		firstRecord = first;
+		secondRecord = second;
+		this.similarityScore = similarityScore;
 		this.causalCorrespondences = correspondences;
 	}
 
+	public String getIdentifiers() {
+		return String.format("%s/%s", getFirstRecord().getIdentifier(), getSecondRecord().getIdentifier());
+	}
+	
 	/**
 	 * @return the schema correspondences that were used to calculate this correspondence
 	 */
-	public Processable<SimpleCorrespondence<CausalType>> getCausalCorrespondences() {
+	public Processable<Correspondence<CausalType, Matchable>> getCausalCorrespondences() {
 		return causalCorrespondences;
 	}
 	
@@ -182,7 +194,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	public <T extends Matchable> Processable<Correspondence<CausalType, T>> castCausalCorrespondences() {
 		Processable<Correspondence<CausalType, T>> result = new ProcessableCollection<>();
 		
-		for(SimpleCorrespondence<CausalType> cor : getCausalCorrespondences().get()) {
+		for(Correspondence<CausalType, Matchable> cor : getCausalCorrespondences().get()) {
 			
 			@SuppressWarnings("unchecked")
 			Correspondence<CausalType, T> cast = (Correspondence<CausalType, T>) cor;
@@ -197,7 +209,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 * @param causalCorrespondences the causalCorrespondences to set
 	 */
 	public void setCausalCorrespondences(
-			Processable<SimpleCorrespondence<CausalType>> causalCorrespondences) {
+			Processable<Correspondence<CausalType, Matchable>> causalCorrespondences) {
 		this.causalCorrespondences = causalCorrespondences;
 	}
 	
@@ -208,7 +220,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 * @return The combined correspondence
 	 */
 	public static <RecordType extends Matchable, SchemaElementType extends Matchable> Correspondence<RecordType, SchemaElementType> combine(Correspondence<RecordType, SchemaElementType> first, Correspondence<RecordType, SchemaElementType> second) {
-		Processable<SimpleCorrespondence<SchemaElementType>> cors = new ProcessableCollection<>(first.getCausalCorrespondences()).append(second.getCausalCorrespondences());
+		Processable<Correspondence<SchemaElementType, Matchable>> cors = new ProcessableCollection<>(first.getCausalCorrespondences()).append(second.getCausalCorrespondences());
 		return new Correspondence<RecordType, SchemaElementType>(first.getFirstRecord(), second.getFirstRecord(), first.getSimilarityScore() * second.getSimilarityScore(), cors);
 	}
 	
@@ -231,8 +243,39 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		setFirstRecord(getSecondRecord());
 		setSecondRecord(tmp);
 		
-		for(SimpleCorrespondence<CausalType> cor : getCausalCorrespondences().get()) {
+		for(Correspondence<CausalType, Matchable> cor : getCausalCorrespondences().get()) {
 			cor.changeDirection();
+		}
+	}
+	
+	/**
+	 * 
+	 * Changes the direction of all correspondences such that the Matchable with the smaller data source identifier is on the left-hand side
+	 * 
+	 * @param correspondences
+	 */
+	public static <RecordType extends Matchable, CausalType extends Matchable> void setDirectionByDataSourceIdentifier(Processable<Correspondence<RecordType, CausalType>> correspondences) {
+		if(correspondences==null) {
+			return;
+		} else {
+			for(Correspondence<RecordType, CausalType> cor : correspondences.get()) {
+				cor.setDirectionByDataSourceIdentifier();
+			}
+		}
+	}
+	
+	public void setDirectionByDataSourceIdentifier() {
+		
+		if(getFirstRecord().getDataSourceIdentifier()>getSecondRecord().getDataSourceIdentifier()) {
+			RecordType tmp = getFirstRecord();
+			setFirstRecord(getSecondRecord());
+			setSecondRecord(tmp);
+		}
+		
+		if(getCausalCorrespondences()!=null) {
+			for(Correspondence<CausalType, Matchable> cor : getCausalCorrespondences().get()) {
+				cor.setDirectionByDataSourceIdentifier();
+			}
 		}
 	}
 	
@@ -241,8 +284,8 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof SimpleCorrespondence) {
-			SimpleCorrespondence<?> cor2 = (SimpleCorrespondence<?>)obj;
+		if(obj instanceof Correspondence) {
+			Correspondence<?,?> cor2 = (Correspondence<?,?>)obj;
 			return getFirstRecord().equals(cor2.getFirstRecord()) && getSecondRecord().equals(cor2.getSecondRecord());
 		} else {
 			return super.equals(obj);
@@ -358,17 +401,102 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		return correspondences;
 	}
 	
-	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, ?>> Processable<SimpleCorrespondence<RecordType>> simplify(Processable<CorType> correspondences) {
+//	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, ? extends Matchable>> Processable<SimpleCorrespondence<RecordType>> simplify(Processable<CorType> correspondences) {
+//		if(correspondences==null) {
+//			return null;
+//		} else {
+//			Processable<SimpleCorrespondence<RecordType>> result = new ProcessableCollection<>();
+//			for(CorType cor : correspondences.get()) {
+//				
+//				//TODO change simplification process, maybe instance method toSimple ... toMatchableCor...
+//				
+//				result.add(new SimpleCorrespondence<RecordType>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()), Correspondence.simplify(cor.getCausalCorrespondences()));
+//			} 
+//			return result;
+//		}
+//	}
+
+	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, ? extends Matchable>> Processable<Correspondence<RecordType, Matchable>> toMatchable(Processable<CorType> correspondences) {
 		if(correspondences==null) {
 			return null;
 		} else {
-			Processable<SimpleCorrespondence<RecordType>> result = new ProcessableCollection<>();
+			Processable<Correspondence<RecordType, Matchable>> result = new ProcessableCollection<>();
 			for(CorType cor : correspondences.get()) {
-				result.add(cor);
+				
+				Correspondence<RecordType, Matchable> simple = new Correspondence<RecordType, Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), toMatchable2(cor.getCausalCorrespondences()));
+				result.add(simple);
 			} 
 			return result;
 		}
 	}
 	
+	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, Matchable>> Processable<Correspondence<Matchable, Matchable>> toMatchable2(Processable<CorType> correspondences) {
+		if(correspondences==null) {
+			return null;
+		} else {
+			Processable<Correspondence<Matchable, Matchable>> result = new ProcessableCollection<>();
+			for(CorType cor : correspondences.get()) {
+				
+				Correspondence<Matchable, Matchable> simpler = new Correspondence<Matchable, Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), cor.getCausalCorrespondences());
 
+				result.add(simpler);
+			} 
+			return result;
+		}
+	}
+	
+	/**
+	 * 
+	 * creates a new correspondence for each causal correspondence
+	 * 
+	 * @param correspondences
+	 * @return
+	 */
+	public static <T extends Matchable, U extends Matchable> void flatten(Processable<Correspondence<T, U>> correspondences, Processable<Correspondence<T, U>> result) {
+//		Processable<Correspondence<T, U>> result = new ProcessableCollection<>();
+		
+		for(Correspondence<T, U> cor : correspondences.get()) {
+			
+			for(Correspondence<U, Matchable> cause : cor.getCausalCorrespondences().get()) {
+
+				Processable<Correspondence<U, Matchable>> newCauses = new ProcessableCollection<>();
+				newCauses.add(cause);
+				Correspondence<T, U> newCor = new Correspondence<T, U>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), newCauses);
+				result.add(newCor);
+			}
+			
+		}
+		
+//		return result;
+	}
+	
+//	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, ? extends Matchable>> Processable<SimpleCorrespondence<RecordType>> simplify(Processable<CorType> correspondences) {
+//		if(correspondences==null) {
+//			return null;
+//		} else {
+//			Processable<SimpleCorrespondence<RecordType>> result = new ProcessableCollection<>();
+//			for(CorType cor : correspondences.get()) {
+//				
+//				SimpleCorrespondence<RecordType> simple = new SimpleCorrespondence<RecordType>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), toMatchable2(cor.getCausalCorrespondences()));
+//				result.add(simple);
+//			} 
+//			return result;
+//		}
+//	}
+	
+//	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, Matchable>> Processable<SimpleCorrespondence<Matchable>> simplify2(Processable<CorType> correspondences) {
+//		if(correspondences==null) {
+//			return null;
+//		} else {
+//			Processable<SimpleCorrespondence<Matchable>> result = new ProcessableCollection<>();
+//			for(CorType cor : correspondences.get()) {
+//				
+//				SimpleCorrespondence<Matchable> simpler = new SimpleCorrespondence<Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), cor.getCausalCorrespondences());
+//
+//				result.add(simpler);
+//			} 
+//			return result;
+//		}
+//	}
+	
 }

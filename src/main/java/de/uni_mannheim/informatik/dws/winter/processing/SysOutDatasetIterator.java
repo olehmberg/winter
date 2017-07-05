@@ -15,7 +15,7 @@ package de.uni_mannheim.informatik.dws.winter.processing;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class SysOutDatasetIterator<ElementType> implements DatasetIterator<ElementType> {
+public class SysOutDatasetIterator<ElementType> implements DataIterator<ElementType> {
 
 	private static final long serialVersionUID = 1L;
 

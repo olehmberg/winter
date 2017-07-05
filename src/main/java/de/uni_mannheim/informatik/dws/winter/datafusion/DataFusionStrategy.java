@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -36,7 +36,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 	private Map<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> attributeFusers;
 	private Map<SchemaElementType, EvaluationRule<RecordType, SchemaElementType>> evaluationRules;
-	private FusableFactory<RecordType, SchemaElementType> factory;
+	private FusibleFactory<RecordType, SchemaElementType> factory;
 
 	/**
 	 * @return the evaluationRules
@@ -51,7 +51,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * 
 	 * @param factory
 	 */
-	public DataFusionStrategy(FusableFactory<RecordType, SchemaElementType> factory) {
+	public DataFusionStrategy(FusibleFactory<RecordType, SchemaElementType> factory) {
 		attributeFusers = new HashMap<>();
 		evaluationRules = new HashMap<>();
 		this.factory = factory;
@@ -78,7 +78,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param schemaCorrespondences
 	 * @return The fused record
 	 */
-	public RecordType apply(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+	public RecordType apply(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		RecordType fusedRecord = factory.createInstanceForFusion(group);
 
 		for (AttributeFusionTask<RecordType, SchemaElementType> t : getAttributeFusers(group, schemaCorrespondences)) {
@@ -94,17 +94,17 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param schemaCorrespondences
 	 * @return a list of fusion tasks
 	 */
-	public List<AttributeFusionTask<RecordType, SchemaElementType>> getAttributeFusers(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+	public List<AttributeFusionTask<RecordType, SchemaElementType>> getAttributeFusers(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		List<AttributeFusionTask<RecordType, SchemaElementType>> fusers = new ArrayList<>();
 
 		// if schema correspondences are passed, then we use them
 		if(schemaCorrespondences!=null) {
 			// collect all correspondences for each element of the target schema 
-			Map<SchemaElementType, Processable<Correspondence<SchemaElementType, RecordType>>> byTargetSchema = new HashMap<>();
+			Map<SchemaElementType, Processable<Correspondence<SchemaElementType, Matchable>>> byTargetSchema = new HashMap<>();
 			
-			for(Correspondence<SchemaElementType, RecordType> cor : schemaCorrespondences.get()) {
+			for(Correspondence<SchemaElementType, Matchable> cor : schemaCorrespondences.get()) {
 				
-				Processable<Correspondence<SchemaElementType, RecordType>> cors = byTargetSchema.get(cor.getSecondRecord());
+				Processable<Correspondence<SchemaElementType, Matchable>> cors = byTargetSchema.get(cor.getSecondRecord());
 				
 				if(cors==null) {
 					cors = new ProcessableCollection<>();
@@ -145,7 +145,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @return A map with the attribute consistency values
 	 */
 	public Map<String, Double> getAttributeConsistency(
-			RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+			RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		Map<String, Double> consistencies = new HashMap<>();
 		
 		List<AttributeFusionTask<RecordType, SchemaElementType>> tasks = getAttributeFusers(group, schemaCorrespondences);

@@ -65,11 +65,13 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 			Correspondence<TypeA, TypeB> record) {
 		
 		// multiply the similarity score with each vote (causal correspondences)
-		int numVotes = record.getCausalCorrespondences() == null ? 1 : record.getCausalCorrespondences().size();
+		int numVotes = record.getCausalCorrespondences() == null || record.getCausalCorrespondences().size()==0 ? 1 : record.getCausalCorrespondences().size();
 		
 		if(previousResult==null) {
-			record.setsimilarityScore(getSimilarityScore(record) * numVotes);
-			return record;
+			Correspondence<TypeA, TypeB> result = new Correspondence<>(record.getFirstRecord(), record.getSecondRecord(),getSimilarityScore(record) * numVotes,record.getCausalCorrespondences().copy());
+//			record.setsimilarityScore(getSimilarityScore(record) * numVotes);
+//			return record;
+			return result;
 		} else {
 			previousResult.setsimilarityScore(previousResult.getSimilarityScore() + (getSimilarityScore(record) * numVotes));
 			previousResult.setCausalCorrespondences(previousResult.getCausalCorrespondences().append(record.getCausalCorrespondences()));

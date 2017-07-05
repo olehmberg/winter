@@ -12,7 +12,8 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
@@ -39,7 +40,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 	public double compare(
 			Record record1,
 			Record record2,
-			SimpleCorrespondence<Attribute> schemaCorrespondences) {
+			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
 		double sim_temp = 0.00;
 		double similarity = 0.00;

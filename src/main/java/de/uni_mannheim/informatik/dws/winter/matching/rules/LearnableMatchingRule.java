@@ -13,9 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
 
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -38,7 +38,7 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 	 * @return the record containing the respective features
 	 */
 	Record generateFeatures(RecordType record1,
-			RecordType record2, Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences, FeatureVectorDataSet features);
+			RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, FeatureVectorDataSet features);
 	
 	FeatureVectorDataSet initialiseFeatures();
 	

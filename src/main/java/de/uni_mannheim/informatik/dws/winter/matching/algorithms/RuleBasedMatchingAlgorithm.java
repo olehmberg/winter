@@ -14,12 +14,11 @@ package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.joda.time.DateTime;
 
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.CrossDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -33,9 +32,9 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 
 	private DataSet<RecordType, SchemaElementType> dataset1;
 	private DataSet<RecordType, SchemaElementType> dataset2;
-	private Processable<SimpleCorrespondence<CorrespondenceType>> correspondences;
+	private Processable<Correspondence<CorrespondenceType, Matchable>> correspondences;
 	private MatchingRule<RecordType, CorrespondenceType> rule;
-	private CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> blocker;
+	private Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> blocker;
 	private Processable<Correspondence<RecordType, CorrespondenceType>> result;
 	private String taskName = "Matching";
 	/**
@@ -47,9 +46,9 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	 */
 	public RuleBasedMatchingAlgorithm(DataSet<RecordType, SchemaElementType> dataset1,
 			DataSet<RecordType, SchemaElementType> dataset2,
-			Processable<SimpleCorrespondence<CorrespondenceType>> correspondences,
+			Processable<Correspondence<CorrespondenceType, Matchable>> correspondences,
 			MatchingRule<RecordType, CorrespondenceType> rule, 
-			CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> blocker) {
+			Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> blocker) {
 		super();
 		this.dataset1 = dataset1;
 		this.dataset2 = dataset2;
@@ -63,13 +62,13 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	public DataSet<RecordType, SchemaElementType> getDataset2() {
 		return dataset2;
 	}
-	public Processable<SimpleCorrespondence<CorrespondenceType>> getCorrespondences() {
+	public Processable<Correspondence<CorrespondenceType, Matchable>> getCorrespondences() {
 		return correspondences;
 	}
 	public MatchingRule<RecordType, CorrespondenceType> getRule() {
 		return rule;
 	}
-	public CrossDataSetBlocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> getBlocker() {
+	public Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> getBlocker() {
 		return blocker;
 	}
 	public String getTaskName() {
@@ -83,7 +82,7 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 		return result;
 	}
 	
-	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2, Processable<SimpleCorrespondence<CorrespondenceType>> correspondences) {
+	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences) {
 		return blocker.runBlocking(getDataset1(), getDataset2(), getCorrespondences());
 	}
 	
@@ -109,7 +108,7 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 								allPairs.size(), Double.toString(getReductionRatio())));
 
 		// compare the pairs using the matching rule
-		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.transform(rule);
+		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.map(rule);
 		
 		// report total matching time
 		long end = System.currentTimeMillis();

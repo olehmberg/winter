@@ -53,6 +53,8 @@ public interface Processable<RecordType> extends Serializable {
 	public void remove(RecordType element);
 	public void remove(Collection<RecordType> element);	
 	
+	public Processable<RecordType> copy();
+	
 	/**
 	 * 
 	 * @return Returns the first element or null if no elements exist
@@ -85,24 +87,30 @@ public interface Processable<RecordType> extends Serializable {
 	 * Iterates over the given dataset without producing a result
 	 * @param iterator
 	 */
-	void iterateDataset(DatasetIterator<RecordType> iterator);
+	void foreach(DataIterator<RecordType> iterator);
 
 	/**
-	 * Iterates over the given dataset and produces a result
+	 * Iterates over the processable and executes the provided action for each element.
+	 * @param iterator
+	 */
+	void foreach(Action<RecordType> action);
+	
+	/**
+	 * Iterates over all elements and produces a result
 	 * @param transformation
 	 * @return A {@link Processable} with the result of the operation
 	 */
-	<OutputRecordType> Processable<OutputRecordType> transform(RecordMapper<RecordType, OutputRecordType> transformation);
+	<OutputRecordType> Processable<OutputRecordType> map(RecordMapper<RecordType, OutputRecordType> transformation);
 
 	/**
-	 * Joins the dataset to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
+	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
 	 * @param joinKeyGenerator
 	 * @return A {@link Processable} with the result of the operation
 	 */
 	<KeyType> Processable<Pair<RecordType, RecordType>> symmetricJoin(Function<KeyType, RecordType> joinKeyGenerator);
 
 	/**
-	 * Joins the dataset to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
+	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
 	 * @param joinKeyGenerator
 	 * @param collector
 	 * @return A {@link Processable} with the result of the operation
@@ -110,7 +118,7 @@ public interface Processable<RecordType> extends Serializable {
 	<KeyType> Processable<Pair<RecordType, RecordType>> symmetricJoin(Function<KeyType, RecordType> joinKeyGenerator, ProcessableCollector<Pair<RecordType, RecordType>> collector);
 
 	/**
-	 * Joins two dataset using the provided joinKeyGenerator (inner join).
+	 * Joins two processables using the provided joinKeyGenerator (inner join).
 	 * @param dataset2
 	 * @param joinKeyGenerator
 	 * @return A {@link Processable} with the result of the operation
@@ -119,7 +127,7 @@ public interface Processable<RecordType> extends Serializable {
 
 	/**
 	 * 
-	 * Joins two dataset using the provided joinKeyGenerators (inner join).
+	 * Joins two processables using the provided joinKeyGenerators (inner join).
 	 * 
 	 * @param dataset2
 	 * @param joinKeyGenerator1
@@ -130,7 +138,7 @@ public interface Processable<RecordType> extends Serializable {
 			Function<KeyType, RecordType> joinKeyGenerator1, Function<KeyType, RecordType2> joinKeyGenerator2);
 
 	/**
-	 * Joins two dataset using the provided joinKeyGenerator (left join).
+	 * Joins two processables using the provided joinKeyGenerator (left join).
 	 * @param dataset2
 	 * @param joinKeyGenerator
 	 * @return A {@link Processable} with the result of the operation
@@ -140,7 +148,7 @@ public interface Processable<RecordType> extends Serializable {
 	
 	/**
 	 * 
-	 * Joins two dataset using the provided joinKeyGenerators (left join).
+	 * Joins two processables using the provided joinKeyGenerators (left join).
 	 * 
 	 * @param dataset2
 	 * @param joinKeyGenerator1
@@ -161,7 +169,7 @@ public interface Processable<RecordType> extends Serializable {
 	 * @param groupBy
 	 * @return A {@link Processable} with the result of the operation
 	 */
-	<KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> groupRecords(RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy);
+	<KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> group(RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy);
 
 	/**
 	 * 
@@ -171,7 +179,7 @@ public interface Processable<RecordType> extends Serializable {
 	 * @param aggregator
 	 * @return A {@link Processable} with the result of the operation
 	 */
-	<KeyType, OutputRecordType, ResultType> Processable<Pair<KeyType, ResultType>> aggregateRecords(
+	<KeyType, OutputRecordType, ResultType> Processable<Pair<KeyType, ResultType>> aggregate(
 			RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy,
 			DataAggregator<KeyType, OutputRecordType, ResultType> aggregator);
 
@@ -195,7 +203,7 @@ public interface Processable<RecordType> extends Serializable {
 	 * @param criteria
 	 * @return A {@link Processable} with the result of the operation
 	 */
-	Processable<RecordType> filter(Function<Boolean, RecordType> criteria);
+	Processable<RecordType> where(Function<Boolean, RecordType> criteria);
 
 	/**
 	 * co-groups two datasets

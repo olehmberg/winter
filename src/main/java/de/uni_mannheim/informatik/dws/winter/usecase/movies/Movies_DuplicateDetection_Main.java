@@ -60,7 +60,7 @@ public class Movies_DuplicateDetection_Main {
 
 		// run the matching
 		Processable<Correspondence<Movie, Attribute>> correspondences = engine
-				.runDuplicateDetection(ds1, true, rule, blocker);
+				.runDuplicateDetection(ds1, rule, blocker);
 
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/actors_duplicates.csv"), correspondences);

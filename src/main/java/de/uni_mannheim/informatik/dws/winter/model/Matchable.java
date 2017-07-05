@@ -38,7 +38,7 @@ public interface Matchable {
 	 * 		Returns a data source identifier for the matchable. Only required if matchables from different sources are stored in the same {@link DataSet}.
 	 * 		Returns 0 by default.
 	 */
-	public default Object getDataSourceIdentifier() {
+	public default int getDataSourceIdentifier() {
 		return 0;
 	}
 }

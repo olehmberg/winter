@@ -43,10 +43,10 @@ public class Movies_LabelBasedSchemaMatching {
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
-		Processable<Correspondence<Attribute, Record>> correspondences = engine.runLabelBasedSchemaMatching(data1.getSchema(), data2.getSchema(), new LabelComparatorJaccard(), 0.5);
+		Processable<Correspondence<Attribute, Attribute>> correspondences = engine.runLabelBasedSchemaMatching(data1.getSchema(), data2.getSchema(), new LabelComparatorJaccard(), 0.5);
 		
 		// print results
-		for(Correspondence<Attribute, Record> cor : correspondences.get()) {
+		for(Correspondence<Attribute, Attribute> cor : correspondences.get()) {
 			System.out.println(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
 					cor.getFirstRecord().getIdentifier(),
 					cor.getFirstRecord().getName(), 

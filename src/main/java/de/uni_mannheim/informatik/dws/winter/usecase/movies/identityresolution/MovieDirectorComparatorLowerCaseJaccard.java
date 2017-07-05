@@ -13,7 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -37,7 +38,7 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 	public double compare(
 			Movie record1,
 			Movie record2,
-			SimpleCorrespondence<Attribute> schemaCorrespondences) {
+			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		// preprocessing
 		String s1 = record1.getDirector();
 		if (s1 != null) {

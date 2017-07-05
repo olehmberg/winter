@@ -34,20 +34,21 @@ import java.util.Random;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
-
-import weka.classifiers.evaluation.Evaluation;
-import weka.core.*;
-import weka.core.pmml.PMMLFactory;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.GreedyStepwise;
 import weka.attributeSelection.WrapperSubsetEval;
 import weka.classifiers.Classifier;
+import weka.classifiers.evaluation.Evaluation;
+import weka.core.DenseInstance;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.Utils;
+import weka.core.pmml.PMMLFactory;
 
 /**
  * Class that creates and applies a matching Rule based on supervised learning
@@ -301,7 +302,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	public Record generateFeatures(RecordType record1, RecordType record2,
-			Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences, FeatureVectorDataSet features) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, FeatureVectorDataSet features) {
 
 		Record model = new Record(String.format("%s-%s", record1.getIdentifier(), record2.getIdentifier()),
 				this.getClass().getSimpleName());
@@ -361,7 +362,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	@Override
 	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2,
-			Processable<SimpleCorrespondence<SchemaElementType>> schemaCorrespondences) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
 		FeatureVectorDataSet matchSet = this.initialiseFeatures();
 		Record matchRecord = generateFeatures(record1, record2, schemaCorrespondences, matchSet);
@@ -453,7 +454,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	@Override
 	public double compare(RecordType record1, RecordType record2,
-			SimpleCorrespondence<SchemaElementType> schemaCorrespondence) {
+			Correspondence<SchemaElementType, Matchable> schemaCorrespondence) {
 		return 0;
 	}
 

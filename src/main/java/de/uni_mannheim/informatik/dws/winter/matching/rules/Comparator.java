@@ -14,8 +14,8 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 import java.io.Serializable;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
 
 /**
@@ -44,6 +44,6 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	 * 			  A schema correspondence between two record1 and record2 (can be null)  
 	 * @return the similarity of the records
 	 */
-	double compare(RecordType record1, RecordType record2, SimpleCorrespondence<SchemaElementType> schemaCorrespondence);
+	double compare(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
 
 }

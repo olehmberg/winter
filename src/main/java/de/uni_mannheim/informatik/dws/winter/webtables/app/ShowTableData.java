@@ -14,6 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.webtables.app;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,6 +69,9 @@ public class ShowTableData extends Executable {
 	
 	@Parameter(names = "-csv")
 	private boolean createCSV = false;
+	
+	@Parameter(names = "-dep")
+	private boolean showDependencyInfo = false;
 	
 	public static void main(String[] args) throws IOException {
 		ShowTableData s = new ShowTableData();
@@ -161,7 +165,28 @@ public class ShowTableData extends Executable {
 				System.out.println(String.format("* # Rows: %d", t.getRows().size()));
 				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
 				System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
-				
+
+				if(showDependencyInfo) {
+					
+					if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
+						System.out.println("*** Functional Dependencies ***");
+						for(Collection<TableColumn> det : t.getSchema().getFunctionalDependencies().keySet()) {
+							Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
+							System.out.println(
+									String.format(
+											"{%s}->{%s}", 
+											StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
+											StringUtils.join(Q.project(dep, new TableColumn.ColumnHeaderProjection()), ",")));
+						}
+					}
+					if(t.getSchema().getCandidateKeys()!=null && t.getSchema().getCandidateKeys().size()>0) {
+						System.out.println("*** Candidate Keys ***");
+						for(Collection<TableColumn> candidateKey : t.getSchema().getCandidateKeys()) {
+							System.out.println(
+									String.format("{%s}", StringUtils.join(Q.project(candidateKey, new TableColumn.ColumnHeaderProjection()), ",")));
+						}
+					}
+				}
 
 				if(showData) {
 					System.out.println(t.getSchema().format(columnWidth));

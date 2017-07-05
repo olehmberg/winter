@@ -17,7 +17,7 @@ import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -28,16 +28,16 @@ public class FavourSourcesTest extends TestCase {
 	public void testResolveConflict() {
 
 		FavourSources<Double, Movie, Attribute> crf = new FavourSources<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
 		FusibleDataSet<Movie, Attribute> ds1 = new FusibleHashedDataSet<>();
 		ds1.setScore(1.0);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, ds1));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, ds1));
 		FusibleDataSet<Movie, Attribute> ds2 = new FusibleHashedDataSet<>();
 		ds2.setScore(0.5);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(2.0, null, ds2));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(2.0, null, ds2));
 		FusibleDataSet<Movie, Attribute> ds3 = new FusibleHashedDataSet<>();
 		ds3.setScore(0.1);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, ds3));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, ds3));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(1.0, resolvedValue.getValue());
@@ -47,7 +47,7 @@ public class FavourSourcesTest extends TestCase {
 	public void testResolveConflict1() {
 
 		FavourSources<Double, Movie, Attribute> crf = new FavourSources<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(null, resolvedValue.getValue());
@@ -57,16 +57,16 @@ public class FavourSourcesTest extends TestCase {
 	public void testResolveConflict2() {
 
 		FavourSources<Double, Movie, Attribute> crf = new FavourSources<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
 		FusibleDataSet<Movie, Attribute> ds1 = new FusibleHashedDataSet<>();
 		ds1.setScore(1.0);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, ds1));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, ds1));
 		FusibleDataSet<Movie, Attribute> ds2 = new FusibleHashedDataSet<>();
 		ds2.setScore(0.5);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(2.0, null, ds2));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(2.0, null, ds2));
 		FusibleDataSet<Movie, Attribute> ds3 = new FusibleHashedDataSet<>();
 		ds3.setScore(10.1);
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, ds3));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, ds3));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(3.0, resolvedValue.getValue());

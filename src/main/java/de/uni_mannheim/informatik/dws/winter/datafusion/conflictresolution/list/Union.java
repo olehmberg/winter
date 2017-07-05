@@ -18,7 +18,7 @@ import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -36,17 +36,17 @@ public class Union<ValueType, RecordType extends Matchable & Fusible<SchemaEleme
 
 	@Override
 	public FusedValue<List<ValueType>, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<List<ValueType>, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<List<ValueType>, RecordType, SchemaElementType>> values) {
 
 		HashSet<ValueType> union = new HashSet<>();
 
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 			union.addAll(value.getValue());
 		}
 		List<ValueType> list = new LinkedList<>(union);
 		FusedValue<List<ValueType>, RecordType, SchemaElementType> fused = new FusedValue<>(list);
 
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 			fused.addOriginalRecord(value);
 		}
 

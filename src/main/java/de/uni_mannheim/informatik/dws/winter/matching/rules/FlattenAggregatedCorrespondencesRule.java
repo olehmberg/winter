@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.FlattenAggregationResultMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
@@ -38,7 +38,7 @@ public class FlattenAggregatedCorrespondencesRule<KeyType, RecordType extends Ma
 	 */
 	@Override
 	public void mapRecord(Pair<KeyType, Processable<Correspondence<RecordType, CausalType>>> record,
-			DatasetIterator<Correspondence<RecordType, CausalType>> resultCollector) {
+			DataIterator<Correspondence<RecordType, CausalType>> resultCollector) {
 		for(Correspondence<RecordType, CausalType> cor : record.getSecond().get()) {
 			if(cor.getSimilarityScore()>0.0) {
 				resultCollector.next(cor);

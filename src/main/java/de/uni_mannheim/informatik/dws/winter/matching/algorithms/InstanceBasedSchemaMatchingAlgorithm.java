@@ -12,7 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.CrossDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.IdentityMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -34,7 +34,7 @@ public class InstanceBasedSchemaMatchingAlgorithm<RecordType extends Matchable, 
 
 	public InstanceBasedSchemaMatchingAlgorithm(DataSet<RecordType, SchemaElementType> dataset1,
 			DataSet<RecordType, SchemaElementType> dataset2,
-			CrossDataSetBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
+			Blocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
 			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
 		this.dataset1 = dataset1;
 		this.dataset2 = dataset2;
@@ -44,7 +44,7 @@ public class InstanceBasedSchemaMatchingAlgorithm<RecordType extends Matchable, 
 	
 	DataSet<RecordType, SchemaElementType> dataset1;
 	DataSet<RecordType, SchemaElementType> dataset2;
-	CrossDataSetBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker;
+	Blocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker;
 	CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator;
 	Processable<Correspondence<SchemaElementType, MatchableValue>> result;
 	
@@ -70,10 +70,10 @@ public class InstanceBasedSchemaMatchingAlgorithm<RecordType extends Matchable, 
 		Processable<Correspondence<SchemaElementType, MatchableValue>> blocked = blocker.runBlocking(getDataset1(), getDataset2(), null);
 		
 		// aggregate the correspondences to calculate a similarity score
-		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, MatchableValue>>> aggregated = blocked.aggregateRecords(new IdentityMatchingRule<SchemaElementType, MatchableValue>(0.0), aggregator);
+		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, MatchableValue>>> aggregated = blocked.aggregate(new IdentityMatchingRule<SchemaElementType, MatchableValue>(0.0), aggregator);
 		
 		// transform the result to the expected correspondence format
-		Processable<Correspondence<SchemaElementType, MatchableValue>> result = aggregated.transform((p, collector) -> {
+		Processable<Correspondence<SchemaElementType, MatchableValue>> result = aggregated.map((p, collector) -> {
 			if(p.getSecond()!=null)
 			{
 				collector.next(p.getSecond());

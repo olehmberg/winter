@@ -14,11 +14,12 @@ package de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.RecordBlockingKeyGenerator;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
@@ -41,8 +42,8 @@ public class ITunesBlockingKeyByArtistTitleGenerator extends
 	 */
 	@Override
 	public void generateBlockingKeys(Record record,
-			Processable<SimpleCorrespondence<Attribute>> correspondences,
-			DatasetIterator<Pair<String, Record>> resultCollector) {
+			Processable<Correspondence<Attribute, Matchable>> correspondences,
+			DataIterator<Pair<String, Record>> resultCollector) {
 		String artist 	= "";
 		String name 	= "";
 		

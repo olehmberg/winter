@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.string.ShortestString;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -26,10 +26,10 @@ public class ShortestStringTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfStringRecordType() {
 		ShortestString<Movie, Attribute> crf = new ShortestString<>();
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello moto", null,
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello moto", null,
 				null));
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -38,10 +38,10 @@ public class ShortestStringTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfStringRecordType2() {
 		ShortestString<Movie, Attribute> crf = new ShortestString<>();
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello moto", null,
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello moto", null,
 				null));
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -50,7 +50,7 @@ public class ShortestStringTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfStringRecordType3() {
 		ShortestString<Movie, Attribute> crf = new ShortestString<>();
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(null, resolvedValue.getValue());

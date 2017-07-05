@@ -31,21 +31,18 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.XMLRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorEqual;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseEqual;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
@@ -87,26 +84,44 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.NAME, Restaurant.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseEqual(Restaurant.NAME, Restaurant.NAME));
+		RecordComparatorEqual nameLowerCaseEqual = new RecordComparatorEqual(Restaurant.NAME, Restaurant.NAME);
+		nameLowerCaseEqual.setLowerCase(true);
+		matchingRule.addComparator(nameLowerCaseEqual);
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true));
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Restaurant.NAME, Restaurant.NAME));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true));
+		RecordComparatorLevenshtein nameLowerCaseLevenshtein = new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME);
+		nameLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(nameLowerCaseLevenshtein);
+		RecordComparatorJaccard lowerCaseName = new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true);
+		lowerCaseName.setLowerCase(true);
+		matchingRule.addComparator(lowerCaseName);
 		
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.ADDRESS, Restaurant.ADDRESS));
-		matchingRule.addComparator(new RecordComparatorLowerCaseEqual(Restaurant.ADDRESS, Restaurant.ADDRESS));
+		RecordComparatorEqual addressLowerCaseEqual = new RecordComparatorEqual(Restaurant.ADDRESS, Restaurant.ADDRESS);
+		addressLowerCaseEqual.setLowerCase(true);
+		matchingRule.addComparator(addressLowerCaseEqual);
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS, 0.3, true));
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS, 0.3, true));
+		RecordComparatorLevenshtein addressLowerCaseLevenshtein = new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS);
+		addressLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(addressLowerCaseLevenshtein);
+		RecordComparatorJaccard lowerCaseAddress = new RecordComparatorJaccard(Restaurant.ADDRESS, Restaurant.ADDRESS, 0.3, true);
+		lowerCaseAddress.setLowerCase(true);
+		matchingRule.addComparator(lowerCaseAddress);
 
 		
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.STYLE, Restaurant.STYLE));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.STYLE, Restaurant.STYLE));
-		matchingRule.addComparator(new RecordComparatorLowerCaseEqual(Restaurant.STYLE, Restaurant.STYLE));
+		RecordComparatorEqual styleLowerCaseEqual = new RecordComparatorEqual(Restaurant.STYLE, Restaurant.STYLE);
+		styleLowerCaseEqual.setLowerCase(true);
+		matchingRule.addComparator(styleLowerCaseEqual);
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true));
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Restaurant.STYLE, Restaurant.STYLE));
-		matchingRule.addComparator(new RecordComparatorLowerCaseJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true));
+		RecordComparatorLevenshtein styleLowerCaseLevenshtein = new RecordComparatorLevenshtein(Restaurant.STYLE, Restaurant.STYLE);
+		styleLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(styleLowerCaseLevenshtein);
+		RecordComparatorJaccard lowerCaseStyle = new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true);
+		lowerCaseStyle.setLowerCase(true);
+		matchingRule.addComparator(lowerCaseStyle);
 		
 
 		// create a blocker (blocking strategy)
@@ -124,8 +139,8 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 
 					@Override
 					public void generateBlockingKeys(Record record,
-							Processable<SimpleCorrespondence<Attribute>> correspondences,
-							DatasetIterator<Pair<String, Record>> resultCollector) {
+							Processable<Correspondence<Attribute, Matchable>> correspondences,
+							DataIterator<Pair<String, Record>> resultCollector) {
 						resultCollector.next(new Pair<>((record.getValue(Restaurant.CITY)), record));
 
 					}

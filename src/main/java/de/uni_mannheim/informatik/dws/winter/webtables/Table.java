@@ -464,6 +464,10 @@ public class Table implements Serializable {
 	}
 
 	public Table project(Collection<TableColumn> projectedColumns) throws Exception {
+		return project(projectedColumns, true);
+	}
+	
+	public Table project(Collection<TableColumn> projectedColumns, boolean addProvenance) throws Exception {
 		Table result = new Table();
 
 		Map<Integer, Integer> columnIndexProjection = new HashMap<>();
@@ -475,7 +479,7 @@ public class Table implements Serializable {
 
 			if (projectedColumns.contains(c)) {
 				columnIndexProjection.put(i, idx);
-				result.addColumn(c.copy(result, idx++));
+				result.addColumn(c.copy(result, idx++, addProvenance));
 			}
 		}
 

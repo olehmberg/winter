@@ -11,12 +11,11 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.SingleDataSetBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -28,8 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  */
 public class RuleBasedDuplicateDetectionAlgorithm<TypeA extends Matchable, TypeB extends Matchable> extends RuleBasedMatchingAlgorithm<TypeA, TypeB, TypeB> {
 
-	private SingleDataSetBlocker<TypeA, TypeB, TypeA, TypeB> blocker;
-	private boolean isSymmetric;
+	private SymmetricBlocker<TypeA, TypeB, TypeA, TypeB> blocker;
 	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.matching.algorithms.RuleBasedMatchingAlgorithm#getDataset2()
@@ -41,10 +39,15 @@ public class RuleBasedDuplicateDetectionAlgorithm<TypeA extends Matchable, TypeB
 	
 
 	public RuleBasedDuplicateDetectionAlgorithm(DataSet<TypeA, TypeB> dataset, MatchingRule<TypeA, TypeB> rule,
-			SingleDataSetBlocker<TypeA, TypeB, TypeA, TypeB> blocker, boolean isSymmetric) {
+			SymmetricBlocker<TypeA, TypeB, TypeA, TypeB> blocker) {
 		super(dataset, null, null, rule, null);
 		this.blocker = blocker;
-		this.isSymmetric = isSymmetric;
+	}
+	
+	public RuleBasedDuplicateDetectionAlgorithm(DataSet<TypeA, TypeB> dataset, Processable<Correspondence<TypeB, Matchable>> correspondences, MatchingRule<TypeA, TypeB> rule,
+			SymmetricBlocker<TypeA, TypeB, TypeA, TypeB> blocker) {
+		super(dataset, null, correspondences, rule, null);
+		this.blocker = blocker;
 	}
 
 	/* (non-Javadoc)
@@ -52,8 +55,8 @@ public class RuleBasedDuplicateDetectionAlgorithm<TypeA extends Matchable, TypeB
 	 */
 	@Override
 	public Processable<Correspondence<TypeA, TypeB>> runBlocking(DataSet<TypeA, TypeB> dataset1,
-			DataSet<TypeA, TypeB> dataset2, Processable<SimpleCorrespondence<TypeB>> correspondences) {
-		return blocker.runBlocking(dataset1, isSymmetric, null);
+			DataSet<TypeA, TypeB> dataset2, Processable<Correspondence<TypeB, Matchable>> correspondences) {
+		return blocker.runBlocking(dataset1, correspondences);
 	}
 	
 	/* (non-Javadoc)
@@ -62,5 +65,12 @@ public class RuleBasedDuplicateDetectionAlgorithm<TypeA extends Matchable, TypeB
 	@Override
 	public double getReductionRatio() {
 		return blocker.getReductionRatio();
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+		
+		Correspondence.setDirectionByDataSourceIdentifier(getResult());
 	}
 }

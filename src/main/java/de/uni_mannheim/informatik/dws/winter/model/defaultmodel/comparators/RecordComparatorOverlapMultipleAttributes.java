@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.list.OverlapSimilarity;
@@ -46,7 +47,7 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
-	public double compare(Record record1, Record record2, SimpleCorrespondence<Attribute> schemaCorrespondence) {
+	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
 		ArrayList<String> first 	= new ArrayList<String>();
 		ArrayList<String> second 	= new ArrayList<String>();
 		

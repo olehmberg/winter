@@ -26,17 +26,17 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMat
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.XMLRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
@@ -85,8 +85,8 @@ public class Restaurants_IdentityResolution_Main {
 
 			@Override
 			public void generateBlockingKeys(Record record,
-					Processable<SimpleCorrespondence<Attribute>> correspondences,
-					DatasetIterator<Pair<String, Record>> resultCollector) {
+					Processable<Correspondence<Attribute, Matchable>> correspondences,
+					DataIterator<Pair<String, Record>> resultCollector) {
 				resultCollector.next(new Pair<>((record.getValue(Restaurant.CITY)), record));
 				
 			}

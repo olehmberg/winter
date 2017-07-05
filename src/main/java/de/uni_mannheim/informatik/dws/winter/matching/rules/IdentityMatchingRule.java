@@ -13,8 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 
 /**
  * 
@@ -35,7 +34,7 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
-	public double compare(TypeA record1, TypeA record2, SimpleCorrespondence<TypeB> schemaCorrespondence) {
+	public double compare(TypeA record1, TypeA record2, Correspondence<TypeB, Matchable> schemaCorrespondence) {
 		// this method is not used, as the input is returned as output in mapRecord
 		return 0;
 	}
@@ -45,7 +44,7 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 	 */
 	@Override
 	public void mapRecord(Correspondence<TypeA, TypeB> record,
-			DatasetIterator<Correspondence<TypeA, TypeB>> resultCollector) {
+			DataIterator<Correspondence<TypeA, TypeB>> resultCollector) {
 		resultCollector.next(record);
 	}
 

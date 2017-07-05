@@ -29,8 +29,8 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccardWithoutBrackets;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLowerCaseLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.ITunesBlockingKeyByArtistTitleGenerator;
@@ -89,9 +89,15 @@ public class iTunes_IdentityResolution_Main {
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
 		// add comparators
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Song.ARTIST, iTunesSong.ARTIST), 0.4);
-		matchingRule.addComparator(new RecordComparatorLowerCaseLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME), 0.4);
-		matchingRule.addComparator(new RecordComparatorJaccardWithoutBrackets(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true), 0.2);
+		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
+		artistLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(artistLowerCaseLevenshtein, 0.4);
+		RecordComparatorLevenshtein labelNameLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.RDFSCHEMA, iTunesSong.NAME);
+		labelNameLowerCaseLevenshtein.setLowerCase(true);
+		matchingRule.addComparator(labelNameLowerCaseLevenshtein, 0.4);
+		RecordComparatorJaccard labelNoBrackets = new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true);
+		labelNoBrackets.setRemoveBrackets(true);
+		matchingRule.addComparator(labelNoBrackets, 0.2);
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
