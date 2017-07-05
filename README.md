@@ -76,6 +76,7 @@ Many web sites provide data in the form of HTML tables. Millions of such data ta
 
 Tables on web pages ("web tables") cover a diversity of topics and can be a source of information for different tasks such as knowledge base augmentation or the ad-hoc extension of datasets. However, to use this information, the tables must first be integrated, either with each other or into existing data sources. The challenges that matching methods for this purpose have to overcome are the high heterogeneity and the small size of the tables.
 To counter these problems, web tables from the same web site can be stitched before running any of the existing matching systems. This means that web tables are combined based on a schema mapping, which results in fewer and larger stitched tables [4].
+The source code of the stitching method is available in the [Web Tables Stitching project](https://github.com/olehmberg/WebTableStitching).
   
 
 ## Contact
