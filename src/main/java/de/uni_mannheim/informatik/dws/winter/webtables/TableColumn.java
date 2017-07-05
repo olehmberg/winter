@@ -250,13 +250,19 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 	}
 	
 	public TableColumn copy(Table t, int columnIndex) {
-		TableColumn c = new TableColumn(columnIndex, table);
+		return copy(t, columnIndex, true);
+	}
+	
+	public TableColumn copy(Table t, int columnIndex, boolean addProvenance) {
+		TableColumn c = new TableColumn(columnIndex, t);
 		c.setDataType(getDataType());
 		c.setHeader(getHeader());
 		c.setUnit(getUnit());
 		c.setUri(getUri());
 		c.setProvenance(new LinkedList<>(getProvenance()));
-		c.addProvenanceForColumn(this);
+		if(addProvenance) {
+			c.addProvenanceForColumn(this);
+		}
 		c.setSynonyms(new HashSet<>(getSynonyms()));
 		return c;
 	}

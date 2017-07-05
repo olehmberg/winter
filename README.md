@@ -25,9 +25,9 @@ You can include the WInte.r framework via the following Maven dependency:
 </repositories>
 
 <dependency>
-  <groupId>de.uni_mannheim.informatik.dws</groupId>
-  <artifactId>winter</artifactId>
-  <version>1.0</version>
+	<groupId>de.uni_mannheim.informatik.dws</groupId>
+	<artifactId>winter</artifactId>
+	<version>1.0</version>
 </dependency>
 ```
 
@@ -72,6 +72,12 @@ The WInte.r framework is used to integrate data from multiple sources within the
 
 Many web sites provide data in the form of HTML tables. Millions of such data tables have been extracted from the [CommonCrawl](http://commoncrawl.org/) web corpus by the [Web Data Commons](http://webdatacommons.org/webtables/) project [3]. Data from these tables can be used to fill missing values in large cross-domain knowledge bases such as DBpedia [2]. An example of how pre-defined building blocks from the WInte.r framework are combined into an advanced, use-case specific integration method is the T2K Match algorithm [1]. The algorithm is optimized to match millions of Web tables against a central knowledge base describing millions of instances belonging to hundreds of different classes  (such a people or locations) [2]. The full source code of the algorithm, which includes advanced matching methods that combine schema matching and identity resolution, is available in the [WInte.r T2K Match project](https://github.com/olehmberg/T2KMatch).
 
+**Preprocessing for large-scale Matching: Stitching Web Tables for Improving Matching Quality**
+
+Tables on web pages ("web tables") cover a diversity of topics and can be a source of information for different tasks such as knowledge base augmentation or the ad-hoc extension of datasets. However, to use this information, the tables must first be integrated, either with each other or into existing data sources. The challenges that matching methods for this purpose have to overcome are the high heterogeneity and the small size of the tables.
+To counter these problems, web tables from the same web site can be stitched before running any of the existing matching systems. This means that web tables are combined based on a schema mapping, which results in fewer and larger stitched tables [4].
+  
+
 ## Contact
 
 If you have any questions, please refer to the [Wiki](../../wiki) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
@@ -90,3 +96,5 @@ WInte.r is developed at the [Data and Web Science Group](http://dws.informatik.u
 [2] Ritze, D., Lehmberg, O., Oulabi, Y., & Bizer, C. (2016, April). Profiling the potential of web tables for augmenting cross-domain knowledge bases. In Proceedings of the 25th International Conference on World Wide Web (pp. 251-261). International World Wide Web Conferences Steering Committee.
 
 [3] Lehmberg, O., Ritze, D., Meusel, R., & Bizer, C. (2016, April). A large public corpus of web tables containing time and context metadata. In Proceedings of the 25th International Conference Companion on World Wide Web (pp. 75-76). International World Wide Web Conferences Steering Committee.
+
+[4] Lehmberg, O., Bizer, C. (2017). Stitching Web Tables for Improving Matching Quality. In Proceedings of the VLDB Endowment - Preprint.
