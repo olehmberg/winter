@@ -11,7 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 /**
  * Wrapper for a value during the data fusion process
@@ -78,7 +78,7 @@ public class FusibleValue<ValueType, RecordType extends Matchable & Fusible<Sche
 	 * 
 	 * @return Returns the date of the dataset that contains the value
 	 */
-	public DateTime getDateSourceDate() {
+	public LocalDateTime getDateSourceDate() {
 		return dataset.getDate();
 	}
 

@@ -14,13 +14,17 @@ package de.uni_mannheim.informatik.dws.winter.matching.blocking;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import junit.framework.TestCase;
 
-import org.joda.time.DateTime;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.SortedNeighbourhoodBlocker;
@@ -37,28 +41,42 @@ public class SortedNeighbourhoodBlockerTest extends TestCase {
 
 	private DataSet<Movie, Attribute> generateDS1() {
 		DataSet<Movie, Attribute> ds = new HashedDataSet<>();
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
 		Movie m1 = new Movie("1", "DS1");
-		m1.setDate(DateTime.parse("1980-10-10"));
+		m1.setDate(LocalDateTime.parse("1980-10-10", formatter));
 		ds.add(m1);
 		Movie m2 = new Movie("2", "DS1");
-		m2.setDate(DateTime.parse("1990-10-10"));
+		m2.setDate(LocalDateTime.parse("1990-10-10", formatter));
 		ds.add(m2);
 		Movie m3 = new Movie("3", "DS1");
-		m3.setDate(DateTime.parse("1991-10-10"));
+		m3.setDate(LocalDateTime.parse("1991-10-10", formatter));
 		ds.add(m3);
 		return ds;
 	}
 
 	private DataSet<Movie, Attribute> generateDS2() {
 		DataSet<Movie, Attribute> ds = new HashedDataSet<>();
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
 		Movie m1 = new Movie("4", "DS2");
-		m1.setDate(DateTime.parse("1983-10-10"));
+		m1.setDate(LocalDateTime.parse("1983-10-10", formatter));
 		ds.add(m1);
 		Movie m2 = new Movie("5", "DS2");
-		m2.setDate(DateTime.parse("1984-10-10"));
+		m2.setDate(LocalDateTime.parse("1984-10-10", formatter));
 		ds.add(m2);
 		Movie m3 = new Movie("6", "DS2");
-		m3.setDate(DateTime.parse("1995-10-10"));
+		m3.setDate(LocalDateTime.parse("1995-10-10", formatter));
 		ds.add(m3);
 		return ds;
 	}

@@ -14,13 +14,17 @@ package de.uni_mannheim.informatik.dws.winter.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.joda.time.DateTime;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -63,13 +67,19 @@ public class DataSetTest extends TestCase {
 		<date>1929-01-01</date>
 	</movie>
  */
-	
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
 		Movie testMovie = movies.get("actors_1");
 		assertEquals("7th Heaven", testMovie.getTitle());
-		assertEquals(DateTime.parse("1929-01-01"), testMovie.getDate());
+		assertEquals(LocalDateTime.parse("1929-01-01", formatter), testMovie.getDate());
 		Actor testActor = testMovie.getActors().get(0);
 		assertEquals("Janet Gaynor", testActor.getName());
-		assertEquals(DateTime.parse("1906-01-01"), testActor.getBirthday());
+		assertEquals(LocalDateTime.parse("1906-01-01", formatter), testActor.getBirthday());
 		assertEquals("Pennsylvania", testActor.getBirthplace());
 		
 		HashedDataSet<Record, Attribute> ds2 = new HashedDataSet<>();
@@ -87,7 +97,7 @@ public class DataSetTest extends TestCase {
 			Movie movie = movies.get(id);
 			
 			assertEquals(movie.getTitle(), m.getValue(Movie.TITLE));
-			DateTime dt = DateTime.parse(m.getValue(Movie.DATE));
+			LocalDateTime dt = LocalDateTime.parse(m.getValue(Movie.DATE), formatter);
 			assertEquals(movie.getDate(), dt);
 			
 		}

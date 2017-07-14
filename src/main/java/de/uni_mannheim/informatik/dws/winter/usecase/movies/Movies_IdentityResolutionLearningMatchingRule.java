@@ -288,9 +288,9 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 					correspondence.getFirstRecord().getIdentifier(), correspondence.getSecondRecord().getIdentifier(),
 					correspondence.getSimilarityScore(), correspondence.getFirstRecord().getIdentifier(),
 					correspondence.getFirstRecord().getTitle(),
-					correspondence.getFirstRecord().getDate().toString("YYYY-MM-DD"),
+					correspondence.getFirstRecord().getDate().toString(),
 					correspondence.getSecondRecord().getIdentifier(), correspondence.getSecondRecord().getTitle(),
-					correspondence.getSecondRecord().getDate().toString("YYYY-MM-DD")));
+					correspondence.getSecondRecord().getDate().toString()));
 		}
 	}
 

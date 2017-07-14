@@ -14,7 +14,11 @@ package de.uni_mannheim.informatik.dws.winter.matching;
 
 import junit.framework.TestCase;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -41,9 +45,16 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		movie2.setDirector("Irvin Kershner");
 		movie3.setDirector("Irvin Kershner");
 		
-		movie1.setDate(DateTime.parse("1977-05-25"));
-		movie2.setDate(DateTime.parse("1980-05-21"));
-		movie3.setDate(DateTime.parse("1977-05-25"));
+		
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		movie1.setDate(LocalDateTime.parse("1977-05-25", formatter));
+		movie2.setDate(LocalDateTime.parse("1980-05-21", formatter));
+		movie3.setDate(LocalDateTime.parse("1977-05-25", formatter));
 		
 		Processable<Correspondence<Movie, Attribute>> correspondences;
 		

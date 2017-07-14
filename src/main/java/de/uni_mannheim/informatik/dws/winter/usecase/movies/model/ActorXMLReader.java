@@ -11,7 +11,12 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.model;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
+
 import org.w3c.dom.Node;
 
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -40,7 +45,13 @@ public class ActorXMLReader extends XMLMatchableReader<Actor, Attribute> {
 		try {
 			String date = getValueFromChildElement(node, "birthday");
 			if (date != null) {
-				DateTime dt = DateTime.parse(date);
+				DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+				        .appendPattern("yyyy-MM-dd")
+				        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+				        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+				        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+				        .toFormatter(Locale.ENGLISH);
+				LocalDateTime dt = LocalDateTime.parse(date, formatter);
 				actor.setBirthday(dt);
 			}
 		} catch (Exception e) {
