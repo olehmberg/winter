@@ -27,7 +27,7 @@ You can include the WInte.r framework via the following Maven dependency:
 <dependency>
 	<groupId>de.uni_mannheim.informatik.dws</groupId>
 	<artifactId>winter</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 </dependency>
 ```
 
