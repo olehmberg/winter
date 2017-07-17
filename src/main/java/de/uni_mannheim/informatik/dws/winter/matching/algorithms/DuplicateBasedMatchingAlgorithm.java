@@ -11,8 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
@@ -142,10 +144,10 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	 */
 	@Override
 	public void run() {
-		long start = System.currentTimeMillis();
+		LocalDateTime start = LocalDateTime.now();
 
 		System.out.println(String.format("[%s] Starting Duplicate-based Schema Matching",
-				new DateTime(start).toString()));
+				start.toString()));
 
 		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
@@ -196,12 +198,12 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		});
 		
 		// report total matching time
-		long end = System.currentTimeMillis();
-		long delta = end - start;
+		LocalDateTime end = LocalDateTime.now();
+		
 		System.out.println(String.format(
 				"[%s] Duplicate-based Schema Matching finished after %s; found %d correspondences from %,d duplicates.",
-				new DateTime(end).toString(),
-				DurationFormatUtils.formatDurationHMS(delta), result.size(), getCorrespondences().size()));
+				end.toString(),
+				DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size(), getCorrespondences().size()));
 
 	}
 

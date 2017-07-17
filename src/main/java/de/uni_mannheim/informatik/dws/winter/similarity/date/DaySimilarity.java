@@ -11,8 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.similarity.date;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -24,7 +24,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * @author Robert Meusel (robert@dwslab.de)
  * 
  */
-public class DaySimilarity extends SimilarityMeasure<DateTime> {
+public class DaySimilarity extends SimilarityMeasure<LocalDateTime> {
 
 	private static final long serialVersionUID = 1L;
 	private int maxDifference;
@@ -42,12 +42,12 @@ public class DaySimilarity extends SimilarityMeasure<DateTime> {
 	}
 
 	@Override
-	public double calculate(DateTime first, DateTime second) {
+	public double calculate(LocalDateTime first, LocalDateTime second) {
 		if (first == null || second == null) {
 			return 0.0;
 		} else {
 
-			int diff = Math.abs(Days.daysBetween(first, second).getDays());
+			int diff = Math.abs(Math.toIntExact(first.getLong(ChronoField.EPOCH_DAY)-second.getLong(ChronoField.EPOCH_DAY)));
 
 			double norm = Math.min((double) diff / (double) maxDifference, 1.0);
 

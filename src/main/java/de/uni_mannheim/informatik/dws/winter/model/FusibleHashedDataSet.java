@@ -11,10 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.joda.time.DateTime;
 
 /**
  * {@link HashedDataSet} class extended by functionalities for data fusion
@@ -28,7 +27,7 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 
 	private static final long serialVersionUID = 1L;
 	private double score;
-	private DateTime date;
+	private LocalDateTime date;
 	
 	private Map<String, RecordType> originalIdIndex = new HashMap<>();
 
@@ -74,7 +73,7 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 	 * 
 	 * @return Returns the date of this dataset
 	 */
-	public DateTime getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
@@ -83,7 +82,7 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 	 * 
 	 * @param date
 	 */
-	public void setDate(DateTime date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

@@ -11,7 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.Voting;
@@ -28,10 +28,10 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
  */
-public class DateFuserVoting extends AttributeValueFuser<DateTime, Movie, Attribute> {
+public class DateFuserVoting extends AttributeValueFuser<LocalDateTime, Movie, Attribute> {
 
 	public DateFuserVoting() {
-		super(new Voting<DateTime, Movie, Attribute>());
+		super(new Voting<LocalDateTime, Movie, Attribute>());
 	}
 	
 	@Override
@@ -40,13 +40,13 @@ public class DateFuserVoting extends AttributeValueFuser<DateTime, Movie, Attrib
 	}
 	
 	@Override
-	protected DateTime getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
+	protected LocalDateTime getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getDate();
 	}
 
 	@Override
 	public void fuse(RecordGroup<Movie, Attribute> group, Movie fusedRecord, Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences, Attribute schemaElement) {
-		FusedValue<DateTime, Movie, Attribute> fused = getFusedValue(group, schemaCorrespondences, schemaElement);
+		FusedValue<LocalDateTime, Movie, Attribute> fused = getFusedValue(group, schemaCorrespondences, schemaElement);
 		fusedRecord.setDate(fused.getValue());
 		fusedRecord.setAttributeProvenance(Movie.DATE, fused.getOriginalIds());
 	}

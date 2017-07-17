@@ -11,8 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
@@ -91,10 +93,10 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	}
 	
 	public void run() {
-		long start = System.currentTimeMillis();
+		LocalDateTime start = LocalDateTime.now();
 
 		System.out.println(String.format("[%s] Starting %s",
-				new DateTime(start).toString(), getTaskName()));
+				start.toString(), getTaskName()));
 
 		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
@@ -111,12 +113,12 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.map(rule);
 		
 		// report total matching time
-		long end = System.currentTimeMillis();
-		long delta = end - start;
+		LocalDateTime end = LocalDateTime.now();
+		
 		System.out.println(String.format(
 				"[%s] %s finished after %s; found %,d correspondences.",
-				new DateTime(end).toString(), getTaskName(),
-				DurationFormatUtils.formatDurationHMS(delta), result.size()));
+				end.toString(), getTaskName(),
+				DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size()));
 		
 		this.result = result;
 	}

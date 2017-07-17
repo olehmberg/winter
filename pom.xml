@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.uni_mannheim.informatik.dws</groupId>
 	<artifactId>winter</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>WInte.r</name>
 	<url>https://github.com/olehmberg/winter</url>
 
@@ -71,12 +71,6 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.3</version>
-			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>com.wcohen.ss</groupId>

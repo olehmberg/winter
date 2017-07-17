@@ -285,11 +285,11 @@ public class Movies_IdentityResolution_Main {
 							correspondence.getFirstRecord().getIdentifier(),
 							correspondence.getFirstRecord().getTitle(),
 							correspondence.getFirstRecord().getDate()
-									.toString("YYYY-MM-DD"), correspondence
+									.toLocalDate().toString(), correspondence
 									.getSecondRecord().getIdentifier(),
 							correspondence.getSecondRecord().getTitle(),
 							correspondence.getSecondRecord().getDate()
-									.toString("YYYY-MM-DD")));
+									.toLocalDate().toString()));
 		}
 	}
 
