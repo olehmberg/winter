@@ -37,7 +37,6 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
-import de.uni_mannheim.informatik.dws.winter.webtables.WebTablesStringNormalizer;
 
 /**
  * A parser that loads the result of a SPARQL query executed against an RDF document as table
@@ -51,6 +50,7 @@ public class RdfTableParser extends TableParser {
 
 	public RdfTableParser(String query) {
 		this.queryString = query;
+		setStringNormalizer(new DynamicStringNormalizer());
 	}
 
 	/*
@@ -180,7 +180,7 @@ public class RdfTableParser extends TableParser {
 
 			String header = columnName;
 			if (isCleanHeader()) {
-				header = WebTablesStringNormalizer.normaliseHeader(header);
+				header = this.getStringNormalizer().normaliseHeader(header);
 			}
 			c.setHeader(header);
 

@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 
 import com.google.gson.Gson;
 
@@ -32,9 +33,9 @@ import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableMapping;
-import de.uni_mannheim.informatik.dws.winter.webtables.WebTablesStringNormalizer;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeGuesser;
+import de.uni_mannheim.informatik.dws.winter.webtables.detectors.WebTablesRowContentDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.Dependency;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.HeaderPosition;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.TableOrientation;
@@ -49,10 +50,14 @@ public class JsonTableParser extends TableParser {
 
 	public JsonTableParser() {
 		setTypeDetector(new TypeGuesser());
+		setStringNormalizer(new DynamicStringNormalizer());
+		setRowContentDetector(new WebTablesRowContentDetector());
 	}
 
 	public JsonTableParser(TypeDetector pTypeDetector) {
 		setTypeDetector(pTypeDetector);
+		setStringNormalizer(new DynamicStringNormalizer());
+		setRowContentDetector(new WebTablesRowContentDetector());
 	}
 
 	private boolean inferSchema = true;
@@ -154,8 +159,9 @@ public class JsonTableParser extends TableParser {
 
 		// detect header, if TableHeaderDetector is set
 		int[] headerRowIndex;
-		if (getTableHeaderDetector() != null) {
-			headerRowIndex = getTableHeaderDetector().detectTableHeader(data.getRelation());
+		int[] emptyRowCount =	getRowContentDetector().detectEmptyHeaderRows(data.getRelation(), true);	
+		if (getTableHeaderDetector() != null) {		
+			headerRowIndex = getTableHeaderDetector().detectTableHeader(data.getRelation(), emptyRowCount);
 			if (headerRowIndex != null)
 				data.setHeaderRowIndex(headerRowIndex[0]);
 			else
@@ -163,6 +169,10 @@ public class JsonTableParser extends TableParser {
 		} else {
 			headerRowIndex = new int[1];
 			headerRowIndex[0] = data.getHeaderRowIndex();
+			if(emptyRowCount != null && ArrayUtils.contains(emptyRowCount, headerRowIndex[0])){
+				data.setHeaderRowIndex(emptyRowCount.length);
+				headerRowIndex[0] = emptyRowCount.length;
+			}
 		}
 
 		// create the table columns
@@ -174,9 +184,14 @@ public class JsonTableParser extends TableParser {
 		// create the rows, transpose the data first to convert from
 		// column-based to row-based representation
 		data.transposeRelation();
+		
+		//check for total row
+		int[] sumRowCount	= 	getRowContentDetector().detectSumRow(data.getRelation());
 
 		// populate table Content
-		populateTable(data.getRelation(), t, headerRowIndex);
+		int[] skipRows = ArrayUtils.addAll(emptyRowCount, headerRowIndex);
+		skipRows = ArrayUtils.addAll(skipRows, sumRowCount);
+		populateTable(data.getRelation(), t, skipRows);
 
 		parseProvenance(data, t);
 
@@ -265,7 +280,7 @@ public class JsonTableParser extends TableParser {
 				// set the header
 				String header = columnName;
 				if (isCleanHeader()) {
-					header = WebTablesStringNormalizer.normaliseHeader(columnName);
+					header = this.getStringNormalizer().normaliseHeader(columnName);
 				}
 				c.setHeader(header);
 
