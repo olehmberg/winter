@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.wcohen.ss:secondstring:20120620">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/wcohen/ss/secondstring/20120620/secondstring-20120620.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/wcohen/ss/secondstring/20120620/secondstring-20120620-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/wcohen/ss/secondstring/20120620/secondstring-20120620-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
