@@ -167,7 +167,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				}
 			}
 		});
-		
+		//use .distinct() to remove correspondences that are found in multiple blocks
 		return result.distinct();
 	}
 

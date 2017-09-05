@@ -1,5 +1,4 @@
 /target/
-
 *.prefs
 .project
 *.classpath
