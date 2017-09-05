@@ -65,6 +65,16 @@ public abstract class RDFMatchableReader<RecordType extends Matchable, SchemaEle
 				}
 				
 				String[] values = new String[attributes.size()];
+				
+				if(rowNumber==0) {
+					// add attribute names
+					for(Map.Entry<String, Integer> attribute : attributes.entrySet()) {
+						values[attribute.getValue()] = attribute.getKey();
+					}
+					readLine(file, rowNumber++, values, dataset);
+				}
+				
+				// add values
 				for(String att : attributes.keySet()) {
 					values[attributes.get(att)] = soln.get(att).toString();
 				}

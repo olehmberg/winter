@@ -13,9 +13,12 @@ package de.uni_mannheim.informatik.dws.winter.model.defaultmodel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
 /**
@@ -47,10 +50,17 @@ public class RDFRecordReaderTest extends TestCase {
 		
 		r.loadFromRDF(new File("usecase/restaurant/input/restaurant1.rdf"), query, ds);
 		
+		Set<String> attributeNames = new HashSet<>();
+		attributeNames.add("name");
+		attributeNames.add("street");
+		attributeNames.add("city_name");
+		attributeNames.add("category");
+		attributeNames.add("phone");
 		System.out.println("Attributes:");
 		for(Attribute a : ds.getSchema().get()) {
 			System.out.println(String.format("\t%s", a.getName()));
 		}
+		assertEquals(attributeNames, new HashSet<>(Q.project(ds.getSchema().get(), (a)->a.getName())));
 		
 		System.out.println("Records:");
 		for(Record rec : ds.get()) {
