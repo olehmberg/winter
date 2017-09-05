@@ -13,6 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.webtables.detectors;
 
 public interface TableHeaderDetector {
 	
-	int[] detectTableHeader(String[][] attributeValues);
+	int[] detectTableHeader(String[][] attributeValues, int[] skipRows);
 
 }

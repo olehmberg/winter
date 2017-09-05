@@ -20,8 +20,14 @@ package de.uni_mannheim.informatik.dws.winter.webtables.detectors;
 public class TableHeaderDetectorFirstRow implements TableHeaderDetector {
 
 	@Override
-	public int[] detectTableHeader(String[][] attributeValues) {
-		int[] result = {0};
-		return result;
+	public int[] detectTableHeader(String[][] attributeValues, int[] skipRows) {
+		if(skipRows == null){
+			int[] result = {0};
+			return result;
+		}else{
+			int[] result = {skipRows.length};
+			return result;
+		}
+		
 	}
 }
