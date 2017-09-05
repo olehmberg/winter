@@ -25,7 +25,7 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
 import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
@@ -97,7 +97,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 		// create the blocking keys for the first data set
 		// results in pairs of [blocking key], distribution of correspondences
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped1 = 
-				ds1.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
+				ds1.aggregate(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -112,7 +112,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 
 		// create the blocking keys for the second data set
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped2 = 
-				ds2.aggregateRecords(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
+				ds2.aggregate(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -142,11 +142,11 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 				Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>,
 				Pair<
 						Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>,
-						String>>> leftRecordBlockAssignments = blockedData.groupRecords(
+						String>>> leftRecordBlockAssignments = blockedData.group(
 				(Pair<
 						Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 						Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> inputPair,
-				 DatasetIterator<
+				 DataIterator<
 						 Pair<
 						 	Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, //key
 						 	Pair< //value
@@ -176,11 +176,11 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 				Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>,
 				Pair<
 						Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>,
-						String>>> rightRecordBlockAssignments = blockedData.groupRecords(
+						String>>> rightRecordBlockAssignments = blockedData.group(
 				(Pair<
 						Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 						Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> inputPair,
-				 DatasetIterator<
+				 DataIterator<
 						 Pair<
 								 Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, //key
 								 Pair< //value
@@ -230,7 +230,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 					public void mapRecord(
 							Pair<Iterable<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>>,
 									Iterable<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>>> record,
-							DatasetIterator<Pair<
+							DataIterator<Pair<
 									Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 									Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> resultCollector) {
 
@@ -260,7 +260,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 		//printBlockedData(blockedData);
 
 			// transform the blocks into pairs of records
-		Processable<Correspondence<BlockedType, CorrespondenceType>> result = blockedData.transform(new RecordMapper<Pair<
+		Processable<Correspondence<BlockedType, CorrespondenceType>> result = blockedData.map(new RecordMapper<Pair<
 				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>, 
 				Correspondence<BlockedType, CorrespondenceType>>() {
@@ -271,7 +271,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 					Pair<
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, 
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
-					DatasetIterator<Correspondence<BlockedType, CorrespondenceType>> resultCollector) {
+					DataIterator<Correspondence<BlockedType, CorrespondenceType>> resultCollector) {
 				
 				// iterate over the left pairs [blocked element],[correspondences]
 				for(Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1 : record.getFirst().getSecond().getElements()){
@@ -289,7 +289,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 								.distinct();
 						
 						// filter the correspondences such that only correspondences between the two records are contained (by data source id)
-						causes = causes.filter((c)->
+						causes = causes.where((c)->
 							Q.toSet(p1.getFirst().getDataSourceIdentifier(), p2.getFirst().getDataSourceIdentifier())
 							.equals(Q.toSet(c.getFirstRecord().getDataSourceIdentifier(), c.getSecondRecord().getDataSourceIdentifier()))
 //							(c.getFirstRecord().getDataSourceIdentifier()==p1.getFirst().getDataSourceIdentifier() || c.getSecondRecord().getDataSourceIdentifier()==p1.getFirst().getDataSourceIdentifier())
@@ -315,10 +315,10 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 	 */
 	private Processable<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>> deleteBlocksBasedOnTheCardinality(Processable<Group<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>>> recordBlockAssignments,
 												   HashMap<String, Long> blockCardinalities) {
-			return recordBlockAssignments.transform(
+			return recordBlockAssignments.map(
 					(Group<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>,
 					Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>> record,
-					DatasetIterator<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>> collector
+					DataIterator<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>> collector
 
 			) -> {
 				//get all blockingKeys for that record
@@ -405,7 +405,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 		// so we aggregate the results to get a unique set of BlockedType elements (using the DistributionAggregator)
 		
 		// group all records by their blocking keys		
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped = ds.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
+		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped = ds.aggregate(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -418,7 +418,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 		});
 		
 		// transform the groups into record pairs
-		Processable<Correspondence<BlockedType, CorrespondenceType>> blocked = grouped.transform((g, collector) ->
+		Processable<Correspondence<BlockedType, CorrespondenceType>> blocked = grouped.map((g, collector) ->
 		{
 			List<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>> list = new ArrayList<>(g.getSecond().getElements());
 			
@@ -433,7 +433,7 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 					Processable<Correspondence<CorrespondenceType, Matchable>> causes = new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 					
 					// filter the correspondences such that only correspondences between the two records are contained (by data source id)
-					causes = causes.filter((c)->
+					causes = causes.where((c)->
 						(c.getFirstRecord().getDataSourceIdentifier()==p1.getFirst().getDataSourceIdentifier() || c.getSecondRecord().getDataSourceIdentifier()==p1.getFirst().getDataSourceIdentifier())
 						&& (c.getFirstRecord().getDataSourceIdentifier()==p2.getFirst().getDataSourceIdentifier() || c.getSecondRecord().getDataSourceIdentifier()==p2.getFirst().getDataSourceIdentifier())
 						);

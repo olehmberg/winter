@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.string.LongestString;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -26,10 +26,10 @@ public class LongestStringTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfStringRecordType() {
 		LongestString<Movie, Attribute> crf = new LongestString<>();
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello moto", null,
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello moto", null,
 				null));
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -39,7 +39,7 @@ public class LongestStringTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfStringRecordType2() {
 		LongestString<Movie, Attribute> crf = new LongestString<>();
-		List<FusableValue<String, Movie, Attribute>> cluster2 = new ArrayList<FusableValue<String, Movie, Attribute>>();
+		List<FusibleValue<String, Movie, Attribute>> cluster2 = new ArrayList<FusibleValue<String, Movie, Attribute>>();
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster2);
 		assertEquals(null, resolvedValue.getValue());

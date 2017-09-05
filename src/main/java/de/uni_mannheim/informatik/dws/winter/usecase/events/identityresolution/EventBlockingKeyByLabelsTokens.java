@@ -6,7 +6,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
 
@@ -28,7 +28,7 @@ public class EventBlockingKeyByLabelsTokens extends
      */
     @Override
     public void generateBlockingKeys(Event record, Processable<Correspondence<Attribute, Matchable>> correspondences,
-                                     DatasetIterator<Pair<String, Event>> resultCollector) {
+                                     DataIterator<Pair<String, Event>> resultCollector) {
         for (String label : record.getLabels()) {
             for (String token : label.split("\\s+")) {
                 resultCollector.next(new Pair<>(token, record));

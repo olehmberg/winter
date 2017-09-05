@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -32,10 +32,10 @@ public class LongestString<RecordType extends Matchable & Fusible<SchemaElementT
 
 	@Override
 	public FusedValue<String, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<String, RecordType, SchemaElementType>> values) {
-		FusableValue<String, RecordType, SchemaElementType> longest = null;
+			Collection<FusibleValue<String, RecordType, SchemaElementType>> values) {
+		FusibleValue<String, RecordType, SchemaElementType> longest = null;
 
-		for (FusableValue<String, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<String, RecordType, SchemaElementType> value : values) {
 			if (longest == null
 					|| value.getValue().length() > longest.getValue().length()) {
 				longest = value;

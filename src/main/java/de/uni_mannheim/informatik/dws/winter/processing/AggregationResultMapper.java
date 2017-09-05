@@ -27,7 +27,7 @@ public class AggregationResultMapper<KeyType, RecordType> implements RecordMappe
 	 * @see de.uni_mannheim.informatik.wdi.processing.RecordMapper#mapRecord(java.lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void mapRecord(Pair<KeyType, RecordType> record, DatasetIterator<RecordType> resultCollector) {
+	public void mapRecord(Pair<KeyType, RecordType> record, DataIterator<RecordType> resultCollector) {
 		resultCollector.next(record.getSecond());
 	}
 

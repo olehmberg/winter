@@ -5,7 +5,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollector;
@@ -27,7 +27,7 @@ public abstract class SchemaValueGenerator<RecordType extends Matchable, SchemaE
 
 	@Override
 	public void mapRecordToKey(Pair<RecordType, Processable<Correspondence<MatchableValue, Matchable>>> pair,
-			DatasetIterator<Pair<String, Pair<SchemaElementType, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
+			DataIterator<Pair<String, Pair<SchemaElementType, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
 
 		
 		ProcessableCollector<Pair<String, SchemaElementType>> collector = new ProcessableCollector<>();

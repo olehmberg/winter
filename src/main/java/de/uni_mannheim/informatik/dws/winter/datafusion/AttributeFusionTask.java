@@ -29,7 +29,7 @@ public class AttributeFusionTask<RecordType extends Matchable & Fusible<SchemaEl
 
 	private SchemaElementType schemaElement;
 	private AttributeFuser<RecordType, SchemaElementType> fuser;
-	private Processable<Correspondence<SchemaElementType, RecordType>> correspondences;
+	private Processable<Correspondence<SchemaElementType, Matchable>> correspondences;
 	private EvaluationRule<RecordType, SchemaElementType> evaluationRule;
 	
 	/**
@@ -49,7 +49,7 @@ public class AttributeFusionTask<RecordType extends Matchable & Fusible<SchemaEl
 	/**
 	 * @return the correspondences
 	 */
-	public Processable<Correspondence<SchemaElementType, RecordType>> getCorrespondences() {
+	public Processable<Correspondence<SchemaElementType, Matchable>> getCorrespondences() {
 		return correspondences;
 	}
 	
@@ -57,7 +57,7 @@ public class AttributeFusionTask<RecordType extends Matchable & Fusible<SchemaEl
 	 * @param correspondences the correspondences to set
 	 */
 	public void setCorrespondences(
-			Processable<Correspondence<SchemaElementType, RecordType>> correspondences) {
+			Processable<Correspondence<SchemaElementType, Matchable>> correspondences) {
 		this.correspondences = correspondences;
 	}
 	

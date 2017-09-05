@@ -1,12 +1,12 @@
 package de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution;
 
-import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
-import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
-import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-
 import java.util.Collection;
 import java.util.Random;
+
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
+import de.uni_mannheim.informatik.dws.winter.model.Fusible;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
 
 /**
@@ -23,19 +23,19 @@ public class RandomValue<ValueType, RecordType extends Matchable & Fusible<Schem
 
         @Override
     public FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(
-            Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values) {
+            Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values) {
 
         if (values.size()>0) {
             int randomItem = new Random().nextInt(values.size());
             int i = 0;
-            for(FusableValue<ValueType, RecordType, SchemaElementType> value : values) {
+            for(FusibleValue<ValueType, RecordType, SchemaElementType> value : values) {
                 if (randomItem == i) {
                     return new FusedValue<>(value);
                 }
                 i++;
             }
         }
-        FusableValue<ValueType, RecordType, SchemaElementType> random = null;
+        FusibleValue<ValueType, RecordType, SchemaElementType> random = null;
         return new FusedValue<>(random);
 
     }

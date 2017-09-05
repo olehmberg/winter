@@ -11,8 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.similarity.date;
 
-import org.joda.time.DateTime;
-import org.joda.time.Years;
+import java.time.LocalDateTime;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -23,7 +22,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
  */
-public class YearSimilarity extends SimilarityMeasure<DateTime> {
+public class YearSimilarity extends SimilarityMeasure<LocalDateTime> {
 
 	private static final long serialVersionUID = 1L;
 	private int maxDifference;
@@ -41,11 +40,11 @@ public class YearSimilarity extends SimilarityMeasure<DateTime> {
 	}
 
 	@Override
-	public double calculate(DateTime first, DateTime second) {
+	public double calculate(LocalDateTime first, LocalDateTime second) {
 		if (first == null || second == null) {
 			return 0.0;
 		} else {
-			int diff = Math.abs(Years.yearsBetween(first, second).getYears());
+			int diff = Math.abs(first.getYear()-second.getYear());
 			double norm = Math.min((double) diff / (double) maxDifference, 1.0);
 
 			return 1 - norm;

@@ -26,6 +26,6 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
 public interface RecordKeyValueMapper<KeyType, RecordType, OutputRecordType>
 	extends Serializable
 {
-	void mapRecordToKey(RecordType record, DatasetIterator<Pair<KeyType, OutputRecordType>> resultCollector);
+	void mapRecordToKey(RecordType record, DataIterator<Pair<KeyType, OutputRecordType>> resultCollector);
 	
 }

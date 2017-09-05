@@ -11,9 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model;
 
+import java.time.LocalDateTime;
 import java.util.Map;
-
-import org.joda.time.DateTime;
 
 /**
  * {@link DataSet} extended by functionality for data fusion
@@ -50,14 +49,14 @@ public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaEle
 	 * 
 	 * @return Returns the date of this dataset
 	 */
-	DateTime getDate();
+	LocalDateTime getDate();
 
 	/**
 	 * Sets the date of this dataset
 	 * 
 	 * @param date
 	 */
-	void setDate(DateTime date);
+	void setDate(LocalDateTime date);
 
 	/**
 	 * 

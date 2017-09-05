@@ -27,7 +27,7 @@ public class FlattenAggregationResultMapper<KeyType, RecordType> implements Reco
 	 * @see de.uni_mannheim.informatik.wdi.processing.RecordMapper#mapRecord(java.lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void mapRecord(Pair<KeyType, Processable<RecordType>> record, DatasetIterator<RecordType> resultCollector) {
+	public void mapRecord(Pair<KeyType, Processable<RecordType>> record, DataIterator<RecordType> resultCollector) {
 		for(RecordType r : record.getSecond().get()) {
 			resultCollector.next(r);
 		}

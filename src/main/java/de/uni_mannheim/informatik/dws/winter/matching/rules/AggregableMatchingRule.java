@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollector;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
@@ -44,7 +44,7 @@ public abstract class AggregableMatchingRule<RecordType extends Matchable, Schem
 	 */
 	@Override
 	public void mapRecordToKey(Correspondence<RecordType, SchemaElementType> record,
-			DatasetIterator<Pair<Pair<RecordType, RecordType>, Correspondence<RecordType, SchemaElementType>>> resultCollector) {
+			DataIterator<Pair<Pair<RecordType, RecordType>, Correspondence<RecordType, SchemaElementType>>> resultCollector) {
 		
 		ProcessableCollector<Correspondence<RecordType, SchemaElementType>> collector = new ProcessableCollector<>();
 		

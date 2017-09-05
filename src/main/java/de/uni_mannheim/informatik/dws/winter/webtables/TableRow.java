@@ -63,12 +63,8 @@ public class TableRow implements Serializable {
 		if(row.getProvenance().size()>0) {
 			getProvenance().addAll(row.getProvenance());
 		} else {
-			getProvenance().add(row.getProvenanceString());
+			getProvenance().add(row.getIdentifier());
 		}
-	}
-	
-	public String getProvenanceString() {
-		return String.format("%s;%s", getTable().getPath(), getRowNumber());
 	}
 	
 	public String getIdentifier() {

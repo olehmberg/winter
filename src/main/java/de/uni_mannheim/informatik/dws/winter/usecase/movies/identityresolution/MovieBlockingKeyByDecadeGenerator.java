@@ -18,7 +18,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 
@@ -40,7 +40,7 @@ public class MovieBlockingKeyByDecadeGenerator extends
 	 */
 	@Override
 	public void generateBlockingKeys(Movie record, Processable<Correspondence<Attribute, Matchable>> correspondences,
-			DatasetIterator<Pair<String, Movie>> resultCollector) {
+			DataIterator<Pair<String, Movie>> resultCollector) {
 		resultCollector.next(new Pair<>(Integer.toString(record.getDate().getYear() / 10), record));
 	}
 

@@ -20,13 +20,16 @@ package de.uni_mannheim.informatik.dws.winter.usecase.events;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.joda.time.DateTime;
 import org.xml.sax.SAXException;
 
 //import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;
@@ -110,9 +113,16 @@ public class Events_DataFusion_Main {
 		fusableDataSetD.setScore(1.0);
 		fusableDataSetY.setScore(1.0);
 
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
 		// Date (e.g. last update)
-		fusableDataSetD.setDate(DateTime.parse("2016-04-01"));
-		fusableDataSetY.setDate(DateTime.parse("2015-11-01"));
+		fusableDataSetD.setDate(LocalDateTime.parse("2016-04-01", formatter));
+		fusableDataSetY.setDate(LocalDateTime.parse("2015-11-01", formatter));
 
 		CorrespondenceSet<Event, Attribute> correspondencesSet = new CorrespondenceSet<>();
 			correspondencesSet

@@ -66,4 +66,11 @@ public class RuleBasedDuplicateDetectionAlgorithm<TypeA extends Matchable, TypeB
 	public double getReductionRatio() {
 		return blocker.getReductionRatio();
 	}
+	
+	@Override
+	public void run() {
+		super.run();
+		
+		Correspondence.setDirectionByDataSourceIdentifier(getResult());
+	}
 }

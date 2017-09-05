@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -31,7 +31,7 @@ public class Average<RecordType extends Matchable & Fusible<SchemaElementType>, 
 
 	@Override
 	public FusedValue<Double, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<Double, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<Double, RecordType, SchemaElementType>> values) {
 
 		if (values.size() == 0) {
 			return new FusedValue<>((Double) null);
@@ -40,7 +40,7 @@ public class Average<RecordType extends Matchable & Fusible<SchemaElementType>, 
 			double sum = 0.0;
 			double count = 0.0;
 
-			for (FusableValue<Double, RecordType, SchemaElementType> value : values) {
+			for (FusibleValue<Double, RecordType, SchemaElementType> value : values) {
 				sum += value.getValue();
 				count++;
 			}

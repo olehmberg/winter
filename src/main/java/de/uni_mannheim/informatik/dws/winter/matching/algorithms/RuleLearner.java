@@ -11,8 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
@@ -71,14 +73,14 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			MatchingGoldStandard goldStandard,
 			LearnableMatchingRule<RecordType, SchemaElementType> rule,
 			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences) {
-		long start = System.currentTimeMillis();
+		LocalDateTime start = LocalDateTime.now();
 
 		FeatureVectorDataSet result = rule.initialiseFeatures();
 		
 		goldStandard.printBalanceReport();
 
 		System.out.println(String.format("[%s] Starting GenerateFeatures",
-				new DateTime(start).toString()));
+				start.toString()));
 
 		ProgressReporter progress = new ProgressReporter(goldStandard
 				.getPositiveExamples().size()
@@ -129,13 +131,13 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 		}
 
 		// report total time
-		long end = System.currentTimeMillis();
-		long delta = end - start;
+		LocalDateTime end = LocalDateTime.now();
+		
 		System.out
 				.println(String
 						.format("[%s] GenerateFeatures finished after %s; created %,d examples.",
-								new DateTime(end).toString(),
-								DurationFormatUtils.formatDurationHMS(delta),
+								end.toString(),
+								DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()),
 								result.size()));
 		
 		return result;

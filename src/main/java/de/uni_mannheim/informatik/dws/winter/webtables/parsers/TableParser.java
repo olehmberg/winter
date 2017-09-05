@@ -10,11 +10,15 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+
 import org.apache.commons.lang.ArrayUtils;
 
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
-import de.uni_mannheim.informatik.dws.winter.webtables.WebTablesStringNormalizer;
+import de.uni_mannheim.informatik.dws.winter.webtables.detectors.RowContentDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TableHeaderDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 
@@ -41,7 +45,19 @@ public abstract class TableParser {
 	 * implement your own header detector by using the corresponding Interface.
 	 */
 	private TableHeaderDetector tableHeaderDetector;
-
+	
+	/**
+	 * Holds the stringNormalizer used to normalizes input strings. It is possible to
+	 * implement your own string normalizer by using the corresponding Interface.
+	 */
+	private StringNormalizer stringNormalizer;
+	
+	/**
+	 * Holds the rowContentDetector used to analyze the table rows before populating the table. It is possible to
+	 * implement your own row content detector by using the corresponding Interface.
+	 */
+	private RowContentDetector rowContentDetector;
+	
 	private boolean convertValues = true;
 
 	public boolean isConvertValues() {
@@ -75,7 +91,23 @@ public abstract class TableParser {
 	public void setTableHeaderDetector(TableHeaderDetector tableHeaderDetector) {
 		this.tableHeaderDetector = tableHeaderDetector;
 	}
+	
+	public StringNormalizer getStringNormalizer() {
+		return stringNormalizer;
+	}
 
+	public void setStringNormalizer(StringNormalizer stringNormalizer) {
+		this.stringNormalizer = stringNormalizer;
+	}
+	
+	public RowContentDetector getRowContentDetector() {
+		return rowContentDetector;
+	}
+
+	public void setRowContentDetector(RowContentDetector rowContentDetector) {
+		this.rowContentDetector = rowContentDetector;
+	}
+	
 	/**
 	 * Writes the content from a String[][] into the provided table.
 	 * 
@@ -83,24 +115,24 @@ public abstract class TableParser {
 	 *            has the content, which has to be populated
 	 * @param t
 	 *            has the table, which is populated
-	 * @param headerRow
-	 *            holds the indexes for header rows. This rows are skipped,
+	 * @param skipRows
+	 *            holds the indexes for header, empty and sum rows. These rows are skipped,
 	 *            because they do not belong to the content. Likewise these rows
 	 *            do not increase the row id, thus table row id and parsed table
 	 *            row id maid slightly differ depending on the header.
 	 */
 
-	public void populateTable(String[][] tContent, Table t, int[] headerRow) {
+	public void populateTable(String[][] tContent, Table t, int[] skipRows) {
 		int tableRowIndex = 0;
 		for (int rowIdx = 0; rowIdx < tContent.length; rowIdx++) {
-			if (!ArrayUtils.contains(headerRow, rowIdx)) {
+			if (!ArrayUtils.contains(skipRows, rowIdx)) {
 				String[] rowData = tContent[rowIdx];
 				Object[] values = new Object[tContent[rowIdx].length];
 				for (int i = 0; i < rowData.length && i < values.length; i++) {
 					if (rowData[i] != null && !rowData[i].trim().isEmpty()) {
-						values[i] = WebTablesStringNormalizer.normaliseValue(rowData[i], false);
+						values[i] = stringNormalizer.normaliseValue(rowData[i], false);
 
-						if (((String) values[i]).equalsIgnoreCase(WebTablesStringNormalizer.nullValue)) {
+						if (((String) values[i]).equalsIgnoreCase(StringNormalizer.nullValue)) {
 							values[i] = null;
 						} else {
 							values[i] = values[i];
@@ -116,4 +148,9 @@ public abstract class TableParser {
 			}
 		}
 	}
+	
+	public abstract Table parseTable(File file);
+	public abstract Table parseTable(Reader reader, String fileName) throws IOException;
+
+
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -52,11 +52,11 @@ public class IntersectionKSources<ValueType, RecordType extends Matchable & Fusi
 
 	@Override
 	public FusedValue<List<ValueType>, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<List<ValueType>, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<List<ValueType>, RecordType, SchemaElementType>> values) {
 
 		HashMap<ValueType, Integer> valueDistribution = new HashMap<ValueType, Integer>();
 
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 			// make the values unique
 			HashSet<ValueType> set = new HashSet<ValueType>(value.getValue());
 			// create the distribution
@@ -81,7 +81,7 @@ public class IntersectionKSources<ValueType, RecordType extends Matchable & Fusi
 				intersection);
 
 		// list the original records that contributed to this intersection
-		for (FusableValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 
 			for (ValueType v : value.getValue()) {
 				if (intersection.contains(v)) {

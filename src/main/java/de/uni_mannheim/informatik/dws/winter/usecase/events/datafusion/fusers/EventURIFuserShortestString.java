@@ -4,6 +4,7 @@ import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.string.ShortestString;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -25,7 +26,7 @@ public class EventURIFuserShortestString extends
     }
 
     @Override
-    public void fuse(RecordGroup<Event, Attribute> group, Event fusedRecord, Processable<Correspondence<Attribute, Event>> schemaCorrespondences, Attribute attribute) {
+    public void fuse(RecordGroup<Event, Attribute> group, Event fusedRecord, Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences, Attribute attribute) {
 
         // get the fused value
         FusedValue<String, Event, Attribute> fused = getFusedValue(group, schemaCorrespondences, attribute);
@@ -38,12 +39,12 @@ public class EventURIFuserShortestString extends
     }
 
     @Override
-    public boolean hasValue(Event record, Correspondence<Attribute, Event> correspondence) {
+    public boolean hasValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         return record.hasValue(Event.URIS);
     }
 
     @Override
-    protected String getValue(Event record, Correspondence<Attribute, Event> correspondence) {
+    protected String getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         String uris = "";
         for (String uri : record.getUris()) {
             uris += uri + ",";

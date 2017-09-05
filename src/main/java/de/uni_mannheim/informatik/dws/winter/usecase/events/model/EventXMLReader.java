@@ -15,14 +15,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
@@ -34,7 +34,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
  *
  */
 public class EventXMLReader extends XMLMatchableReader<Event, Attribute> implements
-        FusableFactory<Event, Attribute> {
+        FusibleFactory<Event, Attribute> {
 
     /* (non-Javadoc)
      * @see de.uni_mannheim.informatik.wdi.model.io.XMLMatchableReader#initialiseDataset(de.uni_mannheim.informatik.wdi.model.DataSet)

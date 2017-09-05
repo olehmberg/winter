@@ -11,16 +11,20 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.w3c.dom.Node;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusableFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
@@ -32,7 +36,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
  * 
  */
 public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> implements
-		FusableFactory<Movie, Attribute> {
+		FusibleFactory<Movie, Attribute> {
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.model.io.XMLMatchableReader#initialiseDataset(de.uni_mannheim.informatik.wdi.model.DataSet)
@@ -64,7 +68,13 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> impleme
 		try {
 			String date = getValueFromChildElement(node, "date");
 			if (date != null && !date.isEmpty()) {
-				DateTime dt = DateTime.parse(date);
+				DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+				        .appendPattern("yyyy-MM-dd")
+				        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+				        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+				        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+				        .toFormatter(Locale.ENGLISH);
+				LocalDateTime dt = LocalDateTime.parse(date, formatter);
 				movie.setDate(dt);
 			}
 		} catch (Exception e) {

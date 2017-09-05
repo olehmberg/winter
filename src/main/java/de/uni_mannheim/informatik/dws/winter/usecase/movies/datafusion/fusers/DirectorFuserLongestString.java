@@ -15,6 +15,7 @@ import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.string.LongestString;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -34,17 +35,17 @@ public class DirectorFuserLongestString extends
 	}
 
 	@Override
-	public boolean hasValue(Movie record, Correspondence<Attribute, Movie> correspondence) {
+	public boolean hasValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.hasValue(Movie.DIRECTOR);
 	}
 
 	@Override
-	protected String getValue(Movie record, Correspondence<Attribute, Movie> correspondence) {
+	protected String getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getDirector();
 	}
 
 	@Override
-	public void fuse(RecordGroup<Movie, Attribute> group, Movie fusedRecord, Processable<Correspondence<Attribute, Movie>> schemaCorrespondences, Attribute schemaElement) {
+	public void fuse(RecordGroup<Movie, Attribute> group, Movie fusedRecord, Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences, Attribute schemaElement) {
 		FusedValue<String, Movie, Attribute> fused = getFusedValue(group, schemaCorrespondences, schemaElement);
 		fusedRecord.setDirector(fused.getValue());
 		fusedRecord.setAttributeProvenance(Movie.DIRECTOR,

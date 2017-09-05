@@ -37,6 +37,7 @@ public class EnsembleMatchingAlgorithm<TypeA extends Matchable, TypeB extends Ma
 	
 	public EnsembleMatchingAlgorithm(CorrespondenceAggregator<TypeA, TypeB> aggregator) {
 		this.baseMatcherResults = new LinkedList<>();
+		this.aggregator = aggregator;
 	}
 	
 	public void addBaseMatcherResult(Processable<Correspondence<TypeA, TypeB>> result, double weight) {
@@ -55,24 +56,24 @@ public class EnsembleMatchingAlgorithm<TypeA extends Matchable, TypeB extends Ma
 		// transform the incoming correspondences by applying the weight
 		for(Pair<Processable<Correspondence<TypeA, TypeB>>, Double> pair : baseMatcherResults) {
 			
-			Processable<Correspondence<TypeA, TypeB>> weighted = pair.getFirst().transform((r,c) -> c.next(new Correspondence<>(r.getFirstRecord(), r.getSecondRecord(), r.getSimilarityScore() * pair.getSecond(), r.getCausalCorrespondences())));
+			Processable<Correspondence<TypeA, TypeB>> weighted = pair.getFirst().map((r,c) -> c.next(new Correspondence<>(r.getFirstRecord(), r.getSecondRecord(), r.getSimilarityScore() * pair.getSecond(), r.getCausalCorrespondences())));
 			
 			if(combined==null) {
 				combined = weighted;
 			} else {
-				combined.append(weighted);
+				combined = combined.append(weighted);
 			}
 			
 		}
 		
 		// group all correspondences between the same elements and aggregate their scores
-		Processable<Pair<Pair<TypeA, TypeA>, Correspondence<TypeA, TypeB>>> aggregated = combined.aggregateRecords((r,c) -> {
+		Processable<Pair<Pair<TypeA, TypeA>, Correspondence<TypeA, TypeB>>> aggregated = combined.aggregate((r,c) -> {
 			if(r!=null) {
 				c.next(new Pair<>(new Pair<>(r.getFirstRecord(), r.getSecondRecord()), r));
 			}
 		}, aggregator);
 		
-		Processable<Correspondence<TypeA, TypeB>> result = aggregated.transform((p,c)->c.next(p.getSecond()));
+		Processable<Correspondence<TypeA, TypeB>> result = aggregated.map((p,c)->c.next(p.getSecond()));
 		
 		setResult(result);
 	}

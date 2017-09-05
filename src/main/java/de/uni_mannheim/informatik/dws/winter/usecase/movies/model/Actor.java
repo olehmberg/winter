@@ -12,8 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.model;
 
 import java.io.Serializable;
-
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -34,7 +33,7 @@ public class Actor extends AbstractRecord<Attribute> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private DateTime birthday;
+	private LocalDateTime birthday;
 	private String birthplace;
 
 	public Actor(String identifier, String provenance) {
@@ -49,11 +48,11 @@ public class Actor extends AbstractRecord<Attribute> implements Serializable {
 		this.name = name;
 	}
 
-	public DateTime getBirthday() {
+	public LocalDateTime getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(DateTime birthday) {
+	public void setBirthday(LocalDateTime birthday) {
 		this.birthday = birthday;
 	}
 

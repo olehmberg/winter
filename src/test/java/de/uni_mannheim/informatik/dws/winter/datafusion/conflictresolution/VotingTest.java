@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.Voting;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -26,10 +26,10 @@ public class VotingTest extends TestCase {
 
 	public void testResolveConflict() {
 		Voting<Double, Movie, Attribute> crf = new Voting<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(1.0, resolvedValue.getValue());
@@ -37,12 +37,12 @@ public class VotingTest extends TestCase {
 
 	public void testResolveConflict2() {
 		Voting<Double, Movie, Attribute> crf = new Voting<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(3.0, resolvedValue.getValue());
@@ -50,7 +50,7 @@ public class VotingTest extends TestCase {
 	
 	public void testResolveConflict3() {
 		Voting<Double, Movie, Attribute> crf = new Voting<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(null, resolvedValue.getValue());

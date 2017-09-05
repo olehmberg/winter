@@ -63,7 +63,7 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds = combineDataWithCorrespondences(dataset, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
 		
 		// add all instances to one list, and compute the keys
-		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blockingKeys = ds.transform(blockingFunction);
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blockingKeys = ds.map(blockingFunction);
 		ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>(blockingKeys.get());
 //		for (RecordType record : dataset.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction
@@ -109,13 +109,13 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(),r)));
 		
 		// add all instances to one list, and compute the keys
-		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked1 = ds1.transform(blockingFunction);
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked1 = ds1.map(blockingFunction);
 		ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> keyIdentifierList = new ArrayList<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>(blocked1.get());
 //		for (RecordType record : dataset1.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction
 //					.getBlockingKey(record), record));
 //		}
-		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked2 = ds2.transform(blockingFunction);
+		Processable<Pair<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> blocked2 = ds2.map(blockingFunction);
 		keyIdentifierList.addAll(blocked2.get());
 //		for (RecordType record : dataset2.get()) {
 //			keyIdentifierList.add(new Pair<String, RecordType>(blockingFunction

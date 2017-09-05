@@ -301,11 +301,11 @@ public class Events_IdentityResolution_Main {
 							correspondence.getFirstRecord().getIdentifier(),
 							correspondence.getFirstRecord().getTitle(),
 							correspondence.getFirstRecord().getDate()
-									.toString("YYYY-MM-DD"), correspondence
+									.toString(), correspondence
 									.getSecondRecord().getIdentifier(),
 							correspondence.getSecondRecord().getTitle(),
 							correspondence.getSecondRecord().getDate()
-									.toString("YYYY-MM-DD")));
+									.toString()));
 		}
 	}
 

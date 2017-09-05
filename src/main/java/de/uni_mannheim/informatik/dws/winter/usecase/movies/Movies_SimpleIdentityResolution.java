@@ -24,7 +24,7 @@ import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.RecordValueGenerator;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.DefaultRecordValueGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -45,8 +45,8 @@ public class Movies_SimpleIdentityResolution {
 
 		// define a blocker that uses the record values to generate pairs
 		InstanceBasedRecordBlocker<Record, Attribute> blocker = new InstanceBasedRecordBlocker<>(
-				new RecordValueGenerator(data1.getSchema()), 
-				new RecordValueGenerator(data2.getSchema()));
+				new DefaultRecordValueGenerator(data1.getSchema()), 
+				new DefaultRecordValueGenerator(data2.getSchema()));
 		
 		// to calculate the similarity score, aggregate the pairs by counting and normalise with the number of attributes in the smaller schema (= the maximum number of attributes that can match)
 		VotingAggregator<Record, MatchableValue> aggregator = new VotingAggregator<>(true, Math.min(data1.getSchema().size(), data2.getSchema().size()), 0.3);

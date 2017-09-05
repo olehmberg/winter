@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ClusteredVote;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
@@ -29,13 +29,13 @@ public class ClusteredVoteTest extends TestCase {
 		ClusteredVote<String, Movie, Attribute> crf = new ClusteredVote<>(
 				new LevenshteinSimilarity(), 0.0);
 
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hi", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hi1", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello1", null,
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hi", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hi1", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello1", null,
 				null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello", null, null));
-		cluster1.add(new FusableValue<String, Movie, Attribute>("hello2", null,
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello", null, null));
+		cluster1.add(new FusibleValue<String, Movie, Attribute>("hello2", null,
 				null));
 
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
@@ -47,7 +47,7 @@ public class ClusteredVoteTest extends TestCase {
 		ClusteredVote<String, Movie, Attribute> crf = new ClusteredVote<>(
 				new LevenshteinSimilarity(), 0.0);
 
-		List<FusableValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
+		List<FusibleValue<String, Movie, Attribute>> cluster1 = new ArrayList<>();
 
 		FusedValue<String, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);

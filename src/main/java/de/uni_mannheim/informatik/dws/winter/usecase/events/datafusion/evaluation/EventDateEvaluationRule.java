@@ -1,10 +1,12 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation;
 
+import org.joda.time.DateTime;
+
 import de.uni_mannheim.informatik.dws.winter.datafusion.EvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
-import org.joda.time.DateTime;
 
 
 /**
@@ -38,7 +40,7 @@ public class EventDateEvaluationRule extends EvaluationRule<Event, Attribute> {
      */
     @Override
     public boolean isEqual(Event record1, Event record2,
-                           Correspondence<Attribute, Event> schemaCorrespondence) {
+                           Correspondence<Attribute, Matchable> schemaCorrespondence) {
         return isEqual(record1, record2, (Attribute) null);
     }
 

@@ -11,8 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
@@ -142,10 +144,10 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	 */
 	@Override
 	public void run() {
-		long start = System.currentTimeMillis();
+		LocalDateTime start = LocalDateTime.now();
 
 		System.out.println(String.format("[%s] Starting Duplicate-based Schema Matching",
-				new DateTime(start).toString()));
+				start.toString()));
 
 		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
@@ -162,12 +164,12 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		Processable<Pair<Pair<SchemaElementType, SchemaElementType>, Correspondence<SchemaElementType, RecordType>>> aggregatedVotes;
 		if(voteFilter==null) {
 			// vote and aggregate without filtering
-			aggregatedVotes = blocked.aggregateRecords(rule, voting);
+			aggregatedVotes = blocked.aggregate(rule, voting);
 		} else {
 			// vote
-			Processable<Correspondence<SchemaElementType, RecordType>> votes = blocked.transform(rule);
+			Processable<Correspondence<SchemaElementType, RecordType>> votes = blocked.map(rule);
 			
-			Processable<Pair<Pair<SchemaElementType, RecordType>, Processable<Correspondence<SchemaElementType, RecordType>>>> filteredVotes = votes.aggregateRecords((r,c) -> 
+			Processable<Pair<Pair<SchemaElementType, RecordType>, Processable<Correspondence<SchemaElementType, RecordType>>>> filteredVotes = votes.aggregate((r,c) -> 
 			{
 				Correspondence<RecordType, Matchable> cause = Q.firstOrDefault(r.getCausalCorrespondences().get());
 				if(cause!=null) {
@@ -179,7 +181,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 			}, voteFilter);
 			
 			// aggregate the votes
-			aggregatedVotes = filteredVotes.aggregateRecords((r,c) -> {
+			aggregatedVotes = filteredVotes.aggregate((r,c) -> {
 				if(r!=null) {
 					for(Correspondence<SchemaElementType, RecordType> cor : r.getSecond().get()) {
 						c.next(new Pair<>(new Pair<>(cor.getFirstRecord(), cor.getSecondRecord()), cor));
@@ -189,19 +191,19 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 			
 		}
 
-		result = aggregatedVotes.transform((p,c) -> {
+		result = aggregatedVotes.map((p,c) -> {
 			if(p.getSecond()!=null) {
 				c.next(p.getSecond());
 			}
 		});
 		
 		// report total matching time
-		long end = System.currentTimeMillis();
-		long delta = end - start;
+		LocalDateTime end = LocalDateTime.now();
+		
 		System.out.println(String.format(
 				"[%s] Duplicate-based Schema Matching finished after %s; found %d correspondences from %,d duplicates.",
-				new DateTime(end).toString(),
-				DurationFormatUtils.formatDurationHMS(delta), result.size(), getCorrespondences().size()));
+				end.toString(),
+				DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size(), getCorrespondences().size()));
 
 	}
 

@@ -2,6 +2,7 @@ package de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluati
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.EvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
@@ -36,7 +37,7 @@ public class EventCoordinatesEvaluationRule extends EvaluationRule<Event, Attrib
      */
     @Override
     public boolean isEqual(Event record1, Event record2,
-                           Correspondence<Attribute, Event> schemaCorrespondence) {
+                           Correspondence<Attribute, Matchable> schemaCorrespondence) {
         return isEqual(record1, record2, (Attribute) null);
     }
 
