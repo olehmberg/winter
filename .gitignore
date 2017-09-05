@@ -5,5 +5,5 @@
 *.classpath
 /usecase/movie/output/
 /usecase/restaurant/output/
-/winter.iml
-/.idea/
+winter.iml
+.idea/
