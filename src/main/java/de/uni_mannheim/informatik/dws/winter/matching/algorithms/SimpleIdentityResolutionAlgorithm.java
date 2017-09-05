@@ -72,10 +72,10 @@ public class SimpleIdentityResolutionAlgorithm<RecordType extends Matchable, Sch
 		Processable<Correspondence<RecordType, MatchableValue>> blocked = blocker.runBlocking(getDataset1(), getDataset2(), null);
 		
 		// aggregate the correspondences to calculate a similarity score
-		Processable<Pair<Pair<RecordType, RecordType>, Correspondence<RecordType, MatchableValue>>> aggregated = blocked.aggregateRecords(new IdentityMatchingRule<RecordType, MatchableValue>(0.0), aggregator);
+		Processable<Pair<Pair<RecordType, RecordType>, Correspondence<RecordType, MatchableValue>>> aggregated = blocked.aggregate(new IdentityMatchingRule<RecordType, MatchableValue>(0.0), aggregator);
 		
 		// transform the result to the expected correspondence format
-		Processable<Correspondence<RecordType, MatchableValue>> result = aggregated.transform((p, collector) -> {
+		Processable<Correspondence<RecordType, MatchableValue>> result = aggregated.map((p, collector) -> {
 			if(p.getSecond()!=null)
 			{
 				collector.next(p.getSecond());

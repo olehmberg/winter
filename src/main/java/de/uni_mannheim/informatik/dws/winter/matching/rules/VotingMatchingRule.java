@@ -13,7 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
@@ -39,7 +39,7 @@ public abstract class VotingMatchingRule<RecordType extends Matchable, SchemaEle
 	 */
 	@Override
 	public void mapRecord(Correspondence<RecordType, SchemaElementType> record,
-			DatasetIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
+			DataIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
 		
 		// create one correspondence for each causal correspondence
 		for(Correspondence<SchemaElementType, Matchable> cor : record.getCausalCorrespondences().get()) {

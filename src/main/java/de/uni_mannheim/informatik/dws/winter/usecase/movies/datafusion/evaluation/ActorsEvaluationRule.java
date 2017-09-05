@@ -16,6 +16,7 @@ import java.util.Set;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.EvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Actor;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -55,7 +56,7 @@ public class ActorsEvaluationRule extends EvaluationRule<Movie, Attribute> {
 	 */
 	@Override
 	public boolean isEqual(Movie record1, Movie record2,
-			Correspondence<Attribute, Movie> schemaCorrespondence) {
+			Correspondence<Attribute, Matchable> schemaCorrespondence) {
 		return isEqual(record1, record2, (Attribute)null);
 	}
 

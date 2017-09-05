@@ -11,7 +11,12 @@
  */
 package de.uni_mannheim.informatik.dws.winter.similarity.date;
 
-import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.date.WeightedDateSimilarity;
 import junit.framework.TestCase;
@@ -28,11 +33,19 @@ public class WeightedDateSimilarityTest extends TestCase {
 	public void testCalculateDateTimeDateTime() {
 		WeightedDateSimilarity sim = new WeightedDateSimilarity(0, 0, 1);
 		sim.setYearRange(10);
-		DateTime dt1 = DateTime.parse("2015-01-01");
-		DateTime dt2 = DateTime.parse("2014-01-01");
-		DateTime dt3 = DateTime.parse("2010-01-01");
-		DateTime dt4 = DateTime.parse("2005-01-01");
-		DateTime dt5 = DateTime.parse("1905-01-01");
+		
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
+		LocalDateTime dt1 = LocalDateTime.parse("2015-01-01", formatter);
+		LocalDateTime dt2 = LocalDateTime.parse("2014-01-01", formatter);
+		LocalDateTime dt3 = LocalDateTime.parse("2010-01-01", formatter);
+		LocalDateTime dt4 = LocalDateTime.parse("2005-01-01", formatter);
+		LocalDateTime dt5 = LocalDateTime.parse("1905-01-01", formatter);
 		
 		assertEquals(1.0, sim.calculate(dt1, dt1));
 		assertEquals(0.9, sim.calculate(dt1, dt2));

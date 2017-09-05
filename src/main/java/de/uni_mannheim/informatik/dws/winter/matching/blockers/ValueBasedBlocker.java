@@ -21,7 +21,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
@@ -85,7 +85,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		// create the blocking keys for the first data set
 		// results in pairs of [blocking key], [blocked type]
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped1 = 
-				ds1.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
+				ds1.aggregate(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -100,7 +100,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 
 		// create the blocking keys for the second data set
 		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped2 = 
-				ds2.aggregateRecords(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
+				ds2.aggregate(secondBlockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -120,7 +120,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
 		
 		// transform the blocks into pairs of records		
-		Processable<Correspondence<BlockedType, MatchableValue>> result = blockedData.transform(new RecordMapper<Pair<
+		Processable<Correspondence<BlockedType, MatchableValue>> result = blockedData.map(new RecordMapper<Pair<
 				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>,
 				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>>, 
 				Correspondence<BlockedType, MatchableValue>>() {
@@ -131,7 +131,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					Pair<
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>, 
 					Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> record,
-					DatasetIterator<Correspondence<BlockedType, MatchableValue>> resultCollector) {
+					DataIterator<Correspondence<BlockedType, MatchableValue>> resultCollector) {
 				
 				Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist1 = record.getFirst().getSecond();
 				
@@ -187,7 +187,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		
 		// group all records by their blocking keys
 //		Result<Group<String, Pair<BlockedType, Result<SimpleCorrespondence<CorrespondenceType>>>>> grouped = engine.groupRecords(ds, blockingFunction);		
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped = ds.aggregateRecords(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
+		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> grouped = ds.aggregate(blockingFunction, new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>, Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -200,12 +200,15 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		});
 		
 		// transform the groups into record pairs
-		Processable<Correspondence<BlockedType, MatchableValue>> blocked = grouped.transform((g, collector) ->
+		Processable<Correspondence<BlockedType, MatchableValue>> blocked = grouped.map((g, collector) ->
 		{
 			
 			Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> dist = g.getSecond();
 			
 			List<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>> list = new ArrayList<>(g.getSecond().getElements());
+			
+			// sort the list before generating the pairs, so all pairs have the lower data source id on the left-hand side.
+			list.sort((o1,o2)->Integer.compare(o1.getFirst().getDataSourceIdentifier(), o2.getFirst().getDataSourceIdentifier()));
 			
 			for(int i = 0; i < list.size(); i++) {
 				Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>> p1 = list.get(i);

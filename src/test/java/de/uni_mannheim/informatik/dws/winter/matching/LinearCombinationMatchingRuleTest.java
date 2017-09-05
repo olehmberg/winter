@@ -14,7 +14,11 @@ package de.uni_mannheim.informatik.dws.winter.matching;
 
 import junit.framework.TestCase;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -41,9 +45,16 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		movie2.setDirector("Irvin Kershner");
 		movie3.setDirector("Irvin Kershner");
 		
-		movie1.setDate(DateTime.parse("1977-05-25"));
-		movie2.setDate(DateTime.parse("1980-05-21"));
-		movie3.setDate(DateTime.parse("1977-05-25"));
+		
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		movie1.setDate(LocalDateTime.parse("1977-05-25", formatter));
+		movie2.setDate(LocalDateTime.parse("1980-05-21", formatter));
+		movie3.setDate(LocalDateTime.parse("1977-05-25", formatter));
 		
 		Processable<Correspondence<Movie, Attribute>> correspondences;
 		
@@ -52,12 +63,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule1.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule1);
+		correspondences = correspondences.map(rule1);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule1.apply(movie1, movie2, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
-		correspondences = correspondences.transform(rule1);
+		correspondences = correspondences.map(rule1);
 		assertEquals(0, correspondences.size());
 		
 		LinearCombinationMatchingRule<Movie, Attribute> rule2 = new LinearCombinationMatchingRule<>(0.0, 0.9);
@@ -66,12 +77,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule2.apply(movie2, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie2, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule2);
+		correspondences = correspondences.map(rule2);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule2.apply(movie1, movie2, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
-		correspondences = correspondences.transform(rule2);
+		correspondences = correspondences.map(rule2);
 		assertEquals(0, correspondences.size());
 		
 		LinearCombinationMatchingRule<Movie, Attribute> rule3 = new LinearCombinationMatchingRule<>(0.0, 0.8);
@@ -81,12 +92,12 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 //		assertNotNull(rule3.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule3);
+		correspondences = correspondences.map(rule3);
 		assertEquals(1, correspondences.size());
 //		assertNull(rule3.apply(movie2, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie2, movie3, 1.0, null));
-		correspondences = correspondences.transform(rule3);
+		correspondences = correspondences.map(rule3);
 		assertEquals(0, correspondences.size());
 	}
 

@@ -12,9 +12,7 @@
 
 package de.uni_mannheim.informatik.dws.winter.similarity.date;
 
-import java.util.Calendar;
-
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -25,7 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class WeightedDateSimilarity extends SimilarityMeasure<DateTime> {
+public class WeightedDateSimilarity extends SimilarityMeasure<LocalDateTime> {
 
 	private static final long serialVersionUID = 1L;
 	private double dayWeight;
@@ -71,27 +69,22 @@ public class WeightedDateSimilarity extends SimilarityMeasure<DateTime> {
     }
     
 	@Override
-	public double calculate(DateTime first, DateTime second) {
+	public double calculate(LocalDateTime first, LocalDateTime second) {
 		if(first==null || second==null) {
 			return 0.0;
 		}
 		
-        Calendar calFirst = Calendar.getInstance();
-        calFirst.setTime(first.toDate());
-        Calendar calSecond = Calendar.getInstance();
-        calSecond.setTime(second.toDate());
-        
-        if(calFirst.get(Calendar.DAY_OF_YEAR) == 1 || calSecond.get(Calendar.DAY_OF_YEAR) == 1) {
-            double yearSim = 1.0 - ((double)Math.abs(calFirst.get(Calendar.YEAR) - calSecond.get(Calendar.YEAR)) / (double)Math.abs(yearRange));
+        if(first.getDayOfYear() == 1 || second.getDayOfYear() == 1) {
+            double yearSim = 1.0 - ((double)Math.abs(first.getYear() - second.getYear()) / (double)Math.abs(yearRange));
             return Math.max(yearSim, 0.0);
         }
         
-        int days = Math.abs(calFirst.get(Calendar.DAY_OF_MONTH) - calSecond.get(Calendar.DAY_OF_MONTH));
-        int months = Math.abs(calFirst.get(Calendar.MONTH) - calSecond.get(Calendar.MONTH));
+        int days = Math.abs(first.getDayOfMonth() - second.getDayOfMonth());
+        int months = Math.abs(first.getMonthValue() - second.getMonthValue());
         
         double daySim = (31.0 - days) / 31.0;
         double monthSim = (12.0 - months) / 12.0;
-        double yearSim = 1.0 - ((double)Math.abs(calFirst.get(Calendar.YEAR) - calSecond.get(Calendar.YEAR)) / (double)Math.abs(yearRange));
+        double yearSim = 1.0 - ((double)Math.abs(first.getYear() - second.getYear()) / (double)Math.abs(yearRange));
         
         if(yearSim<0.0) {
         	// outside of year range

@@ -22,9 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.processing.Action;
 import de.uni_mannheim.informatik.dws.winter.processing.AggregateCollector;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
 import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.GroupCollector;
@@ -81,7 +82,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#iterateDataset(de.uni_mannheim.informatik.wdi.model.DataSet, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
-	public void iterateDataset(final DatasetIterator<RecordType> iterator) {
+	public void foreach(final DataIterator<RecordType> iterator) {
 		iterator.initialise();
 		
 		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
@@ -94,11 +95,16 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		iterator.finalise();
 	}
 	
+	@Override
+	public void foreach(Action<RecordType> action) {
+		new Parallel<RecordType>().tryForeach(get(), (r)->action.execute(r));
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#transform(de.uni_mannheim.informatik.wdi.model.BasicCollection, de.uni_mannheim.informatik.wdi.processing.RecordMapper)
 	 */
 	@Override
-	public <OutputRecordType> Processable<OutputRecordType> transform(final RecordMapper<RecordType, OutputRecordType> transformation) {
+	public <OutputRecordType> Processable<OutputRecordType> map(final RecordMapper<RecordType, OutputRecordType> transformation) {
 		final ProcessableCollector<OutputRecordType> resultCollector = new ProcessableCollector<>();
 		
 		resultCollector.setResult(createProcessable((OutputRecordType)null));
@@ -123,7 +129,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#groupRecords(de.uni_mannheim.informatik.wdi.model.BasicCollection, de.uni_mannheim.informatik.wdi.processing.RecordMapper)
 	 */
 	@Override
-	public <KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> groupRecords(
+	public <KeyType, OutputRecordType> Processable<Group<KeyType, OutputRecordType>> group(
 			final RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy) {
 		
 		final GroupCollector<KeyType, OutputRecordType> groupCollector = new ThreadSafeGroupCollector<>();
@@ -147,7 +153,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	public 
 	<KeyType, OutputRecordType, ResultType> 
 	Processable<Pair<KeyType, ResultType>> 
-	aggregateRecords( 
+	aggregate( 
 			final RecordKeyValueMapper<KeyType, RecordType, OutputRecordType> groupBy, 
 			DataAggregator<KeyType, OutputRecordType, ResultType> aggregator) {
 

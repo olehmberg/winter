@@ -17,6 +17,7 @@ import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.meta.MostRecent;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -38,17 +39,17 @@ public class ActorsFuserMostRecent extends
 	}
 
 	@Override
-	public boolean hasValue(Movie record, Correspondence<Attribute, Movie> correspondence) {
+	public boolean hasValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.hasValue(Movie.ACTORS);
 	}
 
 	@Override
-	protected List<Actor> getValue(Movie record, Correspondence<Attribute, Movie> correspondence) {
+	protected List<Actor> getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getActors();
 	}
 
 	@Override
-	public void fuse(RecordGroup<Movie, Attribute> group, Movie fusedRecord, Processable<Correspondence<Attribute, Movie>> schemaCorrespondences, Attribute schemaElement) {
+	public void fuse(RecordGroup<Movie, Attribute> group, Movie fusedRecord, Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences, Attribute schemaElement) {
 		FusedValue<List<Actor>, Movie, Attribute> fused = getFusedValue(group, schemaCorrespondences, schemaElement);
 		fusedRecord.setActors(fused.getValue());
 		fusedRecord

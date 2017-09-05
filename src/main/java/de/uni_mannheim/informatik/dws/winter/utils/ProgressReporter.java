@@ -12,8 +12,10 @@
 
 package de.uni_mannheim.informatik.dws.winter.utils;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.joda.time.DateTime;
 
 /**
  * This class can be used to log and observe the progress of a method.
@@ -24,21 +26,21 @@ import org.joda.time.DateTime;
 public class ProgressReporter {
 
 	private int done = 0;
-	private long lastTime = 0;
+	private LocalDateTime lastTime;
 	private int total = 0;
-	private long start = 0;
+	private LocalDateTime start;
 	private String message;
 
 	public ProgressReporter(int totalElements, String message) {
 		total = totalElements;
-		start = System.currentTimeMillis();
+		start = LocalDateTime.now();
 		lastTime = start;
 		this.message = message;
 	}
 	
 	public ProgressReporter(int totalElements, String message, int processedElements) {
 		total = totalElements;
-		start = System.currentTimeMillis();
+		start = LocalDateTime.now();
 		lastTime = start;
 		this.message = message;
 		this.done = processedElements;
@@ -50,12 +52,12 @@ public class ProgressReporter {
 
 	public void report() {
 		// report status every second
-		long now = System.currentTimeMillis();
-		long durationSoFar = now - start;
-		if ((now - lastTime) > 1000) {
+		LocalDateTime now = LocalDateTime.now();
+		long durationSoFar = Duration.between(start, now).toMillis();
+		if ((Duration.between(start, lastTime).toMillis()) > 1000) {
 			System.err.println(String.format(
 					"[%s] %s: %,d / %,d elements completed (%.2f%%) after %s",
-					new DateTime(now).toString(), message, done, total,
+					LocalDateTime.now().toString(), message, done, total,
 					(double) done / (double) total * 100,
 					DurationFormatUtils.formatDurationHMS(durationSoFar)));
 			lastTime = now;
@@ -70,7 +72,7 @@ public class ProgressReporter {
 		this.done = done;
 	}
 
-	public long getLastTime() {
+	public LocalDateTime getLastTime() {
 		return lastTime;
 	}
 
@@ -82,7 +84,7 @@ public class ProgressReporter {
 		this.total = total;
 	}
 
-	public long getStart() {
+	public LocalDateTime getStart() {
 		return start;
 	}
 

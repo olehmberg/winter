@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
 /**
  * Vote {@link ConflictResolutionFunction}: returns the most frequent value, in
  * case of two or more similar frequent values the first one in the list of
- * {@link FusableValue}s is returned.
+ * {@link FusibleValue}s is returned.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
@@ -35,12 +35,12 @@ public class Voting<ValueType, RecordType extends Matchable & Fusible<SchemaElem
 
 	@Override
 	public FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values) {
 
 		// determine the frequencies of all values
 		Map<ValueType, Integer> frequencies = new HashMap<>();
 
-		for (FusableValue<ValueType, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<ValueType, RecordType, SchemaElementType> value : values) {
 			Integer freq = frequencies.get(value.getValue());
 			if (freq == null) {
 				freq = 0;
@@ -62,7 +62,7 @@ public class Voting<ValueType, RecordType extends Matchable & Fusible<SchemaElem
 				mostFrequent);
 
 		// collect all original records with the most frequent value
-		for (FusableValue<ValueType, RecordType, SchemaElementType> value : values) {
+		for (FusibleValue<ValueType, RecordType, SchemaElementType> value : values) {
 			if (value.getValue().equals(mostFrequent)) {
 				result.addOriginalRecord(value);
 			}

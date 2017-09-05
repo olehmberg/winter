@@ -22,11 +22,16 @@ import java.util.Map;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
+import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
+import de.uni_mannheim.informatik.dws.winter.model.Triple;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Represents a set of correspondences (from the identity resolution)
@@ -166,6 +171,37 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	}
 	
 	/**
+	 * Creates the {@link CorrespondenceSet} from correspondences. Cannot be called multiple times.
+	 * @param correspondences
+	 * @param first
+	 * @param second
+	 */
+	public void createFromCorrespondences(Processable<Correspondence<RecordType, Matchable>> correspondences,
+            FusibleDataSet<RecordType, SchemaElementType> first, FusibleDataSet<RecordType, SchemaElementType> second) {
+		
+		Map<String, FusibleDataSet<RecordType, SchemaElementType>> idToDataSet = new HashMap<>();
+		
+		ConnectedComponentClusterer<RecordType> clu = new ConnectedComponentClusterer<>();
+		for(Correspondence<RecordType, Matchable> cor : correspondences.get()) {
+			clu.addEdge(new Triple<RecordType, RecordType, Double>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));
+			idToDataSet.put(cor.getFirstRecord().getIdentifier(), first);
+			idToDataSet.put(cor.getSecondRecord().getIdentifier(), second);
+		}
+		Map<Collection<RecordType>, RecordType> clusters = clu.createResult();
+		
+		for(Collection<RecordType> cluster : clusters.keySet()) {
+			RecordGroup<RecordType, SchemaElementType> grp = groupFactory.createRecordGroup();
+			
+			for(RecordType r : cluster) {
+				grp.addRecord(r.getIdentifier(), idToDataSet.get(r.getIdentifier()));
+				recordIndex.put(r.getIdentifier(), grp);
+			}
+			
+			groups.add(grp);
+		}
+	}
+	
+	/**
 	 * 
 	 * 
 	 * @return returns the groups of records which are the same according to the correspondences
@@ -231,7 +267,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 		System.out.println("	Group Size | Frequency ");
 		System.out.println("	———————————————————————");
 
-		for (int size : sizeDist.keySet()) {
+		for (int size : Q.sort(sizeDist.keySet())) {
 			String sizeStr = Integer.toString(size);
 			System.out.print("	");
 			for (int i = 0; i < 10 - sizeStr.length(); i++) {

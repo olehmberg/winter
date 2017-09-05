@@ -19,7 +19,9 @@ import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedM
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedDuplicateDetectionAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleDuplicateDetectionAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleIdentityResolutionAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SymmetricInstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedSchemaBlocker;
@@ -171,6 +173,28 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		
 	}
 
+	/**
+	 * 
+	 * Runs duplicate detection without considering the schema of records by comparing the value overlap.
+	 * 
+	 * @param dataset1
+	 * @param dataset2
+	 * @param blocker
+	 * @param aggregator
+	 * @return The found correspondences
+	 */
+	public Processable<Correspondence<RecordType, MatchableValue>> runSimpleDuplicateDetection(
+			DataSet<RecordType, SchemaElementType> dataset, 
+			SymmetricBlocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
+			CorrespondenceAggregator<RecordType, MatchableValue> aggregator) {
+
+		SimpleDuplicateDetectionAlgorithm<RecordType, SchemaElementType> algorithm = new SimpleDuplicateDetectionAlgorithm<RecordType, SchemaElementType>(dataset, blocker, aggregator);
+		
+		algorithm.run();
+		
+		return algorithm.getResult();
+		
+	}
 
 	/**
 	 * Runs schema matchign on the given data sets using the provided matching rule and blocker.
@@ -307,6 +331,33 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	
 	/**
 	 * 
+	 * Runs instance-based schema matching on the provided datasets. The blocker creates initial correspondences between the schemas, which are then evaluated by the aggregator.
+	 * Using an {@link InstanceBasedSchemaBlocker}, the blocking creates a correspondence for every matching value in the attributes.
+	 * To measure the value overlap of two attributes as similarity value, use a {@link VotingAggregator}.
+	 * 
+	 * @param dataset
+	 * 		The dataset (which contains the records with data, not the attributes)
+	 * @param blocker
+	 * 		The blocker that creates pairs of attributes from the values
+	 * @param aggregator
+	 * 		The aggregator that combined the blocker's result into final correspondences
+	 * @return
+	 * 		The created schema correspondences
+	 */
+	public Processable<Correspondence<SchemaElementType, MatchableValue>> runInstanceBasedSchemaMatching(
+			DataSet<RecordType, SchemaElementType> dataset, 
+			SymmetricBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
+			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
+
+		SymmetricInstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new SymmetricInstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType>(dataset, blocker, aggregator);
+		
+		algorithm.run();
+		
+		return algorithm.getResult();
+	}
+	
+	/**
+	 * 
 	 * Runs duplicate-based schema matching between the provided schemas.
 	 * First, the {@link VotingMatchingRule} rule is evaluated for all provided instance correspondences to create votes.
 	 * Optionally, these votes can be filtered by the voteFilter, i.e. to limit the number of votes that each value can cast.
@@ -363,8 +414,8 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		TopKCorrespondencesAggregator<RecordType, SchemaElementType> aggregator = new TopKCorrespondencesAggregator<>(k);
 		
 		return correspondences
-				.aggregateRecords(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
-				.transform(new FlattenAggregatedCorrespondencesRule<>());
+				.aggregate(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
+				.map(new FlattenAggregatedCorrespondencesRule<>());
 	}
 	
 	/**
@@ -386,8 +437,8 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		TopKCorrespondencesAggregator<SchemaElementType, RecordType> aggregator = new TopKCorrespondencesAggregator<>(k);
 		
 		return correspondences
-				.aggregateRecords(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
-				.transform(new FlattenAggregationResultMapper<>());
+				.aggregate(new AggregateByFirstRecordRule<>(similarityThreshold), aggregator)
+				.map(new FlattenAggregationResultMapper<>());
 	}
 
 }

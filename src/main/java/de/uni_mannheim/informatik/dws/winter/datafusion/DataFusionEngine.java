@@ -14,8 +14,12 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.uni_mannheim.informatik.dws.winter.model.*;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
 
@@ -56,7 +60,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 */
 	public FusibleDataSet<RecordType, SchemaElementType> run(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
-			Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
 
 		// iterate over all correspondence groups (all records mapped to the same target)
@@ -87,7 +91,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 */
 	public Map<String, Double> getAttributeConsistencies(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
-			Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		Map<String, Double> consistencySums = new HashMap<>(); // = sum of consistency values
 		Map<String, Integer> consistencyCounts = new HashMap<>(); // = number of instances
 
@@ -149,7 +153,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 */
 	public void printClusterConsistencyReport(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
-			Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		System.out.println("Attribute Consistencies:");
 		Map<String, Double> consistencies = getAttributeConsistencies(correspondences, schemaCorrespondences);
 		for (String att : consistencies.keySet()) {

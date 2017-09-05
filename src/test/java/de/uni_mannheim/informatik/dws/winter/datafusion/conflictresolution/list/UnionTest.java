@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.list.Union;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -27,12 +27,12 @@ public class UnionTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType() {
 		Union<String, Movie, Attribute> crf = new Union<>();
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(
 				new ArrayList<String>(), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -41,12 +41,12 @@ public class UnionTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType1() {
 		Union<String, Movie, Attribute> crf = new Union<>();
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
@@ -56,11 +56,11 @@ public class UnionTest extends TestCase {
 
 	public void testResolveConflictCollectionOfFusableValueOfListOfValueTypeRecordType2() {
 		Union<String, Movie, Attribute> crf = new Union<>();
-		List<FusableValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(new ArrayList<String>(), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		List<FusibleValue<List<String>, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(new ArrayList<String>(), null, null));
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h0", "h1"), null, null));
-		cluster1.add(new FusableValue<List<String>, Movie, Attribute>(Arrays
+		cluster1.add(new FusibleValue<List<String>, Movie, Attribute>(Arrays
 				.asList("h2", "h1"), null, null));
 		FusedValue<List<String>, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);

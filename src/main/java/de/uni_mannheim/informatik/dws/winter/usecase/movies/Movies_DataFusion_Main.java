@@ -13,13 +13,17 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
 import de.uni_mannheim.informatik.dws.winter.model.*;
-import org.joda.time.DateTime;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
@@ -74,9 +78,16 @@ public class Movies_DataFusion_Main {
 		ds3.setScore(2.0);
 
 		// Date (e.g. last update)
-		ds1.setDate(DateTime.parse("2012-01-01"));
-		ds2.setDate(DateTime.parse("2010-01-01"));
-		ds3.setDate(DateTime.parse("2008-01-01"));
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+		        .appendPattern("yyyy-MM-dd")
+		        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
+		        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+		        .toFormatter(Locale.ENGLISH);
+		
+		ds1.setDate(LocalDateTime.parse("2012-01-01", formatter));
+		ds2.setDate(LocalDateTime.parse("2010-01-01", formatter));
+		ds3.setDate(LocalDateTime.parse("2008-01-01", formatter));
 
 		// load correspondences
 		CorrespondenceSet<Movie, Attribute> correspondences = new CorrespondenceSet<>();

@@ -12,12 +12,12 @@
 package de.uni_mannheim.informatik.dws.winter.processing;
 
 /**
- * {@link DatasetIterator} that produces a {@link Processable} as result
+ * {@link DataIterator} that produces a {@link Processable} as result
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class ProcessableCollector<RecordType> implements DatasetIterator<RecordType> {
+public class ProcessableCollector<RecordType> implements DataIterator<RecordType> {
 
 	private static final long serialVersionUID = 1L;
 	private Processable<RecordType> result;

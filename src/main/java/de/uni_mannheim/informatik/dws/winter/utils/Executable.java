@@ -46,6 +46,12 @@ public class Executable {
         	if(!silent) {
 	        	System.err.println(BuildInfo.getJarPath(getClass()));
 	        	System.err.println(String.format("%s version %s", cls.getName(), BuildInfo.getBuildTimeString(cls)));
+        		System.err.println("		 __      __.___        __                     ");
+        		System.err.println("		 /  \\    /  \\   | _____/  |_  ____     _______ ");
+        		System.err.println("		 \\   \\/\\/   /   |/    \\   __\\/ __ \\    \\_  __ \\");
+        		System.err.println("		  \\        /|   |   |  \\  | \\  ___/     |  | \\/");
+        		System.err.println("		   \\__/\\  / |___|___|  /__|  \\___  > /\\ |__|   ");
+        		System.err.println("		        \\/           \\/          \\/  \\/        ");
         	}
         	
             @SuppressWarnings("unused")

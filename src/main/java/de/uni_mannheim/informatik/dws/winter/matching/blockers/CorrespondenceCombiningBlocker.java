@@ -98,7 +98,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 				});
 		} else {
 			// no schema correspondences available, so just produce the record pairs as output
-			result = correspondences.transform((p, collector) -> {
+			result = correspondences.map((p, collector) -> {
 				if(createCorrespondencesWithIdenticalDataSource || p.getFirstRecord().getDataSourceIdentifier()!=p.getSecondRecord().getDataSourceIdentifier()) {
 					collector.next(new Correspondence<BlockedType, CorrespondenceType>(p.getFirstRecord(), p.getSecondRecord(), 1.0, null));
 				}
@@ -146,7 +146,7 @@ public class CorrespondenceCombiningBlocker<RecordType extends Matchable, Schema
 				});
 		} else {
 			// no schema correspondences available, so just produce the record pairs as output
-			result = correspondences.transform((p, collector) -> {
+			result = correspondences.map((p, collector) -> {
 				if(createCorrespondencesWithIdenticalDataSource || p.getFirstRecord().getDataSourceIdentifier()!=p.getSecondRecord().getDataSourceIdentifier()) {
 					collector.next(new Correspondence<BlockedType, CorrespondenceType>(p.getFirstRecord(), p.getSecondRecord(), 1.0, null));
 				}

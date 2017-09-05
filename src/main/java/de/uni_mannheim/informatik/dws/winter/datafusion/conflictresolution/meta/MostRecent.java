@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
@@ -30,11 +30,11 @@ public class MostRecent<ValueType, RecordType extends Matchable & Fusible<Schema
 
 	@Override
 	public FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(
-			Collection<FusableValue<ValueType, RecordType, SchemaElementType>> values) {
+			Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values) {
 		
-		FusableValue<ValueType, RecordType, SchemaElementType> mostRecent = null;
+		FusibleValue<ValueType, RecordType, SchemaElementType> mostRecent = null;
 		
-		for(FusableValue<ValueType, RecordType, SchemaElementType> value : values) {
+		for(FusibleValue<ValueType, RecordType, SchemaElementType> value : values) {
 			if(mostRecent==null || value.getDateSourceDate().isAfter(mostRecent.getDateSourceDate())) {
 				mostRecent = value;
 			}

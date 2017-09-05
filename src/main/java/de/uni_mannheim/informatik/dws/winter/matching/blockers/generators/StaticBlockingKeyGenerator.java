@@ -15,7 +15,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 /**
@@ -45,7 +45,7 @@ public class StaticBlockingKeyGenerator<RecordType extends Matchable, Correspond
 	@Override
 	public void generateBlockingKeys(RecordType record,
 			Processable<Correspondence<CorrespondenceType, Matchable>> correspondences,
-			DatasetIterator<Pair<String, RecordType>> resultCollector) {
+			DataIterator<Pair<String, RecordType>> resultCollector) {
 		resultCollector.next(new Pair<>(STATIC_BLOCKING_KEY, record));
 	}
 

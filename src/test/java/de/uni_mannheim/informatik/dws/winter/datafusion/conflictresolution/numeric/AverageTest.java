@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.numeric.Average;
-import de.uni_mannheim.informatik.dws.winter.model.FusableValue;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
@@ -27,10 +27,10 @@ public class AverageTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfDoubleRecordType() {
 
 		Average<Movie, Attribute> crf = new Average<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(1.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(2.0, null, null));
-		cluster1.add(new FusableValue<Double, Movie, Attribute>(3.0, null, null));
+		List<FusibleValue<Double, Movie, Attribute>> cluster1 = new ArrayList<>();
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(1.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(2.0, null, null));
+		cluster1.add(new FusibleValue<Double, Movie, Attribute>(3.0, null, null));
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster1);
 		assertEquals(2.0, resolvedValue.getValue());
@@ -39,7 +39,7 @@ public class AverageTest extends TestCase {
 	public void testResolveConflictCollectionOfFusableValueOfDoubleRecordType2() {
 
 		Average<Movie, Attribute> crf = new Average<>();
-		List<FusableValue<Double, Movie, Attribute>> cluster2 = new ArrayList<>();
+		List<FusibleValue<Double, Movie, Attribute>> cluster2 = new ArrayList<>();
 		FusedValue<Double, Movie, Attribute> resolvedValue = crf
 				.resolveConflict(cluster2);
 		assertEquals(null, resolvedValue.getValue());

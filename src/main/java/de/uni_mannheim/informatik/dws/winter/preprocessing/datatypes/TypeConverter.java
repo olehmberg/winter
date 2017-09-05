@@ -16,8 +16,6 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import org.joda.time.DateTime;
-
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
 
@@ -48,7 +46,7 @@ public class TypeConverter {
 		                typedValue = value;
 		                break;
 		            case date:
-		                typedValue = new DateTime(DateUtil.parse(value));
+		                typedValue = DateJavaTime.parse(value);
 		                break;
 		            case numeric:
 		                //TODO: how to handle numbers with commas (German style)

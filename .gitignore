@@ -1,0 +1,8 @@
+/target/
+
+*.prefs
+.project
+*.classpath
+/usecase/movie/output/
+/usecase/restaurant/output/
+/winter.iml

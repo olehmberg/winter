@@ -12,10 +12,10 @@
 
 package de.uni_mannheim.informatik.dws.winter.similarity.date;
 
-import java.util.Date;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -27,22 +27,24 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class NormalisedDateSimilarity extends SimilarityMeasure<DateTime> {
+public class NormalisedDateSimilarity extends SimilarityMeasure<LocalDateTime> {
 
 	private static final long serialVersionUID = 1L;
-	private Date minDate = null;
-    public void setMinDate(Date minDate) {
+	private LocalDateTime minDate = null;
+	
+    public void setMinDate(LocalDateTime minDate) {
         this.minDate = minDate;
     }
-    public Date getMinDate() {
+    public LocalDateTime getMinDate() {
         return minDate;
     }
     
-    private Date maxDate = null;
-    public void setMaxDate(Date maxDate) {
+    private LocalDateTime maxDate = null;
+    
+    public void setMaxDate(LocalDateTime maxDate) {
         this.maxDate = maxDate;
     }
-    public Date getMaxDate() {
+    public LocalDateTime getMaxDate() {
         return maxDate;
     }
     
@@ -51,21 +53,21 @@ public class NormalisedDateSimilarity extends SimilarityMeasure<DateTime> {
         return dateRange;
     }
     
-    public void setValueRange(DateTime minValue, DateTime maxValue) {
-        setMinDate(minValue.toDate());
-        setMaxDate(maxValue.toDate());
+    public void setValueRange(LocalDateTime minValue, LocalDateTime maxValue) {
+        setMinDate(minValue);
+        setMaxDate(maxValue);
         calcDateRange();
     }
     
     private void calcDateRange() {
         if(minDate!=null && maxDate!=null) {
-            dateRange = Math.abs(Days.daysBetween(new DateTime(getMaxDate()), new DateTime(getMinDate())).getDays());
+            dateRange = Math.abs(getMaxDate().get(ChronoField.EPOCH_DAY) -  getMinDate().get(ChronoField.EPOCH_DAY));
         }
     }
     
     @Override
-    public double calculate(DateTime first, DateTime second) {
-        int days = Math.abs(Days.daysBetween(first, second).getDays());
+    public double calculate(LocalDateTime first, LocalDateTime second) {
+        int days = Math.abs(first.get(ChronoField.EPOCH_DAY) - second.get(ChronoField.EPOCH_DAY));
         
         return Math.max(1.0 - ((double)days / (double)getDateRange()),0.0);
     }

@@ -111,7 +111,7 @@ public class RecordGroup<RecordType extends Matchable & Fusible<SchemaElementTyp
 	 * @param schemaCorrespondences
 	 * @return Returns the schema correspondence that connects the given record with the target schema
 	 */
-	public Correspondence<SchemaElementType, RecordType> getSchemaCorrespondenceForRecord(RecordType record, Processable<Correspondence<SchemaElementType, RecordType>> schemaCorrespondences, SchemaElementType schemaElement) {
+	public Correspondence<SchemaElementType, Matchable> getSchemaCorrespondenceForRecord(RecordType record, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		// this has to be implemented by the application using schema correspondences
 		return null;
 	}

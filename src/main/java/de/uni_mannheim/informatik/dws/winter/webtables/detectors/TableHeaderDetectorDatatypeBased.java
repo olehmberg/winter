@@ -23,10 +23,13 @@ import java.util.Map;
 public class TableHeaderDetectorDatatypeBased implements TableHeaderDetector {
 
 	@Override
-	public int[] detectTableHeader(String[][] attributeValues) {
-		Map<Integer, String[]> myRowMap = new HashMap<Integer, String[]>(5);
-		
-		for (int i=0; i<5; i++)
+	public int[] detectTableHeader(String[][] attributeValues, int[] skipRows) {
+		int analysedRows = 5;
+		if(skipRows != null){
+			analysedRows = analysedRows + skipRows.length - 1;
+		}
+		Map<Integer, String[]> myRowMap = new HashMap<Integer, String[]>(analysedRows);
+		for (int i=0; i<analysedRows; i++)
 		{
 		    myRowMap.put(i, (String[]) attributeValues[i]);
 		}

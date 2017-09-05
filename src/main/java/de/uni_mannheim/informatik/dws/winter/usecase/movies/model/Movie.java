@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -48,7 +48,7 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
 	private String title;
 	private String director;
-	private DateTime date;
+	private LocalDateTime date;
 	private List<Actor> actors;
 	private String studio;
 	private String genre;
@@ -71,11 +71,11 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 		this.director = director;
 	}
 
-	public DateTime getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(DateTime date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

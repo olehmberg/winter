@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -27,10 +28,10 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableMapping;
-import de.uni_mannheim.informatik.dws.winter.webtables.WebTablesStringNormalizer;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TableHeaderDetectorFirstRow;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeGuesser;
+import de.uni_mannheim.informatik.dws.winter.webtables.detectors.WebTablesRowContentDetector;
 
 /**
  * Loads a Web Table in the CSV format.
@@ -43,13 +44,18 @@ public class CsvTableParser extends TableParser {
 	public CsvTableParser() {
 		setTypeDetector(new TypeGuesser());
 		setTableHeaderDetector(new TableHeaderDetectorFirstRow());
+		setStringNormalizer(new DynamicStringNormalizer());
+		setRowContentDetector(new WebTablesRowContentDetector());
 	}
 
 	public CsvTableParser(TypeDetector pTypeDetector) {
 		setTypeDetector(pTypeDetector);
 		setTableHeaderDetector(new TableHeaderDetectorFirstRow());
+		setStringNormalizer(new DynamicStringNormalizer());
+		setRowContentDetector(new WebTablesRowContentDetector());
 	}
 
+	@Override
 	public Table parseTable(File file) {
 		Reader r = null;
 		Table t = null;
@@ -71,6 +77,7 @@ public class CsvTableParser extends TableParser {
 		return t;
 	}
 
+	@Override
 	public Table parseTable(Reader reader, String fileName) throws IOException {
 		// create new table
 		Table table = new Table();
@@ -142,8 +149,8 @@ public class CsvTableParser extends TableParser {
 		}
 
 		// close CSV Reader
-
-		int[] headerRowCount = getTableHeaderDetector().detectTableHeader(tableContent);
+		int[] emptyRowCount		=	getRowContentDetector().detectEmptyHeaderRows(tableContent, false);
+		int[] headerRowCount 	= 	getTableHeaderDetector().detectTableHeader(tableContent, emptyRowCount);
 
 		int colIdx = 0;
 		// set the header, if possible
@@ -154,7 +161,7 @@ public class CsvTableParser extends TableParser {
 
 				String header = columnName;
 				if (isCleanHeader()) {
-					header = WebTablesStringNormalizer.normaliseHeader(header);
+					header = this.getStringNormalizer().normaliseHeader(header);
 				}
 				c.setHeader(header);
 
@@ -171,8 +178,14 @@ public class CsvTableParser extends TableParser {
 			}
 
 		}
+		
+		//check for total row
+		int[] sumRowCount	= 	getRowContentDetector().detectSumRow(tableContent);
+		
 		// populate table content
-		populateTable(tableContent, table, headerRowCount);
+		int[] skipRows = ArrayUtils.addAll(emptyRowCount, headerRowCount);
+		skipRows = ArrayUtils.addAll(skipRows, sumRowCount);
+		populateTable(tableContent, table, skipRows);
 
 		if (typesAlreadyDetected && isConvertValues()) {
 			table.convertValues();

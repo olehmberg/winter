@@ -22,6 +22,6 @@ import java.io.Serializable;
  */
 public interface RecordMapper<RecordType, OutputRecordType> extends Serializable{
 
-	void mapRecord(RecordType record, DatasetIterator<OutputRecordType> resultCollector);
+	void mapRecord(RecordType record, DataIterator<OutputRecordType> resultCollector);
 
 }
