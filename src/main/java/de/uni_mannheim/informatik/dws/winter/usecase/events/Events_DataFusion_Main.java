@@ -17,33 +17,36 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.events;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.joda.time.DateTime;
+import org.xml.sax.SAXException;
+
+//import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;
+import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
+import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEngine;
+import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEvaluator;
+import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionStrategy;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation.EventCoordinatesEvaluationRule;
+import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation.EventDateEvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation.EventLabelEvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation.EventURIEvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.EventDateFuserAll;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.EventLabelFuserAll;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.EventURIFuserAll;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
-//import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;
-import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
-import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEngine;
-import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEvaluator;
-import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionStrategy;
-import de.uni_mannheim.informatik.dws.winter.model.*;
-import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.evaluation.EventDateEvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader;
-import org.joda.time.DateTime;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Class containing the standard setup to perform a data fusion task, reading
@@ -79,7 +82,7 @@ public class Events_DataFusion_Main {
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, true, keyword);
 
 
-		FusibleDataSet<Event, Attribute> fusedDataSet = runDataFusion(fusibleDataSetD,
+		runDataFusion(fusibleDataSetD,
 				fusibleDataSetY,
 				//null,
 				separator, dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword);

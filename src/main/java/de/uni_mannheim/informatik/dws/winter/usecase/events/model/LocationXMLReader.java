@@ -11,15 +11,14 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.events.model;
 
-import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import org.joda.time.DateTime;
+import java.util.List;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
-
-import java.util.List;
 
 /**
  * A {@link XMLMatchableReader} for {@link Location}s.

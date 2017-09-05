@@ -1,19 +1,13 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.model;
 
 
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.*;
-import org.joda.time.DateTime;
 
 /**
  * A {@link AbstractRecord} which represents an actor

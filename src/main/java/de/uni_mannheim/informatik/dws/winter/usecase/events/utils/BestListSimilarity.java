@@ -1,14 +1,16 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.utils;
 
-import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
-import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinEditDistance;
+import java.util.List;
+
 import org.joda.time.DateTime;
 
-import java.util.List;
+import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
+import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinEditDistance;
 
 /**
  * Created by Daniel Ringler on 21/12/16.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class BestListSimilarity {
 
     private double compareDistanceWithThreshold(double lowestDistance, double threshold) {
@@ -30,7 +32,7 @@ public class BestListSimilarity {
     /**
      * Compare all strings and return best sim score
      */
-    public double getBestStringSimilarity(SimilarityMeasure sim, List<String> strings1, List<String> strings2) {
+	public double getBestStringSimilarity(SimilarityMeasure sim, List<String> strings1, List<String> strings2) {
         double bestSimilarity = 0.0;
         for (String s1 : strings1) {
             for (String s2 : strings2) {

@@ -11,15 +11,30 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
-import de.uni_mannheim.informatik.dws.winter.model.*;
-import de.uni_mannheim.informatik.dws.winter.processing.*;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.processing.DatasetIterator;
+import de.uni_mannheim.informatik.dws.winter.processing.Function;
+import de.uni_mannheim.informatik.dws.winter.processing.Group;
+import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Implementation of a standard {@link AbstractBlocker} based on blocking keys. All records for which the same blocking key is generated are returned as pairs.
@@ -208,6 +223,9 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 						Iterable<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>>>,
 						Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 								Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>>() {
+					
+									private static final long serialVersionUID = 1L;
+
 					@Override
 					public void mapRecord(
 							Pair<Iterable<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>>,
@@ -288,40 +306,6 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 
 		//use .distinct() to remove correspondences that are found in multiple blocks
 		return result.distinct();
-	}
-
-	private void printBlockedData(Processable<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> blockedData) {
-		int numBlocks = 0;
-		int numOfRecords = 0;
-				for (Pair<
-				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
-				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> pair : blockedData.get()) {
-
-			Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> left = pair.getFirst();
-			Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> right = pair.getSecond();
-			System.out.println("Blocking key: " + left.getFirst());
-			numOfRecords = numOfRecords + printRecords(left, "Left");numOfRecords = numOfRecords + printRecords(right, "Right");
-			numBlocks++;
-		}
-		System.out.println("#######");
-		System.out.println("Overall number of blocks: " + numBlocks  + " with " + numOfRecords + " records assigned in total");
-		System.out.println("#######");
-
-	}
-
-	private int printRecords(Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>> recordPairs, String lr) {
-		int numOfRecords = 0;
-		String records = null;
-		for (Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> record : recordPairs.getSecond().getElements()) {
-			if (records == null) {
-				records = record.getFirst().getIdentifier();
-			} else {
-				records = records + ", " + record.getFirst().getIdentifier();
-			}
-			numOfRecords++;
-		}
-		System.out.println(lr + " records: " + records);
-		return numOfRecords;
 	}
 
 	/**

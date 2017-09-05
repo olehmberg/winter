@@ -18,9 +18,10 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
@@ -44,7 +45,10 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.identityresolution.E
 import de.uni_mannheim.informatik.dws.winter.usecase.events.identityresolution.EventURIComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByYearGenerator;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
 
