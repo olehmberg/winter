@@ -21,10 +21,10 @@ import java.util.Map;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
@@ -81,7 +81,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 			RecordType record = it.next();
 			Correspondence<SchemaElementType, Matchable> cor = group.getSchemaCorrespondenceForRecord(record, schemaCorrespondences, schemaElement);
 
-			if(cor==null || !hasValue(record, cor)) {
+			if(!hasValue(record, cor)) {
 				it.remove();
 			}
 		}

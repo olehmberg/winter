@@ -23,15 +23,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
-import de.uni_mannheim.informatik.dws.winter.model.*;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEngine;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEvaluator;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionStrategy;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.ActorsEvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.DateEvaluationRule;
@@ -108,6 +109,8 @@ public class Movies_DataFusion_Main {
 		// create the fusion engine
 		DataFusionEngine<Movie, Attribute> engine = new DataFusionEngine<>(strategy);
 
+		engine.printClusterConsistencyReport(correspondences, null);
+		
 		// run the fusion
 		FusibleDataSet<Movie, Attribute> fusedDataSet = engine.run(correspondences, null);
 
