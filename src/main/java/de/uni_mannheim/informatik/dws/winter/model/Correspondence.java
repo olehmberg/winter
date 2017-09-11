@@ -450,7 +450,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 * creates a new correspondence for each causal correspondence
 	 * 
 	 * @param correspondences
-	 * @return
+	 * @param result
 	 */
 	public static <T extends Matchable, U extends Matchable> void flatten(Processable<Correspondence<T, U>> correspondences, Processable<Correspondence<T, U>> result) {
 //		Processable<Correspondence<T, U>> result = new ProcessableCollection<>();

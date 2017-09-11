@@ -32,13 +32,18 @@ public class RDFRecordReader extends RDFMatchableReader<Record, Attribute> {
 	 * 
 	 * @param idColumnIndex
 	 * 		The index of the column that contains the ID attribute. Specify -1 if the file does not contain a unique ID attribute.
-	 * @param attributeMapping
-	 * 		The position of a column and the corresponding attribute
 	 */
 	public RDFRecordReader(int idColumnIndex) {
 		this.idIndex = idColumnIndex;
 	}
-	
+
+	/**
+	 * 
+	 * @param idColumnIndex
+	 * 		The index of the column that contains the ID attribute. Specify -1 if the file does not contain a unique ID attribute.
+	 * @param attributeMapping
+	 * 		The position of a column and the corresponding attribute
+	 */
 	public RDFRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;

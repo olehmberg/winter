@@ -37,7 +37,6 @@ import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
  * @param <RecordType>
  * @param <SchemaElementType>
  * @param <BlockedType>
- * @param <CorrespondenceType>
  */
 public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable>
 	extends AbstractBlocker<RecordType, BlockedType, MatchableValue>

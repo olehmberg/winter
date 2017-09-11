@@ -25,7 +25,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
 
 /**
- * {@link BlockingKeyGenerator} for {@link iTunes}s, which generates a blocking
+ * {@link BlockingKeyGenerator} for iTunes, which generates a blocking
  * key based on the first four digits of the Artist's attributes and first 8 digits of the Name attributes from the iTunes dataset and the first 8 digits of the RDFSchema attribute from the Song dataset.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)

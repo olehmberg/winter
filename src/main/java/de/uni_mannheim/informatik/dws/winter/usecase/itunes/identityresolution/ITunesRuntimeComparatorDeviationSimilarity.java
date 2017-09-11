@@ -18,10 +18,9 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.similarity.numeric.DeviationSimilarity;
-import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 
 /**
- * {@link Comparator} for {@link Song}s based on the {@link runtime}
+ * {@link Comparator} for Songs based on the runtime
  * value.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)

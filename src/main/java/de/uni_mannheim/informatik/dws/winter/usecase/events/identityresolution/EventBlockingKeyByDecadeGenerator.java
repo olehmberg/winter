@@ -30,7 +30,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
 
 /**
  * {@link BlockingKeyGenerator} for {@link Event}s, which generates a blocking
- * key based on the decade. E.g. 1999-->199, 2014 --> 201
+ * key based on the decade. E.g. 1999 --&gt; 199, 2014 --&gt; 201
  * 
  * @author Daniel Ringler
  * 

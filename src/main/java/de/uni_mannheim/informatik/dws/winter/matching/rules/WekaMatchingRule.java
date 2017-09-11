@@ -445,12 +445,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		}
 	}
 
-	/**
-	 * 
-	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator#compare(de.uni_mannheim.informatik.dws.winter.model.Matchable,
-	 *      de.uni_mannheim.informatik.dws.winter.model.Matchable,
-	 *      de.uni_mannheim.informatik.dws.winter.model.SimpleCorrespondence)
-	 */
 
 	@Override
 	public double compare(RecordType record1, RecordType record2,

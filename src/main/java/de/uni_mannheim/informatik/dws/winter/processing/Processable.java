@@ -91,7 +91,7 @@ public interface Processable<RecordType> extends Serializable {
 
 	/**
 	 * Iterates over the processable and executes the provided action for each element.
-	 * @param iterator
+	 * @param action
 	 */
 	void foreach(Action<RecordType> action);
 	

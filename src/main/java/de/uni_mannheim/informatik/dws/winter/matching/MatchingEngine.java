@@ -177,8 +177,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * 
 	 * Runs duplicate detection without considering the schema of records by comparing the value overlap.
 	 * 
-	 * @param dataset1
-	 * @param dataset2
+	 * @param dataset
 	 * @param blocker
 	 * @param aggregator
 	 * @return The found correspondences
@@ -268,7 +267,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * 
 	 * Runs label-based schema matching on the provided dataset using the specified comparator.
 	 * 
-	 * @param schema1
+	 * @param schema
 	 * 			The schema
 	 * @param labelComparator
 	 * 			The comparator that compares the labels of two attributes
