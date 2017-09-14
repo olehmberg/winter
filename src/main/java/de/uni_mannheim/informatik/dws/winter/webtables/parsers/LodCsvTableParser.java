@@ -27,8 +27,10 @@ import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import de.uni_mannheim.informatik.dws.winter.webtables.lod.LodTableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.lod.LodTableRow;
 
-public class LodCsvTableParser {
+public class LodCsvTableParser extends TableParser {
 
+	//TODO change implementation to make use of all features provided by the TableParser class
+	
 	public static String delimiter = "\",\"";
 	
 	private boolean useStringCache = true;
@@ -197,7 +199,9 @@ public class LodCsvTableParser {
         
         reader.close();
         
-        table.inferSchemaAndConvertValues();
+        if(isConvertValues()) {
+        	table.inferSchemaAndConvertValues();
+        }
         
         return table;
     }
