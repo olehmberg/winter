@@ -21,6 +21,7 @@ import java.util.zip.GZIPInputStream;
 
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.utils.StringCache;
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableMapping;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
@@ -34,6 +35,14 @@ public class LodCsvTableParser extends TableParser {
 	public static String delimiter = "\",\"";
 	
 	private boolean useStringCache = true;
+	private boolean parseLists = false;
+	
+	/**
+	 * @param parseLists the parseLists to set
+	 */
+	public void setParseLists(boolean parseLists) {
+		this.parseLists = parseLists;
+	}
 	
 	public void setUseStringCache(boolean use) {
 		useStringCache = use;
@@ -73,6 +82,7 @@ public class LodCsvTableParser extends TableParser {
             String[] columnNames;
             String[] columntypes;
             String[] columnURIs;
+            String[] columnRanges;
 
             BufferedReader in = new BufferedReader(reader);
 
@@ -111,6 +121,10 @@ public class LodCsvTableParser extends TableParser {
             fileLine = in.readLine();
             columntypes = fileLine.split(delimiter);
 
+            // skip the last header (range)
+            fileLine = in.readLine();
+            columnRanges = fileLine.split(delimiter);
+            
             // process all properties (=columns)
             int i = 0;
             for (String columnName : columnNames) {
@@ -118,6 +132,7 @@ public class LodCsvTableParser extends TableParser {
                 // replace trailing " for the last column
                 columntypes[i] = columntypes[i].replace("\"", "");
                 columnURIs[i] = columnURIs[i].replace("\"", "");
+                columnRanges[i] = columnRanges[i].replace("\"", "");
                 columnName = columnName.replace("\"", "");
 
                 // create the column
@@ -128,7 +143,9 @@ public class LodCsvTableParser extends TableParser {
                 	c.setReferenceLabel(true);
                 }
                 c.setUri(columnURIs[i]);
-
+                c.setXmlType(columntypes[i]);
+                c.setRange(columnRanges[i]);
+                
                 // set the type if it's a primitive
                 //TODO what about other primitive types?
                 String datatype = columntypes[i];
@@ -143,6 +160,7 @@ public class LodCsvTableParser extends TableParser {
                 case "XMLSchema#positiveInteger":
                 case "XMLSchema#integer":    
                 case "XMLSchema#negativeInteger": 
+                case "minute":
                     c.setDataType(DataType.numeric);
                     break;
                 case "XMLSchema#string":
@@ -157,9 +175,6 @@ public class LodCsvTableParser extends TableParser {
                 table.addColumn(c);
                 i++;
             }
-
-            // skip the last header
-            fileLine = in.readLine();
             
             int row = 4;
             Object[] values;
@@ -179,10 +194,27 @@ public class LodCsvTableParser extends TableParser {
 					if(stringValues[j].equalsIgnoreCase("NULL")) {
 						values[j] = null;
 					} else {
-						if(useStringCache) {
-							values[j] = StringCache.get(stringValues[j]);
+						if(parseLists && ListHandler.checkIfList(stringValues[j])) {
+							// value list
+							String[] list = ListHandler.splitList(stringValues[j]);
+							Object[] listValues = new Object[list.length];
+							
+							for(int listIndex = 0; listIndex < list.length; listIndex++) {
+								if(useStringCache) {
+									listValues[listIndex] = StringCache.get(list[listIndex]);
+								} else {
+									listValues[j] = list[listIndex];
+								}
+							}
+							
+							values[j] = listValues;
 						} else {
-							values[j] = stringValues[j];
+							// single value
+							if(useStringCache) {
+								values[j] = StringCache.get(stringValues[j]);
+							} else {
+								values[j] = stringValues[j];
+							}
 						}
 					}
 				}

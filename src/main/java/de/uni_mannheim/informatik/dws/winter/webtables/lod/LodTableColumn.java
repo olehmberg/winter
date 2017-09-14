@@ -17,6 +17,8 @@ import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 public class LodTableColumn extends TableColumn {
 
 	private static final long serialVersionUID = 1L;
+	private String xmlType;
+	private String range;
 	
 	private boolean isReferenceLabel = false;
 	
@@ -40,5 +42,30 @@ public class LodTableColumn extends TableColumn {
 	@Override
 	public String getUniqueName() {
 		return getTable().getPath() + "/" + super.getUniqueName() + "/" + isReferenceLabel;
+	}
+	
+	/**
+	 * @return the xmlType
+	 */
+	public String getXmlType() {
+		return xmlType;
+	}
+	/**
+	 * @param xmlType the xmlType to set
+	 */
+	public void setXmlType(String xmlType) {
+		this.xmlType = xmlType;
+	}
+	/**
+	 * @return the range
+	 */
+	public String getRange() {
+		return range;
+	}
+	/**
+	 * @param range the range to set
+	 */
+	public void setRange(String range) {
+		this.range = range;
 	}
 }

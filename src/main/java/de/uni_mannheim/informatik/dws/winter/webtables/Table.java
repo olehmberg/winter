@@ -345,9 +345,13 @@ public class Table implements Serializable {
 						boolean nullValues = true;
 						for (TableRow r : getRows()) {
 
-							if (nullValues == true && (String) r.get(i) != null)
+							if (nullValues == true && r.get(i) != null)
 								nullValues = false;
-							column[rowCounter] = (String) r.get(i);
+							if(ListHandler.isArray(r.get(i))) {
+								column[rowCounter] = (String) ((Object[])r.get(i))[0];
+							} else {
+								column[rowCounter] = (String) r.get(i);
+							}
 							rowCounter++;
 						}
 
@@ -388,8 +392,24 @@ public class Table implements Serializable {
 
 			for (int i = 0; i < getSchema().getSize(); i++) {
 
-				r.set(i, tc.typeValue((String) r.get(i), getSchema().get(i).getDataType(),
-						getSchema().get(i).getUnit()));
+				Object typedValue = null;
+				
+				if(ListHandler.isArray(r.get(i))) {
+					
+					Object[] values = (Object[])r.get(i);
+					Object[] typedValues = new Object[values.length];
+					
+					for(int j = 0; j < values.length; j++) {
+						typedValues[j] =tc.typeValue((String) values[j], getSchema().get(i).getDataType(), getSchema().get(i).getUnit()); 
+					}
+					
+					typedValue = typedValues;
+					
+				} else {
+					typedValue = tc.typeValue((String) r.get(i), getSchema().get(i).getDataType(), getSchema().get(i).getUnit());
+				}
+				
+				r.set(i, typedValue);
 
 			}
 
