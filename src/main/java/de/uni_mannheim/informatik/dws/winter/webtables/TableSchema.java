@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,13 +70,23 @@ public class TableSchema implements Serializable {
 	 * @param column
 	 */
 	protected void removeColumn(TableColumn column) {
+		// remove column by index instead of id (unfortunately, the LodCsv-Tables contain multiple columns with the same URI, which is also their id)
+		Iterator<TableColumn> colIt = columns.iterator();
+		while(colIt.hasNext()) {
+			if(colIt.next().getColumnIndex()==column.getColumnIndex()) {
+				colIt.remove();
+			}
+		}
+		
+		// re-create column-by-id lookup
+		columnsById.clear();
+		
 		for(TableColumn c: columns) {
 			if(c.getColumnIndex()>column.getColumnIndex()) {
 				c.setColumnIndex(c.getColumnIndex()-1);
 			}
+			columnsById.put(c.getIdentifier(), c);
 		}
-		columns.remove(column);
-		columnsById.remove(column.getIdentifier());
 	}
 	
 	public TableColumn get(int index) {
