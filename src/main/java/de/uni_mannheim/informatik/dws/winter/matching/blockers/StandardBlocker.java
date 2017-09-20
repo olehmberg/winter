@@ -21,6 +21,7 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -28,6 +29,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Implementation of a standard {@link AbstractBlocker} based on blocking keys. All records for which the same blocking key is generated are returned as pairs.
@@ -47,6 +49,22 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
+	private boolean measureBlockSizes = false;
+	private double blockFilterRatio = 1.0;
+	
+	/**
+	 * @param measureBlockSizes the measureBlockSizes to set
+	 */
+	public void setMeasureBlockSizes(boolean measureBlockSizes) {
+		this.measureBlockSizes = measureBlockSizes;
+	}
+	
+	/**
+	 * @param blockFilterRatio the blockFilterRatio to set
+	 */
+	public void setBlockFilterRatio(double blockFilterRatio) {
+		this.blockFilterRatio = blockFilterRatio;
+	}
 	
 	public StandardBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction) {
 		this.blockingFunction = blockingFunction;
@@ -118,6 +136,82 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>>
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
+		
+		// remove the largest blocks, if requested
+		if(blockFilterRatio<1.0) {
+			System.out.println(String.format("[StandardBlocker] %d blocks before filtering", blockedData.size()));
+			
+			Processable<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> toRemove = blockedData
+					.sort((p)->p.getFirst().getSecond().getNumElements()*p.getSecond().getSecond().getNumElements(), false)
+					.take((int)(blockedData.size()*(1-blockFilterRatio)));
+			
+			for(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> p : toRemove.get()) {
+				System.out.println(String.format("\tRemoving block '%s' (%d pairs)", 
+						p.getFirst().getFirst(),
+						p.getFirst().getSecond().getNumElements() * p.getSecond().getSecond().getNumElements()));
+			}
+			
+			blockedData = blockedData
+					.sort((p)->p.getFirst().getSecond().getNumElements()*p.getSecond().getSecond().getNumElements(), true)
+					.take((int)(blockedData.size()*blockFilterRatio));
+			System.out.println(String.format("[StandardBlocker] %d blocks after filtering", blockedData.size()));
+		}
+		
+		if(measureBlockSizes) {			
+			// calculate block size distribution
+			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
+				(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
+				DataIterator<Pair<Integer, Integer>> resultCollector) 
+				-> {
+					int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
+					resultCollector.next(new Pair<Integer, Integer>(0, blockSize));
+				}
+				, new DistributionAggregator<Integer, Integer, Integer>() {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public Integer getInnerKey(Integer record) {
+						return record;
+					}
+				});
+			Distribution<Integer> dist = Q.firstOrDefault(aggregated.get()).getSecond();
+			
+			System.out.println("[StandardBlocker] Block size distribution:");
+			System.out.println(dist.format());
+
+			// determine frequent blocking key values
+			Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
+					(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
+					DataIterator<Pair<Integer, String>> resultCollector) 
+					-> {
+						int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
+						resultCollector.next(new Pair<Integer, String>(blockSize, record.getFirst().getFirst()));
+					}
+					, new DataAggregator<Integer, String, String>() {
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public String initialise(Integer keyValue) {
+							return null;
+						}
+
+						@Override
+						public String aggregate(String previousResult, String record) {
+							if(previousResult==null) {
+								return record;
+							} else {
+								return previousResult + "," + record;
+							}
+						}
+					})
+					.sort((p)->p.getFirst(), false);
+			
+			System.out.println("50 most-frequent blocking key values:");
+			for(Pair<Integer, String> value : blockValues.take(50).get()) {
+				System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+			}
+
+		}
 		
 		// transform the blocks into pairs of records
 		Processable<Correspondence<BlockedType, CorrespondenceType>> result = blockedData.map(new RecordMapper<Pair<
