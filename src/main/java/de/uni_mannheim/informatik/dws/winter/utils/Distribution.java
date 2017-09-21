@@ -110,14 +110,23 @@ public class Distribution<T> {
 
 		List<T> sortedElements = Q.sort(counts.keySet(), new Comparator<T>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(T o1, T o2) {
-				return -Integer.compare(getFrequency(o1), getFrequency(o2));
+				int c = -Integer.compare(getFrequency(o1), getFrequency(o2));
+				
+				if(c==0 && o1 instanceof Comparable<?>) {
+					c = ((Comparable<T>)o1).compareTo(o2);
+				}
+				
+				return c;
 			}
 		});
 		
+		sb.append(String.format("%-" + (len+10) + "s%s\n", "Frequency", "Element"));
+		
 		for(T elem : sortedElements) {
-			sb.append(String.format("%-" + (len+10) + "s%d\n", elem, getFrequency(elem)));
+			sb.append(String.format("%-" + (len+10) + "s%s\n", Integer.toString(getFrequency(elem)), elem));
 		}
 
 		return sb.toString();
