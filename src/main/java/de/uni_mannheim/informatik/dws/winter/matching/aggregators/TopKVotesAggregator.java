@@ -29,6 +29,7 @@ public class TopKVotesAggregator<TypeA extends Matchable, TypeB extends Matchabl
 	
 	/**
 	 * @param k
+	 * 			the number of votes
 	 */
 	public TopKVotesAggregator(int k) {
 		super(k);

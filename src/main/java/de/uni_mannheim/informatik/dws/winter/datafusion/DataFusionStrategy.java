@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -30,7 +30,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
@@ -49,7 +49,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Creates a new instance and specifies which factory to use when creating
 	 * fused records
 	 * 
-	 * @param factory
+	 * @param factory	A {@link FusibleFactory} that creates the fused records
 	 */
 	public DataFusionStrategy(FusibleFactory<RecordType, SchemaElementType> factory) {
 		attributeFusers = new HashMap<>();
@@ -61,9 +61,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Adds a combination of fuser and evaluation rule. The evaluation rule will
 	 * be used to evaluate the result of the fuser for the given schema element from the target schema
 	 * 
-	 * @param schemaElement
-	 * @param fuser
-	 * @param rule
+	 * @param schemaElement		the schema element that is fused
+	 * @param fuser				the {@link AttributeFuser} that performs the fusion
+	 * @param rule				the {@link EvaluationRule} that performs the evaluation
 	 */
 	public void addAttributeFuser(SchemaElementType schemaElement, AttributeFuser<RecordType, SchemaElementType> fuser, EvaluationRule<RecordType, SchemaElementType> rule) {
 		attributeFusers.put(schemaElement, fuser);
@@ -74,8 +74,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Applies the strategy (i.e. all specified fusers) to the given group of
 	 * records
 	 * 
-	 * @param group
-	 * @param schemaCorrespondences
+	 * @param group					the group of records to fused
+	 * @param schemaCorrespondences	the schema correspondences
 	 * @return The fused record
 	 */
 	public RecordType apply(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
@@ -140,8 +140,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * calculates the number of non-conflicting values for the given group of
 	 * records, according the fusers of this strategy
 	 * 
-	 * @param group
-	 * @param schemaCorrespondences
+	 * @param group							the group of records
+	 * @param schemaCorrespondences			the schema correspondences
 	 * @return A map with the attribute consistency values
 	 */
 	public Map<String, Double> getAttributeConsistency(

@@ -17,9 +17,9 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.clustering.CentreClusterer;
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
-import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
@@ -28,8 +28,8 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * Clustered Vote {@link ConflictResolutionFunction}: Clusters all values and returns the centroid of the largest cluster
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the type of the values that are fused
+ * @param <RecordType>	the type that represents a record
  */
 public class ClusteredVote<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> {
 

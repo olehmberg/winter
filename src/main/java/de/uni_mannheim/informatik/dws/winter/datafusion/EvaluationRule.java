@@ -18,15 +18,15 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * Abstract super class for all evaluation rules
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public abstract class EvaluationRule<RecordType extends Matchable, SchemaElementType extends Matchable> {
 
 	/**
 	 * 
-	 * @param record1
-	 * @param record2
-	 * @param schemaElement
+	 * @param record1	the first record
+	 * @param record2	the second record
+	 * @param schemaElement	the schema element to compare
 	 * @return Returns whether the values of the given records are equal according to this evaluation rule (assuming both records are in the target schema)
 	 */
 	public abstract boolean isEqual(RecordType record1, RecordType record2, SchemaElementType schemaElement);
@@ -34,9 +34,9 @@ public abstract class EvaluationRule<RecordType extends Matchable, SchemaElement
 	/**
 	 * 
 	 * 
-	 * @param record1
-	 * @param record2
-	 * @param schemaCorrespondence
+	 * @param record1	the first record
+	 * @param record2	the second record
+	 * @param schemaCorrespondence	the schema correspondence that specifies which schema elements to compare
 	 * @return Returns whether the values of the given records are equal according to this evaluation rule (assuming the records are in different schemas)
 	 */
 	public abstract boolean isEqual(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> schemaCorrespondence);

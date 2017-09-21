@@ -23,9 +23,6 @@ public class CorrespondenceCountAggregator<TypeA extends Matchable, TypeB extend
 
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * @param finalThreshold
-	 */
 	public CorrespondenceCountAggregator(double finalThreshold) {
 		super(false, finalThreshold);
 	}

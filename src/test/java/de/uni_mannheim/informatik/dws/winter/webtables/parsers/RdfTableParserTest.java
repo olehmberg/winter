@@ -40,7 +40,7 @@ public class RdfTableParserTest extends TestCase {
 				+ "<http://www.okkam.org/ontology_restaurant1.owl#is_in_city> ?city."
 				+ "?city <http://www.okkam.org/ontology_restaurant1.owl#name> ?city_name."
 				+ "}");
-		Table t = p.parseTable(new File("usecase/restaurant/input/restaurant1.rdf"));
+		Table t = p.parseTable(new File("testdata/rdf/restaurant1.rdf"));
 		
 		System.out.println(t.getSchema().format(20));
 		System.out.println(t.getSchema().formatDataTypes(20));

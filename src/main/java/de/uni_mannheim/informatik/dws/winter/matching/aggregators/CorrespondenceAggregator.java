@@ -44,7 +44,8 @@ public class CorrespondenceAggregator<TypeA extends Matchable, TypeB extends Mat
 	
 	/**
 	 * Calculates the weight of a vote
-	 * @param cor
+	 * @param cor	
+	 * 				The vote
 	 * @return The similarity score
 	 */
 	protected double getSimilarityScore(Correspondence<TypeA, TypeB> cor) {

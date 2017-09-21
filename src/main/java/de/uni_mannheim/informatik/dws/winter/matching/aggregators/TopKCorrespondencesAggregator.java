@@ -29,6 +29,7 @@ public class TopKCorrespondencesAggregator<TypeA extends Matchable, TypeB extend
 	
 	/**
 	 * @param k
+	 * 			the number of correspondences
 	 */
 	public TopKCorrespondencesAggregator(int k) {
 		super(k);

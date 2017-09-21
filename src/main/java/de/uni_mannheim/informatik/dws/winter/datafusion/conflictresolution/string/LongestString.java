@@ -14,9 +14,9 @@ package de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.stri
 import java.util.Collection;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
-import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
 /**
@@ -25,7 +25,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public class LongestString<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends
 		ConflictResolutionFunction<String, RecordType, SchemaElementType> {

@@ -19,7 +19,8 @@ public interface IIndexSearcher<TDocument> {
 
 	/**
 	 * Searches for a single term
-	 * @param query
+	 * @param query	
+	 * 				the query
 	 * @return The found documents
 	 */
 	List<TDocument> search(String query);
@@ -27,6 +28,7 @@ public interface IIndexSearcher<TDocument> {
 	/**
 	 * Searches for multiple terms
 	 * @param query
+	 * 				the query
 	 * @return The found documents
 	 */
 	List<TDocument> search(Collection<String> query);
@@ -34,6 +36,7 @@ public interface IIndexSearcher<TDocument> {
 	/**
 	 * Looks up a specific term (no normalisation is done)
 	 * @param query
+	 * 				the query
 	 * @return The found documents
 	 */
 	List<TDocument> lookup(String query);

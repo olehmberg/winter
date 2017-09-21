@@ -13,8 +13,8 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * Random {@link ConflictResolutionFunction}: Returns a random value.
  * @author Daniel Ringler
  *
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the type of the values that are fused
+ * @param <RecordType>	the type that represents a record
  */
 
 public class RandomValue<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends

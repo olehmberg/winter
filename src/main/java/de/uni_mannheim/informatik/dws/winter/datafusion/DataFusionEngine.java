@@ -29,7 +29,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
@@ -45,7 +45,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	/**
 	 * Creates a new instance that uses the specified data fusion strategy.
 	 * 
-	 * @param strategy
+	 * @param strategy	the fusion strategy
 	 */
 	public DataFusionEngine(DataFusionStrategy<RecordType, SchemaElementType> strategy) {
 		this.strategy = strategy;
@@ -54,7 +54,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	/**
 	 * Runs the data fusion process on the provided set of correspondences and returns a fused data set
 	 * 
-	 * @param correspondences
+	 * @param correspondences	correspondences between the records
 	 * @return a {@link FusibleDataSet} based on the RecordType of the
 	 *         {@link CorrespondenceSet}
 	 */
@@ -85,8 +85,8 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 * Calculates the consistencies of the attributes of the records in the
 	 * given correspondence set according to the data fusion strategy
 	 * 
-	 * @param correspondences
-	 * @param schemaCorrespondences
+	 * @param correspondences	correspondences between the records
+	 * @param schemaCorrespondences	correspondences between the schema elements
 	 * @return A map with the attribute consistency values ("attribute" -&gt; consistency)
 	 */
 	public Map<String, Double> getAttributeConsistencies(
@@ -148,8 +148,8 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 * given correspondence set according to the data fusion strategy and prints
 	 * the results to the console
 	 * 
-	 * @param correspondences
-	 * @param schemaCorrespondences
+	 * @param correspondences		correspondences between the records
+	 * @param schemaCorrespondences	correspondences between the schema elements
 	 */
 	public void printClusterConsistencyReport(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,

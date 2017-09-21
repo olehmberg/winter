@@ -35,14 +35,14 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * Abstract super class for all Fusers tailored to specific attributes (hence the ValueType). Ignores schema correspondences.
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the type of the values that are fused
+ * @param <RecordType>	the type that represents a record
  */
 public abstract class AttributeValueFuser<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends AttributeFuser<RecordType, SchemaElementType> {
 
 	/**
 	 * Collects all fusable values from the group of records
-	 * @param group
+	 * @param group	the group of records to use
 	 * @return A list of fusable values
 	 */
 	protected List<FusibleValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
@@ -64,7 +64,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	
 	/**
 	 * returns the value that is used by this fuser from the given record. Required for the collection of fusable values.
-	 * @param record
+	 * @param record	the record to get the value from
 	 * @return The value to fuse
 	 */
 	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
@@ -137,16 +137,20 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	
 	/**
 	 * Creates an instance, specifies the conflict resolution function to use
-	 * @param conflictResolution
+	 * @param conflictResolution	the conflict resolution function
 	 */
 	public AttributeValueFuser(ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> conflictResolution) {
 		this.conflictResolution = conflictResolution;
 	}
 
 	/**
-	 * Returns the fused value by applying the conflict resolution function to the list of fusable values
-	 * @param group
-	 * @return  the fused value
+	 * 
+	 * Returns the fused value by applying the conflict resolution function to the list of fusible values
+	 * 
+	 * @param group		the group of records
+	 * @param schemaCorrespondences	the schema correspondences
+	 * @param schemaElement	the schema element for which the value should be returned
+	 * @return	returns the fused value for a given schema element
 	 */
 	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		return conflictResolution.resolveConflict(getFusableValues(group, schemaCorrespondences, schemaElement));

@@ -15,9 +15,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
-import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
 /**
@@ -27,8 +27,8 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the type of the values that are fused
+ * @param <RecordType>	the type that represents a record
  */
 public class Voting<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends
 		ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> {

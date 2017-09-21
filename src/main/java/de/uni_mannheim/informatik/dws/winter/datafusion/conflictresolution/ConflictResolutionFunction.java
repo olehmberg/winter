@@ -13,17 +13,17 @@ package de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution;
 
 import java.util.Collection;
 
+import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleValue;
-import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 
 /**
  * The abstract super class for all conflict resolution functions
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the type of the values that are fused
+ * @param <RecordType>	the type that represents a record
  */
 public abstract class ConflictResolutionFunction<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 

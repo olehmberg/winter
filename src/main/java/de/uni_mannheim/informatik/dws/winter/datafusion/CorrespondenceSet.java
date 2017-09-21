@@ -39,7 +39,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
  * @author Oliver Lehmberg (oli@dwslab.de)
  * @author Robert Meusel (robert@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
@@ -66,9 +66,9 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * Loads correspondences from a file and adds them to this correspondence
 	 * set. Can be called multiple times.
 	 * 
-	 * @param correspondenceFile
-	 * @param first
-	 * @param second
+	 * @param correspondenceFile	the to load from
+	 * @param first					the dataset that contains the records on the left-hand side of the correspondences
+	 * @param second				the dataset that contains the records on the right-hand side of the correspondences
 	 * @throws IOException
 	 */
 	public void loadCorrespondences(File correspondenceFile,
@@ -128,8 +128,8 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * Loads correspondences from a file and adds them to this correspondence
 	 * set. Can be called multiple times.
 	 * 
-	 * @param correspondenceFile
-	 * @param first
+	 * @param correspondenceFile	the file to load from
+	 * @param first					the dataset that contains the records
 	 * @throws IOException
 	 */
 	public void loadCorrespondences(File correspondenceFile,
@@ -172,9 +172,9 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	
 	/**
 	 * Creates the {@link CorrespondenceSet} from correspondences. Cannot be called multiple times.
-	 * @param correspondences
-	 * @param first
-	 * @param second
+	 * @param correspondences	the correspondences to load
+	 * @param first					the dataset that contains the records on the left-hand side of the correspondences
+	 * @param second				the dataset that contains the records on the right-hand side of the correspondences
 	 */
 	public void createFromCorrespondences(Processable<Correspondence<RecordType, Matchable>> correspondences,
             FusibleDataSet<RecordType, SchemaElementType> first, FusibleDataSet<RecordType, SchemaElementType> second) {
@@ -214,7 +214,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * writes the distribution of the sizes of the groups of records to the
 	 * specified file
 	 * 
-	 * @param outputFile
+	 * @param outputFile	the file to write to
 	 * @throws IOException
 	 */
 	public void writeGroupSizeDistribution(File outputFile) throws IOException {

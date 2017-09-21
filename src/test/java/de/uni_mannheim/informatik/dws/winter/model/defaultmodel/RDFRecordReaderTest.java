@@ -48,7 +48,7 @@ public class RDFRecordReaderTest extends TestCase {
 				+ "?city <http://www.okkam.org/ontology_restaurant1.owl#name> ?city_name."
 				+ "}";
 		
-		r.loadFromRDF(new File("usecase/restaurant/input/restaurant1.rdf"), query, ds);
+		r.loadFromRDF(new File("testdata/rdf/restaurant1.rdf"), query, ds);
 		
 		Set<String> attributeNames = new HashSet<>();
 		attributeNames.add("name");

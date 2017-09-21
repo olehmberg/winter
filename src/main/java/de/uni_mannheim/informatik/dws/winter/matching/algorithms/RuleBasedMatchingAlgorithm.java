@@ -41,10 +41,15 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	private String taskName = "Matching";
 	/**
 	 * @param dataset1
+	 * 				the first dataset
 	 * @param dataset2
+	 * 				the second dataset
 	 * @param correspondences
+	 * 				correspondences between the two datasets
 	 * @param rule
+	 * 				the matching rule
 	 * @param blocker
+	 * 				the blocker
 	 */
 	public RuleBasedMatchingAlgorithm(DataSet<RecordType, SchemaElementType> dataset1,
 			DataSet<RecordType, SchemaElementType> dataset2,

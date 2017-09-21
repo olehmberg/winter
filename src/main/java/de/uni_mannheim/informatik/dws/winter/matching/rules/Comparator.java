@@ -16,7 +16,7 @@ import java.io.Serializable;
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparatorJaccard;
 
 /**
  * Interface for all {@link AbstractRecord} comparators.
@@ -24,7 +24,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
  * A Comparator calculates a similarity value for two given records and an optional correspondence. 
  * Implementations can test the values of specific attributes or use the correspondence to determine which values to compare.
  * 
- * For an example of a specific attribute comparator, see {@link MovieTitleComparatorJaccard}.
+ * For an example of a specific attribute comparator, see {@link RecordComparatorJaccard}.
  * 
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)

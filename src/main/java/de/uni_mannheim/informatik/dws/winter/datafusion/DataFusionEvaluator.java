@@ -27,7 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
  */
 public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
@@ -47,7 +47,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	/**
 	 * Sets whether additional information will be written to the console
 	 * 
-	 * @param verbose
+	 * @param verbose	whether there should be additional information written to the console
 	 */
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
@@ -56,8 +56,8 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	/**
 	 * Creates a new instance with the provided strategy
 	 * 
-	 * @param strategy
-	 * @param factory
+	 * @param strategy		the fusion strategy
+	 * @param factory		the factory for record grous
 	 */
 	public DataFusionEvaluator(DataFusionStrategy<RecordType, SchemaElementType> strategy, RecordGroupFactory<RecordType, SchemaElementType> factory) {
 		this.strategy = strategy;
@@ -67,9 +67,9 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	/**
 	 * Evaluates the the data fusion result against a gold standard
 	 * 
-	 * @param dataset
-	 * @param goldStandard
-	 * @param schemaCorrespondences
+	 * @param dataset			the fused data
+	 * @param goldStandard		the gold standard
+	 * @param schemaCorrespondences	the schema correspondences
 	 * @return the accuracy of the data fusion result
 	 */
 	public double evaluate(FusibleDataSet<RecordType, SchemaElementType> dataset,
