@@ -462,7 +462,7 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			}
 		});
 		
-		Processable<RecordType> result = new ProcessableCollection<>();
+		Processable<RecordType> result = createProcessable((RecordType)null);
 		for(RecordType elem : list) {
 			result.add(elem);
 		}
