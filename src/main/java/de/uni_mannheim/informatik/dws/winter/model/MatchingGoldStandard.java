@@ -207,7 +207,7 @@ public class MatchingGoldStandard implements Serializable{
 
 			} else {
 				System.err.println(String.format("Skipping malformed line: %s",
-						StringUtils.join(values.toString(),",")));
+						StringUtils.join(values,",")));
 			}
 		}
 	}
