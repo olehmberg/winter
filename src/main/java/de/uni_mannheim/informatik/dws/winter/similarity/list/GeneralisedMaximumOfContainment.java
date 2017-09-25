@@ -19,7 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class GeneralisedMaximumOfContainment<T extends Comparable<T>> extends ComplexSetSimilarity<T> {
+public class GeneralisedMaximumOfContainment<T extends Comparable<? super T>> extends ComplexSetSimilarity<T> {
 
 	private static final long serialVersionUID = 1L;
 

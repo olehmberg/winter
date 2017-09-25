@@ -34,7 +34,7 @@ public class BestChoiceMatching extends MatrixMatcher {
         this.forceOneToOneMapping = forceOneToOneMapping;
     }
     
-    public <T extends Comparable<T>> SimilarityMatrix<T> match(SimilarityMatrix<T> input) {
+    public <T extends Comparable<? super T>> SimilarityMatrix<T> match(SimilarityMatrix<T> input) {
         
         SimilarityMatrix<T> sim = getSimilarityMatrixFactory().createSimilarityMatrix(input.getFirstDimension().size(), input.getSecondDimension().size());
         
