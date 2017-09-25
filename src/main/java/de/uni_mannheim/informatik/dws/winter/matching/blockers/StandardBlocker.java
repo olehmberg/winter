@@ -262,7 +262,11 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			}
 		});
 		//use .distinct() to remove correspondences that are found in multiple blocks
-		return result.distinct();
+		result = result.distinct();
+		
+		calculatePerformance(dataset1, dataset2, result);
+		
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -332,6 +336,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		
 		// remove duplicates that were created if two records have multiple matching blocking keys
 		blocked = blocked.distinct();
+		
+		calculatePerformance(dataset, dataset, blocked);
 		
 		return blocked;
 	}
