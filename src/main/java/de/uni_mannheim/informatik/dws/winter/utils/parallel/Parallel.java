@@ -285,15 +285,15 @@ public class Parallel<T> {
                                 // count how often this task failed
                                 cnt++;
                                 
+                                failedTasks.put(this, cnt);
+                                
                                 if(cnt<MAX_FAILED_TASKS) {
-                                    failedTasks.put(this, cnt);
-                                    
                                     if(!(e instanceof InterruptedException)) {
                                         // queue the current item again to re-try execution
                                         pool.execute(this);
                                     }
                                 } else {
-                                    // and if any item failed more than 3 times, cancel the whole loop
+                                    // and if any item failed more than MAX_FAILED_TASKS times, cancel the whole loop
                                     pool.shutdownNow();
                                 }
                             }
@@ -302,7 +302,7 @@ public class Parallel<T> {
     				}
     			};
                           
-                        pool.execute(r);
+                pool.execute(r);
     		}
     		
     		RunnableProgressReporter p = new RunnableProgressReporter();
