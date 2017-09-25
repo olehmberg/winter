@@ -26,11 +26,13 @@ import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
+import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableMapping;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.Dependency;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.HeaderPosition;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.TableOrientation;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.TableType;
+import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableWithMappingSchema;
 
 /**
  * Writes a Web Table in the JSON format.
@@ -40,6 +42,15 @@ import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema.T
  */
 public class JsonTableWriter implements TableWriter {
 
+	private boolean writeMapping;
+	
+	/**
+	 * @param writeMapping the writeMapping to set
+	 */
+	public void setWriteMapping(boolean writeMapping) {
+		this.writeMapping = writeMapping;
+	}
+	
 	public File getFileName(File f) {
 		if(!f.getName().endsWith(".json")) {
 			return new File(f.getAbsolutePath() + ".json");
@@ -147,9 +158,20 @@ public class JsonTableWriter implements TableWriter {
 		
 		writeProvenance(t, data);
 		
-        Gson gson = new Gson();
+		Gson gson = new Gson();
         BufferedWriter w = new BufferedWriter(new FileWriter(f));
-        w.write(gson.toJson(data));
+		
+		if(writeMapping) {
+		
+			JsonTableWithMappingSchema d = new JsonTableWithMappingSchema();
+			d.setTable(data);
+			d.setMapping(JsonTableMapping.fromTableMapping(t.getMapping()));
+			w.write(gson.toJson(d));
+			
+		} else {
+			w.write(gson.toJson(data));
+		}
+		
         w.close();
 		
 		return f;

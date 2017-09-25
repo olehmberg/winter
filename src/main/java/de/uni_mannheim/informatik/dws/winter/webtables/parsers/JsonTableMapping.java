@@ -395,15 +395,50 @@ public class JsonTableMapping {
         w.write(String.format("%s=%s\n", DATA_TYPES, ListHandler.formatList(types)));
     }
 
+    public static JsonTableMapping fromTableMapping(TableMapping mapping) {
+    	JsonTableMapping m = new JsonTableMapping();
+    	
+    	if(mapping.getDataTypes()!=null) {
+    		Map<Integer, DataType> dataTypes = new HashMap<>();
+    		for(int i = 0; i < mapping.getDataTypes().length; i++) {
+    			dataTypes.put(i, mapping.getDataTypes()[i]);
+    		}
+    		m.setDataTypes(dataTypes);
+    	}
+    	
+    	m.setKeyIndex(mapping.getKeyIndex());
+    	m.setMappedClass(mapping.getMappedClass());
+    	
+    	if(mapping.getMappedInstances()!=null && mapping.getMappedInstances().length>0) {
+    		Map<Integer, Pair<String, Double>> mappedInstances = new HashMap<>();
+    		for(int i = 0; i < mapping.getMappedInstances().length; i++) {
+    			mappedInstances.put(i, mapping.getMappedInstances()[i]);
+    		}
+    		m.setMappedInstances(mappedInstances);
+    	}
+    	
+    	if(mapping.getMappedProperties()!=null && mapping.getMappedProperties().length>0) {
+    		Map<Integer, Pair<String, Double>> mappedProperties = new HashMap<>();
+    		for(int i = 0; i < mapping.getMappedProperties().length; i++) {
+    			mappedProperties.put(i, mapping.getMappedProperties()[i]);
+    		}
+    		m.setMappedProperties(mappedProperties);
+    	}
+    	
+    	return m;
+    }
+    
     @SuppressWarnings("unchecked")
 	public TableMapping toTableMapping() {
     	TableMapping tm = new TableMapping();
     	
-    	DataType[] dt = new DataType[Q.max(dataTypes.keySet())+1];
-    	for(int key : dataTypes.keySet()) {
-    		dt[key] = dataTypes.get(key);
+    	if(dataTypes!=null && dataTypes.size()>0) {
+	    	DataType[] dt = new DataType[Q.max(dataTypes.keySet())+1];
+	    	for(int key : dataTypes.keySet()) {
+	    		dt[key] = dataTypes.get(key);
+	    	}
+	    	tm.setDataTypes(dt);
     	}
-    	tm.setDataTypes(dt);
     	
     	tm.setKeyIndex(keyIndex);
     	tm.setMappedClass(getMappedClass());
