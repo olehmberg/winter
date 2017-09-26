@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<movie>
+     <id>actors_16</id>
+     <title>The Song of Bernadette</title>
+     <director>Henry King</director>
+     <date>1943-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Jennifer Jones</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+     <id>actors_82</id>
+     <title>A Free Soul</title>
+     <director>Clarence Brown</director>
+     <date>1931-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Norma Shearer</name>
+       </actor>
+       <actor>
+         <name>Lionel Barrymore</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+	 <id>actors_116</id>
+     <title>Cat Ballou</title>
+     <director/>
+     <date>1965-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Lee Marvin</name>
+       </actor>
+       <actor>
+         <name>Jane Fonda</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+	 <id>actors_103</id>
+     <title>High Noon</title>
+     <director>Fred Zinnemann</director>
+     <date>1952-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Gary Cooper</name>
+       </actor>
+       <actor>
+         <name>Katy Jurado</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+	 <id>actors_75</id>
+     <title>Monster's Ball</title>
+     <director/>
+     <date>2002-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Halle Berry</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+     <id>actors_130</id>
+     <title>Ghandi</title>
+     <director>Richard Attenborough</director>
+     <date>1983-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Ben Kingsley</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+     <id>actors_11</id>
+     <title>Jezebel</title>
+     <director/>
+     <date>1938-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Fay Bainter</name>
+       </actor>
+       <actor>
+         <name>Bette Davis</name>
+       </actor>
+     </actors>
+   </movie>
+   <movie>
+	 <id>actors_24</id>
+     <title>Streetcar Named Desire, a</title>
+     <director>Elia Kazan</director>
+     <date>1952-01-01T00:00:00.000+01:00</date>
+     <actors>
+       <actor>
+         <name>Kim Hunter</name>
+       </actor>
+       <actor>
+         <name>Vivien Leigh</name>
+       </actor>
+       <actor>
+         <name>Marlon Brando</name>
+       </actor>
+       <actor>
+         <name>Karl Malden</name>
+       </actor>
+     </actors>
+   </movie>
+
+</movies>

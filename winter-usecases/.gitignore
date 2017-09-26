@@ -1,0 +1,10 @@
+/target/
+*.prefs
+.project
+*.classpath
+/usecase/movie/output/
+/usecase/restaurant/output/
+/usecase/itunes/output/
+winter.iml
+.idea/
+/testdata/out/

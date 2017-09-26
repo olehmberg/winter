@@ -1,3 +1,5 @@
+/target/
+/testdata/out/
 *.prefs
 .project
 *.classpath
