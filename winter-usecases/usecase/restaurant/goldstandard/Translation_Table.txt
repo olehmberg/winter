@@ -1,0 +1,85 @@
+Fodors:
+
+Phone:
+/ to -
+
+City:
+Brooklyn - New York
+Studio City - Los Angeles
+Beverly Hills - Los Angeles
+Sherman Oaks - Los Angeles
+West Hollywood - Los Angeles
+Bel Air - Los Angeles
+Pacific Palisades - Los Angeles
+Toluca Lake - Los Angeles
+Los Feliz - Los Angeles
+Malibu - Los Angeles
+Santa Monica - Los Angeles
+
+Style:
+Delis - American
+American (New) - American
+Californian - American
+. American - American
+Old San Francisco - American
+
+
+
+
+
+Zagats:
+
+City:
+West LA - Los Angeles
+Studio City - Los Angeles
+Los Feliz - Los Angeles
+LA - Los Angeles
+Downtown LA - Los Angeles
+Malibu - Los Angeles
+Walk Venice - Los Angeles
+Venice - Los Angeles
+Sherman Oaks - Los Angeles
+Mar Vista - Los Angeles
+Bel Air - Los Angeles
+Northridge - Los Angeles
+Santa Monica - Los Angeles
+Westlake Village - Los Angeles
+Pasadena - Los Angeles
+Manhattan Beach - Los Angeles
+Redondo Beach - Los Angeles
+Hollywood - Los Angeles
+Westwood - Los Angeles
+Century City - Los Angeles
+Boyle Hts. - Los Angeles
+Rancho Park - Los Angeles
+Hermosa Beach - Los Angeles
+del Rey - Los Angeles
+Encino - Los Angeles
+Monterey Park - Los Angeles
+Chinatown - Los Angeles
+Burbank - Los Angeles
+Seal Beach - Los Angeles
+Brentwood - Los Angeles
+Culver City - Los Angeles
+Long Beach - Los Angeles
+Glendale - Los Angeles
+New York City - New York
+Brooklyn - New York
+Queens - New York
+SE Marietta - Atlanta
+SE Atlanta - Atlanta
+Roswell - Atlanta
+Decatur - Atlanta
+Smyrna - Atlanta
+Duluth - Atlanta
+College Park - Atlanta
+
+Style:
+Californian - American
+American (Traditional) - American
+French (Classic) - French
+French (New) - French
+French Bistro - French
+Diners - American
+
+

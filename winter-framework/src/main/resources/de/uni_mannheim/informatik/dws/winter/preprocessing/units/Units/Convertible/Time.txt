@@ -1,0 +1,7 @@
+"second"|"s","sec","secs","second","seconds","δ","δευτερόλεπτα"
+"millisecond"|"ms","millisecond","milliseconds"|0.001
+"microsecond"|"µs","microsecond","microseconds"|1.0E-6
+"nanosecond"|"ns","nanosecond","nanoseconds"|1.0E-9
+"minute"|"m","min","min.","mins","minute","minutes","λ","λεπτά"|60.0
+"hour"|"h","hr","hr.","hour","hours","std","ω","ώρες","ώρα"|3600.0
+"day"|"d","days","day","μ","μέρα","μέρες"|86400.0

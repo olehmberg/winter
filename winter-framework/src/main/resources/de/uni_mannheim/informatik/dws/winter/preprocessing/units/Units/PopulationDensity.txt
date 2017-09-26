@@ -1,0 +1,2 @@
+"inhabitantsPerSquareKilometre"|"PD/sqkm","/sqkm","per square kilometre","inhabitants per square kilometre"
+"inhabitantsPerSquareMile"|"PD/sqmi","/sqmi","per square mile","inhabitants per square mile"|1.0 / 2.589988110336

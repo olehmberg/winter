@@ -1,0 +1,1877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>actors_1</id>
+		<title>7th Heaven</title>
+		<actors>
+			<actor>
+				<name>Janet Gaynor</name>
+				<birthday>1906-01-01</birthday>
+				<birthplace>Pennsylvania</birthplace>
+			</actor>
+		</actors>
+		<date>1929-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_2</id>
+		<title>Coquette</title>
+		<actors>
+			<actor>
+				<name>Mary Pickford</name>
+				<birthday>1892-01-01</birthday>
+				<birthplace>Canada</birthplace>
+			</actor>
+		</actors>
+		<date>1930-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_3</id>
+		<title>The Divorcee</title>
+		<actors>
+			<actor>
+				<name>Norma Shearer</name>
+				<birthday>1902-01-01</birthday>
+				<birthplace>Canada</birthplace>
+			</actor>
+		</actors>
+		<date>1931-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_4</id>
+		<title>Min and Bill</title>
+		<actors>
+			<actor>
+				<name>Marie Dressler</name>
+				<birthday>1868-01-01</birthday>
+				<birthplace>Canada</birthplace>
+			</actor>
+		</actors>
+		<date>1932-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_5</id>
+		<title>The Sin of Madelon Claudet</title>
+		<actors>
+			<actor>
+				<name>Helen Hayes</name>
+				<birthday>1900-01-01</birthday>
+				<birthplace>Washington DC</birthplace>
+			</actor>
+		</actors>
+		<date>1933-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_6</id>
+		<title>Morning Glory</title>
+		<actors>
+			<actor>
+				<name>Katharine Hepburn</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>Connecticut</birthplace>
+			</actor>
+		</actors>
+		<date>1934-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_7</id>
+		<title>It Happened One Night</title>
+		<actors>
+			<actor>
+				<name>Claudette Colbert</name>
+				<birthday>1903-01-01</birthday>
+				<birthplace>France</birthplace>
+			</actor>
+			<actor>
+				<name>Clark Gable</name>
+				<birthday>1901-01-01</birthday>
+				<birthplace>Ohio</birthplace>
+			</actor>
+		</actors>
+		<date>1935-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_8</id>
+		<title>Dangerous</title>
+		<actors>
+			<actor>
+				<name>Bette Davis</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>Massachusetts</birthplace>
+			</actor>
+		</actors>
+		<date>1936-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_9</id>
+		<title>The Great Zeigfeld</title>
+		<actors>
+			<actor>
+				<name>Luise Rainer</name>
+				<birthday>1910-01-01</birthday>
+				<birthplace>Germany</birthplace>
+			</actor>
+		</actors>
+		<date>1937-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_10</id>
+		<title>The Good Earth</title>
+		<actors>
+			<actor>
+				<name>Luise Rainer</name>
+				<birthday>1910-01-01</birthday>
+				<birthplace>Germany</birthplace>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_11</id>
+		<title>Jezebel</title>
+		<actors>
+			<actor>
+				<name>Bette Davis</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>Massachusetts</birthplace>
+			</actor>
+			<actor>
+				<name>Johnny Depp</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1939-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_12</id>
+		<title>Gone With the Wind</title>
+		<actors>
+			<actor>
+				<name>Vivien Leigh</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1940-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_13</id>
+		<title>Kitty Foyle</title>
+		<actors>
+			<actor>
+				<name>Ginger Rogers</name>
+				<birthday>1911-01-01</birthday>
+				<birthplace>Missouri</birthplace>
+			</actor>
+		</actors>
+		<date>1941-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_14</id>
+		<title>Suspicion</title>
+		<actors>
+			<actor>
+				<name>Joan Fontaine</name>
+				<birthday>1917-01-01</birthday>
+				<birthplace>Japan</birthplace>
+			</actor>
+		</actors>
+		<date>1942-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_15</id>
+		<title>Mrs. Miniver</title>
+		<actors>
+			<actor>
+				<name>Greer Garson</name>
+				<birthday>1904-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1943-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_16</id>
+		<title>Song of Bernadette</title>
+		<actors>
+			<actor>
+				<name>Jennifer Jones</name>
+				<birthday>1919-01-01</birthday>
+				<birthplace>Oklahoma</birthplace>
+			</actor>
+		</actors>
+		<date>1944-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_17</id>
+		<title>Gaslight</title>
+		<actors>
+			<actor>
+				<name>Ingrid Bergman</name>
+				<birthday>1915-01-01</birthday>
+				<birthplace>Sweden</birthplace>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_18</id>
+		<title>Mildred Pierce</title>
+		<actors>
+			<actor>
+				<name>Joan Crawford</name>
+				<birthday>1912-01-01</birthday>
+				<birthplace>Texas</birthplace>
+			</actor>
+		</actors>
+		<date>1946-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_19</id>
+		<title>To Each His Own</title>
+		<actors>
+			<actor>
+				<name>Olivia de Havilland</name>
+				<birthday>1916-01-01</birthday>
+				<birthplace>Japan</birthplace>
+			</actor>
+		</actors>
+		<date>1947-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_20</id>
+		<title>The Farmer�s Daughter</title>
+		<actors>
+			<actor>
+				<name>Loretta Young</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>Utah</birthplace>
+			</actor>
+		</actors>
+		<date>1948-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_21</id>
+		<title>Johnny Belinda</title>
+		<actors>
+			<actor>
+				<name>Jane Wyman</name>
+				<birthday>1914-01-01</birthday>
+				<birthplace>Missouri</birthplace>
+			</actor>
+		</actors>
+		<date>1949-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_22</id>
+		<title>The Heiress</title>
+		<actors>
+			<actor>
+				<name>Olivia de Havilland</name>
+				<birthday>1916-01-01</birthday>
+				<birthplace>Japan</birthplace>
+			</actor>
+		</actors>
+		<date>1950-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_23</id>
+		<title>Born Yesterday</title>
+		<actors>
+			<actor>
+				<name>Judy Holliday</name>
+				<birthday>1921-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1951-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_24</id>
+		<title>A Streetcar Named Desire</title>
+		<actors>
+			<actor>
+				<name>Vivien Leigh</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+			<actor>
+				<name>Marlon Brando</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+			<actor>
+				<name>Karl Malden</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+			<actor>
+				<name>Johnny Depp</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1952-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_25</id>
+		<title>Come Back, Little Sheba</title>
+		<actors>
+			<actor>
+				<name>Shirley Booth</name>
+				<birthday>1898-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1953-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_26</id>
+		<title>Roman Holiday</title>
+		<actors>
+			<actor>
+				<name>Audrey Hepburn</name>
+				<birthday>1929-01-01</birthday>
+				<birthplace>Belgium</birthplace>
+			</actor>
+		</actors>
+		<date>1954-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_27</id>
+		<title>The Country Girl</title>
+		<actors>
+			<actor>
+				<name>Grace Kelly</name>
+				<birthday>1929-01-01</birthday>
+				<birthplace>Philly</birthplace>
+			</actor>
+		</actors>
+		<date>1955-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_28</id>
+		<title>The Rose Tattoo</title>
+		<actors>
+			<actor>
+				<name>Anna Magnani</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>Italy</birthplace>
+			</actor>
+		</actors>
+		<date>1956-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_29</id>
+		<title>Anastasia</title>
+		<actors>
+			<actor>
+				<name>Ingrid Bergman</name>
+				<birthday>1915-01-01</birthday>
+				<birthplace>Sweden</birthplace>
+			</actor>
+		</actors>
+		<date>1957-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_30</id>
+		<title>The Three Faces of Eve</title>
+		<actors>
+			<actor>
+				<name>Joanne Woodward</name>
+				<birthday>1930-01-01</birthday>
+				<birthplace>Georgia</birthplace>
+			</actor>
+		</actors>
+		<date>1958-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_31</id>
+		<title>I Want to Live!</title>
+		<actors>
+			<actor>
+				<name>Susan Hayward</name>
+				<birthday>1917-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1959-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_32</id>
+		<title>Room at the Top</title>
+		<actors>
+			<actor>
+				<name>Simone Signoret</name>
+				<birthday>1921-01-01</birthday>
+				<birthplace>Germany</birthplace>
+			</actor>
+		</actors>
+		<date>1960-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_33</id>
+		<title>Butterfield 8</title>
+		<actors>
+			<actor>
+				<name>Elisabeth Taylor</name>
+				<birthday>1932-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1961-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_34</id>
+		<title>Two Women</title>
+		<actors>
+			<actor>
+				<name>Sophia Loren</name>
+				<birthday>1934-01-01</birthday>
+				<birthplace>Italy</birthplace>
+			</actor>
+		</actors>
+		<date>1962-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_35</id>
+		<title>The Miracle Worker</title>
+		<actors>
+			<actor>
+				<name>Anne Bancroft</name>
+				<birthday>1931-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1963-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_36</id>
+		<title>Hud</title>
+		<actors>
+			<actor>
+				<name>Patricia Neal</name>
+				<birthday>1926-01-01</birthday>
+				<birthplace>Kentucky</birthplace>
+			</actor>
+		</actors>
+		<date>1964-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_37</id>
+		<title>Mary Poppins</title>
+		<actors>
+			<actor>
+				<name>Julie Andrews</name>
+				<birthday>1935-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1965-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_38</id>
+		<title>Darling</title>
+		<actors>
+			<actor>
+				<name>Julie Christie</name>
+				<birthday>1940-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1966-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_39</id>
+		<title>Who�s Afraid of Virginia Woolf</title>
+		<actors>
+			<actor>
+				<name>Elizabeth Taylor</name>
+				<birthday>1932-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1967-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_40</id>
+		<title>Guess Who�s Coming to Dinner</title>
+		<actors>
+			<actor>
+				<name>Katharine Hepburn</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>Connecticut</birthplace>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_41</id>
+		<title>Funny Girl</title>
+		<actors>
+			<actor>
+				<name>Barbra Streisand</name>
+				<birthday>1942-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1969-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_42</id>
+		<title>The Lion in Winter</title>
+		<actors>
+			<actor>
+				<name>Katharine Hepburn</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>Connecticut</birthplace>
+			</actor>
+		</actors>
+		<date>1969-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_43</id>
+		<title>The Prime of Miss Jean Brodie</title>
+		<actors>
+			<actor>
+				<name>Maggie Smith</name>
+				<birthday>1934-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1970-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_44</id>
+		<title>Women In Love</title>
+		<actors>
+			<actor>
+				<name>Glenda Jackson</name>
+				<birthday>1936-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1971-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_45</id>
+		<title>Klute</title>
+		<actors>
+			<actor>
+				<name>Jane Fonda</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1972-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_46</id>
+		<title>Cabaret</title>
+		<actors>
+			<actor>
+				<name>Liza Minnelli</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1973-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_47</id>
+		<title>A Touch of Class</title>
+		<actors>
+			<actor>
+				<name>Glenda Jackson</name>
+				<birthday>1936-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1974-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_48</id>
+		<title>Alice Doesn�t live Here Anymor</title>
+		<actors>
+			<actor>
+				<name>Ellen Burstyn</name>
+				<birthday>1932-01-01</birthday>
+				<birthplace>Michigan</birthplace>
+			</actor>
+		</actors>
+		<date>1975-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_49</id>
+		<title>One Flew Over The Cockoo�s Nes</title>
+		<actors>
+			<actor>
+				<name>Louise Fletcher</name>
+				<birthday>1934-01-01</birthday>
+				<birthplace>Alabama</birthplace>
+			</actor>
+		</actors>
+		<date>1976-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_50</id>
+		<title>Network</title>
+		<actors>
+			<actor>
+				<name>Faye Dunaway</name>
+				<birthday>1941-01-01</birthday>
+				<birthplace>Florida</birthplace>
+			</actor>
+			<actor>
+				<name>Peter Finch</name>
+				<birthday>1916-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1977-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_51</id>
+		<title>Annie Hall</title>
+		<actors>
+			<actor>
+				<name>Diane Keaton</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1978-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_52</id>
+		<title>Coming Home</title>
+		<actors>
+			<actor>
+				<name>Jane Fonda</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+			<actor>
+				<name>Jon Voight</name>
+				<birthday>1938-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1979-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_53</id>
+		<title>Norma Rae</title>
+		<actors>
+			<actor>
+				<name>Sally Field</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1980-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_54</id>
+		<title>Coal Miner�s Daughter</title>
+		<actors>
+			<actor>
+				<name>Sissy Spacek</name>
+				<birthday>1949-01-01</birthday>
+				<birthplace>Texas</birthplace>
+			</actor>
+		</actors>
+		<date>1981-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_55</id>
+		<title>On Golden Pond</title>
+		<actors>
+			<actor>
+				<name>Katharine Hepburn</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>Connecticut</birthplace>
+			</actor>
+			<actor>
+				<name>Henry Fonda</name>
+				<birthday>1905-01-01</birthday>
+				<birthplace>Nebraska</birthplace>
+			</actor>
+		</actors>
+		<date>1982-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_56</id>
+		<title>Sophie�s Choice</title>
+		<actors>
+			<actor>
+				<name>Meryl Streep</name>
+				<birthday>1949-01-01</birthday>
+				<birthplace>New Jersey</birthplace>
+			</actor>
+		</actors>
+		<date>1983-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_57</id>
+		<title>Terms of Endearment</title>
+		<actors>
+			<actor>
+				<name>Shirley MacLaine</name>
+				<birthday>1934-01-01</birthday>
+				<birthplace>Virginia</birthplace>
+			</actor>
+		</actors>
+		<date>1984-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_58</id>
+		<title>Places in the Heart</title>
+		<actors>
+			<actor>
+				<name>Sally Field</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1985-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_59</id>
+		<title>Trip to Bountiful</title>
+		<actors>
+			<actor>
+				<name>Geraldine Page</name>
+				<birthday>1924-01-01</birthday>
+				<birthplace>Missouri</birthplace>
+			</actor>
+		</actors>
+		<date>1986-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_60</id>
+		<title>Children of a Lesser God</title>
+		<actors>
+			<actor>
+				<name>Marlee Matlin</name>
+				<birthday>1965-01-01</birthday>
+				<birthplace>Illinois</birthplace>
+			</actor>
+		</actors>
+		<date>1987-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_61</id>
+		<title>Moonstruck</title>
+		<actors>
+			<actor>
+				<name>Cher</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1988-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_62</id>
+		<title>The Accused</title>
+		<actors>
+			<actor>
+				<name>Jodie Foster</name>
+				<birthday>1962-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1989-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_63</id>
+		<title>Driving Miss Daisy</title>
+		<actors>
+			<actor>
+				<name>Jessica Tandy</name>
+				<birthday>1909-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1990-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_64</id>
+		<title>Misery</title>
+		<actors>
+			<actor>
+				<name>Kathy Bates</name>
+				<birthday>1948-01-01</birthday>
+				<birthplace>Tennessee</birthplace>
+			</actor>
+		</actors>
+		<date>1991-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_65</id>
+		<title>The Silence of the Lambs</title>
+		<actors>
+			<actor>
+				<name>Jodie Foster</name>
+				<birthday>1962-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+			<actor>
+				<name>Anthony Hopkins</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>Wales</birthplace>
+			</actor>
+		</actors>
+		<date>1992-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_66</id>
+		<title>Howards End</title>
+		<actors>
+			<actor>
+				<name>Emma Thompson</name>
+				<birthday>1959-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1993-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_67</id>
+		<title>The Piano</title>
+		<actors>
+			<actor>
+				<name>Holly Hunter</name>
+				<birthday>1958-01-01</birthday>
+				<birthplace>Georgia</birthplace>
+			</actor>
+		</actors>
+		<date>1994-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_68</id>
+		<title>Blue Sky</title>
+		<actors>
+			<actor>
+				<name>Jessica Lange</name>
+				<birthday>1949-01-01</birthday>
+				<birthplace>Minnesota</birthplace>
+			</actor>
+		</actors>
+		<date>1995-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_69</id>
+		<title>Dead Man Walking</title>
+		<actors>
+			<actor>
+				<name>Susan Sarandon</name>
+				<birthday>1946-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1996-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_70</id>
+		<title>Fargo</title>
+		<actors>
+			<actor>
+				<name>Frances McDormand</name>
+				<birthday>1957-01-01</birthday>
+				<birthplace>Illinois</birthplace>
+			</actor>
+		</actors>
+		<date>1997-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_71</id>
+		<title>As Good As It Gets</title>
+		<actors>
+			<actor>
+				<name>Helen Hunt</name>
+				<birthday>1963-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_72</id>
+		<title>Shakespeare in Love</title>
+		<actors>
+			<actor>
+				<name>Gwyneth Paltrow</name>
+				<birthday>1972-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1999-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_73</id>
+		<title>Boys Don't Cry</title>
+		<actors>
+			<actor>
+				<name>Hilary Swank</name>
+				<birthday>1974-01-01</birthday>
+				<birthplace>Washington</birthplace>
+			</actor>
+		</actors>
+		<date>2000-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_74</id>
+		<title>Erin Brockovich</title>
+		<actors>
+			<actor>
+				<name>Julia Roberts</name>
+				<birthday>1967-01-01</birthday>
+				<birthplace>Georgia</birthplace>
+			</actor>
+		</actors>
+		<date>2001-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_75</id>
+		<title>Monsters Ball</title>
+		<actors>
+			<actor>
+				<name>Halle Berry</name>
+				<birthday>1966-01-01</birthday>
+				<birthplace>Ohio</birthplace>
+			</actor>
+		</actors>
+		<date>2002-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_76</id>
+		<title>The Hours</title>
+		<actors>
+			<actor>
+				<name>Nicole Kidman</name>
+				<birthday>1967-01-01</birthday>
+				<birthplace>Australia</birthplace>
+			</actor>
+		</actors>
+		<date>2003-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_77</id>
+		<title>Monster</title>
+		<actors>
+			<actor>
+				<name>Charlize Theron</name>
+				<birthday>1975-01-01</birthday>
+				<birthplace>South Africa</birthplace>
+			</actor>
+		</actors>
+		<date>2004-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_78</id>
+		<title>Million Dollar Baby</title>
+		<actors>
+			<actor>
+				<name>Hilary Swank</name>
+				<birthday>1974-01-01</birthday>
+				<birthplace>Washington</birthplace>
+			</actor>
+		</actors>
+		<date>2005-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_79</id>
+		<title>The Way of All Flesh &amp; The Las</title>
+		<actors>
+			<actor>
+				<name>Emil Jannings</name>
+				<birthday>1884-01-01</birthday>
+				<birthplace>Switzerland</birthplace>
+			</actor>
+		</actors>
+		<date>1929-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_80</id>
+		<title>In Old Arizona</title>
+		<actors>
+			<actor>
+				<name>Warner Baxter</name>
+				<birthday>1889-01-01</birthday>
+				<birthplace>Ohio</birthplace>
+			</actor>
+		</actors>
+		<date>1930-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_81</id>
+		<title>Disraeli</title>
+		<actors>
+			<actor>
+				<name>George Arliss</name>
+				<birthday>1868-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1931-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_82</id>
+		<title>A Free Soul</title>
+		<actors>
+			<actor>
+				<name>Lionel Barrymore</name>
+				<birthday>1878-01-01</birthday>
+				<birthplace>Pennsylvania</birthplace>
+			</actor>
+		</actors>
+		<date>1932-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_83</id>
+		<title>Dr. Jekyll and Mr. Hyde</title>
+		<actors>
+			<actor>
+				<name>Fredric March</name>
+				<birthday>1897-01-01</birthday>
+				<birthplace>Wisconsin</birthplace>
+			</actor>
+		</actors>
+		<date>1933-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_84</id>
+		<title>The Champ</title>
+		<actors>
+			<actor>
+				<name>Wallace Beery</name>
+				<birthday>1885-01-01</birthday>
+				<birthplace>Missouri</birthplace>
+			</actor>
+		</actors>
+		<date>1933-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_85</id>
+		<title>The Private Life of Henry VIII</title>
+		<actors>
+			<actor>
+				<name>Charles Laughton</name>
+				<birthday>1899-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1934-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_86</id>
+		<title>The Informer</title>
+		<actors>
+			<actor>
+				<name>Victor McLaglen</name>
+				<birthday>1883-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1936-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_87</id>
+		<title>The Story of Louis Pasteur</title>
+		<actors>
+			<actor>
+				<name>Paul Muni</name>
+				<birthday>1895-01-01</birthday>
+				<birthplace>Poland</birthplace>
+			</actor>
+		</actors>
+		<date>1937-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_88</id>
+		<title>Captains Courageous</title>
+		<actors>
+			<actor>
+				<name>Spencer Tracy</name>
+				<birthday>1900-01-01</birthday>
+				<birthplace>Wisconsin</birthplace>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_89</id>
+		<title>Boys Town</title>
+		<actors>
+			<actor>
+				<name>Spencer Tracy</name>
+				<birthday>1900-01-01</birthday>
+				<birthplace>Wisconsin</birthplace>
+			</actor>
+		</actors>
+		<date>1939-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_90</id>
+		<title>Goodbye, Mr. Chips</title>
+		<actors>
+			<actor>
+				<name>Robert Donat</name>
+				<birthday>1905-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1940-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_91</id>
+		<title>The Philadelphia Story</title>
+		<actors>
+			<actor>
+				<name>James Stewart</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>Pennsylvania</birthplace>
+			</actor>
+		</actors>
+		<date>1941-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_92</id>
+		<title>Sergeant York</title>
+		<actors>
+			<actor>
+				<name>Gary Cooper</name>
+				<birthday>1901-01-01</birthday>
+				<birthplace>Montana</birthplace>
+			</actor>
+		</actors>
+		<date>1942-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_93</id>
+		<title>Yankee Doodle Dandy</title>
+		<actors>
+			<actor>
+				<name>James Cagney</name>
+				<birthday>1899-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1943-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_94</id>
+		<title>Watch on the Rhine</title>
+		<actors>
+			<actor>
+				<name>Paul Lukas</name>
+				<birthday>1895-01-01</birthday>
+				<birthplace>Hungary</birthplace>
+			</actor>
+		</actors>
+		<date>1944-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_95</id>
+		<title>Going My Way</title>
+		<actors>
+			<actor>
+				<name>Bing Crosby</name>
+				<birthday>1903-01-01</birthday>
+				<birthplace>Washington</birthplace>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_96</id>
+		<title>The Lost Weekend</title>
+		<actors>
+			<actor>
+				<name>Ray Milland</name>
+				<birthday>1905-01-01</birthday>
+				<birthplace>Wales</birthplace>
+			</actor>
+		</actors>
+		<date>1946-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_97</id>
+		<title>The Best Years of Our Lives</title>
+		<actors>
+			<actor>
+				<name>Fredric March</name>
+				<birthday>1897-01-01</birthday>
+				<birthplace>Wisconsin</birthplace>
+			</actor>
+		</actors>
+		<date>1947-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_98</id>
+		<title>A Double Life</title>
+		<actors>
+			<actor>
+				<name>Ronald Colman</name>
+				<birthday>1891-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1948-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_99</id>
+		<title>Hamlet</title>
+		<actors>
+			<actor>
+				<name>Laurence Olivier</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1949-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_100</id>
+		<title>All the King's Men</title>
+		<actors>
+			<actor>
+				<name>Broderick Crawford</name>
+				<birthday>1911-01-01</birthday>
+				<birthplace>Pennsylvania</birthplace>
+			</actor>
+		</actors>
+		<date>1950-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_101</id>
+		<title>Cyrano de Bergerac</title>
+		<actors>
+			<actor>
+				<name>Jose Ferrer</name>
+				<birthday>1909-01-01</birthday>
+				<birthplace>Puerto Rico</birthplace>
+			</actor>
+		</actors>
+		<date>1951-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_102</id>
+		<title>The African Queen</title>
+		<actors>
+			<actor>
+				<name>Humphrey Bogart</name>
+				<birthday>1899-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1952-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_103</id>
+		<title>High Noon</title>
+		<actors>
+			<actor>
+				<name>Gary Cooper</name>
+				<birthday>1901-01-01</birthday>
+				<birthplace>Montana</birthplace>
+			</actor>
+			<actor>
+				<name>Johnny Depp</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1953-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_104</id>
+		<title>Stalag 17</title>
+		<actors>
+			<actor>
+				<name>William Holden</name>
+				<birthday>1918-01-01</birthday>
+				<birthplace>Illinois</birthplace>
+			</actor>
+		</actors>
+		<date>1954-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_105</id>
+		<title>On The Waterfront</title>
+		<actors>
+			<actor>
+				<name>Marlon Brando</name>
+				<birthday>1924-01-01</birthday>
+				<birthplace>Nebraska</birthplace>
+			</actor>
+		</actors>
+		<date>1955-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_106</id>
+		<title>Marty</title>
+		<actors>
+			<actor>
+				<name>Ernest Borgnine</name>
+				<birthday>1917-01-01</birthday>
+				<birthplace>Connecticut</birthplace>
+			</actor>
+		</actors>
+		<date>1956-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_107</id>
+		<title>The King and I</title>
+		<actors>
+			<actor>
+				<name>Yul Brynner</name>
+				<birthday>1915-01-01</birthday>
+				<birthplace>Russia</birthplace>
+			</actor>
+		</actors>
+		<date>1957-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_108</id>
+		<title>The Bridge On The River Kwai</title>
+		<actors>
+			<actor>
+				<name>Alec Guinness</name>
+				<birthday>1914-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1958-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_109</id>
+		<title>Separate Tables</title>
+		<actors>
+			<actor>
+				<name>David Niven</name>
+				<birthday>1910-01-01</birthday>
+				<birthplace>Wales</birthplace>
+			</actor>
+		</actors>
+		<date>1959-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_110</id>
+		<title>Ben-Hur</title>
+		<actors>
+			<actor>
+				<name>Charlton Heston</name>
+				<birthday>1923-01-01</birthday>
+				<birthplace>Illinois</birthplace>
+			</actor>
+		</actors>
+		<date>1960-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_111</id>
+		<title>Elmer Gantry</title>
+		<actors>
+			<actor>
+				<name>Burt Lancaster</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1961-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_112</id>
+		<title>Judgment at Nuremburg</title>
+		<actors>
+			<actor>
+				<name>Maximilian Schell</name>
+				<birthday>1930-01-01</birthday>
+				<birthplace>Austria</birthplace>
+			</actor>
+		</actors>
+		<date>1962-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_113</id>
+		<title>To Kill a Mockingbird</title>
+		<actors>
+			<actor>
+				<name>Gregory Peck</name>
+				<birthday>1916-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1963-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_114</id>
+		<title>Lilies of the Field</title>
+		<actors>
+			<actor>
+				<name>Sidney Poitier</name>
+				<birthday>1927-01-01</birthday>
+				<birthplace>Florida</birthplace>
+			</actor>
+		</actors>
+		<date>1964-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_115</id>
+		<title>My Fair Lady</title>
+		<actors>
+			<actor>
+				<name>Rex Harrison</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1965-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_116</id>
+		<title>Cat Ballou</title>
+		<actors>
+			<actor>
+				<name>Lee Marvin</name>
+				<birthday>1924-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1966-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_117</id>
+		<title>A Man for All Seasons</title>
+		<actors>
+			<actor>
+				<name>Paul Scofield</name>
+				<birthday>1922-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1967-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_118</id>
+		<title>In the Heat of the Night</title>
+		<actors>
+			<actor>
+				<name>Rod Steiger</name>
+				<birthday>1925-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_119</id>
+		<title>Charly</title>
+		<actors>
+			<actor>
+				<name>Cliff Robertson</name>
+				<birthday>1925-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1969-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_120</id>
+		<title>True Grit</title>
+		<actors>
+			<actor>
+				<name>John Wayne</name>
+				<birthday>1907-01-01</birthday>
+				<birthplace>Iowa</birthplace>
+			</actor>
+		</actors>
+		<date>1970-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_121</id>
+		<title>Patton</title>
+		<actors>
+			<actor>
+				<name>George C. Scott</name>
+				<birthday>1927-01-01</birthday>
+				<birthplace>Virginia</birthplace>
+			</actor>
+		</actors>
+		<date>1971-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_122</id>
+		<title>The French Connection</title>
+		<actors>
+			<actor>
+				<name>Gene Hackman</name>
+				<birthday>1930-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1972-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_123</id>
+		<title>The Godfather</title>
+		<actors>
+			<actor>
+				<name>Marlon Brando</name>
+				<birthday>1924-01-01</birthday>
+				<birthplace>Nebraska</birthplace>
+			</actor>
+		</actors>
+		<date>1973-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_124</id>
+		<title>Save the Tiger</title>
+		<actors>
+			<actor>
+				<name>Jack Lemmon</name>
+				<birthday>1925-01-01</birthday>
+				<birthplace>Massachusetts</birthplace>
+			</actor>
+		</actors>
+		<date>1974-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_125</id>
+		<title>Harry and Tonto</title>
+		<actors>
+			<actor>
+				<name>Art Carney</name>
+				<birthday>1918-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1975-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_126</id>
+		<title>One Flew Over The Cuckoo's Nes</title>
+		<actors>
+			<actor>
+				<name>Jack Nicholson</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1976-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_127</id>
+		<title>The Goodbye Girl</title>
+		<actors>
+			<actor>
+				<name>Richard Dreyfuss</name>
+				<birthday>1947-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1978-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_128</id>
+		<title>Kramer vs. Kramer</title>
+		<actors>
+			<actor>
+				<name>Dustin Hoffman</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1980-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_129</id>
+		<title>Raging Bull</title>
+		<actors>
+			<actor>
+				<name>Robert De Niro</name>
+				<birthday>1943-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1981-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_130</id>
+		<title>Ghandi</title>
+		<actors>
+			<actor>
+				<name>Ben Kingsley</name>
+				<birthday>1943-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1983-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_131</id>
+		<title>Tender Mercies</title>
+		<actors>
+			<actor>
+				<name>Robert Duvall</name>
+				<birthday>1931-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1984-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_132</id>
+		<title>Amadeus</title>
+		<actors>
+			<actor>
+				<name>F. Murray Abraham</name>
+				<birthday>1939-01-01</birthday>
+				<birthplace>Pennsylvania</birthplace>
+			</actor>
+		</actors>
+		<date>1985-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_133</id>
+		<title>Kiss of the Spider Woman</title>
+		<actors>
+			<actor>
+				<name>William Hurt</name>
+				<birthday>1950-01-01</birthday>
+				<birthplace>Washington DC</birthplace>
+			</actor>
+		</actors>
+		<date>1986-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_134</id>
+		<title>The Color of Money</title>
+		<actors>
+			<actor>
+				<name>Paul Newman</name>
+				<birthday>1925-01-01</birthday>
+				<birthplace>Ohio</birthplace>
+			</actor>
+		</actors>
+		<date>1987-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_135</id>
+		<title>Wall Street</title>
+		<actors>
+			<actor>
+				<name>Michael Douglas</name>
+				<birthday>1944-01-01</birthday>
+				<birthplace>New Jersey</birthplace>
+			</actor>
+		</actors>
+		<date>1988-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_136</id>
+		<title>Rain Man</title>
+		<actors>
+			<actor>
+				<name>Dustin Hoffman</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1989-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_137</id>
+		<title>My Left Foot</title>
+		<actors>
+			<actor>
+				<name>Daniel Day-Lewis</name>
+				<birthday>1957-01-01</birthday>
+				<birthplace>England</birthplace>
+			</actor>
+		</actors>
+		<date>1990-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_138</id>
+		<title>Reversal of Fortune</title>
+		<actors>
+			<actor>
+				<name>Jeremy Irons</name>
+				<birthday>1948-01-01</birthday>
+				<birthplace>Isle of Wight</birthplace>
+			</actor>
+		</actors>
+		<date>1991-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_139</id>
+		<title>Scent of a Woman</title>
+		<actors>
+			<actor>
+				<name>Al Pacino</name>
+				<birthday>1940-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1993-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_140</id>
+		<title>Philadelphia</title>
+		<actors>
+			<actor>
+				<name>Tom Hanks</name>
+				<birthday>1956-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1994-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_141</id>
+		<title>Forest Gump</title>
+		<actors>
+			<actor>
+				<name>Tom Hanks</name>
+				<birthday>1956-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1995-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_142</id>
+		<title>Leaving Las Vegas</title>
+		<actors>
+			<actor>
+				<name>Nicolas Cage</name>
+				<birthday>1964-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>1996-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_143</id>
+		<title>Shine</title>
+		<actors>
+			<actor>
+				<name>Geoffrey Rush</name>
+				<birthday>1951-01-01</birthday>
+				<birthplace>Australia</birthplace>
+			</actor>
+		</actors>
+		<date>1997-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_144</id>
+		<title>As Good as It Gets</title>
+		<actors>
+			<actor>
+				<name>Jack Nicholson</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_145</id>
+		<title>Life is Beautiful</title>
+		<actors>
+			<actor>
+				<name>Roberto Benigni</name>
+				<birthday>1952-01-01</birthday>
+				<birthplace>Italy</birthplace>
+			</actor>
+		</actors>
+		<date>1999-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_146</id>
+		<title>American Beauty</title>
+		<actors>
+			<actor>
+				<name>Kevin Spacey</name>
+				<birthday>1959-01-01</birthday>
+				<birthplace>New Jersey</birthplace>
+			</actor>
+		</actors>
+		<date>2000-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_147</id>
+		<title>Gladiator</title>
+		<actors>
+			<actor>
+				<name>Russell Crowe</name>
+				<birthday>1964-01-01</birthday>
+				<birthplace>New Zealand</birthplace>
+			</actor>
+		</actors>
+		<date>2001-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_148</id>
+		<title>Training Day</title>
+		<actors>
+			<actor>
+				<name>Denzel Washington</name>
+				<birthday>1954-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>2001-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_149</id>
+		<title>The Pianist</title>
+		<actors>
+			<actor>
+				<name>Adrien Brody</name>
+				<birthday>1973-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>2003-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_150</id>
+		<title>Mystic River</title>
+		<actors>
+			<actor>
+				<name>Sean Penn</name>
+				<birthday>1960-01-01</birthday>
+				<birthplace>California</birthplace>
+			</actor>
+		</actors>
+		<date>2004-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_151</id>
+		<title>Ray</title>
+		<actors>
+			<actor>
+				<name>Jamie Foxx</name>
+				<birthday>1967-01-01</birthday>
+				<birthplace>Texas</birthplace>
+			</actor>
+		</actors>
+		<date>2005-01-01</date>
+	</movie>
+</movies>

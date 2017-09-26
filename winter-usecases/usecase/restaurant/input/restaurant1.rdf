@@ -1,0 +1,1818 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:ontology_base="http://www.okkam.org/ontology_restaurant1.owl#"
+    xmlns:PREFIX="http://www.okkam.org/oaie/restaurant1-"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address81">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City81"/>
+    <ontology_base:street>2290 peachtree rd.  peachtree square shopping center</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City55">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant16">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address16"/>
+    <ontology_base:category>californian</ontology_base:category>
+    <ontology_base:phone_number>213/467-1108</ontology_base:phone_number>
+    <ontology_base:name>patina</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address109">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City109"/>
+    <ontology_base:street>545 post st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address12">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City12"/>
+    <ontology_base:street>8284 melrose ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City2">
+    <ontology_base:name>bel air</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City41">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City15">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address8">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City8"/>
+    <ontology_base:street>23725 w. malibu rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City95">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant95">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address95"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>415/956-9662</ontology_base:phone_number>
+    <ontology_base:name>aqua</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant56">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address56"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>718/522-5200</ontology_base:phone_number>
+    <ontology_base:name>river cafe</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant101">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address101"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/543-0573</ontology_base:phone_number>
+    <ontology_base:name>fringale</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant26">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address26"/>
+    <ontology_base:category>coffee bar</ontology_base:category>
+    <ontology_base:phone_number>212/496-6031</ontology_base:phone_number>
+    <ontology_base:name>cafe lalo</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City81">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant76">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address76"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>404/237-2663</ontology_base:phone_number>
+    <ontology_base:name>bone's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City103">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant66">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address66"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/ 921-9494</ontology_base:phone_number>
+    <ontology_base:name>virgil's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address61">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City61"/>
+    <ontology_base:street>1110 3rd ave. at 65th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant36">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address36"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/477-0777</ontology_base:phone_number>
+    <ontology_base:name>gramercy tavern</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant46">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address46"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/754-6272</ontology_base:phone_number>
+    <ontology_base:name>march</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant81">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address81"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>404/352-3517</ontology_base:phone_number>
+    <ontology_base:name>georgia grille</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant17">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address17"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>213/628-3781</ontology_base:phone_number>
+    <ontology_base:name>philippe's the original</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City56">
+    <ontology_base:name>brooklyn</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address80">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City80"/>
+    <ontology_base:street>1 margaret mitchell sq.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City1">
+    <ontology_base:name>studio city</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address11">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City11"/>
+    <ontology_base:street>903 n. la cienega blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant67">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address67"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>702/733-8899</ontology_base:phone_number>
+    <ontology_base:name>chin's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address108">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City108"/>
+    <ontology_base:street>3201 fillmore st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City14">
+    <ontology_base:name>beverly hills</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City42">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address7">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City7"/>
+    <ontology_base:street>8358 sunset blvd. west</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City112">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City82">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City96">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant80">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address80"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>404/681-2909</ontology_base:phone_number>
+    <ontology_base:name>delectables</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant100">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address100"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/673-7779</ontology_base:phone_number>
+    <ontology_base:name>fleur de lys</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant57">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address57"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>212/265-5959</ontology_base:phone_number>
+    <ontology_base:name>san domenico</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant94">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address94"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/387-0408</ontology_base:phone_number>
+    <ontology_base:name>alain rondelli</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City13">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant27">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address27"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>212/877-3500</ontology_base:phone_number>
+    <ontology_base:name>cafe des artistes</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant77">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address77"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>404/266-1440</ontology_base:phone_number>
+    <ontology_base:name>brasserie le coze</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address29">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City29"/>
+    <ontology_base:street>854 7th ave.  between 54th and 55th sts.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address60">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City60"/>
+    <ontology_base:street>43 w. 65th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address39">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City39"/>
+    <ontology_base:street>33 w. 55th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address10">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City10"/>
+    <ontology_base:street>1972 n. hillhurst ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City102">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant47">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address47"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/807-7400</ontology_base:phone_number>
+    <ontology_base:name>mesa grill</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant37">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address37"/>
+    <ontology_base:category>tel caribbean</ontology_base:category>
+    <ontology_base:phone_number>212/765-1737</ontology_base:phone_number>
+    <ontology_base:name>island spice</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address14">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City14"/>
+    <ontology_base:street>129 n. la cienega blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City53">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City0">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant18">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address18"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>818/990-0500</ontology_base:phone_number>
+    <ontology_base:name>pinot bistro</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant44">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address44"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/752-2225</ontology_base:phone_number>
+    <ontology_base:name>lutece</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City43">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant78">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address78"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>404/262-3336</ontology_base:phone_number>
+    <ontology_base:name>buckhead diner</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address107">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City107"/>
+    <ontology_base:street>1737 post st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City17">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address28">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City28"/>
+    <ontology_base:street>2450 broadway  between 90th and 91st sts.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant103">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address103"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>415/668-6654</ontology_base:phone_number>
+    <ontology_base:name>khan toke thai house</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant58">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address58"/>
+    <ontology_base:category>delicatessen</ontology_base:category>
+    <ontology_base:phone_number>212/677-0606</ontology_base:phone_number>
+    <ontology_base:name>second avenue deli</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant93">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address93"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>404/875-8424</ontology_base:phone_number>
+    <ontology_base:name>veni vidi vici</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant24">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address24"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>212/307-7311</ontology_base:phone_number>
+    <ontology_base:name>aquavit</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City83">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant83">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address83"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>404/876-4408</ontology_base:phone_number>
+    <ontology_base:name>heera of india</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City93">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City101">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant64">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address64"/>
+    <ontology_base:category>mediterranean</ontology_base:category>
+    <ontology_base:phone_number>212/315-1726</ontology_base:phone_number>
+    <ontology_base:name>uncle nick's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant38">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address38"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/223-5656</ontology_base:phone_number>
+    <ontology_base:name>jo jo</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address13">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City13"/>
+    <ontology_base:street>3rd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City54">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant19">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address19"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>213/627-2300</ontology_base:phone_number>
+    <ontology_base:name>rex il ristorante</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City44">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address9">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City9"/>
+    <ontology_base:street>9560 dayton way</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City16">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant79">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address79"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>404/874-7600</ontology_base:phone_number>
+    <ontology_base:name>ciboulette</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address106">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City106"/>
+    <ontology_base:street>648 bush st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address27">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City27"/>
+    <ontology_base:street>1 w. 67th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant59">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address59"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>212/980-9393</ontology_base:phone_number>
+    <ontology_base:name>seryna</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant102">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address102"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>415/777-9779</ontology_base:phone_number>
+    <ontology_base:name>hawthorne lane</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant92">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address92"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>404/351-9533</ontology_base:phone_number>
+    <ontology_base:name>toulouse</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant25">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address25"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/ 319-1660</ontology_base:phone_number>
+    <ontology_base:name>aureole</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City94">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant82">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address82"/>
+    <ontology_base:category>international</ontology_base:category>
+    <ontology_base:phone_number>404/233-7673</ontology_base:phone_number>
+    <ontology_base:name>hedgerose heights inn</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City100">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant112">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address112"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>310/475-9807</ontology_base:phone_number>
+    <ontology_base:name>adriano's ristorante</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City84">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant45">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address45"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>212/ 371-7777</ontology_base:phone_number>
+    <ontology_base:name>manhattan ocean club</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant65">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address65"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/243-4020</ontology_base:phone_number>
+    <ontology_base:name>union square cafe</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant39">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address39"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/586-4252</ontology_base:phone_number>
+    <ontology_base:name>la caravelle</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address4">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City4"/>
+    <ontology_base:street>624 s. la brea ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address47">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City47"/>
+    <ontology_base:street>102 5th ave.  between 15th and 16th sts.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address105">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City105"/>
+    <ontology_base:street>816 folsom st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City19">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant52">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address52"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/245-2214</ontology_base:phone_number>
+    <ontology_base:name>petrossian</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City45">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address71">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City71"/>
+    <ontology_base:street>200 e. fremont st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant42">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address42"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/484-5113</ontology_base:phone_number>
+    <ontology_base:name>les celebrites</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address16">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City16"/>
+    <ontology_base:street>5955 melrose ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address98">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City98"/>
+    <ontology_base:street>340 stockton st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address85">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City85"/>
+    <ontology_base:street>2637 peachtree rd.  peachtree house condominium</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant12">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address12"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>213/655-8880</ontology_base:phone_number>
+    <ontology_base:name>le chardonnay</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City29">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City79">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant85">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address85"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>404/231-1368</ontology_base:phone_number>
+    <ontology_base:name>la grotta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address36">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City36"/>
+    <ontology_base:street>42 e. 20th st.  between park ave. s and broadway</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address99">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City99"/>
+    <ontology_base:street>804 northpoint</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City85">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City39">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City99">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant105">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address105"/>
+    <ontology_base:category>mediterranean</ontology_base:category>
+    <ontology_base:phone_number>415/495-5775</ontology_base:phone_number>
+    <ontology_base:name>lulu</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant99">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address99"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/775-7036</ontology_base:phone_number>
+    <ontology_base:name>chez michel</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City65">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address26">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City26"/>
+    <ontology_base:street>201 w. 83rd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address3">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City3"/>
+    <ontology_base:street>14016 ventura blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address48">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City48"/>
+    <ontology_base:street>57 jane st.  off hudson st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address104">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City104"/>
+    <ontology_base:street>2316 polk st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City46">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address70">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City70"/>
+    <ontology_base:street>3570 las vegas blvd. s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant53">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address53"/>
+    <ontology_base:category>mediterranean</ontology_base:category>
+    <ontology_base:phone_number>212/724-8585</ontology_base:phone_number>
+    <ontology_base:name>picholine</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City18">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant43">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address43"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/339-6719</ontology_base:phone_number>
+    <ontology_base:name>lespinasse</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address15">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City15"/>
+    <ontology_base:street>9001 santa monica blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant13">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address13"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>310/274-1893</ontology_base:phone_number>
+    <ontology_base:name>locanda veneta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address84">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City84"/>
+    <ontology_base:street>1397 n. highland ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City28">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City86">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address35">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City35"/>
+    <ontology_base:street>12 e. 12th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant84">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address84"/>
+    <ontology_base:category>caribbean</ontology_base:category>
+    <ontology_base:phone_number>404/876-0676</ontology_base:phone_number>
+    <ontology_base:name>indigo coastal grill</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City38">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City47">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address25">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City25"/>
+    <ontology_base:street>34 e. 61st st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City66">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant104">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address104"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/776-5577</ontology_base:phone_number>
+    <ontology_base:name>la folie</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant98">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address98"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>415/955-5555</ontology_base:phone_number>
+    <ontology_base:name>campton place</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant54">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address54"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>212/260-6660</ontology_base:phone_number>
+    <ontology_base:name>pisces</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address6">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City6"/>
+    <ontology_base:street>6703 melrose ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address49">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City49"/>
+    <ontology_base:street>239 w. broadway  between walker and white sts.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address103">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City103"/>
+    <ontology_base:street>5937 geary blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address73">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City73"/>
+    <ontology_base:street>2245 e. flamingo rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant2">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address2"/>
+    <ontology_base:category>californian</ontology_base:category>
+    <ontology_base:phone_number>310/472-1211</ontology_base:phone_number>
+    <ontology_base:name>hotel bel-air</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant14">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address14"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>310/659-9639</ontology_base:phone_number>
+    <ontology_base:name>matsuhisa</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant68">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address68"/>
+    <ontology_base:category>southwestern</ontology_base:category>
+    <ontology_base:phone_number>702/891-7349</ontology_base:phone_number>
+    <ontology_base:name>coyote cafe</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant40">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address40"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/688-6525</ontology_base:phone_number>
+    <ontology_base:name>la cote basque</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City57">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address18">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City18"/>
+    <ontology_base:street>12969 ventura blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address59">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City59"/>
+    <ontology_base:street>11 e. 53rd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address83">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City83"/>
+    <ontology_base:street>595 piedmont ave.  rio shopping mall</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City58">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City27">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City87">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant87">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address87"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>404/221-6362</ontology_base:phone_number>
+    <ontology_base:name>nikolai's roof</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address38">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City38"/>
+    <ontology_base:street>160 e. 64th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City77">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City67">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant28">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address28"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>212/362-2200</ontology_base:phone_number>
+    <ontology_base:name>carmine's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant97">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address97"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/392-3505</ontology_base:phone_number>
+    <ontology_base:name>cafe claude</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant107">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address107"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>415/922-0337</ontology_base:phone_number>
+    <ontology_base:name>mifune japan center  kintetsu building</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address24">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City24"/>
+    <ontology_base:street>13 w. 54th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City111">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City48">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City97">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant55">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address55"/>
+    <ontology_base:category>or 212/632-5100 american</ontology_base:category>
+    <ontology_base:phone_number>212/632-5000</ontology_base:phone_number>
+    <ontology_base:name>rainbow room</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address72">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City72"/>
+    <ontology_base:street>2880 las vegas blvd. s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address102">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City102"/>
+    <ontology_base:street>22 hawthorne st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City69">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant1">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address1"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>818/762-1221</ontology_base:phone_number>
+    <ontology_base:name>art's delicatessen</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address5">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City5"/>
+    <ontology_base:street>2709 main st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant69">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address69"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>702/732-5111</ontology_base:phone_number>
+    <ontology_base:name>le montrachet</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant15">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address15"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>310/550-8811</ontology_base:phone_number>
+    <ontology_base:name>the palm</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address82">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City82"/>
+    <ontology_base:street>490 e. paces ferry rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address17">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City17"/>
+    <ontology_base:street>1001 n. alameda st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant41">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address41"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/489-1515</ontology_base:phone_number>
+    <ontology_base:name>le bernardin</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City59">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City26">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant86">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address86"/>
+    <ontology_base:category>southern</ontology_base:category>
+    <ontology_base:phone_number>404/876-1800</ontology_base:phone_number>
+    <ontology_base:name>mary mac's tea room</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address37">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City37"/>
+    <ontology_base:street>402 w. 44th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City78">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City88">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant96">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address96"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>415/543-6084</ontology_base:phone_number>
+    <ontology_base:name>boulevard</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant106">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address106"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>415/989-7154</ontology_base:phone_number>
+    <ontology_base:name>masa's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant0">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address0"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>310/246-1501</ontology_base:phone_number>
+    <ontology_base:name>arnie morton's of chicago</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City98">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant29">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address29"/>
+    <ontology_base:category>delicatessen</ontology_base:category>
+    <ontology_base:phone_number>212/757-2245</ontology_base:phone_number>
+    <ontology_base:name>carnegie deli</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City68">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address23">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City23"/>
+    <ontology_base:street>21 w. 52nd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City49">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City110">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address100">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City100"/>
+    <ontology_base:street>777 sutter st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address33">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City33"/>
+    <ontology_base:street>243 e. 58th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City62">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant109">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address109"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>415/776-7825</ontology_base:phone_number>
+    <ontology_base:name>postrio</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address110">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City110"/>
+    <ontology_base:street>600 stockton st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address1">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City1"/>
+    <ontology_base:street>12224 ventura blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City76">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City108">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City25">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City24">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant89">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address89"/>
+    <ontology_base:category>ext 6108 international</ontology_base:category>
+    <ontology_base:phone_number>404/237-2700</ontology_base:phone_number>
+    <ontology_base:name>cafe  ritz-carlton  buckhead</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address94">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City94"/>
+    <ontology_base:street>126 clement st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant5">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address5"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>310/392-9025</ontology_base:phone_number>
+    <ontology_base:name>chinois on main</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address42">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City42"/>
+    <ontology_base:street>160 central park s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address32">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City32"/>
+    <ontology_base:street>210 e. 58th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address75">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City75"/>
+    <ontology_base:street>3125 piedmont rd.  near peachtree rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City34">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address56">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City56"/>
+    <ontology_base:street>1 water st. at the east river</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address54">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City54"/>
+    <ontology_base:street>95 ave. a at 6th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address34">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City34"/>
+    <ontology_base:street>99 e. 52nd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City61">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address111">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City111"/>
+    <ontology_base:street>532 columbus ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address44">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City44"/>
+    <ontology_base:street>249 e. 50th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant88">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address88"/>
+    <ontology_base:category>international</ontology_base:category>
+    <ontology_base:phone_number>404/261-3662</ontology_base:phone_number>
+    <ontology_base:name>pano's and paul's</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address89">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City89"/>
+    <ontology_base:street>3434 peachtree rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant108">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address108"/>
+    <ontology_base:category>mediterranean</ontology_base:category>
+    <ontology_base:phone_number>415/563-4755</ontology_base:phone_number>
+    <ontology_base:name>plumpjack cafe</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City75">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City109">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City89">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address95">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City95"/>
+    <ontology_base:street>252 california st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address2">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City2"/>
+    <ontology_base:street>701 stone canyon rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City23">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address69">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City69"/>
+    <ontology_base:street>3000 w. paradise rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address43">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City43"/>
+    <ontology_base:street>2 e. 55th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant6">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address6"/>
+    <ontology_base:category>californian</ontology_base:category>
+    <ontology_base:phone_number>213/857-0034</ontology_base:phone_number>
+    <ontology_base:name>citrus</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address74">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City74"/>
+    <ontology_base:street>2355 peachtree rd.  peachtree battle shopping center</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address101">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City101"/>
+    <ontology_base:street>570 4th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City33">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address55">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City55"/>
+    <ontology_base:street>30 rockefeller plaza</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City9">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address19">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City19"/>
+    <ontology_base:street>617 s. olive st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City64">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address78">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City78"/>
+    <ontology_base:street>3073 piedmont road</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City37">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant70">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address70"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>702/731-7547</ontology_base:phone_number>
+    <ontology_base:name>palace court</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant11">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address11"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>310/652-9770</ontology_base:phone_number>
+    <ontology_base:name>l'orangerie</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City74">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address88">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City88"/>
+    <ontology_base:street>1232 w. paces ferry rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address45">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City45"/>
+    <ontology_base:street>57 w. 58th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address112">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City112"/>
+    <ontology_base:street>2930 beverly glen circle</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address87">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City87"/>
+    <ontology_base:street>255 courtland st.  at harris st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant31">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address31"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/288-0033</ontology_base:phone_number>
+    <ontology_base:name>daniel</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address68">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City68"/>
+    <ontology_base:street>3799 las vegas blvd. s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant3">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address3"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>818/788-3536</ontology_base:phone_number>
+    <ontology_base:name>cafe bizou</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address96">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City96"/>
+    <ontology_base:street>1 mission st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City22">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address58">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City58"/>
+    <ontology_base:street>156 2nd ave. at 10th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City8">
+    <ontology_base:name>malibu</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant50">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address50"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>212/759-5941</ontology_base:phone_number>
+    <ontology_base:name>oceana</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address30">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City30"/>
+    <ontology_base:street>2 harrison st.  near hudson st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address77">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City77"/>
+    <ontology_base:street>3393 peachtree rd.  lenox square mall  near neiman marcus</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City63">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant71">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address71"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>702/385-3232</ontology_base:phone_number>
+    <ontology_base:name>second street grille</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City36">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address0">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City0"/>
+    <ontology_base:street>435 s. la cienega blv.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant10">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address10"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>213/665-1891</ontology_base:phone_number>
+    <ontology_base:name>restaurant katsu</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City73">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address46">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City46"/>
+    <ontology_base:street>405 e. 58th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant30">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address30"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/966-6960</ontology_base:phone_number>
+    <ontology_base:name>chanterelle</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address86">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City86"/>
+    <ontology_base:street>224 ponce de leon ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City21">
+    <ontology_base:name>santa monica</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address67">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City67"/>
+    <ontology_base:street>3200 las vegas blvd. s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant4">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address4"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>213/938-1447</ontology_base:phone_number>
+    <ontology_base:name>campanile</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address97">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City97"/>
+    <ontology_base:street>7 claude la.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City7">
+    <ontology_base:name>hollywood</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address57">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City57"/>
+    <ontology_base:street>240 central park s</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City35">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address76">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City76"/>
+    <ontology_base:street>3130 piedmont road</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant51">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address51"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/644-1900</ontology_base:phone_number>
+    <ontology_base:name>park avenue cafe</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address31">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City31"/>
+    <ontology_base:street>20 e. 76th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City72">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address65">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City65"/>
+    <ontology_base:street>21 e. 16th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant62">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address62"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/753-1530</ontology_base:phone_number>
+    <ontology_base:name>smith &amp; wollensky</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City91">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant72">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address72"/>
+    <ontology_base:category>steak houses</ontology_base:category>
+    <ontology_base:phone_number>702/734-0410</ontology_base:phone_number>
+    <ontology_base:name>steak house</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City104">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address51">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City51"/>
+    <ontology_base:street>100 e. 63rd st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City10">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant23">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address23"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/582-7200</ontology_base:phone_number>
+    <ontology_base:name>21 club</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address90">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City90"/>
+    <ontology_base:street>3434 peachtree rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City30">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant9">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address9"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>310/276-0615</ontology_base:phone_number>
+    <ontology_base:name>grill on the alley</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City6">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City52">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address66">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City66"/>
+    <ontology_base:street>152 w. 44th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City20">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant33">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address33"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>212/758-1479</ontology_base:phone_number>
+    <ontology_base:name>felidia</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant63">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address63"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/873-3200</ontology_base:phone_number>
+    <ontology_base:name>tavern on the green</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant111">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address111"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>415/399-0499</ontology_base:phone_number>
+    <ontology_base:name>rose pistola</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City92">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address64">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City64"/>
+    <ontology_base:street>747 9th ave.  between 50th and 51st sts.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City105">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant73">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address73"/>
+    <ontology_base:category>seafood</ontology_base:category>
+    <ontology_base:phone_number>702/731-4036</ontology_base:phone_number>
+    <ontology_base:name>tillerman</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address50">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City50"/>
+    <ontology_base:street>55 e. 54th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City71">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address79">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City79"/>
+    <ontology_base:street>1529 piedmont ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant22">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address22"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>818/585-0855</ontology_base:phone_number>
+    <ontology_base:name>yujean kang's gourmet chinese cuisine</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City51">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City5">
+    <ontology_base:name>santa monica</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant110">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address110"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>415/296-7465</ontology_base:phone_number>
+    <ontology_base:name>ritz-carlton restaurant and dining room</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address91">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City91"/>
+    <ontology_base:street>181 peachtree st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant32">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address32"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>212/355-7555</ontology_base:phone_number>
+    <ontology_base:name>dawat</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City106">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant49">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address49"/>
+    <ontology_base:category>french</ontology_base:category>
+    <ontology_base:phone_number>212/ 219-2777</ontology_base:phone_number>
+    <ontology_base:name>montrachet</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address20">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City20"/>
+    <ontology_base:street>1114 horn ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant60">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address60"/>
+    <ontology_base:category>asian</ontology_base:category>
+    <ontology_base:phone_number>212/371-8844</ontology_base:phone_number>
+    <ontology_base:name>shun lee west</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address63">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City63"/>
+    <ontology_base:street>in central park at 67th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City60">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant35">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address35"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/620-4020</ontology_base:phone_number>
+    <ontology_base:name>gotham bar &amp; grill</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant90">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address90"/>
+    <ontology_base:category>international</ontology_base:category>
+    <ontology_base:phone_number>404/237-2700</ontology_base:phone_number>
+    <ontology_base:name>dining room  ritz-carlton  buckhead</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City70">
+    <ontology_base:name>las vegas</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City12">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant74">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address74"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>404/261-8186</ontology_base:phone_number>
+    <ontology_base:name>abruzzi</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address53">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City53"/>
+    <ontology_base:street>35 w. 64th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City40">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City32">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant21">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address21"/>
+    <ontology_base:category>italian</ontology_base:category>
+    <ontology_base:phone_number>310/829-4313</ontology_base:phone_number>
+    <ontology_base:name>valentino</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address40">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City40"/>
+    <ontology_base:street>60 w. 55th st.  between 5th and 6th ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant7">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address7"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>213/848-6677</ontology_base:phone_number>
+    <ontology_base:name>fenix</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address92">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City92"/>
+    <ontology_base:street>b peachtree rd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City4">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City50">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City90">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address62">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City62"/>
+    <ontology_base:street>201 e. 49th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address21">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City21"/>
+    <ontology_base:street>3115 pico blvd.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant61">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address61"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/861-8080</ontology_base:phone_number>
+    <ontology_base:name>sign of the dove</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City107">
+    <ontology_base:name>san francisco</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant48">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address48"/>
+    <ontology_base:category>mexican</ontology_base:category>
+    <ontology_base:phone_number>212/627-8273</ontology_base:phone_number>
+    <ontology_base:name>mi cocina</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant34">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address34"/>
+    <ontology_base:category>american</ontology_base:category>
+    <ontology_base:phone_number>212/754-9494</ontology_base:phone_number>
+    <ontology_base:name>four seasons grill room</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant75">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address75"/>
+    <ontology_base:category>international</ontology_base:category>
+    <ontology_base:phone_number>404/365-0410</ontology_base:phone_number>
+    <ontology_base:name>bacchanalia</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City11">
+    <ontology_base:name>los angeles</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant91">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address91"/>
+    <ontology_base:category>continental</ontology_base:category>
+    <ontology_base:phone_number>404/659-0400</ontology_base:phone_number>
+    <ontology_base:name>restaurant  ritz-carlton  atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address52">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City52"/>
+    <ontology_base:street>182 w. 58th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City80">
+    <ontology_base:name>atlanta</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant20">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address20"/>
+    <ontology_base:category>californian</ontology_base:category>
+    <ontology_base:phone_number>310/652-4025</ontology_base:phone_number>
+    <ontology_base:name>spago</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City31">
+    <ontology_base:name>new york</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Restaurant8">
+    <ontology_base:has_address rdf:resource="http://www.okkam.org/oaie/restaurant1-Address8"/>
+    <ontology_base:category>californian</ontology_base:category>
+    <ontology_base:phone_number>310/456-0488</ontology_base:phone_number>
+    <ontology_base:name>granita</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Restaurant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address41">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City41"/>
+    <ontology_base:street>155 w. 51st st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address93">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City93"/>
+    <ontology_base:street>41 14th st.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-Address22">
+    <ontology_base:is_in_city rdf:resource="http://www.okkam.org/oaie/restaurant1-City22"/>
+    <ontology_base:street>67 n. raymond ave.</ontology_base:street>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#Address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.okkam.org/oaie/restaurant1-City3">
+    <ontology_base:name>sherman oaks</ontology_base:name>
+    <rdf:type rdf:resource="http://www.okkam.org/ontology_restaurant1.owl#City"/>
+  </rdf:Description>
+</rdf:RDF>

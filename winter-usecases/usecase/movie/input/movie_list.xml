@@ -1,0 +1,5156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>movie_list_1</id>
+		<title>127 Hours</title>
+		<studio>Independent</studio>
+		<genre>Adventure</genre>
+		<budget>18000000</budget>
+		<gross>60730000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_2</id>
+		<title>A Nightmare on Elm Street</title>
+		<studio>Warner Bros.</studio>
+		<genre>Horror</genre>
+		<budget>35000000</budget>
+		<gross>115660000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_3</id>
+		<title>Alice in Wonderland</title>
+		<studio>Disney</studio>
+		<genre>Adventure</genre>
+		<budget>200000000</budget>
+		<gross>1024390000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_4</id>
+		<title>All About Steve </title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>40130000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_5</id>
+		<title>All Good Things</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>640000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_6</id>
+		<title>Alpha and Omega</title>
+		<studio>Crest</studio>
+		<genre>Animation</genre>
+		<budget>20000000</budget>
+		<gross>29910000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_7</id>
+		<title>Barry Munday</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>movie_list_8</id>
+		<title>Black Swan </title>
+		<studio>Fox</studio>
+		<genre>Drama</genre>
+		<budget>13000000</budget>
+		<gross>329390000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_9</id>
+		<title>Brooklyn's Finest</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>17000000</budget>
+		<gross>36310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_10</id>
+		<title>Buried</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>2000000</budget>
+		<gross>18380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_11</id>
+		<title>Burlesque</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>55000000</budget>
+		<gross>56080000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_12</id>
+		<title>Case 39</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>26000000</budget>
+		<gross>28190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_13</id>
+		<title>Cats &amp; Dogs: The Revenge of Kitty Galore</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>85000000</budget>
+		<gross>112480000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_14</id>
+		<title>Charlie St. Cloud </title>
+		<studio>Universal</studio>
+		<genre>Romance</genre>
+		<budget>44000000</budget>
+		<gross>46090000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_15</id>
+		<title>City Island</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>6000000</budget>
+		<gross>7860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_16</id>
+		<title>Clash of the Titans</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>125000000</budget>
+		<gross>493210000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_17</id>
+		<title>Conviction</title>
+		<studio>Independent</studio>
+		<genre>Biography</genre>
+		<budget>12500000</budget>
+		<gross>9710000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_18</id>
+		<title>Cop Out</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>55520000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_19</id>
+		<title>Country Strong</title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>20520000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_20</id>
+		<title>Cyrus</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>7000000</budget>
+		<gross>9920000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_21</id>
+		<title>Date Night</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>55000000</budget>
+		<gross>152260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_22</id>
+		<title>Daybreakers </title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>51420000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_23</id>
+		<title>Dear John</title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>114980000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_24</id>
+		<title>Death at a Funeral</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>21000000</budget>
+		<gross>49050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_25</id>
+		<title>Despicable Me</title>
+		<studio>Universal</studio>
+		<genre>Animation</genre>
+		<budget>69000000</budget>
+		<gross>541880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_26</id>
+		<title>Devil</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>10000000</budget>
+		<gross>56830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_27</id>
+		<title>Diary of a Wimpy Kid</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>75700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_28</id>
+		<title>Dinner for Schmucks</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>69000000</budget>
+		<gross>86410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_29</id>
+		<title>Due Date</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>50000000</budget>
+		<gross>200550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_30</id>
+		<title>Easy A</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>8000000</budget>
+		<gross>73640000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_31</id>
+		<title>Eat Pray Love </title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>60000000</budget>
+		<gross>204480000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_32</id>
+		<title>Edge of Darkness</title>
+		<studio>Warner Bros.</studio>
+		<genre>Crime</genre>
+		<budget>80000000</budget>
+		<gross>81120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_33</id>
+		<title>Extraordinary Measures </title>
+		<studio>CBS</studio>
+		<genre>Drama</genre>
+		<budget>31000000</budget>
+		<gross>15130000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_34</id>
+		<title>Faster </title>
+		<studio>CBS</studio>
+		<genre>Action</genre>
+		<budget>24000000</budget>
+		<gross>24910000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_35</id>
+		<title>For Colored Girls</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>21000000</budget>
+		<gross>37700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_36</id>
+		<title>From Paris with Love</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>52000000</budget>
+		<gross>52800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_37</id>
+		<title>Furry Vengeance </title>
+		<studio>Summit</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>35970000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_38</id>
+		<title>Get Him to the Greek</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>91390000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_39</id>
+		<title>Going the Distance</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>32000000</budget>
+		<gross>42050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_40</id>
+		<title>Green Zone</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>100000000</budget>
+		<gross>94880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_41</id>
+		<title>Greenberg</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<gross>6150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_42</id>
+		<title>Grown Ups </title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>267400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_43</id>
+		<title>Gulliver's Travels</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>112000000</budget>
+		<gross>237380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_44</id>
+		<title>Hachiko: A Dog's Story</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>16000000</budget>
+		<gross>40260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_45</id>
+		<title>Harry Potter and the Deathly Hallows Part 1</title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>125000000</budget>
+		<gross>955410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_46</id>
+		<title>Hot Tub Time Machine</title>
+		<studio>MGM</studio>
+		<genre>Adventure</genre>
+		<budget>36000000</budget>
+		<gross>64420000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_47</id>
+		<title>How to Train Your Dragon</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>165000000</budget>
+		<gross>494880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_48</id>
+		<title>I Love You Phillip Morris</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>20100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_49</id>
+		<title>I'm Still Here</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<gross>550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_50</id>
+		<title>Inception</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>160000000</budget>
+		<gross>823580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_51</id>
+		<title>Iron Man 2</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>622100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_52</id>
+		<title>Jackass 3-D</title>
+		<studio>Paramount</studio>
+		<genre>Documentary</genre>
+		<budget>20000000</budget>
+		<gross>169950000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_53</id>
+		<title>Jonah Hex</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>47000000</budget>
+		<gross>10900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_54</id>
+		<title>Just Wright</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>12000000</budget>
+		<gross>21570000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_55</id>
+		<title>Kick-Ass</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>96130000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_56</id>
+		<title>Killers</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>75000000</budget>
+		<gross>93400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_57</id>
+		<title>Knight and Day</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>117000000</budget>
+		<gross>261680000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_58</id>
+		<title>Knucklehead</title>
+		<studio>WWE Studios</studio>
+		<genre>Comedy</genre>
+	</movie>
+	<movie>
+		<id>movie_list_59</id>
+		<title>Leap Year</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>19000000</budget>
+		<gross>32610000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_60</id>
+		<title>Legend of the Guardians: The Owls of Ga'Hoole</title>
+		<studio>Warner Bros.</studio>
+		<genre>Animation</genre>
+		<budget>80000000</budget>
+		<gross>139900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_61</id>
+		<title>Legion</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>26000000</budget>
+		<gross>67910000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_62</id>
+		<title>Letters to Juliet</title>
+		<studio>Summit</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>79180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_63</id>
+		<title>Life as We Know It</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>38000000</budget>
+		<gross>96160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_64</id>
+		<title>Little Fockers</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>100000000</budget>
+		<gross>232700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_65</id>
+		<title>Love &amp; Other Drugs</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>54530000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_66</id>
+		<title>MacGruber</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>10000000</budget>
+		<gross>9320000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_67</id>
+		<title>Machete</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>42150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_68</id>
+		<title>Marmaduke</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>50000000</budget>
+		<gross>83360000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_69</id>
+		<title>Megamind</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>130000000</budget>
+		<gross>321880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_70</id>
+		<title>Morning Glory</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>58780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_71</id>
+		<title>Mother and Child</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>7000000</budget>
+		<gross>4870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_72</id>
+		<title>My Soul to Take</title>
+		<studio>Relativity Media</studio>
+		<genre>Horror</genre>
+		<budget>25000000</budget>
+		<gross>19830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_73</id>
+		<title>Nanny McPhee Returns</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>93250000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_74</id>
+		<title>Never Let Me Go</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>9450000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_75</id>
+		<title>Our Family Wedding</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<gross>21360000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_76</id>
+		<title>Paranormal Activity 2</title>
+		<studio>Paramount</studio>
+		<genre>Horror</genre>
+		<budget>3000000</budget>
+		<gross>177510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_77</id>
+		<title>Percy Jackson &amp; the Olympians: The Lightning Thief</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>95000000</budget>
+		<gross>226500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_78</id>
+		<title>Piranha 3-D</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>24000000</budget>
+		<gross>79780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_79</id>
+		<title>Please Give</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>3000000</budget>
+		<gross>4260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_80</id>
+		<title>Predators</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>126740000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_81</id>
+		<title>Prince of Persia: The Sands of Time</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>335150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_82</id>
+		<title>Red</title>
+		<studio>Summit</studio>
+		<genre>Action</genre>
+		<budget>58000000</budget>
+		<gross>164420000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_83</id>
+		<title>Remember Me</title>
+		<studio>Summit</studio>
+		<genre>Drama</genre>
+		<budget>16000000</budget>
+		<gross>55850000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_84</id>
+		<title>Repo Men</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>32000000</budget>
+		<gross>18410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_85</id>
+		<title>Resident Evil: Afterlife</title>
+		<studio>Highlight Communications</studio>
+		<genre>Action</genre>
+		<budget>60000000</budget>
+		<gross>296220000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_86</id>
+		<title>Robin Hood</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>321670000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_87</id>
+		<title>Salt</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>110000000</budget>
+		<gross>293500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_88</id>
+		<title>Saw 3-D</title>
+		<studio>Independent</studio>
+		<genre>Crime</genre>
+		<budget>20000000</budget>
+		<gross>122510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_89</id>
+		<title>Scott Pilgrim vs. the World</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>60000000</budget>
+		<gross>47580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_90</id>
+		<title>Sex and the City 2</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>100000000</budget>
+		<gross>288350000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_91</id>
+		<title>She's Out of My League</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>48810000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_92</id>
+		<title>Shrek Forever After</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>165000000</budget>
+		<gross>748800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_93</id>
+		<title>Shutter Island</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>80000000</budget>
+		<gross>294800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_94</id>
+		<title>Skyline</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>10000000</budget>
+		<gross>55260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_95</id>
+		<title>Solitary Man</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>5060000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_96</id>
+		<title>Step Up 3D</title>
+		<studio>Summit</studio>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>159150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_97</id>
+		<title>Stone</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>22000000</budget>
+		<gross>8400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_98</id>
+		<title>Takers</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>32000000</budget>
+		<gross>68160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_99</id>
+		<title>Tangled</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>260000000</budget>
+		<gross>355080000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_100</id>
+		<title>The A-Team</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>100000000</budget>
+		<gross>177030000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_101</id>
+		<title>The American</title>
+		<studio>Universal</studio>
+		<genre>Crime</genre>
+		<budget>20000000</budget>
+		<gross>46000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_102</id>
+		<title>The Back-up Plan</title>
+		<studio>CBS</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>77100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_103</id>
+		<title>The Book of Eli </title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>80000000</budget>
+		<gross>153450000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_104</id>
+		<title>The Bounty Hunter</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>136320000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_105</id>
+		<title>The Chronicles of Narnia: The Voyage of the Dawn Treader</title>
+		<studio>Fox</studio>
+		<genre>Adventure</genre>
+		<budget>155000000</budget>
+		<gross>415680000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_106</id>
+		<title>The Company Men</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+	</movie>
+	<movie>
+		<id>movie_list_107</id>
+		<title>The Crazies</title>
+		<studio>Liberty Starz</studio>
+		<genre>Horror</genre>
+		<budget>20000000</budget>
+		<gross>54590000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_108</id>
+		<title>The Expendables</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>82000000</budget>
+		<gross>274470000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_109</id>
+		<title>The Fighter</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>129190000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_110</id>
+		<title>The Ghost Writer</title>
+		<studio>Independent</studio>
+		<genre>Mystery</genre>
+		<budget>45000000</budget>
+		<gross>60020000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_111</id>
+		<title>The Greatest</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>6000000</budget>
+		<gross>410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_112</id>
+		<title>The Joneses</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>10000000</budget>
+		<gross>6410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_113</id>
+		<title>The Karate Kid</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>359130000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_114</id>
+		<title>The Kids Are All Right</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>4000000</budget>
+		<gross>29370000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_115</id>
+		<title>The Killer Inside Me</title>
+		<studio>Independent</studio>
+		<genre>Crime</genre>
+		<budget>13000000</budget>
+		<gross>3580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_116</id>
+		<title>The King's Speech</title>
+		<studio>Independent</studio>
+		<genre>Biography</genre>
+		<budget>15000000</budget>
+		<gross>245200000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_117</id>
+		<title>The Last Airbender</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>319120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_118</id>
+		<title>The Last Exorcism</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>1800000</budget>
+		<gross>66460000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_119</id>
+		<title>The Last Song</title>
+		<studio>Disney</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>89040000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_120</id>
+		<title>The Losers</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>29380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_121</id>
+		<title>The Next Three Days</title>
+		<studio>Lionsgate</studio>
+		<genre>Crime</genre>
+		<budget>30000000</budget>
+		<gross>41750000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_122</id>
+		<title>The Other Guys</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>100000000</budget>
+		<gross>170270000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_123</id>
+		<title>The Runaways</title>
+		<studio>Independent</studio>
+		<genre>Biography</genre>
+		<budget>10000000</budget>
+		<gross>4680000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_124</id>
+		<title>The Social Network</title>
+		<studio>Sony</studio>
+		<genre>Biography</genre>
+		<budget>50000000</budget>
+		<gross>199600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_125</id>
+		<title>The Sorcerer's Apprentice</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>215280000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_126</id>
+		<title>The Spy Next Door</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<gross>43580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_127</id>
+		<title>The Switch</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>19000000</budget>
+		<gross>47730000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_128</id>
+		<title>The Tourist</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>100000000</budget>
+		<gross>278340000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_129</id>
+		<title>The Town</title>
+		<studio>Warner Bros.</studio>
+		<genre>Crime</genre>
+		<budget>37000000</budget>
+		<gross>144550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_130</id>
+		<title>The Twilight Saga: Eclipse </title>
+		<studio>Summit</studio>
+		<genre>Drama</genre>
+		<budget>68000000</budget>
+		<gross>693580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_131</id>
+		<title>The Wolfman</title>
+		<studio>Universal</studio>
+		<genre>Drama</genre>
+		<budget>150000000</budget>
+		<gross>139790000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_132</id>
+		<title>Tooth Fairy</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>48000000</budget>
+		<gross>112360000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_133</id>
+		<title>Toy Story 3</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>200000000</budget>
+		<gross>1063160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_134</id>
+		<title>Tron: Legacy</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>170000000</budget>
+		<gross>291410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_135</id>
+		<title>True Grit</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>38000000</budget>
+		<gross>250930000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_136</id>
+		<title>Unstoppable</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>100000000</budget>
+		<gross>146020000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_137</id>
+		<title>Valentine's Day</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>52000000</budget>
+		<gross>216490000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_138</id>
+		<title>Vampires Suck</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>79980000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_139</id>
+		<title>Wall Street: Money Never Sleeps</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>70000000</budget>
+		<gross>130630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_140</id>
+		<title>When in Rome</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<gross>43040000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_141</id>
+		<title>Why Did I Get Married Too?</title>
+		<studio>Lionsgate</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>60670000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_142</id>
+		<title>Winter's Bone</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>2000000</budget>
+		<gross>7800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_143</id>
+		<title>Yogi Bear</title>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>201580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_144</id>
+		<title>You Again</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>31860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_145</id>
+		<title>You Will Meet a Tall Dark Stranger</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>22000000</budget>
+		<gross>26660000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_146</id>
+		<title>Youth in Revolt</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>18000000</budget>
+		<gross>19620000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_147</id>
+		<title>The Tree Of Life</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>32000000</budget>
+		<gross>54300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_148</id>
+		<title>Midnight in Paris</title>
+		<studio>Sony</studio>
+		<genre>Romance</genre>
+		<budget>17000000</budget>
+		<gross>139180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_149</id>
+		<title>The Descendants</title>
+		<studio>20th Century Fox</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>24540000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_150</id>
+		<title>Harry Potter and the Deathly Hallows Part 2</title>
+		<studio>Warner Bros</studio>
+		<genre>Adventure</genre>
+		<budget>125000000</budget>
+		<gross>1328110000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_151</id>
+		<title>Twilight: Breaking Dawn</title>
+		<studio>Independant</studio>
+		<genre>Romance</genre>
+		<budget>110000000</budget>
+		<gross>634800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_152</id>
+		<title>Transformers: Dark of the Moon</title>
+		<studio>DreamWorks Pictures</studio>
+		<genre>Action</genre>
+		<budget>195000000</budget>
+		<gross>1123200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_153</id>
+		<title>The Hangover Part II</title>
+		<studio>Legendary Pictures</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>581460000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_154</id>
+		<title>Fast Five</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>125000000</budget>
+		<gross>626130000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_155</id>
+		<title>Pirates of the Caribbean:
+On Stranger Tides</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>250000000</budget>
+		<gross>1043870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_156</id>
+		<title>Captain America: The First Avenger</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>140000000</budget>
+		<gross>368400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_157</id>
+		<title>Thor</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>448510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_158</id>
+		<title>Cars 2</title>
+		<studio>Pixar</studio>
+		<genre>Animation</genre>
+		<budget>200000000</budget>
+		<gross>551850000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_159</id>
+		<title>Paranormal Activity 3</title>
+		<studio>Independant</studio>
+		<genre>Horror</genre>
+		<budget>5000000</budget>
+		<gross>201900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_160</id>
+		<title>X-Men: First Class</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>160000000</budget>
+		<gross>353620000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_161</id>
+		<title>Rise of the Planet of the Apes</title>
+		<studio>20th Century Fox</studio>
+		<genre>Action</genre>
+		<budget>93000000</budget>
+		<gross>481230000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_162</id>
+		<title>Green Lantern</title>
+		<studio>Warner Bros</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>219850000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_163</id>
+		<title>Kung Fu Panda 2</title>
+		<studio>DreamWorks Animation</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>663020000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_164</id>
+		<title>Super 8 </title>
+		<studio>Paramount</studio>
+		<genre>Horror</genre>
+		<budget>50000000</budget>
+		<gross>259710000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_165</id>
+		<title>Hop</title>
+		<studio>Relativity Media</studio>
+		<genre>Animation</genre>
+		<budget>63000000</budget>
+		<gross>183950000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_166</id>
+		<title>The Smurfs</title>
+		<studio>Sony Pictures Animation</studio>
+		<genre>Animation</genre>
+		<budget>110000000</budget>
+		<gross>562160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_167</id>
+		<title>Battle: Los Angeles</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<budget>70000000</budget>
+		<gross>211820000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_168</id>
+		<title>Bad Teacher</title>
+		<studio>Independant</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>216200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_169</id>
+		<title>Immortals</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<budget>75000000</budget>
+		<gross>182490000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_170</id>
+		<title>The Help</title>
+		<studio>DreamWorks Pictures</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>199320000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_171</id>
+		<title>Rio</title>
+		<studio>20th Century Fox</studio>
+		<genre>Animation</genre>
+		<budget>90000000</budget>
+		<gross>484630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_172</id>
+		<title>Rango</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>135000000</budget>
+		<gross>245150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_173</id>
+		<title>Cowboys and Aliens</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>163000000</budget>
+		<gross>174820000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_174</id>
+		<title>The Green Hornet</title>
+		<studio>Columbia</studio>
+		<genre>Action</genre>
+		<budget>120000000</budget>
+		<gross>227800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_175</id>
+		<title>Horrible Bosses</title>
+		<studio>Warner Bros</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>209640000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_176</id>
+		<title>Bridesmaids</title>
+		<studio>Relativity Media</studio>
+		<genre>Comedy</genre>
+		<budget>32500000</budget>
+		<gross>288380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_177</id>
+		<title>Hugo</title>
+		<studio>Paramount</studio>
+		<genre>Adventure</genre>
+	</movie>
+	<movie>
+		<id>movie_list_178</id>
+		<title>Puss In Boots</title>
+		<studio>DreamWorks</studio>
+		<genre>Animation</genre>
+		<budget>130000000</budget>
+		<gross>284390000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_179</id>
+		<title>Just Go With It</title>
+		<studio>Happy Madison</studio>
+		<genre>Romance</genre>
+		<budget>80000000</budget>
+		<gross>214950000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_180</id>
+		<title>The Muppets</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>45000000</budget>
+		<gross>72430000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_181</id>
+		<title>Gnomeo and Juliet</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>36000000</budget>
+		<gross>193970000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_182</id>
+		<title>Real Steel</title>
+		<studio>DreamWorks Pictures</studio>
+		<genre>Action</genre>
+		<budget>110000000</budget>
+		<gross>269810000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_183</id>
+		<title>Diary of a Wimpy Kid 2: Rodrick Rules</title>
+		<studio>20th Century Fox</studio>
+		<genre>Comedy</genre>
+		<budget>21000000</budget>
+		<gross>72420000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_184</id>
+		<title>The Adjustment Bureau</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>50200000</budget>
+		<gross>127870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_185</id>
+		<title>Jack and Jill</title>
+		<studio>Happy Madison</studio>
+		<genre>Comedy</genre>
+		<budget>79000000</budget>
+		<gross>83910000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_186</id>
+		<title>Unknown</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>30000000</budget>
+		<gross>130790000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_187</id>
+		<title>My Week with Marilyn</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Drama</genre>
+		<budget>10000000</budget>
+		<gross>8260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_188</id>
+		<title>Tower Heist</title>
+		<studio>Relativity</studio>
+		<genre>Comedy</genre>
+		<budget>75000000</budget>
+		<gross>121500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_189</id>
+		<title>Contagion</title>
+		<studio>Warner Bros</studio>
+		<genre>Thriller</genre>
+		<budget>60000000</budget>
+		<gross>135440000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_190</id>
+		<title>Limitless</title>
+		<studio>Virgin</studio>
+		<genre>Thriller</genre>
+		<budget>27000000</budget>
+		<gross>161850000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_191</id>
+		<title>Moneyball</title>
+		<studio>Columbia</studio>
+		<genre>Drama</genre>
+		<budget>50000000</budget>
+		<gross>102110000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_192</id>
+		<title>No Strings Attached</title>
+		<studio>Spyglass Entertainment</studio>
+		<genre>Comedy</genre>
+		<budget>25000000</budget>
+		<gross>147700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_193</id>
+		<title>Friends With Benefits</title>
+		<studio>Warner Bros</studio>
+		<genre>Romance</genre>
+		<budget>35000000</budget>
+		<gross>149540000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_194</id>
+		<title>Crazy, Stupid, Love</title>
+		<studio>Warner Bros</studio>
+		<genre>Romance</genre>
+		<budget>50000000</budget>
+		<gross>142840000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_195</id>
+		<title>Sucker Punch</title>
+		<studio>Legendary Pictures</studio>
+		<genre>Action</genre>
+		<budget>82000000</budget>
+		<gross>89790000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_196</id>
+		<title>I Am Number Four</title>
+		<studio>Paramount</studio>
+		<genre>Thriller</genre>
+		<budget>60000000</budget>
+		<gross>144500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_197</id>
+		<title>The Company Men</title>
+		<studio>Weinstein Company</studio>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>4800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_198</id>
+		<title>The Dilemma</title>
+		<studio>Spyglass Entertainment</studio>
+		<genre>Comedy</genre>
+		<budget>70000000</budget>
+		<gross>69700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_199</id>
+		<title>Water For Elephants</title>
+		<studio>20th Century Fox</studio>
+		<genre>Drama</genre>
+		<budget>38000000</budget>
+		<gross>117090000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_200</id>
+		<title>The Roommate</title>
+		<studio>Independant</studio>
+		<genre>Horror</genre>
+		<budget>16000000</budget>
+		<gross>40490000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_201</id>
+		<title>Happy Feet 2</title>
+		<studio>Village Roadshow Pictures</studio>
+		<genre>Animation</genre>
+		<budget>135000000</budget>
+		<gross>106510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_202</id>
+		<title>J.Edgar</title>
+		<studio>Warner Bros</studio>
+		<genre>Drama</genre>
+		<budget>35000000</budget>
+		<gross>35060000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_203</id>
+		<title>Zookeeper</title>
+		<studio>Happy Madison Productions</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>170300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_204</id>
+		<title>Final Destination 5</title>
+		<studio>New Line Cinema</studio>
+		<genre>Horror</genre>
+		<budget>40000000</budget>
+		<gross>157890000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_205</id>
+		<title>Scream 4</title>
+		<studio>Weinstein Company</studio>
+		<genre>Horror</genre>
+		<budget>40000000</budget>
+		<gross>97140000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_206</id>
+		<title>Mr. Popper's Penguins</title>
+		<studio>20th Century Fox</studio>
+		<genre>Comedy</genre>
+		<budget>55000000</budget>
+		<gross>187360000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_207</id>
+		<title>Insidious</title>
+		<studio>Sony</studio>
+		<genre>Horror</genre>
+		<budget>1500000</budget>
+		<gross>97010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_208</id>
+		<title>Dolphin Tale</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>37000000</budget>
+		<gross>87950000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_209</id>
+		<title>The Debt</title>
+		<studio>Universal</studio>
+		<genre>Thriller</genre>
+		<budget>20000000</budget>
+		<gross>45430000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_210</id>
+		<title>Beastly</title>
+		<studio>CBS Films</studio>
+		<genre>Romance</genre>
+		<budget>17000000</budget>
+		<gross>28830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_211</id>
+		<title>Source Code</title>
+		<studio>Summit Entertainment</studio>
+		<genre>Thriller</genre>
+		<budget>32000000</budget>
+		<gross>123280000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_212</id>
+		<title>The Conspirator</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>14210000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_213</id>
+		<title>The Rite</title>
+		<studio>Warner Bros</studio>
+		<genre>Horror</genre>
+		<budget>37000000</budget>
+		<gross>96000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_214</id>
+		<title>The Beaver</title>
+		<studio>Summit Entertainment</studio>
+		<genre>Drama</genre>
+		<budget>21000000</budget>
+		<gross>6370000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_215</id>
+		<title>Hanna</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>63780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_216</id>
+		<title>The Lincoln Lawyer</title>
+		<studio>Lionsgate</studio>
+		<genre>Drama</genre>
+		<budget>40000000</budget>
+		<gross>75010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_217</id>
+		<title>Something Borrowed</title>
+		<studio>Independant</studio>
+		<genre>Romance</genre>
+		<budget>35000000</budget>
+		<gross>60180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_218</id>
+		<title>Soul Surfer</title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>18000000</budget>
+		<gross>44270000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_219</id>
+		<title>The Ides of March</title>
+		<studio>Columbia</studio>
+		<genre>Thriller</genre>
+		<budget>12500000</budget>
+		<gross>54190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_220</id>
+		<title>Footloose</title>
+		<studio>Spyglass Entertainment</studio>
+		<genre>Drama</genre>
+		<budget>24000000</budget>
+		<gross>62050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_221</id>
+		<title>Paul</title>
+		<studio>Relativity</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>97980000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_222</id>
+		<title>The Change Up</title>
+		<studio>Relativity Media</studio>
+		<genre>Comedy</genre>
+		<budget>52000000</budget>
+		<gross>70830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_223</id>
+		<title>Red Riding Hood</title>
+		<studio>Warner Bros</studio>
+		<genre>Horror</genre>
+		<budget>42000000</budget>
+		<gross>89160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_224</id>
+		<title>30 Minutes or Less</title>
+		<studio>Independant</studio>
+		<genre>Comedy</genre>
+		<budget>28000000</budget>
+		<gross>40550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_225</id>
+		<title>Hall Pass</title>
+		<studio>Warner Bros</studio>
+		<genre>Comedy</genre>
+		<budget>36000000</budget>
+		<gross>83160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_226</id>
+		<title>A Very Harold and Kumar Christmas</title>
+		<studio>Lionsgate</studio>
+		<genre>Comedy</genre>
+		<budget>19000000</budget>
+		<gross>34040000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_227</id>
+		<title>Larry Crowne</title>
+		<studio>Universal</studio>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>52410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_228</id>
+		<title>The Mechanic</title>
+		<studio>Independant</studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>51200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_229</id>
+		<title>Colombiana</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>60970000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_230</id>
+		<title>Drive</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>15000000</budget>
+		<gross>67010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_231</id>
+		<title>In Time</title>
+		<studio>Regency Enterprises</studio>
+		<genre>Thriller</genre>
+		<budget>40000000</budget>
+		<gross>127390000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_232</id>
+		<title>Anonymous</title>
+		<studio>Relativity Media</studio>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>14190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_233</id>
+		<title>The Eagle</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>27120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_234</id>
+		<title>Season Of The Witch</title>
+		<studio>Relativity </studio>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>91600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_235</id>
+		<title>Arthur</title>
+		<studio>Warner Bros</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>45740000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_236</id>
+		<title>Arthur Christmas</title>
+		<studio>Aardman Animations</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>91200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_237</id>
+		<title>Spy Kids: All The Time in the World</title>
+		<studio>Weinstein Company</studio>
+		<genre>Action</genre>
+		<budget>27000000</budget>
+		<gross>74080000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_238</id>
+		<title>50/50</title>
+		<studio>Independant</studio>
+		<genre>Comedy</genre>
+		<budget>8000000</budget>
+		<gross>36510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_239</id>
+		<title>Abduction</title>
+		<studio>Vertigo Entertainment</studio>
+		<genre>Action</genre>
+		<budget>35000000</budget>
+		<gross>82070000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_240</id>
+		<title>Sanctum</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>108600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_241</id>
+		<title>Your Highness</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>49900000</budget>
+		<gross>24860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_242</id>
+		<title>Conan the Barbarian</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>90000000</budget>
+		<gross>48800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_243</id>
+		<title>Winnie The Pooh</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>30000000</budget>
+		<gross>33150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_244</id>
+		<title>Killer Elite</title>
+		<studio>Independant</studio>
+		<genre>Action</genre>
+		<budget>70000000</budget>
+		<gross>52960000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_245</id>
+		<title>Don't Be Afraid Of The Dark</title>
+		<studio>Miramax Films</studio>
+		<genre>Horror</genre>
+		<budget>25000000</budget>
+		<gross>31550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_246</id>
+		<title>Dream House</title>
+		<studio>Morgan Creek Productions</studio>
+		<genre>Horror</genre>
+		<budget>50000000</budget>
+		<gross>38500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_247</id>
+		<title>Monte Carlo</title>
+		<studio>20th Century Fox</studio>
+		<genre>Romance</genre>
+		<budget>20000000</budget>
+		<gross>39660000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_248</id>
+		<title>Shark Night 3D</title>
+		<studio>Relativity</studio>
+		<genre>Horror</genre>
+		<budget>25000000</budget>
+		<gross>38700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_249</id>
+		<title>Waiting For Forever</title>
+		<studio>Independant</studio>
+		<genre>Romance</genre>
+		<budget>5000000</budget>
+		<gross>30000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_250</id>
+		<title>One Day</title>
+		<studio>Independant</studio>
+		<genre>Romance</genre>
+		<budget>15000000</budget>
+		<gross>55240000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_251</id>
+		<title>The Three Musketeers</title>
+		<studio>Independant</studio>
+		<genre>Action</genre>
+		<budget>75000000</budget>
+		<gross>132150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_252</id>
+		<title>The Thing</title>
+		<studio>Universal</studio>
+		<genre>Horror</genre>
+		<budget>38000000</budget>
+		<gross>27430000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_253</id>
+		<title>Warrior</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>23060000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_254</id>
+		<title>Our Idiot Brother</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>5000000</budget>
+		<gross>24820000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_255</id>
+		<title>Apollo 18</title>
+		<studio>Weinstein Company</studio>
+		<genre>Horror</genre>
+		<budget>5000000</budget>
+		<gross>25560000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_256</id>
+		<title>Fright Night</title>
+		<studio>DreamWorks</studio>
+		<genre>Horror</genre>
+		<budget>30000000</budget>
+		<gross>37100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_257</id>
+		<title>Johnny English Reborn</title>
+		<studio>Relativity Media</studio>
+		<genre>Comedy</genre>
+		<budget>45000000</budget>
+		<gross>157940000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_258</id>
+		<title>Drive Angry</title>
+		<studio>Independant</studio>
+		<genre>Action</genre>
+		<budget>45000000</budget>
+		<gross>28930000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_259</id>
+		<title>The Rum Diary</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>45000000</budget>
+		<gross>21550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_260</id>
+		<title>Priest</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>60000000</budget>
+		<gross>78310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_261</id>
+		<title>Mars Needs Moms</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>38990000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_262</id>
+		<title>What's Your Number</title>
+		<studio>20th Centruy Fox</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>30430000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_263</id>
+		<title>Take Me Home Tonight</title>
+		<studio>Relativity</studio>
+		<genre>Comedy</genre>
+		<budget>25000000</budget>
+		<gross>6930000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_264</id>
+		<title>The Big Year</title>
+		<studio>Independant</studio>
+		<genre>Comedy</genre>
+		<budget>41000000</budget>
+		<gross>7410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_265</id>
+		<title>Never Back Down 2: The Beatdown</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>3000000</budget>
+		<gross>41630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_266</id>
+		<title>A Dangerous Method</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>8970000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_267</id>
+		<title>Take Shelter</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>5000000</budget>
+		<gross>1570000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_268</id>
+		<title>Beginners</title>
+		<studio>Independant</studio>
+		<genre>Comedy</genre>
+		<budget>3200000</budget>
+		<gross>14180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_269</id>
+		<title>Jane Eyre</title>
+		<studio>Universal</studio>
+		<genre>Romance</genre>
+		<gross>30150000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_270</id>
+		<title>Another Earth</title>
+		<studio>Independant</studio>
+		<genre>Adventure</genre>
+		<budget>200000</budget>
+		<gross>1320000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_271</id>
+		<title>Margin Call</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>3500000</budget>
+		<gross>8870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_272</id>
+		<title>Machine Gun Preacher</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>1100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_273</id>
+		<title>Hesher</title>
+		<studio>Independant</studio>
+		<genre>Drama</genre>
+		<budget>7000000</budget>
+		<gross>380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_274</id>
+		<title>Vanishing on 7th Street</title>
+		<studio>Independant</studio>
+		<genre>Horror</genre>
+		<budget>10000000</budget>
+		<gross>1070000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_275</id>
+		<title>Cedar Rapids</title>
+		<studio>20th Century Fox</studio>
+		<genre>Comedy</genre>
+		<budget>10000000</budget>
+		<gross>6860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_276</id>
+		<title>The Son Of No One</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>15000000</budget>
+		<gross>30000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_277</id>
+		<title>Red State</title>
+		<studio>Independant</studio>
+		<genre>Horror</genre>
+		<budget>4000000</budget>
+		<gross>1100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_278</id>
+		<title>Everything Must Go</title>
+		<studio>Reliance Entertainment</studio>
+		<genre>Drama</genre>
+		<budget>5000000</budget>
+		<gross>2710000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_279</id>
+		<title>Dylan Dog: Dead of Night</title>
+		<studio>Independant</studio>
+		<genre>Horror</genre>
+		<budget>20000000</budget>
+		<gross>4630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_280</id>
+		<title>Trespass</title>
+		<studio>Independant</studio>
+		<genre>Thriller</genre>
+		<budget>35000000</budget>
+		<gross>3120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_281</id>
+		<title>Juno</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>7500000</budget>
+		<gross>231180000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_282</id>
+		<title>Saw IV</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>10000000</budget>
+		<gross>139350000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_283</id>
+		<title>Waitress</title>
+		<studio>Independent</studio>
+		<genre>Romance</genre>
+		<budget>2000000</budget>
+		<gross>22180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_284</id>
+		<title>Superbad</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>169870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_285</id>
+		<title>The Simpsons Movie</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>75000000</budget>
+		<gross>527070000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_286</id>
+		<title>300</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>65000000</budget>
+		<gross>456070000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_287</id>
+		<title>The Game Plan</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>22000000</budget>
+		<gross>147870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_288</id>
+		<title>Knocked Up</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>33000000</budget>
+		<gross>219000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_289</id>
+		<title>No Country for Old Men</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>161000000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_290</id>
+		<title>Harry Potter and the Order of the Phoenix</title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>150000000</budget>
+		<gross>939880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_291</id>
+		<title>Disturbia</title>
+		<studio>Paramount</studio>
+		<genre>Thriller</genre>
+		<budget>20000000</budget>
+		<gross>117760000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_292</id>
+		<title>Hitman</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>17500000</budget>
+		<gross>99960000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_293</id>
+		<title>Stomp the Yard</title>
+		<studio>Independent</studio>
+		<genre>Romance</genre>
+		<budget>14000000</budget>
+		<gross>75510000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_294</id>
+		<title>Alvin and the Chipmunks</title>
+		<studio>Fox</studio>
+		<genre>Animation</genre>
+		<budget>70000000</budget>
+		<gross>360470000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_295</id>
+		<title>P.S. I Love You</title>
+		<studio>Independent</studio>
+		<genre>Romance</genre>
+		<budget>30000000</budget>
+		<gross>153090000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_296</id>
+		<title>Shrek the Third</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>160000000</budget>
+		<gross>798960000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_297</id>
+		<title>Transformers</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>708270000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_298</id>
+		<title>Epic Movie</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>86870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_299</id>
+		<title>Premonition</title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>84000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_300</id>
+		<title>Ratatouille</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>621420000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_301</id>
+		<title>The Bourne Ultimatum</title>
+		<studio>Universal</studio>
+		<genre>Thriller</genre>
+		<budget>110000000</budget>
+		<gross>442820000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_302</id>
+		<title>Enchanted</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>85000000</budget>
+		<gross>340490000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_303</id>
+		<title>Sicko</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Documentary</genre>
+		<budget>9000000</budget>
+		<gross>35770000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_304</id>
+		<title>Halloween</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Horror</genre>
+		<budget>20000000</budget>
+		<gross>78470000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_305</id>
+		<title>I Am Legend</title>
+		<studio>Warner Bros.</studio>
+		<genre>Thriller</genre>
+		<budget>150000000</budget>
+		<gross>584160000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_306</id>
+		<title>The Bucket List</title>
+		<studio>Warner Bros.</studio>
+		<genre>Drama</genre>
+		<budget>45000000</budget>
+		<gross>174310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_307</id>
+		<title>Tyler Perry's Why Did I get Married</title>
+		<studio>Independent</studio>
+		<genre>Romance</genre>
+		<budget>15000000</budget>
+		<gross>55860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_308</id>
+		<title>Michael Clayton</title>
+		<studio>Independent</studio>
+		<genre>Thriller</genre>
+		<budget>25000000</budget>
+		<gross>92990000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_309</id>
+		<title>Into the Wild</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>55630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_310</id>
+		<title>Ocean's 13</title>
+		<studio>Warner Bros.</studio>
+		<genre>Thriller</genre>
+		<budget>85000000</budget>
+		<gross>311310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_311</id>
+		<title>The Kite Runner</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>73190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_312</id>
+		<title>Music and Lyrics</title>
+		<studio>Warner Bros.</studio>
+		<genre>Romance</genre>
+		<budget>40000000</budget>
+		<gross>145900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_313</id>
+		<title>Hostel: Part II</title>
+		<studio>Lionsgate</studio>
+		<genre>Horror</genre>
+		<budget>10000000</budget>
+		<gross>35620000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_314</id>
+		<title>National Treasure: Book of Secrets</title>
+		<studio>Disney</studio>
+		<genre>Thriller</genre>
+		<budget>130000000</budget>
+		<gross>457360000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_315</id>
+		<title>Live Free or Die Hard</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>110000000</budget>
+		<gross>383530000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_316</id>
+		<title>Spider-Man 3</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>258000000</budget>
+		<gross>890870000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_317</id>
+		<title>Smokin' Aces</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>17000000</budget>
+		<gross>57100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_318</id>
+		<title>No Reservations</title>
+		<genre>Comedy</genre>
+		<budget>28000000</budget>
+		<gross>92600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_319</id>
+		<title>Alien vs. Predator -- Requiem</title>
+		<studio>Fox</studio>
+		<genre>Horror</genre>
+		<budget>40000000</budget>
+		<gross>128880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_320</id>
+		<title>Pirates of the Caribbean: At World's End</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>300000000</budget>
+		<gross>961000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_321</id>
+		<title>The Mist</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Horror</genre>
+		<budget>18000000</budget>
+		<gross>56830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_322</id>
+		<title>Sweeney Todd: The Demon Barber of Fleet Street</title>
+		<studio>Warner Bros.</studio>
+		<genre>Horror</genre>
+		<budget>50000000</budget>
+		<gross>152520000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_323</id>
+		<title>There Will Be Blood</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>76180000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_324</id>
+		<title>Daddy Day Camp</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>6000000</budget>
+		<gross>18200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_325</id>
+		<title>Wild Hogs</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>90000000</budget>
+		<gross>253630000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_326</id>
+		<title>Mr. Magorium's Wonder Emporium</title>
+		<studio>Independent</studio>
+		<genre>Adventure</genre>
+		<budget>25000000</budget>
+		<gross>68950000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_327</id>
+		<title>TMNT</title>
+		<genre>Action</genre>
+		<budget>35000000</budget>
+		<gross>95010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_328</id>
+		<title>Hairspray</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>75000000</budget>
+		<gross>202550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_329</id>
+		<title>American Gangster</title>
+		<studio>Universal</studio>
+		<genre>Thriller</genre>
+		<budget>100000000</budget>
+		<gross>267900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_330</id>
+		<title>Norbit</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>60000000</budget>
+		<gross>159310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_331</id>
+		<title>We Own the Night</title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>21000000</budget>
+		<gross>54830000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_332</id>
+		<title>The Hills Have Eyes 2</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>15000000</budget>
+		<gross>37470000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_333</id>
+		<title>Mr. Brooks</title>
+		<studio>MGM</studio>
+		<genre>Thriller</genre>
+		<budget>20000000</budget>
+		<gross>48120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_334</id>
+		<title>Blades of Glory</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>61000000</budget>
+		<gross>145710000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_335</id>
+		<title>Good Luck Chuck</title>
+		<genre>Comedy</genre>
+		<budget>25000000</budget>
+		<gross>59190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_336</id>
+		<title>The Nanny Diaries</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>47000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_337</id>
+		<title>30 Days of Night</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>32000000</budget>
+		<gross>75100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_338</id>
+		<title>Fantastic Four: Rise of the Silver Surfer</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>130000000</budget>
+		<gross>289050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_339</id>
+		<title>I Now Pronounce You Chuck and Larry</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>85000000</budget>
+		<gross>186050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_340</id>
+		<title>The Heartbreak Kid</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>60000000</budget>
+		<gross>127770000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_341</id>
+		<title>Ghost Rider</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>110000000</budget>
+		<gross>228740000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_342</id>
+		<title>The Golden Compass</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>180000000</budget>
+		<gross>372230000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_343</id>
+		<title>The Darjeeling Limited</title>
+		<studio>Fox</studio>
+		<genre>Drama</genre>
+		<budget>17500000</budget>
+		<gross>34920000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_344</id>
+		<title>License to Wed</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>69310000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_345</id>
+		<title>Stardust</title>
+		<studio>Paramount</studio>
+		<genre>Adventure</genre>
+		<budget>70000000</budget>
+		<gross>135560000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_346</id>
+		<title>Bee Movie</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>287120000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_347</id>
+		<title>Vacancy</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>19000000</budget>
+		<gross>35300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_348</id>
+		<title>Rush Hour 3</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>140000000</budget>
+		<gross>258020000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_349</id>
+		<title>Lions for Lambs</title>
+		<genre>Drama</genre>
+		<budget>35000000</budget>
+		<gross>63210000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_350</id>
+		<title>In the Land of Women</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>10000000</budget>
+		<gross>17560000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_351</id>
+		<title>Surf's Up</title>
+		<studio>Sony</studio>
+		<genre>Animation</genre>
+		<budget>85000000</budget>
+		<gross>149040000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_352</id>
+		<title>Meet the Robinsons</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>100000000</budget>
+		<gross>169330000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_353</id>
+		<title>Charlie Wilson's War</title>
+		<studio>Universal</studio>
+		<genre>Biography</genre>
+		<budget>75000000</budget>
+		<gross>118480000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_354</id>
+		<title>The Reaping</title>
+		<genre>Horror</genre>
+		<budget>40000000</budget>
+		<gross>62770000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_355</id>
+		<title>Shooter</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>61000000</budget>
+		<gross>95700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_356</id>
+		<title>Nancy Drew</title>
+		<studio>Independent</studio>
+		<genre>Thriller</genre>
+		<budget>20000000</budget>
+		<gross>30670000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_357</id>
+		<title>3:10 to Yuma</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>50000000</budget>
+		<gross>69780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_358</id>
+		<title>Beowulf</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>196260000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_359</id>
+		<title>Zodiac</title>
+		<studio>Paramount</studio>
+		<genre>Thriller</genre>
+		<budget>65000000</budget>
+		<gross>84790000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_360</id>
+		<title>Pathfinder: Legend of the Ghost Warrior</title>
+		<genre>Action</genre>
+		<budget>26000000</budget>
+		<gross>30820000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_361</id>
+		<title>The Kingdom</title>
+		<genre>Action</genre>
+		<budget>80000000</budget>
+		<gross>86610000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_362</id>
+		<title>Next</title>
+		<studio>Paramount</studio>
+		<genre>Thriller</genre>
+		<budget>70000000</budget>
+		<gross>73540000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_363</id>
+		<title>The Brave One</title>
+		<genre>Action</genre>
+		<budget>70000000</budget>
+		<gross>69790000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_364</id>
+		<title>Evan Almighty</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>175000000</budget>
+		<gross>173390000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_365</id>
+		<title>Dragon Wars (aka D-War)</title>
+		<studio>Mediaplex</studio>
+		<genre>Action</genre>
+		<budget>75000000</budget>
+		<gross>74250000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_366</id>
+		<title>Happily N'Ever After</title>
+		<studio>Lionsgate</studio>
+		<genre>Animation</genre>
+		<budget>47000000</budget>
+		<gross>38080000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_367</id>
+		<title>Shoot 'Em Up</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>39000000</budget>
+		<gross>26720000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_368</id>
+		<title>Across the Universe</title>
+		<studio>Independent</studio>
+		<genre>Romance</genre>
+		<budget>45000000</budget>
+		<gross>29370000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_369</id>
+		<title>Walk Hard: The Dewey Cox Story</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>20580000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_370</id>
+		<title>The Invasion</title>
+		<studio>Warner Bros.</studio>
+		<genre>Thriller</genre>
+		<budget>80000000</budget>
+		<gross>40170000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_371</id>
+		<title>Grindhouse</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Action</genre>
+		<budget>53000000</budget>
+		<gross>25420000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_372</id>
+		<title>10,000 B.C.</title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>105000000</budget>
+		<gross>269100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_373</id>
+		<title>21</title>
+		<genre>Crime</genre>
+		<budget>35000000</budget>
+		<gross>157900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_374</id>
+		<title>27 Dresses</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>160300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_375</id>
+		<title>88 Minutes</title>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>32300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_376</id>
+		<title>Appaloosa</title>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>25900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_377</id>
+		<title>Australia</title>
+		<studio>Fox</studio>
+		<genre>Adventure</genre>
+		<budget>78000000</budget>
+		<gross>129400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_378</id>
+		<title>Baby Mama</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>70000000</budget>
+		<gross>63900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_379</id>
+		<title>Babylon A.D.</title>
+		<genre>Action</genre>
+		<budget>45000000</budget>
+		<gross>70600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_380</id>
+		<title>Bangkok Dangerous</title>
+		<genre>Action</genre>
+		<budget>45000000</budget>
+		<gross>39400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_381</id>
+		<title>Be Kind, Rewind</title>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>29300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_382</id>
+		<title>Bedtime Stories</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>85400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_383</id>
+		<title>Beverly Hills Chihuahua</title>
+		<studio>Disney</studio>
+		<genre>Adventure</genre>
+		<budget>20000000</budget>
+		<gross>116000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_384</id>
+		<title>Body of Lies</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>67500000</budget>
+		<gross>17500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_385</id>
+		<title>Bolt</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>289300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_386</id>
+		<title>Burn After Reading</title>
+		<studio>Relativity Media</studio>
+		<genre>Comedy</genre>
+		<budget>37000000</budget>
+		<gross>154800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_387</id>
+		<title>Cadillac Records</title>
+		<genre>Biography</genre>
+		<budget>12000000</budget>
+		<gross>8880000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_388</id>
+		<title>Changeling</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>55000000</budget>
+		<gross>66900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_389</id>
+		<title>City of Ember</title>
+		<studio>Independent</studio>
+		<genre>Adventure</genre>
+		<budget>38000000</budget>
+		<gross>11780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_390</id>
+		<title>Cloverfield</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>170800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_391</id>
+		<title>College Road Trip</title>
+		<genre>Adventure</genre>
+		<budget>140000000</budget>
+		<gross>51500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_392</id>
+		<title>Death Race</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>65000000</budget>
+		<gross>73800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_393</id>
+		<title>Definitely, Maybe</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>7000000</budget>
+		<gross>55000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_394</id>
+		<title>Disaster Movie</title>
+		<studio>Lionsgate</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>34500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_395</id>
+		<title>Doomsday</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<budget>33000000</budget>
+		<gross>21600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_396</id>
+		<title>Doubt</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>18700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_397</id>
+		<title>Dr. Seuss' Horton Hears a Who!</title>
+		<studio>Fox</studio>
+		<genre>Animation</genre>
+		<budget>85000000</budget>
+		<gross>297000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_398</id>
+		<title>Drillbit Taylor</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>49700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_399</id>
+		<title>Eagle Eye</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>80000000</budget>
+		<gross>175900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_400</id>
+		<title>Expelled: No Intelligence Allowed</title>
+		<genre>Documentary</genre>
+		<budget>3500000</budget>
+		<gross>7720000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_401</id>
+		<title>Fireproof</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>500000</budget>
+		<gross>33450000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_402</id>
+		<title>First Sunday</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>13000000</budget>
+		<gross>38800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_403</id>
+		<title>Fly Me to the Moon</title>
+		<studio>Independent</studio>
+		<genre>Animation</genre>
+		<budget>25000000</budget>
+		<gross>32600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_404</id>
+		<title>Fool's Gold</title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>72500000</budget>
+		<gross>110600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_405</id>
+		<title>Forgetting Sarah Marshall</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>104800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_406</id>
+		<title>Four Christmases</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>149600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_407</id>
+		<title>Get Smart</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>80000000</budget>
+		<gross>230500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_408</id>
+		<title>Ghost Town</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>24000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_409</id>
+		<title>Gran Torino</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>167000000</budget>
+		<gross>262340000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_410</id>
+		<title>Hancock</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>624400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_411</id>
+		<title>Harold and Kumar Escape from Guantanamo Bay</title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>12000000</budget>
+		<gross>43300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_412</id>
+		<title>Hellboy II: The Golden Army</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>82500000</budget>
+		<gross>158900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_413</id>
+		<title>High School Musical 3: Senior Year</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>11000000</budget>
+		<gross>240700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_414</id>
+		<title>Igor</title>
+		<studio>Independent</studio>
+		<genre>Animation</genre>
+		<budget>30000000</budget>
+		<gross>27600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_415</id>
+		<title>In Bruges</title>
+		<studio>Independent</studio>
+		<genre>Crime</genre>
+		<budget>15000000</budget>
+		<gross>32000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_416</id>
+		<title>Indiana Jones and the Kingdom of the Crystal Skull</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>185000000</budget>
+		<gross>786600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_417</id>
+		<title>Iron Man</title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>186000000</budget>
+		<gross>581900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_418</id>
+		<title>Journey to the Center of the Earth</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>45000000</budget>
+		<gross>220700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_419</id>
+		<title>Jumper</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>82500000</budget>
+		<gross>222200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_420</id>
+		<title>Kit Kittredge: An American Girl</title>
+		<studio>Warner Bros.</studio>
+		<genre>Drama</genre>
+		<budget>10000000</budget>
+		<gross>17700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_421</id>
+		<title>Kung Fu Panda</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>200000000</budget>
+		<gross>631900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_422</id>
+		<title>Lakeview Terrace</title>
+		<studio>Sony</studio>
+		<genre>Crime</genre>
+		<budget>20000000</budget>
+		<gross>43800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_423</id>
+		<title>Leatherheads</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>58000000</budget>
+		<gross>41000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_424</id>
+		<title>Mad Money</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>22000000</budget>
+		<gross>26100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_425</id>
+		<title>Madagascar: Escape 2 Africa</title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>150000000</budget>
+		<gross>462300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_426</id>
+		<title>Made of Honor</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>106000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_427</id>
+		<title>Mamma Mia!</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>66000000</budget>
+		<gross>572200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_428</id>
+		<title>Marley and Me</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>55000000</budget>
+		<gross>111800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_429</id>
+		<title>Max Payne</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>35000000</budget>
+		<gross>84200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_430</id>
+		<title>Meet Dave</title>
+		<studio>Fox</studio>
+		<genre>Adventure</genre>
+		<budget>60000000</budget>
+		<gross>50500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_431</id>
+		<title>Meet the Spartans</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>84600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_432</id>
+		<title>Milk</title>
+		<studio>Universal</studio>
+		<genre>Biography</genre>
+		<budget>20000000</budget>
+		<gross>50160000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_433</id>
+		<title>Miracle at St. Anna</title>
+		<genre>Action</genre>
+		<budget>45000000</budget>
+		<gross>9110000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_434</id>
+		<title>Mirrors</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>35000000</budget>
+		<gross>73400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_435</id>
+		<title>Miss Pettigrew Lives for a Day</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>60000000</budget>
+		<gross>15170000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_436</id>
+		<title>My Best Friend's Girl</title>
+		<studio>Lionsgate</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>36200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_437</id>
+		<title>Never Back Down</title>
+		<genre>Action</genre>
+		<budget>21000000</budget>
+		<gross>41600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_438</id>
+		<title>Nick and Norah's Infinite Playlist</title>
+		<genre>Comedy</genre>
+		<budget>10000000</budget>
+		<gross>31700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_439</id>
+		<title>Nights in Rodanthe</title>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>75700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_440</id>
+		<title>Nim's Island</title>
+		<studio>Independent</studio>
+		<genre>Adventure</genre>
+		<budget>37000000</budget>
+		<gross>99900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_441</id>
+		<title>One Missed Call</title>
+		<genre>Horror</genre>
+		<budget>20000000</budget>
+		<gross>44500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_442</id>
+		<title>Over Her Dead Body</title>
+		<genre>Comedy</genre>
+		<budget>10000000</budget>
+		<gross>20900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_443</id>
+		<title>Penelope</title>
+		<studio>Summit</studio>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>20750000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_444</id>
+		<title>Pineapple Express</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>26000000</budget>
+		<gross>101500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_445</id>
+		<title>Pride &amp; Glory</title>
+		<studio>Warner Bros.</studio>
+		<genre>Crime</genre>
+		<budget>30000000</budget>
+		<gross>23800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_446</id>
+		<title>Prom Night</title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>18000000</budget>
+		<gross>57200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_447</id>
+		<title>Punisher: War Zone</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>8190000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_448</id>
+		<title>Quantum of Solace</title>
+		<studio>MGM</studio>
+		<genre>Action</genre>
+		<budget>230000000</budget>
+		<gross>567000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_449</id>
+		<title>Quarantine</title>
+		<studio>Sony</studio>
+		<genre>Horror</genre>
+		<budget>12000000</budget>
+		<gross>37200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_450</id>
+		<title>Rachel Getting Married</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>12000000</budget>
+		<gross>10860000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_451</id>
+		<title>Rambo</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>47500000</budget>
+		<gross>113200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_452</id>
+		<title>Religulous</title>
+		<genre>Documentary</genre>
+		<budget>2500000</budget>
+		<gross>13140000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_453</id>
+		<title>Righteous Kill</title>
+		<genre>Crime</genre>
+		<budget>60000000</budget>
+		<gross>74000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_454</id>
+		<title>Role Models</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>28000000</budget>
+		<gross>66700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_455</id>
+		<title>Saw V</title>
+		<studio>Independent</studio>
+		<genre>Crime</genre>
+		<budget>10800000</budget>
+		<gross>103600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_456</id>
+		<title>Semi-Pro</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>2600000</budget>
+		<gross>43900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_457</id>
+		<title>Seven Pounds</title>
+		<genre>Drama</genre>
+		<budget>54000000</budget>
+		<gross>61400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_458</id>
+		<title>Sex and the City</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>57500000</budget>
+		<gross>415100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_459</id>
+		<title>Sex Drive</title>
+		<studio>Summit</studio>
+		<genre>Adventure</genre>
+		<budget>19000000</budget>
+		<gross>10410000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_460</id>
+		<title>Shutter</title>
+		<genre>Horror</genre>
+		<budget>8000000</budget>
+		<gross>47800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_461</id>
+		<title>Slumdog Millionaire</title>
+		<studio>Independent</studio>
+		<genre>Crime</genre>
+		<budget>15000000</budget>
+		<gross>198000000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_462</id>
+		<title>Smart People</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>7000000</budget>
+		<gross>11650000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_463</id>
+		<title>Soul Men</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>0</budget>
+		<gross>12330000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_464</id>
+		<title>Space Chimps</title>
+		<studio>Independent*</studio>
+		<genre>Animation</genre>
+		<budget>37000000</budget>
+		<gross>63800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_465</id>
+		<title>Speed Racer</title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>120000000</budget>
+		<gross>93400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_466</id>
+		<title>Star Wars: The Clone Wars</title>
+		<studio>Independent</studio>
+		<genre>Animation</genre>
+		<budget>8500000</budget>
+		<gross>65600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_467</id>
+		<title>Step Brothers</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>65000000</budget>
+		<gross>128000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_468</id>
+		<title>Step Up 2: The Streets</title>
+		<studio>Disney</studio>
+		<genre>Drama</genre>
+		<budget>17500000</budget>
+		<gross>148200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_469</id>
+		<title>Stop-Loss</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>11180000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_470</id>
+		<title>Street Kings</title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>63600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_471</id>
+		<title>Superhero Movie</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Comedy</genre>
+		<budget>65000000</budget>
+		<gross>71100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_472</id>
+		<title>Swing Vote</title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>33400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_473</id>
+		<title>The Bank Job</title>
+		<studio>Independent</studio>
+		<genre>Thriller</genre>
+		<budget>20000000</budget>
+		<gross>63800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_474</id>
+		<title>The Boy in the Striped Pyjamas</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>12500000</budget>
+		<gross>33000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_475</id>
+		<title>The Chronicles of Narnia: Prince Caspian</title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>419600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_476</id>
+		<title>The Curious Case of Benjamin Button</title>
+		<studio>Warner Bros.</studio>
+		<genre>Drama</genre>
+		<budget>160000000</budget>
+		<gross>322000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_477</id>
+		<title>The Dark Knight</title>
+		<studio>Warner Bros.</studio>
+		<genre>Thriller</genre>
+		<budget>185000000</budget>
+		<gross>996900000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_478</id>
+		<title>The Day the Earth Stood Still </title>
+		<studio>Fox</studio>
+		<genre>Thriller</genre>
+		<budget>100000000</budget>
+		<gross>230000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_479</id>
+		<title>The Duchess</title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>13500000</budget>
+		<gross>34300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_480</id>
+		<title>The Express</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>37500000</budget>
+		<gross>9810000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_481</id>
+		<title>The Eye</title>
+		<studio>Lionsgate</studio>
+		<genre>Horror</genre>
+		<budget>12000000</budget>
+		<gross>56800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_482</id>
+		<title>The Forbidden Kingdom</title>
+		<studio>Relativity Media</studio>
+		<genre>Action</genre>
+		<budget>55000000</budget>
+		<gross>128800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_483</id>
+		<title>The Happening</title>
+		<genre>Thriller</genre>
+		<budget>60000000</budget>
+		<gross>163400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_484</id>
+		<title>The Haunting of Molly Hartley</title>
+		<genre>Horror</genre>
+		<budget>5000000</budget>
+		<gross>14890000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_485</id>
+		<title>The House Bunny</title>
+		<genre>Comedy</genre>
+		<budget>25000000</budget>
+		<gross>70000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_486</id>
+		<title>The Incredible Hulk</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>137500000</budget>
+		<gross>262500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_487</id>
+		<title>The Longshots</title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>11740000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_488</id>
+		<title>The Love Guru</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>62000000</budget>
+		<gross>40800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_489</id>
+		<title>The Mummy: Tomb of the Dragon Emperor</title>
+		<genre>Action</genre>
+		<budget>175000000</budget>
+		<gross>393200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_490</id>
+		<title>The Other Boleyn Girl</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>40000000</budget>
+		<gross>77200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_491</id>
+		<title>The Pirates Who Don't Do Anything</title>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>12900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_492</id>
+		<title>The Ruins</title>
+		<studio>Paramount</studio>
+		<genre>Horror</genre>
+		<budget>25000000</budget>
+		<gross>22600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_493</id>
+		<title>The Secret Life of Bees</title>
+		<studio>Fox</studio>
+		<genre>Drama</genre>
+		<budget>11000000</budget>
+		<gross>37800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_494</id>
+		<title>The Sisterhood of the Traveling Pants 2</title>
+		<genre>Drama</genre>
+		<budget>27000000</budget>
+		<gross>44200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_495</id>
+		<title>The Spiderwick Chronicles</title>
+		<studio>Paramount</studio>
+		<genre>Adventure</genre>
+		<budget>92500000</budget>
+		<gross>162800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_496</id>
+		<title>The Spirit</title>
+		<studio>Lionsgate</studio>
+		<genre>Action</genre>
+		<budget>6000000</budget>
+		<gross>21500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_497</id>
+		<title>The Strangers</title>
+		<studio>Relativity Media</studio>
+		<genre>Horror</genre>
+		<budget>9000000</budget>
+		<gross>77600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_498</id>
+		<title>The Tale of Despereaux</title>
+		<studio>Universal</studio>
+		<genre>Animation</genre>
+		<budget>55000000</budget>
+		<gross>88720000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_499</id>
+		<title>The Visitor</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>4000000</budget>
+		<gross>18080000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_500</id>
+		<title>The Women</title>
+		<studio>Warner Bros.</studio>
+		<genre>Drama</genre>
+		<budget>16000000</budget>
+		<gross>46100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_501</id>
+		<title>The X-Files: I Want to Believe</title>
+		<studio>Fox</studio>
+		<genre>Thriller</genre>
+		<budget>35000000</budget>
+		<gross>68300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_502</id>
+		<title>Traitor</title>
+		<studio>Liberty Starz</studio>
+		<genre>Thriller</genre>
+		<budget>22000000</budget>
+		<gross>25300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_503</id>
+		<title>Transporter 3</title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>60900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_504</id>
+		<title>Tropic Thunder</title>
+		<studio>Paramount</studio>
+		<genre>Comedy</genre>
+		<budget>90000000</budget>
+		<gross>188000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_505</id>
+		<title>Twilight</title>
+		<studio>Summit</studio>
+		<genre>Romance</genre>
+		<budget>37000000</budget>
+		<gross>246500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_506</id>
+		<title>Tyler Perry's Meet the Browns</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>41980000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_507</id>
+		<title>Tyler Perry's The Family That Preys</title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>10000000</budget>
+		<gross>37110000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_508</id>
+		<title>Under the Same Moon</title>
+		<genre>Drama</genre>
+		<budget>1700000</budget>
+		<gross>23000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_509</id>
+		<title>Untraceable</title>
+		<studio>Independent</studio>
+		<genre>Thriller</genre>
+		<budget>35000000</budget>
+		<gross>52500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_510</id>
+		<title>Valkyrie</title>
+		<studio>MGM</studio>
+		<genre>Thriller</genre>
+		<budget>75000000</budget>
+		<gross>184000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_511</id>
+		<title>Vantage Point</title>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>151200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_512</id>
+		<title>Vicky Cristina Barcelona</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Romance</genre>
+		<budget>16000000</budget>
+		<gross>77200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_513</id>
+		<title>W.</title>
+		<genre>Biography</genre>
+		<budget>25100000</budget>
+		<gross>29000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_514</id>
+		<title>WALL-E</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>180000000</budget>
+		<gross>507300000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_515</id>
+		<title>Wanted</title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>75000000</budget>
+		<gross>342100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_516</id>
+		<title>Welcome Home, Roscoe Jenkins</title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>27500000</budget>
+		<gross>43400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_517</id>
+		<title>What Happens in Vegas</title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>150000000</budget>
+		<gross>219300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_518</id>
+		<title>Yes Man</title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>50000000</budget>
+		<gross>113400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_519</id>
+		<title>You Don't Mess with the Zohan</title>
+		<studio>Sony</studio>
+		<genre>Comedy</genre>
+		<budget>80000000</budget>
+		<gross>201800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_520</id>
+		<title>Zack and Miri Make a Porno</title>
+		<studio>The Weinstein Company</studio>
+		<genre>Romance</genre>
+		<budget>24000000</budget>
+		<gross>36600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_521</id>
+		<title>9</title>
+		<genre>Animation</genre>
+		<budget>30000000</budget>
+		<gross>48000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_522</id>
+		<title>2012</title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>767900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_523</id>
+		<title>(500) Days of Summer </title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>7500000</budget>
+		<gross>58600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_524</id>
+		<title>12 Rounds </title>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>17100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_525</id>
+		<title>17 Again </title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>136300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_526</id>
+		<title>A Christmas Carol</title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>190000000</budget>
+		<gross>323600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_527</id>
+		<title>A Perfect Getaway </title>
+		<genre>Mystery</genre>
+		<budget>14000000</budget>
+		<gross>22200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_528</id>
+		<title>A Serious Man </title>
+		<studio>Universal</studio>
+		<genre>Drama</genre>
+		<budget>7000000</budget>
+		<gross>20500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_529</id>
+		<title>Adventureland </title>
+		<genre>Comedy</genre>
+		<budget>9500000</budget>
+		<gross>16050000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_530</id>
+		<title>Aliens in the Attic </title>
+		<genre>Adventure</genre>
+		<budget>45000000</budget>
+		<gross>59550000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_531</id>
+		<title>All About Steve </title>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>37930000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_532</id>
+		<title>Alvin and the Chipmunks: The Squeakquel </title>
+		<studio>Independent</studio>
+		<genre>Animation</genre>
+		<budget>75000000</budget>
+		<gross>440700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_533</id>
+		<title>Amelia </title>
+		<genre>Adventure</genre>
+		<budget>40000000</budget>
+		<gross>19200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_534</id>
+		<title>Angels &amp; Demons </title>
+		<studio>Sony</studio>
+		<genre>Mystery</genre>
+		<budget>150000000</budget>
+		<gross>485900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_535</id>
+		<title>Armored </title>
+		<genre>Action</genre>
+		<budget>20000000</budget>
+		<gross>16000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_536</id>
+		<title>Astro Boy </title>
+		<genre>Animation</genre>
+		<budget>65000000</budget>
+		<gross>31590000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_537</id>
+		<title>Avatar </title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>237000000</budget>
+		<gross>2712850000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_538</id>
+		<title>Away We Go </title>
+		<genre>Comedy</genre>
+		<budget>21000000</budget>
+		<gross>10200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_539</id>
+		<title>Bandslam </title>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>12100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_540</id>
+		<title>Bride Wars </title>
+		<studio>Fox</studio>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>114700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_541</id>
+		<title>Brothers </title>
+		<genre>Drama</genre>
+		<budget>26000000</budget>
+		<gross>39500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_542</id>
+		<title>Bruno </title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>42000000</budget>
+		<gross>130800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_543</id>
+		<title>Cirque du Freak: The Vampire's Assistant </title>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>28200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_544</id>
+		<title>Cloudy with a Chance of Meatballs </title>
+		<studio>Sony</studio>
+		<genre>Animation</genre>
+		<budget>100000000</budget>
+		<gross>212700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_545</id>
+		<title>Confessions of a Shopaholic </title>
+		<genre>Comedy</genre>
+		<budget>70000000</budget>
+		<gross>108300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_546</id>
+		<title>Coraline </title>
+		<studio>Universal</studio>
+		<genre>Animation</genre>
+		<budget>60000000</budget>
+		<gross>121900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_547</id>
+		<title>Couples Retreat </title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>60000000</budget>
+		<gross>166400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_548</id>
+		<title>Crank: High Voltage </title>
+		<genre>Action</genre>
+		<budget>12900000</budget>
+		<gross>34500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_549</id>
+		<title>Dance Flick </title>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>32090000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_550</id>
+		<title>Did You Hear About the Morgans? </title>
+		<genre>Comedy</genre>
+		<budget>58000000</budget>
+		<gross>47500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_551</id>
+		<title>District 9 </title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>204800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_552</id>
+		<title>Drag Me to Hell </title>
+		<studio>Universal</studio>
+		<genre>Horror</genre>
+		<budget>30000000</budget>
+		<gross>86700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_553</id>
+		<title>Dragonball Evolution </title>
+		<genre>Action</genre>
+		<budget>30000000</budget>
+		<gross>58230000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_554</id>
+		<title>Duplicity </title>
+		<genre>Romance</genre>
+		<budget>60000000</budget>
+		<gross>78100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_555</id>
+		<title>Everybody's Fine </title>
+		<genre>Drama</genre>
+		<budget>21000000</budget>
+		<gross>13900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_556</id>
+		<title>Extract </title>
+		<genre>Comedy</genre>
+		<budget>7500000</budget>
+		<gross>10800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_557</id>
+		<title>Fame</title>
+		<studio>MGM</studio>
+		<genre>Comedy</genre>
+		<budget>18000000</budget>
+		<gross>78000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_558</id>
+		<title>Fast and Furious </title>
+		<studio>Universal</studio>
+		<genre>Action</genre>
+		<budget>85000000</budget>
+		<gross>343000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_559</id>
+		<title>Fired Up! </title>
+		<genre>Comedy</genre>
+		<budget>20000000</budget>
+		<gross>18600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_560</id>
+		<title>Friday the 13th</title>
+		<studio>Paramount</studio>
+		<genre>Horror</genre>
+		<budget>19000000</budget>
+		<gross>91400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_561</id>
+		<title>Funny People </title>
+		<genre>Comedy</genre>
+		<budget>70000000</budget>
+		<gross>71500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_562</id>
+		<title>G-Force </title>
+		<studio>Disney</studio>
+		<genre>Action</genre>
+		<budget>82500000</budget>
+		<gross>285100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_563</id>
+		<title>G.I. Joe: The Rise of Cobra </title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>175000000</budget>
+		<gross>302100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_564</id>
+		<title>Gamer </title>
+		<genre>Action</genre>
+		<budget>12500000</budget>
+		<gross>35100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_565</id>
+		<title>Ghosts of Girlfriends Past </title>
+		<genre>Comedy</genre>
+		<budget>50000000</budget>
+		<gross>101900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_566</id>
+		<title>Halloween II</title>
+		<genre>Horror</genre>
+		<budget>15000000</budget>
+		<gross>37700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_567</id>
+		<title>Hannah Montana: The Movie </title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>150090000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_568</id>
+		<title>Harry Potter and the Half-Blood Prince </title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>250000000</budget>
+		<gross>934000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_569</id>
+		<title>He's Just Not That Into You </title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>25000000</budget>
+		<gross>178400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_570</id>
+		<title>Hotel for Dogs </title>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>118200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_571</id>
+		<title>I Love You Beth Cooper </title>
+		<genre>Comedy</genre>
+		<budget>18000000</budget>
+		<gross>15700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_572</id>
+		<title>I Love You, Man </title>
+		<genre>Comedy</genre>
+		<budget>30000000</budget>
+		<gross>91400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_573</id>
+		<title>Ice Age: Dawn of the Dinosaurs </title>
+		<studio>Fox</studio>
+		<genre>Animation</genre>
+		<budget>90000000</budget>
+		<gross>884500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_574</id>
+		<title>Imagine That </title>
+		<genre>Comedy</genre>
+		<budget>55000000</budget>
+		<gross>22990000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_575</id>
+		<title>Inglourious Basterds </title>
+		<studio>Universal</studio>
+		<genre>Adventure</genre>
+		<budget>70000000</budget>
+		<gross>313600000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_576</id>
+		<title>Inkheart </title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>60000000</budget>
+		<gross>62500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_577</id>
+		<title>Invictus</title>
+		<studio>Warner Bros.</studio>
+		<genre>Biography</genre>
+		<budget>60000000</budget>
+		<gross>53900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_578</id>
+		<title>It's Complicated </title>
+		<studio>Universal</studio>
+		<genre>Comedy</genre>
+		<budget>75000000</budget>
+		<gross>218100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_579</id>
+		<title>Jennifer's Body </title>
+		<genre>Comedy</genre>
+		<budget>16000000</budget>
+		<gross>18800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_580</id>
+		<title>Julie &amp; Julia </title>
+		<genre>Biography</genre>
+		<budget>40000000</budget>
+		<gross>118600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_581</id>
+		<title>Knowing </title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>50000000</budget>
+		<gross>183300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_582</id>
+		<title>Land of the Lost </title>
+		<genre>Drama</genre>
+		<budget>100000000</budget>
+		<gross>68800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_583</id>
+		<title>Law Abiding Citizen </title>
+		<genre>Crime</genre>
+		<budget>53000000</budget>
+		<gross>102500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_584</id>
+		<title>Love Happens </title>
+		<genre>Drama</genre>
+		<budget>18000000</budget>
+		<gross>33100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_585</id>
+		<title>Michael Jackson's This Is It </title>
+		<genre>Documentary</genre>
+		<budget>60000000</budget>
+		<gross>252010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_586</id>
+		<title>Monsters Vs. Aliens </title>
+		<studio>Paramount</studio>
+		<genre>Animation</genre>
+		<budget>175000000</budget>
+		<gross>381500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_587</id>
+		<title>My Bloody Valentine 3-D </title>
+		<studio>Lionsgate</studio>
+		<genre>Crime</genre>
+		<budget>14000000</budget>
+		<gross>100000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_588</id>
+		<title>My Life in Ruins </title>
+		<genre>Comedy</genre>
+		<budget>17000000</budget>
+		<gross>18010000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_589</id>
+		<title>My Sister's Keeper </title>
+		<genre>Drama</genre>
+		<budget>27500000</budget>
+		<gross>91700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_590</id>
+		<title>Next Day Air </title>
+		<genre>Action</genre>
+		<budget>3000000</budget>
+		<gross>10000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_591</id>
+		<title>Night at the Museum: Battle of the Smithsonian </title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>413000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_592</id>
+		<title>Nine </title>
+		<genre>Drama</genre>
+		<budget>80000000</budget>
+		<gross>29500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_593</id>
+		<title>Ninja Assassin </title>
+		<genre>Action</genre>
+		<budget>50000000</budget>
+		<gross>49800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_594</id>
+		<title>Not Easily Broken </title>
+		<genre>Drama</genre>
+		<budget>5000000</budget>
+		<gross>10700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_595</id>
+		<title>Notorious</title>
+		<studio>Fox</studio>
+		<genre>Biography</genre>
+		<budget>19000000</budget>
+		<gross>40500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_596</id>
+		<title>Observe and Report </title>
+		<genre>Comedy</genre>
+		<budget>18000000</budget>
+		<gross>24900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_597</id>
+		<title>Obsessed </title>
+		<studio>Sony</studio>
+		<genre>Drama</genre>
+		<budget>20000000</budget>
+		<gross>73800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_598</id>
+		<title>Old Dogs </title>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>57600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_599</id>
+		<title>Orphan </title>
+		<genre>Horror</genre>
+		<budget>30000000</budget>
+		<gross>75800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_600</id>
+		<title>Pandorum </title>
+		<genre>Action</genre>
+		<budget>40000000</budget>
+		<gross>17000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_601</id>
+		<title>Paranormal Activity </title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>15000</budget>
+		<gross>171300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_602</id>
+		<title>Paul Blart: Mall Cop </title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>26000000</budget>
+		<gross>183300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_603</id>
+		<title>Pirate Radio (The Boat that Rocked, UK)</title>
+		<genre>Comedy</genre>
+		<budget>50000000</budget>
+		<gross>36300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_604</id>
+		<title>Planet 51 </title>
+		<studio>Independent</studio>
+		<genre>Animation</genre>
+		<budget>50000000</budget>
+		<gross>73400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_605</id>
+		<title>Post Grad </title>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>6380000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_606</id>
+		<title>Public Enemies </title>
+		<genre>Biography</genre>
+		<budget>102500000</budget>
+		<gross>214100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_607</id>
+		<title>Push </title>
+		<genre>Action</genre>
+		<budget>38000000</budget>
+		<gross>44400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_608</id>
+		<title>Race to Witch Mountain </title>
+		<genre>Action</genre>
+		<budget>50000000</budget>
+		<gross>105100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_609</id>
+		<title>Saw VI </title>
+		<studio>Independent</studio>
+		<genre>Horror</genre>
+		<budget>11000000</budget>
+		<gross>49300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_610</id>
+		<title>Sherlock Holmes </title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>90000000</budget>
+		<gross>394600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_611</id>
+		<title>Sorority Row </title>
+		<genre>Horror</genre>
+		<budget>12500000</budget>
+		<gross>13560000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_612</id>
+		<title>Star Trek </title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>140000000</budget>
+		<gross>385500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_613</id>
+		<title>State of Play </title>
+		<genre>Crime</genre>
+		<budget>60000000</budget>
+		<gross>88300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_614</id>
+		<title>Street Fighter: The Legend of Chun-Li </title>
+		<genre>Action</genre>
+		<budget>50000000</budget>
+		<gross>12340000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_615</id>
+		<title>Sunshine Cleaning </title>
+		<genre>Comedy</genre>
+		<budget>5000000</budget>
+		<gross>14600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_616</id>
+		<title>Surrogates </title>
+		<genre>Action</genre>
+		<budget>80000000</budget>
+		<gross>99400000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_617</id>
+		<title>Taken </title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>25000000</budget>
+		<gross>226800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_618</id>
+		<title>Taking Woodstock </title>
+		<genre>Comedy</genre>
+		<budget>29000000</budget>
+		<gross>9900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_619</id>
+		<title>Terminator Salvation </title>
+		<studio>Independent</studio>
+		<genre>Action</genre>
+		<budget>200000000</budget>
+		<gross>372000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_620</id>
+		<title>The Blind Side </title>
+		<studio>Independent</studio>
+		<genre>Biography</genre>
+		<budget>29000000</budget>
+		<gross>295100000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_621</id>
+		<title>The Box </title>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>26340000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_622</id>
+		<title>Fantastic Mr. Fox </title>
+		<studio>Fox</studio>
+		<genre>Animation</genre>
+		<budget>40000000</budget>
+		<gross>42780000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_623</id>
+		<title>The Final Destination </title>
+		<studio>Warner Bros.</studio>
+		<genre>Horror</genre>
+		<budget>40000000</budget>
+		<gross>152600000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_624</id>
+		<title>The Fourth Kind </title>
+		<genre>Mystery</genre>
+		<budget>10000000</budget>
+		<gross>31720000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_625</id>
+		<title>The Hangover </title>
+		<studio>Warner Bros.</studio>
+		<genre>Comedy</genre>
+		<budget>35000000</budget>
+		<gross>467300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_626</id>
+		<title>The Haunting in Connecticut </title>
+		<genre>Drama</genre>
+		<budget>30000000</budget>
+		<gross>76800000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_627</id>
+		<title>The Hurt Locker </title>
+		<studio>Independent</studio>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>18100000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_628</id>
+		<title>The Informant! </title>
+		<genre>Comedy</genre>
+		<budget>22000000</budget>
+		<gross>35500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_629</id>
+		<title>The International </title>
+		<genre>Action</genre>
+		<budget>50000000</budget>
+		<gross>60200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_630</id>
+		<title>The Invention of Lying </title>
+		<genre>Comedy</genre>
+		<budget>18500000</budget>
+		<gross>32000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_631</id>
+		<title>The Lovely Bones </title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>65000000</budget>
+		<gross>92300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_632</id>
+		<title>The Men Who Stare at Goats </title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>24000000</budget>
+		<gross>48200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_633</id>
+		<title>The Pink Panther 2 </title>
+		<genre>Adventure</genre>
+		<budget>59000000</budget>
+		<gross>75900000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_634</id>
+		<title>The Princess and the Frog </title>
+		<genre>Animation</genre>
+		<budget>105000000</budget>
+		<gross>247300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_635</id>
+		<title>The Proposal </title>
+		<studio>Disney</studio>
+		<genre>Comedy</genre>
+		<budget>40000000</budget>
+		<gross>314700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_636</id>
+		<title>The Road </title>
+		<studio>The Weinstein Company</studio>
+		<genre>Adventure</genre>
+		<budget>25000000</budget>
+		<gross>14300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_637</id>
+		<title>The Soloist </title>
+		<genre>Drama</genre>
+		<budget>60000000</budget>
+		<gross>37920000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_638</id>
+		<title>The Stepfather</title>
+		<genre>Mystery</genre>
+		<budget>20000000</budget>
+		<gross>31200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_639</id>
+		<title>The Taking of Pelham 1 2 3 </title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>110000000</budget>
+		<gross>150000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_640</id>
+		<title>The Time Traveler's Wife </title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>39000000</budget>
+		<gross>79700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_641</id>
+		<title>The Twilight Saga: New Moon </title>
+		<studio>Summit</studio>
+		<genre>Drama</genre>
+		<budget>50000000</budget>
+		<gross>704200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_642</id>
+		<title>The Ugly Truth </title>
+		<studio>Independent</studio>
+		<genre>Comedy</genre>
+		<budget>38000000</budget>
+		<gross>205300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_643</id>
+		<title>The Unborn</title>
+		<studio>Relativity Media</studio>
+		<genre>Horror</genre>
+		<budget>16000000</budget>
+		<gross>76500000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_644</id>
+		<title>The Uninvited </title>
+		<genre>Drama</genre>
+		<gross>42700000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_645</id>
+		<title>Transformers: Revenge of the Fallen </title>
+		<studio>Paramount</studio>
+		<genre>Action</genre>
+		<budget>210000000</budget>
+		<gross>836300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_646</id>
+		<title>Underworld: Rise of the Lycans </title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>35000000</budget>
+		<gross>91100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_647</id>
+		<title>Up </title>
+		<studio>Disney</studio>
+		<genre>Animation</genre>
+		<budget>175000000</budget>
+		<gross>727100000</gross>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>movie_list_648</id>
+		<title>Up in the Air </title>
+		<studio>Paramount</studio>
+		<genre>Drama</genre>
+		<budget>25000000</budget>
+		<gross>162020000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_649</id>
+		<title>Watchmen </title>
+		<studio>Warner Bros.</studio>
+		<genre>Action</genre>
+		<budget>138000000</budget>
+		<gross>185300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_650</id>
+		<title>Whatever Works </title>
+		<genre>Comedy</genre>
+		<budget>15000000</budget>
+		<gross>29000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_651</id>
+		<title>Where the Wild Things Are </title>
+		<studio>Warner Bros.</studio>
+		<genre>Adventure</genre>
+		<budget>100000000</budget>
+		<gross>85300000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_652</id>
+		<title>Whip It </title>
+		<genre>Drama</genre>
+		<budget>15000000</budget>
+		<gross>16000000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_653</id>
+		<title>Whiteout </title>
+		<genre>Action</genre>
+		<budget>35000000</budget>
+		<gross>12200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_654</id>
+		<title>X-Men Origins: Wolverine </title>
+		<studio>Fox</studio>
+		<genre>Action</genre>
+		<budget>150000000</budget>
+		<gross>373100000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_655</id>
+		<title>Year One </title>
+		<genre>Adventure</genre>
+		<budget>60000000</budget>
+		<gross>60200000</gross>
+	</movie>
+	<movie>
+		<id>movie_list_656</id>
+		<title>Zombieland </title>
+		<studio>Sony</studio>
+		<genre>Action</genre>
+		<budget>23600000</budget>
+		<gross>93300000</gross>
+	</movie>
+</movies>

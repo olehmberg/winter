@@ -1,0 +1,15 @@
+"joule",|"J","joule","Τζάουλ"
+"kilojoule"|"kJ","kilojoule"|1000.0
+"erg"|"erg"|1.0E-7
+"milliwattHour"|"mWh","milliwatt-hour"|3.6
+"wattHour"|"Wh","watt-hour"|3600.0
+"kilowattHour"|"kWh","kilowatt-hour"|3600000.0
+"megawattHour"|"MWh","megawatt-hour"|3600000000.0
+"gigawattHour"|"GWh","gigawatt-hour"|3600000000000.0
+"terawattHour"|"TWh","terawatt-hour"|3600000000000000.0
+"millicalorie"|"mcal","millicalorie"|0.0041868
+"calorie"|"cal","calorie"|4.1868
+"kilocalorie"|"kcal","kilocalorie"|4186.8
+"megacalorie"|"Mcal","megacalorie"|4186800.0
+"inchPound"|"inlb","inch-pound"|0.11298482902
+"footPound"|"ftlb","foot-pound"|1.3558179483

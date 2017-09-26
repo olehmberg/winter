@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<events>
+  <event uri="http://yago-knowledge.org/resource/Battle_of_Bouvines">
+    <label>Battle of Bouvines@eng</label>
+    <date>1214-07-27^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>50.583333333333336^^http://yago-knowledge.org/resource/degrees,3.225^^http://yago-knowledge.org/resource/degrees</coordinates>
+    <same>http://dbpedia.org/resource/Battle_of_Bouvines</same>
+    <locations/>
+  </event>
+  <event uri="http://yago-knowledge.org/resource/Battle_of_Waterloo">
+    <label>Battle of Waterloo@eng</label>
+    <date>1815-06-18^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>50.68333333333333^^http://yago-knowledge.org/resource/degrees,4.4^^http://yago-knowledge.org/resource/degrees</coordinates>
+    <same>http://dbpedia.org/resource/Battle_of_Waterloo</same>
+    <locations>
+      <location uri="http://yago-knowledge.org/resource/Waterloo">
+        <label>Waterloo@eng</label>
+        <same>http://dbpedia.org/resource/Waterloo</same>
+      </location>
+    </locations>
+  </event>
+  <event uri="http://yago-knowledge.org/resource/1974_FIFA_World_Cup">
+    <label>1974 FIFA World Cup@eng</label>
+    <label>World Cup Germany@eng</label>
+    <date>1974-##-##^^http://www.w3.org/2001/XMLSchema#date</date>
+    <same>http://dbpedia.org/resource/1974_FIFA_World_Cup</same>
+    <locations>
+      <location uri="http://yago-knowledge.org/resource/West_Germany">
+        <label>West Germany@eng</label>
+        <label>Germany@eng</label>
+        <label>Germanies@eng</label>
+        <coordinates>50.73388888888889^^http://yago-knowledge.org/resource/degrees,7.099722222222222^^http://yago-knowledge.org/resource/degrees</coordinates>
+        <same>http://dbpedia.org/resource/West_Germany</same>
+      </location>
+    </locations>
+  </event>
+  <event uri="http://yago-knowledge.org/resource/2014_Oso_mudslide">
+    <label>2014 Oso mudslide@eng</label>
+    <date>2014-03-22^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>48.28256^^http://yago-knowledge.org/resource/degrees,-121.848^^http://yago-knowledge.org/resource/degrees</coordinates>
+    <same>http://dbpedia.org/resource/2014_Oso_mudslide</same>
+    <locations/>
+  </event>
+  <event uri="http://yago-knowledge.org/resource/Great_Fire_of_Brisbane">
+    <label>Great Fire of Brisbane@eng</label>
+    <date>1864-12-01^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>-27.47047^^http://yago-knowledge.org/resource/degrees,153.02503^^http://yago-knowledge.org/resource/degrees</coordinates>
+    <same>http://dbpedia.org/resource/Great_Fire_of_Brisbane</same>
+    <locations/>
+  </event>
+</events>

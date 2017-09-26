@@ -67,7 +67,6 @@ WInte.r can be used out-of-the-box to integrate data from multiple data sources.
 **Integration of Multiple Data Sources: Building a Movie Dataset**
 
 The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](http://dws.informatik.uni-mannheim.de/en/teaching/courses-for-master-candidates/ie670webdataintegration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of movie data from multiple Web data sources. In addition, student teams use the WInte.r framework to integrate data about different topics as part of the projects that they conduct during the course.
-The example use cases can be found in a separate repository: [WInte.r use cases](https://github.com/olehmberg/winter-usecases).
 
 **Integration of Large Numbers of Data Sources: Augmenting the DBpedia Knowledge base with Web Table Data**
 

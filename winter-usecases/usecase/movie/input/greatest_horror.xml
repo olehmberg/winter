@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>greatest_horror1</id>
+		<title>Psycho</title>
+		<director>
+			<name>Alfred Hitchcock</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Anthony Perkins</name>
+			</actor>
+			<actor>
+				<name>Janet Leigh</name>
+			</actor>
+			<actor>
+				<name>Vera Miles</name>
+			</actor>
+		</actors>
+		<date>1960-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror2</id>
+		<title>Rosemary’s Baby</title>
+		<director>
+			<name>Roman Polanski</name>
+		</director>
+		<actors>
+			<actor>
+				<name>John Cassavetes</name>
+			</actor>
+			<actor>
+				<name>Mia Farrow</name>
+			</actor>
+			<actor>
+				<name>Ruth Gordon</name>
+			</actor>
+		</actors>
+		<date>1968-01-01</date>
+		<genre>Horror</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_horror3</id>
+		<title>Don’t Look Now</title>
+		<director>
+			<name>Nicholas Roeg</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Donald Sutherland</name>
+			</actor>
+			<actor>
+				<name>Hilary Mason</name>
+			</actor>
+			<actor>
+				<name>Julie Christie</name>
+			</actor>
+		</actors>
+		<date>1973-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror4</id>
+		<title>The Wicker Man</title>
+		<director>
+			<name>Robin Hardy</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Britt Ekland</name>
+			</actor>
+			<actor>
+				<name>Christopher Lee</name>
+			</actor>
+			<actor>
+				<name>Edward Woodward</name>
+			</actor>
+		</actors>
+		<date>1973-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror5</id>
+		<title>The Shining</title>
+		<director>
+			<name>Stanley Kubrick</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Danny Lloyd</name>
+			</actor>
+			<actor>
+				<name>Jack Nicholson</name>
+			</actor>
+			<actor>
+				<name>Shelley Duval</name>
+			</actor>
+		</actors>
+		<date>1980-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror6</id>
+		<title>The Exorcist</title>
+		<director>
+			<name>William Friedkin</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Ellen Burstyn</name>
+			</actor>
+			<actor>
+				<name>Linda Blair</name>
+			</actor>
+			<actor>
+				<name>Max von Sydow</name>
+			</actor>
+		</actors>
+		<date>1973-01-01</date>
+		<genre>Horror</genre>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>greatest_horror7</id>
+		<title>Nosferatu  (1922)</title>
+		<director>
+			<name>FW Mernau</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Alexander Granach</name>
+			</actor>
+			<actor>
+				<name>Greta Schroder</name>
+			</actor>
+			<actor>
+				<name>Gustav von Wangenheim</name>
+			</actor>
+			<actor>
+				<name>Max Schreck</name>
+			</actor>
+		</actors>
+		<date>1922-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror8</id>
+		<title>Let the Right One In</title>
+		<director>
+			<name>Tomas Alfredson</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Henrik Dahl</name>
+			</actor>
+			<actor>
+				<name>Kare Hedebrant</name>
+			</actor>
+			<actor>
+				<name>Karin Bergquist</name>
+			</actor>
+			<actor>
+				<name>Lina Leandersson</name>
+			</actor>
+			<actor>
+				<name>Per Ragnar</name>
+			</actor>
+			<actor>
+				<name>Peter Carlberg</name>
+			</actor>
+		</actors>
+		<date>2008-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror9</id>
+		<title>Vampyr</title>
+		<director>
+			<name>Carl Theodor Dreyer</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Henriette Gérard</name>
+			</actor>
+			<actor>
+				<name>Henriette Gerard</name>
+			</actor>
+			<actor>
+				<name>Julian West</name>
+			</actor>
+			<actor>
+				<name>Sybille Schmitz</name>
+			</actor>
+		</actors>
+		<date>1932-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror10</id>
+		<title>Peeping Tom</title>
+		<director>
+			<name>Michael Powell</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Anna Massey</name>
+			</actor>
+			<actor>
+				<name>Carl Boehm</name>
+			</actor>
+			<actor>
+				<name>Esmond Knight</name>
+			</actor>
+			<actor>
+				<name>Karl Bohm</name>
+			</actor>
+			<actor>
+				<name>Maxine Audley</name>
+			</actor>
+			<actor>
+				<name>Moira Shearer</name>
+			</actor>
+		</actors>
+		<date>1960-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror11</id>
+		<title>The Innocents</title>
+		<director>
+			<name>Jack Clayton</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Clytie Jessop</name>
+			</actor>
+			<actor>
+				<name>Deborah Kerr</name>
+			</actor>
+			<actor>
+				<name>Michael Redgrave</name>
+			</actor>
+			<actor>
+				<name>Peter Wyngarde</name>
+			</actor>
+		</actors>
+		<date>1961-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror12</id>
+		<title>Ringu</title>
+		<director>
+			<name>Hideo Nakata</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Nanako Matsushima</name>
+			</actor>
+			<actor>
+				<name>Hiroyuki Sanada</name>
+			</actor>
+			<actor>
+				<name>Rikiya Otaka</name>
+			</actor>
+		</actors>
+		<date>1998-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror13</id>
+		<title>The Haunting</title>
+		<director>
+			<name>Robert Wise</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Claire Bloom</name>
+			</actor>
+			<actor>
+				<name>Julie Harris</name>
+			</actor>
+			<actor>
+				<name>Richard Johnson</name>
+			</actor>
+		</actors>
+		<date>1963-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror14</id>
+		<title>Texas Chainsaw Massacre</title>
+		<director>
+			<name>Tobe Hooper</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Edwin Neal</name>
+			</actor>
+			<actor>
+				<name>Jim Siedow</name>
+			</actor>
+			<actor>
+				<name>Marilyn Burns</name>
+			</actor>
+			<actor>
+				<name>Paul A Partain</name>
+			</actor>
+		</actors>
+		<date>1974-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror15</id>
+		<title>Dead of Night</title>
+		<director>
+			<name>Alberto Cavalcanti, Charles Crichton</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Googie Withers</name>
+			</actor>
+			<actor>
+				<name>Mervyn Johns</name>
+			</actor>
+			<actor>
+				<name>Michael Redgrave</name>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror16</id>
+		<title>The Cabinet of Dr Caligari</title>
+		<director>
+			<name>Robert Wiene</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Conrad Veidt</name>
+			</actor>
+			<actor>
+				<name>Lil Dagover</name>
+			</actor>
+			<actor>
+				<name>Werner Krauss</name>
+			</actor>
+		</actors>
+		<date>1920-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror17</id>
+		<title>Halloween</title>
+		<director>
+			<name>John Carpenter</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Donald Pleasance</name>
+			</actor>
+			<actor>
+				<name>Donald Pleasence</name>
+			</actor>
+			<actor>
+				<name>Jamie Lee Curtis</name>
+			</actor>
+			<actor>
+				<name>Nancy Loomis</name>
+			</actor>
+			<actor>
+				<name>Tony Moran</name>
+			</actor>
+		</actors>
+		<date>1978-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror18</id>
+		<title>Bride of Frankenstein</title>
+		<director>
+			<name>James Whale</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Boris Karloff</name>
+			</actor>
+			<actor>
+				<name>Colin Clive</name>
+			</actor>
+			<actor>
+				<name>Elsa Lanchester</name>
+			</actor>
+		</actors>
+		<date>1935-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror19</id>
+		<title>Les Diaboliques</title>
+		<director>
+			<name>Henri-Georges Clouzot</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Paul Meurisse</name>
+			</actor>
+			<actor>
+				<name>Simone Signoret</name>
+			</actor>
+			<actor>
+				<name>Vera Clouzot</name>
+			</actor>
+		</actors>
+		<date>1955-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror20</id>
+		<title>Audition</title>
+		<director>
+			<name>Miike Takashi</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Eihi Shiina</name>
+			</actor>
+			<actor>
+				<name>Ishibashi Renji</name>
+			</actor>
+			<actor>
+				<name>Ishibashi Ryo</name>
+			</actor>
+			<actor>
+				<name>Matsuda Miyuki</name>
+			</actor>
+			<actor>
+				<name>Renji Ishibashi</name>
+			</actor>
+			<actor>
+				<name>Ryo Ishibashi</name>
+			</actor>
+			<actor>
+				<name>Shiina Eihi</name>
+			</actor>
+		</actors>
+		<date>1999-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror21</id>
+		<title>Dracula   (1958)</title>
+		<director>
+			<name>Terence Fisher</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Christopher Lee</name>
+			</actor>
+			<actor>
+				<name>Melissa Stribling</name>
+			</actor>
+			<actor>
+				<name>Michael Gough</name>
+			</actor>
+			<actor>
+				<name>Peter Cushing</name>
+			</actor>
+		</actors>
+		<date>1958-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror22</id>
+		<title>The Blair Witch Project</title>
+		<director>
+			<name>Daniel Myrick, E Sanchez</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Heather Donahue</name>
+			</actor>
+			<actor>
+				<name>Joshua Leonard</name>
+			</actor>
+			<actor>
+				<name>Michael C. Williams</name>
+			</actor>
+		</actors>
+		<date>1999-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror23</id>
+		<title>Evil Dead/Evil Dead II</title>
+		<director>
+			<name>Sam Raimi</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Betsy Baker</name>
+			</actor>
+			<actor>
+				<name>Bruce Campbell</name>
+			</actor>
+			<actor>
+				<name>Ellen Sandweiss</name>
+			</actor>
+		</actors>
+		<date>1981-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror24</id>
+		<title>Carrie</title>
+		<director>
+			<name>Brian De Palma</name>
+		</director>
+		<actors>
+			<actor>
+				<name>John Travolta</name>
+			</actor>
+			<actor>
+				<name>Piper Laurie</name>
+			</actor>
+			<actor>
+				<name>Sissy Spacek</name>
+			</actor>
+		</actors>
+		<date>1976-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+	<movie>
+		<id>greatest_horror25</id>
+		<title>Les Vampires (1915)</title>
+		<director>
+			<name>Louis Feuillade</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Edouard Mathe</name>
+			</actor>
+			<actor>
+				<name>Marcel Levesque</name>
+			</actor>
+		</actors>
+		<date>1915-01-01</date>
+		<genre>Horror</genre>
+	</movie>
+</movies>

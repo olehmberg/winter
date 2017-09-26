@@ -1,0 +1,8 @@
+"byte"|"B","byte"
+"bit"|"bit"|0.125
+"kilobit"|"kbit","kilobit"|128.0
+"megabit"|"Mbit","megabit"|131072.0
+"kilobyte"|"kB","kilobyte"|1000.0
+"megabyte"|"MB","megabyte"|1000000.0
+"gigabyte"|"GB","gigabyte"|1000000000.0
+"terabyte"|"TB","terabyte"|1000000000000.0

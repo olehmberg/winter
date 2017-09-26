@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<events>
+ <event uri="http://dbpedia.org/resource/Battle_of_Bouvines">
+    <label>Battle of Bouvines@en</label>
+    <date>1214-07-27^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>50.5833^^http://www.w3.org/2001/XMLSchema#float,3.225^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+    <same>http://fr.dbpedia.org/resource/Bataille_de_Bouvines</same>
+    <same>http://wikidata.dbpedia.org/resource/Q830626</same>
+    <same>http://de.dbpedia.org/resource/Schlacht_bei_Bouvines</same>
+    <same>http://it.dbpedia.org/resource/Battaglia_di_Bouvines</same>
+    <same>http://pl.dbpedia.org/resource/Bitwa_pod_Bouvines</same>
+    <same>http://pt.dbpedia.org/resource/Batalha_de_Bouvines</same>
+    <same>http://cs.dbpedia.org/resource/Bitva_u_Bouvines</same>
+    <same>http://nl.dbpedia.org/resource/Slag_bij_Bouvines</same>
+    <same>http://sws.geonames.org/6639964/</same>
+    <same>http://www.wikidata.org/entity/Q830626</same>
+    <same>http://es.dbpedia.org/resource/Batalla_de_Bouvines</same>
+    <same>http://ja.dbpedia.org/resource/ブーヴィーヌの戦い</same>
+    <same>http://yago-knowledge.org/resource/Battle_of_Bouvines</same>
+    <same>http://rdf.freebase.com/ns/m.01kxs</same>
+    <locations>
+      <location uri="http://dbpedia.org/resource/Bouvines">
+        <label>Bouvines@en</label>
+        <coordinates>50.583^^http://www.w3.org/2001/XMLSchema#float,3.183^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://rdf.freebase.com/ns/m.05cyhx</same>
+        <same>http://eu.dbpedia.org/resource/Bouvines</same>
+        <same>http://wikidata.dbpedia.org/resource/Q1079414</same>
+        <same>http://yago-knowledge.org/resource/Bouvines</same>
+        <same>http://nl.dbpedia.org/resource/Bouvines</same>
+        <same>http://de.dbpedia.org/resource/Bouvines</same>
+        <same>http://sws.geonames.org/3030721/</same>
+        <same>http://es.dbpedia.org/resource/Bouvines</same>
+        <same>http://pl.dbpedia.org/resource/Bouvines</same>
+        <same>http://cs.dbpedia.org/resource/Bouvines</same>
+        <same>http://ja.dbpedia.org/resource/ブーヴィーヌ</same>
+        <same>http://fr.dbpedia.org/resource/Bouvines</same>
+        <same>http://www.wikidata.org/entity/Q1079414</same>
+        <same>http://it.dbpedia.org/resource/Bouvines</same>
+        <same>http://id.dbpedia.org/resource/Bouvines</same>
+      </location>
+      <location uri="http://dbpedia.org/resource/Kingdom_of_France">
+        <label>Kingdom of France@en</label>
+        <same>http://pt.dbpedia.org/resource/Reino_da_França</same>
+        <same>http://pl.dbpedia.org/resource/Królestwo_Francji_(987-1791)</same>
+        <same>http://id.dbpedia.org/resource/Kerajaan_Perancis</same>
+        <same>http://nl.dbpedia.org/resource/Koninkrijk_Frankrijk</same>
+        <same>http://eu.dbpedia.org/resource/Frantziako_Erresuma</same>
+        <same>http://cs.dbpedia.org/resource/Francouzské_království</same>
+        <same>http://el.dbpedia.org/resource/Βασίλειο_της_Γαλλίας</same>
+        <same>http://wikidata.dbpedia.org/resource/Q70972</same>
+        <same>http://fr.dbpedia.org/resource/Royaume_de_France</same>
+        <same>http://de.dbpedia.org/resource/Königreich_Frankreich_(987–1791)</same>
+        <same>http://es.dbpedia.org/resource/Antiguo_Régimen_en_Francia</same>
+        <same>http://it.dbpedia.org/resource/Regno_di_Francia</same>
+        <same>http://ja.dbpedia.org/resource/フランス王国</same>
+        <same>http://ko.dbpedia.org/resource/프랑스_왕국</same>
+        <same>http://rdf.freebase.com/ns/m.0cn_tpv</same>
+        <same>http://www.wikidata.org/entity/Q70972</same>
+        <same>http://yago-knowledge.org/resource/Kingdom_of_France</same>
+      </location>
+      <location uri="http://dbpedia.org/resource/County_of_Flanders">
+        <label>County of Flanders@en</label>
+        <same>http://fr.dbpedia.org/resource/Comté_de_Flandre</same>
+        <same>http://pt.dbpedia.org/resource/Condado_da_Flandres</same>
+        <same>http://nl.dbpedia.org/resource/Graafschap_Vlaanderen</same>
+        <same>http://rdf.freebase.com/ns/m.0bd3d3</same>
+        <same>http://wikidata.dbpedia.org/resource/Q157070</same>
+        <same>http://de.dbpedia.org/resource/Grafschaft_Flandern</same>
+        <same>http://it.dbpedia.org/resource/Contea_delle_Fiandre</same>
+        <same>http://eu.dbpedia.org/resource/Flandriako_konderria</same>
+        <same>http://www.wikidata.org/entity/Q157070</same>
+        <same>http://yago-knowledge.org/resource/County_of_Flanders</same>
+        <same>http://es.dbpedia.org/resource/Condado_de_Flandes</same>
+        <same>http://cs.dbpedia.org/resource/Flanderské_hrabství</same>
+        <same>http://pl.dbpedia.org/resource/Hrabstwo_Flandrii</same>
+      </location>
+    </locations>
+  </event>
+  <event uri="http://dbpedia.org/resource/Battle_of_Waterloo">
+    <label>Battle of Waterloo@en</label>
+    <date>1815-06-18^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>50.6802^^http://www.w3.org/2001/XMLSchema#float,4.41169^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+    <same>http://id.dbpedia.org/resource/Pertempuran_Waterloo</same>
+    <same>http://www.wikidata.org/entity/Q48314</same>
+    <same>http://rdf.freebase.com/ns/m.01dcm</same>
+    <same>http://ja.dbpedia.org/resource/ワーテルローの戦い</same>
+    <same>http://es.dbpedia.org/resource/Batalla_de_Waterloo</same>
+    <same>http://el.dbpedia.org/resource/Μάχη_του_Βατερλώ</same>
+    <same>http://eu.dbpedia.org/resource/Waterlooko_gudua</same>
+    <same>http://de.dbpedia.org/resource/Schlacht_bei_Waterloo</same>
+    <same>http://yago-knowledge.org/resource/Battle_of_Waterloo</same>
+    <same>http://cs.dbpedia.org/resource/Bitva_u_Waterloo</same>
+    <same>http://it.dbpedia.org/resource/Battaglia_di_Waterloo</same>
+    <same>http://fr.dbpedia.org/resource/Bataille_de_Waterloo</same>
+    <same>http://wikidata.dbpedia.org/resource/Q48314</same>
+    <same>http://sw.cyc.com/concept/Mx4rEN8f09e4SjqD5dhZ1v3K_g</same>
+    <same>http://pl.dbpedia.org/resource/Bitwa_pod_Waterloo</same>
+    <same>http://nl.dbpedia.org/resource/Slag_bij_Waterloo</same>
+    <same>http://ko.dbpedia.org/resource/워털루_전투</same>
+    <same>http://pt.dbpedia.org/resource/Batalha_de_Waterloo</same>
+    <locations>
+      <location uri="http://dbpedia.org/resource/United_Kingdom_of_the_Netherlands">
+        <label>United Kingdom of the Netherlands@en</label>
+        <same>http://fr.dbpedia.org/resource/Royaume_uni_des_Pays-Bas</same>
+        <same>http://ja.dbpedia.org/resource/ネーデルラント連合王国</same>
+        <same>http://pt.dbpedia.org/resource/Reino_Unido_dos_Países_Baixos</same>
+        <same>http://el.dbpedia.org/resource/Ηνωμένο_Βασίλειο_των_Κάτω_Χωρών</same>
+        <same>http://es.dbpedia.org/resource/Reino_Unido_de_los_Países_Bajos</same>
+        <same>http://wikidata.dbpedia.org/resource/Q15864</same>
+        <same>http://ko.dbpedia.org/resource/네덜란드_연합왕국</same>
+        <same>http://rdf.freebase.com/ns/m.0dtzv</same>
+        <same>http://it.dbpedia.org/resource/Regno_Unito_dei_Paesi_Bassi</same>
+        <same>http://de.dbpedia.org/resource/Königreich_der_Vereinigten_Niederlande</same>
+        <same>http://yago-knowledge.org/resource/United_Kingdom_of_the_Netherlands</same>
+        <same>http://eu.dbpedia.org/resource/Herbehereetako_Erresuma_Batua</same>
+        <same>http://cs.dbpedia.org/resource/Spojené_království_Nizozemské</same>
+        <same>http://nl.dbpedia.org/resource/Verenigd_Koninkrijk_der_Nederlanden</same>
+        <same>http://www.wikidata.org/entity/Q15864</same>
+        <same>http://pl.dbpedia.org/resource/Królestwo_Zjednoczonych_Niderlandów</same>
+      </location>
+      <location uri="http://dbpedia.org/resource/Waterloo,_Belgium">
+        <label>Waterloo, Belgium@en</label>
+        <coordinates>50.7167^^http://www.w3.org/2001/XMLSchema#float,4.38333^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://id.dbpedia.org/resource/Waterloo,_Belgia</same>
+        <same>http://pl.dbpedia.org/resource/Waterloo</same>
+        <same>http://yago-knowledge.org/resource/Waterloo,_Belgium</same>
+        <same>http://de.dbpedia.org/resource/Waterloo_(Belgien)</same>
+        <same>http://linkedgeodata.org/triplify/node130692807</same>
+        <same>http://cs.dbpedia.org/resource/Waterloo_(Belgie)</same>
+        <same>http://el.dbpedia.org/resource/Βατερλώ</same>
+        <same>http://nl.dbpedia.org/resource/Waterloo_(België)</same>
+        <same>http://es.dbpedia.org/resource/Waterloo_(Bélgica)</same>
+        <same>http://it.dbpedia.org/resource/Waterloo</same>
+        <same>http://fr.dbpedia.org/resource/Waterloo</same>
+        <same>http://rdf.freebase.com/ns/m.017qwy</same>
+        <same>http://ja.dbpedia.org/resource/ワーテルロー</same>
+        <same>http://wikidata.dbpedia.org/resource/Q179034</same>
+        <same>http://ko.dbpedia.org/resource/워털루_(벨기에)</same>
+        <same>http://www.wikidata.org/entity/Q179034</same>
+        <same>http://eu.dbpedia.org/resource/Waterloo_(Belgika)</same>
+        <same>http://pt.dbpedia.org/resource/Waterloo_(Bélgica)</same>
+        <same>http://sws.geonames.org/2783985/</same>
+      </location>
+    </locations>
+  </event>
+  <event uri="http://dbpedia.org/resource/1974_FIFA_World_Cup">
+    <label>1974 FIFA World Cup@en</label>
+    <same>http://pt.dbpedia.org/resource/Copa_do_Mundo_FIFA_de_1974</same>
+    <same>http://wikidata.dbpedia.org/resource/Q166121</same>
+    <same>http://id.dbpedia.org/resource/Piala_Dunia_FIFA_1974</same>
+    <same>http://cs.dbpedia.org/resource/Mistrovství_světa_ve_fotbale_1974</same>
+    <same>http://nl.dbpedia.org/resource/Wereldkampioenschap_voetbal_1974</same>
+    <same>http://www.wikidata.org/entity/Q166121</same>
+    <same>http://it.dbpedia.org/resource/Campionato_mondiale_di_calcio_1974</same>
+    <same>http://ja.dbpedia.org/resource/1974_FIFAワールドカップ</same>
+    <same>http://fr.dbpedia.org/resource/Coupe_du_monde_de_football_de_1974</same>
+    <same>http://de.dbpedia.org/resource/Fußball-Weltmeisterschaft_1974</same>
+    <same>http://ko.dbpedia.org/resource/1974년_FIFA_월드컵</same>
+    <same>http://es.dbpedia.org/resource/Copa_Mundial_de_Fútbol_de_1974</same>
+    <same>http://pl.dbpedia.org/resource/Mistrzostwa_Świata_w_Piłce_Nożnej_1974</same>
+    <same>http://el.dbpedia.org/resource/Παγκόσμιο_Κύπελλο_Ποδοσφαίρου_1974</same>
+    <same>http://yago-knowledge.org/resource/1974_FIFA_World_Cup</same>
+    <same>http://eu.dbpedia.org/resource/1974ko_Munduko_Futbol_Txapelketa</same>
+    <same>http://rdf.freebase.com/ns/m.014nk_</same>
+    <locations/>
+  </event>
+  <event uri="http://dbpedia.org/resource/Battle_of_Fort_Apache">
+    <label>Battle of Fort Apache@en</label>
+    <date>1881-09-01^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>33.791^^http://www.w3.org/2001/XMLSchema#float,-109.989^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+    <same>http://wikidata.dbpedia.org/resource/Q4871037</same>
+    <same>http://rdf.freebase.com/ns/m.07s3x1k</same>
+    <same>http://www.wikidata.org/entity/Q4871037</same>
+    <same>http://yago-knowledge.org/resource/Battle_of_Fort_Apache</same>
+    <locations>
+      <location uri="http://dbpedia.org/resource/Arizona_Territory">
+        <label>Arizona Territory@en</label>
+        <coordinates>34.05^^http://www.w3.org/2001/XMLSchema#float,-111.09^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://wikidata.dbpedia.org/resource/Q670002</same>
+        <same>http://ko.dbpedia.org/resource/애리조나_준주</same>
+        <same>http://es.dbpedia.org/resource/Territorio_de_Arizona</same>
+        <same>http://de.dbpedia.org/resource/Arizona-Territorium</same>
+        <same>http://ja.dbpedia.org/resource/アリゾナ準州</same>
+        <same>http://pt.dbpedia.org/resource/Território_de_Arizona</same>
+        <same>http://nl.dbpedia.org/resource/Arizona-territorium</same>
+        <same>http://rdf.freebase.com/ns/m.02bg2_</same>
+        <same>http://it.dbpedia.org/resource/Territorio_dell'Arizona</same>
+        <same>http://www.wikidata.org/entity/Q670002</same>
+        <same>http://yago-knowledge.org/resource/Arizona_Territory</same>
+        <same>http://fr.dbpedia.org/resource/Territoire_de_l'Arizona</same>
+      </location>
+      <location uri="http://dbpedia.org/resource/Fort_Apache_Indian_Reservation">
+        <label>Fort Apache Indian Reservation@en</label>
+        <coordinates>33.9286^^http://www.w3.org/2001/XMLSchema#float,-110.132^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://rdf.freebase.com/ns/m.09jlth</same>
+        <same>http://www.wikidata.org/entity/Q5470741</same>
+        <same>http://yago-knowledge.org/resource/Fort_Apache_Indian_Reservation</same>
+        <same>http://wikidata.dbpedia.org/resource/Q5470741</same>
+      </location>
+    </locations>
+  </event>
+  <event uri="http://dbpedia.org/resource/Battle_of_Peleliu">
+    <label>Battle of Peleliu@en</label>
+    <date>1944-11-27^^http://www.w3.org/2001/XMLSchema#date</date>
+    <coordinates>7.0^^http://www.w3.org/2001/XMLSchema#float,134.25^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+    <same>http://it.dbpedia.org/resource/Battaglia_di_Peleliu</same>
+    <same>http://pl.dbpedia.org/resource/Bitwa_o_Peleliu</same>
+    <same>http://cs.dbpedia.org/resource/Bitva_o_Peleliu</same>
+    <same>http://wikidata.dbpedia.org/resource/Q609030</same>
+    <same>http://nl.dbpedia.org/resource/Slag_om_Peleliu</same>
+    <same>http://ko.dbpedia.org/resource/펠렐리우_전투</same>
+    <same>http://sws.geonames.org/7671095/</same>
+    <same>http://www.wikidata.org/entity/Q609030</same>
+    <same>http://es.dbpedia.org/resource/Batalla_de_Peleliu</same>
+    <same>http://pt.dbpedia.org/resource/Batalha_de_Peleliu</same>
+    <same>http://rdf.freebase.com/ns/m.01cqn</same>
+    <same>http://de.dbpedia.org/resource/Schlacht_um_Peleliu</same>
+    <same>http://id.dbpedia.org/resource/Pertempuran_Peleliu</same>
+    <same>http://ja.dbpedia.org/resource/ペリリューの戦い</same>
+    <same>http://yago-knowledge.org/resource/Battle_of_Peleliu</same>
+    <same>http://fr.dbpedia.org/resource/Bataille_de_Peleliu</same>
+    <locations>
+      <location uri="http://dbpedia.org/resource/Peleliu">
+        <label>Peleliu@en</label>
+        <coordinates>7.015^^http://www.w3.org/2001/XMLSchema#float,134.25^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://www.wikidata.org/entity/Q497981</same>
+        <same>http://es.dbpedia.org/resource/Peleliu</same>
+        <same>http://ja.dbpedia.org/resource/ペリリュー州</same>
+        <same>http://pt.dbpedia.org/resource/Peleliu</same>
+        <same>http://sws.geonames.org/1559580/</same>
+        <same>http://ko.dbpedia.org/resource/펠렐리우_주</same>
+        <same>http://wikidata.dbpedia.org/resource/Q497981</same>
+        <same>http://yago-knowledge.org/resource/Peleliu</same>
+        <same>http://nl.dbpedia.org/resource/Peleliu_(staat)</same>
+        <same>http://sws.geonames.org/4038261/</same>
+        <same>http://rdf.freebase.com/ns/m.02mjx8</same>
+        <same>http://id.dbpedia.org/resource/Peleliu</same>
+        <same>http://pl.dbpedia.org/resource/Peleliu</same>
+        <same>http://de.dbpedia.org/resource/Peleliu_(Palau)</same>
+        <same>http://fr.dbpedia.org/resource/Peleliu_(État)</same>
+        <same>http://it.dbpedia.org/resource/Peleliu</same>
+        <same>http://gadm.geovocab.org/id/1_2288</same>
+        <same>http://el.dbpedia.org/resource/Πελελίου</same>
+      </location>
+      <location uri="http://dbpedia.org/resource/Palau">
+        <label>Palau@en</label>
+        <coordinates>7.5^^http://www.w3.org/2001/XMLSchema#float,134.617^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <coordinates>7.5^^http://www.w3.org/2001/XMLSchema#float,134.5^^http://www.w3.org/2001/XMLSchema#float</coordinates>
+        <same>http://sw.cyc.com/concept/Mx4rv9FkPZwpEbGdrcN5Y29ycA</same>
+        <same>http://de.dbpedia.org/resource/Palau</same>
+        <same>http://sws.geonames.org/1559582/</same>
+        <same>http://it.dbpedia.org/resource/Palau_(stato)</same>
+        <same>http://yago-knowledge.org/resource/Palau</same>
+        <same>http://ghodata/r6-c134</same>
+        <same>http://wikidata.dbpedia.org/resource/Q695</same>
+        <same>http://el.dbpedia.org/resource/Παλάου</same>
+        <same>http://yago-knowledge.org/resource/Palau_District</same>
+        <same>http://nl.dbpedia.org/resource/Palau_(land)</same>
+        <same>http://www.wikidata.org/entity/Q695</same>
+        <same>http://ja.dbpedia.org/resource/パラオ</same>
+        <same>http://openei.org/resources/Palau</same>
+        <same>http://id.dbpedia.org/resource/Palau</same>
+        <same>http://rdf.freebase.com/ns/m.05tr7</same>
+        <same>http://www4.wiwiss.fu-berlin.de/factbook/resource/Palau</same>
+        <same>http://fr.dbpedia.org/resource/Palaos</same>
+        <same>http://eurostat.linked-statistics.org/dic/c_ctrl#PW</same>
+        <same>http://pl.dbpedia.org/resource/Palau</same>
+        <same>http://pt.dbpedia.org/resource/Palau</same>
+        <same>http://es.dbpedia.org/resource/Palaos</same>
+        <same>http://cs.dbpedia.org/resource/Palau</same>
+        <same>http://ko.dbpedia.org/resource/팔라우</same>
+        <same>http://eu.dbpedia.org/resource/Palau</same>
+        <same>http://data.nytimes.com/50563825160725463041</same>
+      </location>
+    </locations>
+  </event>
+</events>
