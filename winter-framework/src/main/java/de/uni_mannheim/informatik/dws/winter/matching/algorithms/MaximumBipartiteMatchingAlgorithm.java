@@ -40,6 +40,29 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
 	
+	private boolean groupByLeftDataSource = false;
+	private boolean groupByRightDataSource = false;
+	
+	/**
+	 * 
+	 * Specifies if correspondences should first be grouped by the data source ID of the left-hand side of the correspondences.
+	 * If true, all data sources on the left-hand side will be processed individually
+	 * 
+	 * @param groupByLeftDataSource the groupByLeftDataSource to set
+	 */
+	public void setGroupByLeftDataSource(boolean groupByLeftDataSource) {
+		this.groupByLeftDataSource = groupByLeftDataSource;
+	}
+	/**
+	 * Specifies if correspondences should first be grouped by the data source ID of the right-hand side of the correspondences.
+	 * If true, all data source on the right-hand side will be processed individually
+	 * 
+	 * @param groupByRightDataSource the groupByRightDataSource to set
+	 */
+	public void setGroupByRightDataSource(boolean groupByRightDataSource) {
+		this.groupByRightDataSource = groupByRightDataSource;
+	}
+	
 	public MaximumBipartiteMatchingAlgorithm(Processable<Correspondence<TypeA, TypeB>> correspondences) {
 		this.correspondences = correspondences;
 	}
@@ -51,7 +74,7 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 	public void run() {
 		
 		// group correspondences by data source and then run the maximum matching.
-		// if multiple sources are matched at the same time, the maximum matching would only allow one source to the matched to one other source
+		// if multiple sources are matched at the same time, the maximum matching would only allow one source to be matched to one other source
 		// but we want that one element from a certain source (record or attribute) can only be matched to one other element.
 		// two elements from different sources can be mapped to the same element in another source.
 		
@@ -63,7 +86,10 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 			public void mapRecordToKey(Correspondence<TypeA, TypeB> record,
 					DataIterator<Pair<Pair<Integer, Integer>, Correspondence<TypeA, TypeB>>> resultCollector) {
 				
-				resultCollector.next(new Pair<Pair<Integer,Integer>, Correspondence<TypeA,TypeB>>(new Pair<>(record.getFirstRecord().getDataSourceIdentifier(), record.getSecondRecord().getDataSourceIdentifier()), record));
+				int leftGroup = groupByLeftDataSource ? record.getFirstRecord().getDataSourceIdentifier() : 0;
+				int rightGroup = groupByRightDataSource ? record.getSecondRecord().getDataSourceIdentifier() : 0;
+				
+				resultCollector.next(new Pair<Pair<Integer,Integer>, Correspondence<TypeA,TypeB>>(new Pair<>(leftGroup, rightGroup), record));
 				
 			}
 
