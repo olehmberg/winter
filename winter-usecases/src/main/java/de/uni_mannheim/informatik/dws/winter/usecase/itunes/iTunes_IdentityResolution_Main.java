@@ -51,32 +51,32 @@ public class iTunes_IdentityResolution_Main {
 		// loading data
 		Map<String, Attribute> columnMappingITunes = new HashMap<>();
 		
-		columnMappingITunes.put("1", iTunesSong.PAGE);
-		columnMappingITunes.put("2", iTunesSong.URI0);
-		columnMappingITunes.put("3", iTunesSong.URI1);
-		columnMappingITunes.put("4", iTunesSong.URI2);
-		columnMappingITunes.put("5", iTunesSong.URI3);
-		columnMappingITunes.put("6", iTunesSong.POSITION);
-		columnMappingITunes.put("7", iTunesSong.NAME);
-		columnMappingITunes.put("8", iTunesSong.ARTIST);
-		columnMappingITunes.put("9", iTunesSong.TIME);
+		columnMappingITunes.put("page", iTunesSong.PAGE);
+		columnMappingITunes.put("uri0", iTunesSong.URI0);
+		columnMappingITunes.put("uri1", iTunesSong.URI1);
+		columnMappingITunes.put("uri2", iTunesSong.URI2);
+		columnMappingITunes.put("uri3", iTunesSong.URI3);
+		columnMappingITunes.put("position", iTunesSong.POSITION);
+		columnMappingITunes.put("name", iTunesSong.NAME);
+		columnMappingITunes.put("artist", iTunesSong.ARTIST);
+		columnMappingITunes.put("time", iTunesSong.TIME);
 		
 
 		// loading data
 		Map<String, Attribute> columnMappingSong = new HashMap<>();
-		columnMappingSong.put("1", Song.RDFSCHEMA);
-		columnMappingSong.put("2", Song.RUNTIME);
-		columnMappingSong.put("3", Song.ALBUM);
-		columnMappingSong.put("4", Song.ARTIST);
-		columnMappingSong.put("5", Song.COMPOSER);
-		columnMappingSong.put("6", Song.GENRE);
-		columnMappingSong.put("7", Song.LANGUAGE);
-		columnMappingSong.put("8", Song.PRODUCER);
-		columnMappingSong.put("9", Song.RECORD);
-		columnMappingSong.put("10", Song.NAME);
-		columnMappingSong.put("11", Song.TRACKNUMBER);
-		columnMappingSong.put("12", Song.TYPE);
-		columnMappingSong.put("13", Song.WRITER);
+		columnMappingSong.put("rdf-schema#label", Song.RDFSCHEMA);
+		columnMappingSong.put("runtime", Song.RUNTIME);
+		columnMappingSong.put("album_label", Song.ALBUM);
+		columnMappingSong.put("artist_label", Song.ARTIST);
+		columnMappingSong.put("composer_label", Song.COMPOSER);
+		columnMappingSong.put("genre_label", Song.GENRE);
+		columnMappingSong.put("language_label", Song.LANGUAGE);
+		columnMappingSong.put("producer_label", Song.PRODUCER);
+		columnMappingSong.put("recordLabel_label", Song.RECORD);
+		columnMappingSong.put("title", Song.NAME);
+		columnMappingSong.put("trackNumber", Song.TRACKNUMBER);
+		columnMappingSong.put("type_label", Song.TYPE);
+		columnMappingSong.put("writer_label", Song.WRITER);
 		
 		
 		// load data

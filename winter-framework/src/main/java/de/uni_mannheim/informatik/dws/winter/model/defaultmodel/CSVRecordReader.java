@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,6 +32,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
+	private Map<Integer, Attribute> attributeValueMapping;
 
 	/**
 	 * 
@@ -53,6 +55,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;
+		this.attributeValueMapping = new HashMap<Integer, Attribute>();
 	}
 
 	/*
@@ -76,10 +79,11 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 				if (this.attributeMapping == null) {
 					a = new Attribute(attributeId, file.getAbsolutePath());
 				} else {
-					a = this.attributeMapping.get(Integer.toString(i));
+					a = this.attributeMapping.get(v);
 					if(a == null){
 						a = new Attribute(attributeId, file.getAbsolutePath());
 					}
+					this.attributeValueMapping.put(i, a);
 				}
 
 				a.setName(v);
@@ -107,14 +111,13 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 			for (int i = 0; i < values.length; i++) {
 				Attribute a;
+				String v = values[i];
 				if (this.attributeMapping == null) {
 					String attributeId = String.format("%s_Col%d", file.getName(), i);
 					a = dataset.getAttribute(attributeId);
 				} else {
-					a = this.attributeMapping.get(Integer.toString(i));
+					a = this.attributeValueMapping.get(i);
 				}
-
-				String v = values[i];
 
 				if (v.isEmpty()) {
 					v = null;
