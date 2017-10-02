@@ -26,6 +26,7 @@ import java.util.Set;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
+import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Consumer;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Parallel;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
@@ -717,5 +718,36 @@ public class Table implements Serializable {
 		}
 
 		reorganiseRowNumbers();
+	}
+	
+	public Map<TableColumn, Double> getColumnDensities() {
+
+		Map<TableColumn, Double> densities = new HashMap<>();
+		Map<TableColumn, Integer> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					MapUtils.increment(valuesByColumn, c);
+				}
+				
+			}
+			
+		}
+		
+		for(TableColumn c : getColumns()) {
+			
+			Integer values = valuesByColumn.get(c);
+			if(values==null) {
+				values = 0;
+			}
+			double density = values / (double)getRows().size();
+			
+			densities.put(c, density);
+		}
+		
+		return densities;
 	}
 }
