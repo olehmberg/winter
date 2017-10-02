@@ -21,7 +21,8 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVMatchableReader;
 
 /**
  * 
- * Reader for records from CSV files. The values in the first row are interpreted as attribute names.
+ * Reader for records from CSV files. The values in the first row are
+ * interpreted as attribute names.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
@@ -34,7 +35,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	/**
 	 * 
 	 * @param idColumnIndex
-	 * 		The index of the column that contains the ID attribute. Specify -1 if the file does not contain a unique ID attribute.
+	 *            The index of the column that contains the ID attribute.
+	 *            Specify -1 if the file does not contain a unique ID attribute.
 	 */
 	public CSVRecordReader(int idColumnIndex) {
 		this.idIndex = idColumnIndex;
@@ -43,74 +45,93 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	/**
 	 * 
 	 * @param idColumnIndex
-	 * 		The index of the column that contains the ID attribute. Specify -1 if the file does not contain a unique ID attribute.
+	 *            The index of the column that contains the ID attribute.
+	 *            Specify -1 if the file does not contain a unique ID attribute.
 	 * @param attributeMapping
-	 * 		The position of a column and the corresponding attribute
+	 *            The position of a column and the corresponding attribute
 	 */
 	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVMatchableReader#readLine(java.lang.String[], de.uni_mannheim.informatik.wdi.model.DataSet)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.uni_mannheim.informatik.wdi.model.io.CSVMatchableReader#readLine(java.
+	 * lang.String[], de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
 	@Override
 	protected void readLine(File file, int rowNumber, String[] values, DataSet<Record, Attribute> dataset) {
-		
+
 		Set<String> ids = new HashSet<>();
+
+		Attribute[] attributes = null;
 		
-		if(rowNumber==0) {
+		if (rowNumber == 0) {
+
+			attributes = new Attribute[values.length];
 			
-			for(int i = 0; i < values.length; i++) {
+			for (int i = 0; i < values.length; i++) {
 				String v = values[i];
 				String attributeId = String.format("%s_Col%d", file.getName(), i);
-				Attribute a = new Attribute(attributeId, file.getAbsolutePath());
+				Attribute a = null;
+				if (this.attributeMapping == null) {
+					a = new Attribute(attributeId, file.getAbsolutePath());
+				} else {
+					a = this.attributeMapping.get(v);
+					if(a == null){
+						a = new Attribute(attributeId, file.getAbsolutePath());
+					}
+				}
+
+				attributes[i] = a;
 				a.setName(v);
 				dataset.addAttribute(a);
 			}
-			
+
 		} else {
-			
+
 			String id = String.format("%s_%d", file.getName(), rowNumber);
-			
-			if(idIndex>=0 && values[idIndex]!=null) {
+
+			if (idIndex >= 0 && values[idIndex] != null) {
 				id = values[idIndex];
-				
-				if(ids.contains(id)) {
+
+				if (ids.contains(id)) {
 					String replacementId = String.format("%s_%d", file.getName(), rowNumber);
-					System.err.println(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id, rowNumber, replacementId));
+					System.err.println(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id,
+							rowNumber, replacementId));
 					id = replacementId;
 				}
-				
+
 				ids.add(id);
 			}
-			
+
 			Record r = new Record(id, file.getAbsolutePath());
-			
-			for(int i = 0; i < values.length; i++) {
+
+			for (int i = 0; i < values.length; i++) {
 				Attribute a;
-				if(this.attributeMapping == null){
+				String v = values[i];
+				
+				if(attributes!=null && attributes.length>i) {
+					a = attributes[i];
+				} else {
 					String attributeId = String.format("%s_Col%d", file.getName(), i);
 					a = dataset.getAttribute(attributeId);
 				}
-				else{
-					a = this.attributeMapping.get(Integer.toString(i));
-				}
-				
-				String v = values[i];
-				
-				if(v.isEmpty()) {
+
+				if (v.isEmpty()) {
 					v = null;
 				}
-				
+
 				r.setValue(a, v);
 			}
-			
+
 			dataset.add(r);
-			
+
 		}
-		
+
 	}
 
 }
