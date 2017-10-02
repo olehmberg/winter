@@ -12,7 +12,6 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +31,6 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
-	private Map<Integer, Attribute> attributeValueMapping;
 
 	/**
 	 * 
@@ -55,7 +53,6 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;
-		this.attributeValueMapping = new HashMap<Integer, Attribute>();
 	}
 
 	/*
@@ -70,8 +67,12 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 		Set<String> ids = new HashSet<>();
 
+		Attribute[] attributes = null;
+		
 		if (rowNumber == 0) {
 
+			attributes = new Attribute[values.length];
+			
 			for (int i = 0; i < values.length; i++) {
 				String v = values[i];
 				String attributeId = String.format("%s_Col%d", file.getName(), i);
@@ -83,9 +84,9 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 					if(a == null){
 						a = new Attribute(attributeId, file.getAbsolutePath());
 					}
-					this.attributeValueMapping.put(i, a);
 				}
 
+				attributes[i] = a;
 				a.setName(v);
 				dataset.addAttribute(a);
 			}
@@ -112,11 +113,12 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 			for (int i = 0; i < values.length; i++) {
 				Attribute a;
 				String v = values[i];
-				if (this.attributeMapping == null) {
+				
+				if(attributes!=null && attributes.length>i) {
+					a = attributes[i];
+				} else {
 					String attributeId = String.format("%s_Col%d", file.getName(), i);
 					a = dataset.getAttribute(attributeId);
-				} else {
-					a = this.attributeValueMapping.get(i);
 				}
 
 				if (v.isEmpty()) {
