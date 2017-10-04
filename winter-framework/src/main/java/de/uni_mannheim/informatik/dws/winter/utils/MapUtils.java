@@ -52,14 +52,25 @@ public class MapUtils {
 		map.put(keyValue, cnt+value);
 	}
 	
-	public static <T> T max(Map<T, Integer> map) {
-		Integer iMax = null;
+	public static <T> void add(Map<T, Double> map, T keyValue, double value) {
+		Double sum = map.get(keyValue);
+		
+		if(sum==null) {
+			sum = 0.0;
+		}
+		
+		map.put(keyValue, sum+value);
+	}
+	
+	public static <T, U extends Comparable<U>> T max(Map<T, U> map) {
+		U iMax = null;
 		T tMax = null;
 		
 		for(T t : map.keySet()) {
-			Integer i = map.get(t);
+			U i = map.get(t);
 			
-			if(iMax==null || i>iMax) {
+//			if(iMax==null || i>iMax) {
+			if(iMax==null || i.compareTo(iMax)>0) {
 				iMax = i;
 				tMax = t;
 			}
@@ -95,10 +106,11 @@ public class MapUtils {
 		U val = map.get(keyValue);
 		
 		if(val==null) {
-			return map.put(keyValue, createDefaultValue.apply(keyValue));
-		} else {
-			return val;
+			val = createDefaultValue.apply(keyValue);
+			map.put(keyValue, val);
 		}
+		
+		return val;
 	}
 	
 	public static <K, V> List<Map.Entry<K, V>> sort(Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
