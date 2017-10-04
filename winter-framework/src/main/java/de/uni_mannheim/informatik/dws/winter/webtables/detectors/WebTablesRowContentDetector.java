@@ -34,7 +34,7 @@ public class WebTablesRowContentDetector implements RowContentDetector {
 				boolean empty = true;
 				for (int columnIdx = 0; columnIdx < attributeValues.length; columnIdx++) {
 					String value = attributeValues[columnIdx][rowIdx]; 
-					if (!value.equals("")) {
+					if (value!=null && !value.equals("")) {
 						empty = false;
 						break;
 					}
@@ -49,7 +49,7 @@ public class WebTablesRowContentDetector implements RowContentDetector {
 				String[] rowData = attributeValues[rowIdx];
 				boolean empty = true;
 				for (String value : rowData) {
-					if (!value.equals("")) {
+					if (value!=null && !value.equals("")) {
 						empty = false;
 						break;
 					}
@@ -83,10 +83,12 @@ public class WebTablesRowContentDetector implements RowContentDetector {
 	@Override
 	public int[] detectSumRow(String[][] attributeValues) {
 		String value = attributeValues[attributeValues.length - 1][0];
-		value = value.toLowerCase();
-		if (totalRowIndicators.contains(value)) {
-			int[] result = { attributeValues.length - 1 };
-			return result;
+		if(value!=null) {
+			value = value.toLowerCase();
+			if (totalRowIndicators.contains(value)) {
+				int[] result = { attributeValues.length - 1 };
+				return result;
+			}
 		}
 		return null;
 	}
