@@ -15,11 +15,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
+import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
@@ -453,8 +457,6 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 * @param result
 	 */
 	public static <T extends Matchable, U extends Matchable> void flatten(Processable<Correspondence<T, U>> correspondences, Processable<Correspondence<T, U>> result) {
-//		Processable<Correspondence<T, U>> result = new ProcessableCollection<>();
-		
 		for(Correspondence<T, U> cor : correspondences.get()) {
 			
 			for(Correspondence<U, Matchable> cause : cor.getCausalCorrespondences().get()) {
@@ -466,37 +468,18 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 			}
 			
 		}
-		
-//		return result;
 	}
 	
-//	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, ? extends Matchable>> Processable<SimpleCorrespondence<RecordType>> simplify(Processable<CorType> correspondences) {
-//		if(correspondences==null) {
-//			return null;
-//		} else {
-//			Processable<SimpleCorrespondence<RecordType>> result = new ProcessableCollection<>();
-//			for(CorType cor : correspondences.get()) {
-//				
-//				SimpleCorrespondence<RecordType> simple = new SimpleCorrespondence<RecordType>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), toMatchable2(cor.getCausalCorrespondences()));
-//				result.add(simple);
-//			} 
-//			return result;
-//		}
-//	}
-	
-//	public static <RecordType extends Matchable, CorType extends Correspondence<RecordType, Matchable>> Processable<SimpleCorrespondence<Matchable>> simplify2(Processable<CorType> correspondences) {
-//		if(correspondences==null) {
-//			return null;
-//		} else {
-//			Processable<SimpleCorrespondence<Matchable>> result = new ProcessableCollection<>();
-//			for(CorType cor : correspondences.get()) {
-//				
-//				SimpleCorrespondence<Matchable> simpler = new SimpleCorrespondence<Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), cor.getCausalCorrespondences());
-//
-//				result.add(simpler);
-//			} 
-//			return result;
-//		}
-//	}
+	public static <T extends Matchable, CorT extends Correspondence<T, Matchable>> Set<Collection<Integer>> getDataSourceClusters(Processable<CorT> correspondences) {
+		ConnectedComponentClusterer<Integer> clusterer = new ConnectedComponentClusterer<>();
+		
+		for(CorT cor : correspondences.get()) {
+			clusterer.addEdge(new Triple<Integer, Integer, Double>(cor.getFirstRecord().getDataSourceIdentifier(), cor.getSecondRecord().getDataSourceIdentifier(), cor.getSimilarityScore()));
+		}
+		
+		Map<Collection<Integer>, Integer> clustering = clusterer.createResult();
+		
+		return clustering.keySet();
+	}
 	
 }
