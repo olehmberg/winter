@@ -750,4 +750,40 @@ public class Table implements Serializable {
 		
 		return densities;
 	}
+	
+	public Map<TableColumn, Double> getColumnUniqueness() {
+
+		Map<TableColumn, Double> uniqueness = new HashMap<>();
+		Map<TableColumn, Set<Object>> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					Set<Object> domain = valuesByColumn.get(c);
+					if(domain==null) {
+						domain = new HashSet<>();
+						valuesByColumn.put(c, domain);
+					}
+					domain.add(r.get(c.getColumnIndex()));
+				}
+				
+			}
+			
+		}
+		
+		for(TableColumn c : getColumns()) {
+			
+			Set<Object> domain = valuesByColumn.get(c);
+			if(domain==null) {
+				domain = new HashSet<>();
+			}
+			double uniq = domain.size() / (double)getRows().size();
+			
+			uniqueness.put(c, uniq);
+		}
+		
+		return uniqueness;
+	}
 }
