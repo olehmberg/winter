@@ -21,6 +21,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -28,6 +29,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Implementation of a {@link AbstractBlocker} based on values. 
@@ -46,6 +48,34 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> secondBlockingFunction;
+	
+	private boolean measureBlockSizes = false;
+	private boolean considerDuplicateValues = false;
+	
+	/**
+	 * @param measureBlockSizes the measureBlockSizes to set
+	 */
+	public void setMeasureBlockSizes(boolean measureBlockSizes) {
+		this.measureBlockSizes = measureBlockSizes;
+	}
+	
+	/**
+	 * if set to true, all duplicate blocking key values will count towards the similarity score
+	 * if set to false, a 1:1 mapping of blocking key values is performed before calculating the similarity score 
+	 * 
+	 * example:
+	 * 
+	 * blocking keys A: 1,1,1,1,1
+	 * blocking keys B: 1,1,2,3,4
+	 * 
+	 * if true, the resulting score will be 5.0
+	 * if false, the resulting score will be 2.0
+	 * 
+	 * @param considerDuplicateValues the considerDuplicateValues to set
+	 */
+	public void setConsiderDuplicateValues(boolean considerDuplicateValues) {
+		this.considerDuplicateValues = considerDuplicateValues;
+	}
 	
 	public ValueBasedBlocker(BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction) {
 		this.blockingFunction = blockingFunction;
@@ -118,6 +148,62 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>>> 
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
 		
+		if(measureBlockSizes) {			
+			// calculate block size distribution
+			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
+				(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> record,
+				DataIterator<Pair<Integer, Integer>> resultCollector) 
+				-> {
+					int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
+					resultCollector.next(new Pair<Integer, Integer>(0, blockSize));
+				}
+				, new DistributionAggregator<Integer, Integer, Integer>() {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public Integer getInnerKey(Integer record) {
+						return record;
+					}
+				});
+			Distribution<Integer> dist = Q.firstOrDefault(aggregated.get()).getSecond();
+			
+			System.out.println("[ValueBasedBlocker] Block size distribution:");
+			System.out.println(dist.format());
+
+			// determine frequent blocking key values
+			Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
+					(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>> record,
+					DataIterator<Pair<Integer, String>> resultCollector) 
+					-> {
+						int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
+						resultCollector.next(new Pair<Integer, String>(blockSize, record.getFirst().getFirst()));
+					}
+					, new DataAggregator<Integer, String, String>() {
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public String initialise(Integer keyValue) {
+							return null;
+						}
+
+						@Override
+						public String aggregate(String previousResult, String record) {
+							if(previousResult==null) {
+								return record;
+							} else {
+								return previousResult + "," + record;
+							}
+						}
+					})
+					.sort((p)->p.getFirst(), false);
+			
+			System.out.println("50 most-frequent blocking key values:");
+			for(Pair<Integer, String> value : blockValues.take(50).get()) {
+				System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+			}
+
+		}
+		
 		// transform the blocks into pairs of records		
 		Processable<Correspondence<BlockedType, MatchableValue>> result = blockedData.map(new RecordMapper<Pair<
 				Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>>,
@@ -146,7 +232,12 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 						
 						BlockedType record2 = p2.getFirst();
 						
-						double matchCount = Math.min(dist1.getFrequency(p1), dist2.getFrequency(p2));
+						double matchCount = 0.0;
+						if(considerDuplicateValues) {
+							matchCount = Math.max(dist1.getFrequency(p1), dist2.getFrequency(p2));
+						} else {
+							matchCount = Math.min(dist1.getFrequency(p1), dist2.getFrequency(p2));
+						}
 						
 						// generate causes from the distribution: min number of occurrences for both records is the number of possible matches
 						// for simplicity, we just generate one cause with this number as similarity score
