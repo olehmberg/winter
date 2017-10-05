@@ -29,23 +29,55 @@ public class TransitiveCorrespondencesCreatorTest extends TestCase {
 	 */
 	public void testRun() {
 		
-		ProcessableCollection<Correspondence<Record, Matchable>> cors = new ProcessableCollection<>();
+		
 		Correspondence<Record, Matchable> ab = new Correspondence<Record, Matchable>(new Record("a"), new Record("b"), 1.0);
 		Correspondence<Record, Matchable> bc = new Correspondence<Record, Matchable>(new Record("b"), new Record("c"), 1.0);
+		Correspondence<Record, Matchable> cb = new Correspondence<Record, Matchable>(new Record("c"), new Record("b"), 1.0);
+		Correspondence<Record, Matchable> ac = new Correspondence<Record, Matchable>(new Record("a"), new Record("c"), 1.0);
+		
+		ProcessableCollection<Correspondence<Record, Matchable>> cors = new ProcessableCollection<>();
 		cors.add(ab);
 		cors.add(bc);
-		
-		TransitiveCorrespondencesCreator<Record, Matchable> transitivity = new TransitiveCorrespondencesCreator<>(cors);
+		TransitiveCorrespondencesCreator<Record, Matchable> transitivity = new TransitiveCorrespondencesCreator<>(cors, true);
 		transitivity.run();
-		
 		Processable<Correspondence<Record, Matchable>> result = transitivity.getResult();
-		
-		Correspondence<Record, Matchable> expected = new Correspondence<Record, Matchable>(new Record("a"), new Record("c"), 1.0);
-		
 		assertEquals(true, result.get().contains(ab));
 		assertEquals(true, result.get().contains(bc));
-		assertEquals(true, result.get().contains(expected));
+		assertEquals(true, result.get().contains(ac));
 		
+		
+		cors = new ProcessableCollection<>();
+		cors.add(ab);
+		cors.add(cb);
+		transitivity = new TransitiveCorrespondencesCreator<>(cors, true);
+		transitivity.run();
+		result = transitivity.getResult();		
+		assertEquals(true, result.get().contains(ab));
+		assertEquals(true, result.get().contains(cb));
+		assertEquals(false, result.get().contains(ac));
+		transitivity = new TransitiveCorrespondencesCreator<>(cors, false);
+		transitivity.run();
+		result = transitivity.getResult();		
+		assertEquals(true, result.get().contains(ab));
+		assertEquals(true, result.get().contains(cb));
+		assertEquals(true, result.get().contains(ac));
+		
+		
+		cors = new ProcessableCollection<>();
+		cors.add(ab);
+		cors.add(ac);
+		transitivity = new TransitiveCorrespondencesCreator<>(cors, true);
+		transitivity.run();
+		result = transitivity.getResult();
+		assertEquals(true, result.get().contains(ab));
+		assertEquals(true, result.get().contains(ac));
+		assertEquals(false, result.get().contains(bc));
+		transitivity = new TransitiveCorrespondencesCreator<>(cors, false);
+		transitivity.run();
+		result = transitivity.getResult();
+		assertEquals(true, result.get().contains(ab));
+		assertEquals(true, result.get().contains(ac));
+		assertEquals(true, result.get().contains(bc));
 	}
 
 }

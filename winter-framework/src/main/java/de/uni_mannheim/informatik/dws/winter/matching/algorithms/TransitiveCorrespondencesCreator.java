@@ -29,8 +29,11 @@ public class TransitiveCorrespondencesCreator<TypeA extends Matchable, TypeB ext
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
 
-	public TransitiveCorrespondencesCreator(Processable<Correspondence<TypeA, TypeB>> correspondences) {
+	private boolean isDirected = true;
+	
+	public TransitiveCorrespondencesCreator(Processable<Correspondence<TypeA, TypeB>> correspondences, boolean isDirected) {
 		this.correspondences = correspondences;
+		this.isDirected = isDirected;
 	}
 	
 	/* (non-Javadoc)
@@ -39,7 +42,8 @@ public class TransitiveCorrespondencesCreator<TypeA extends Matchable, TypeB ext
 	@Override
 	public void run() {
 		
-		result = correspondences
+		// creates a->b & b->c = a->c
+		Processable<Correspondence<TypeA, TypeB>> resultA = correspondences
 					.join(correspondences, (c)->c.getSecondRecord().getIdentifier(), (c)->c.getFirstRecord().getIdentifier())
 					.map(
 						(Pair<Correspondence<TypeA, TypeB>, Correspondence<TypeA, TypeB>> record, DataIterator<Correspondence<TypeA, TypeB>> resultCollector)
@@ -50,10 +54,41 @@ public class TransitiveCorrespondencesCreator<TypeA extends Matchable, TypeB ext
 							
 							resultCollector.next(new Correspondence<TypeA, TypeB>(left, right, sim));
 						}
-					)
-					.append(correspondences)
-					.distinct();
-		
+					);
+					
+		if(!isDirected) {
+			// creates a->b & c->b = a->c
+			Processable<Correspondence<TypeA, TypeB>> resultB = correspondences
+					.join(correspondences, (c)->c.getSecondRecord().getIdentifier(), (c)->c.getSecondRecord().getIdentifier())
+					.map(
+						(Pair<Correspondence<TypeA, TypeB>, Correspondence<TypeA, TypeB>> record, DataIterator<Correspondence<TypeA, TypeB>> resultCollector)
+						-> {
+							TypeA left = record.getFirst().getFirstRecord();
+							TypeA right = record.getSecond().getFirstRecord();
+							double sim = (record.getFirst().getSimilarityScore()+record.getSecond().getSimilarityScore())/2.0;
+							
+							resultCollector.next(new Correspondence<TypeA, TypeB>(left, right, sim));
+						}
+					);
+			
+			// creates a->b & a->c = b->c
+			Processable<Correspondence<TypeA, TypeB>> resultC = correspondences
+					.join(correspondences, (c)->c.getFirstRecord().getIdentifier(), (c)->c.getFirstRecord().getIdentifier())
+					.map(
+						(Pair<Correspondence<TypeA, TypeB>, Correspondence<TypeA, TypeB>> record, DataIterator<Correspondence<TypeA, TypeB>> resultCollector)
+						-> {
+							TypeA left = record.getFirst().getSecondRecord();
+							TypeA right = record.getSecond().getSecondRecord();
+							double sim = (record.getFirst().getSimilarityScore()+record.getSecond().getSimilarityScore())/2.0;
+							
+							resultCollector.next(new Correspondence<TypeA, TypeB>(left, right, sim));
+						}
+					);
+					
+			result = correspondences.append(resultA).append(resultB).append(resultC).distinct();
+		} else {
+			result = correspondences.append(resultA).distinct();
+		}
 	}
 
 	/* (non-Javadoc)
