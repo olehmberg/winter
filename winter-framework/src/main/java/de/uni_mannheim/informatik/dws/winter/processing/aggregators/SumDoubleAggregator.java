@@ -11,39 +11,20 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
-import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
-
 /**
- * {@link DataAggregator} that sums up the elements.
- * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public abstract class SumAggregator<KeyType, RecordType> implements DataAggregator<KeyType, RecordType, Double> {
-	
-	/**
-	 * 
-	 */
+public class SumDoubleAggregator<KeyType> extends SumAggregator<KeyType, Double> {
+
 	private static final long serialVersionUID = 1L;
 
-	public abstract Double getValue(RecordType record);
-	
-	@Override
-	public Double aggregate(Double previousResult,
-			RecordType record) {
-		if(previousResult==null) {
-			return getValue(record);
-		} else {
-			return previousResult+getValue(record);
-		}
-	}
-	
 	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.aggregators.SumAggregator#getValue(java.lang.Object)
 	 */
 	@Override
-	public Double initialise(KeyType keyValue) {
-		return null;
+	public Double getValue(Double record) {
+		return record;
 	}
-	
+
 }
