@@ -17,6 +17,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggre
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.MaximumBipartiteMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedDuplicateDetectionAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleDuplicateDetectionAlgorithm;
@@ -440,4 +441,25 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 				.map(new FlattenAggregationResultMapper<>());
 	}
 
+	public Processable<Correspondence<RecordType, SchemaElementType>> getMaximumWeightGlobalInstanceMatching(
+			Processable<Correspondence<RecordType, SchemaElementType>> correspondences) {
+		
+		MaximumBipartiteMatchingAlgorithm<RecordType, SchemaElementType> maximumMatching = new MaximumBipartiteMatchingAlgorithm<>(correspondences);
+		
+		maximumMatching.run();
+		
+		return maximumMatching.getResult();
+		
+	}
+	
+	public Processable<Correspondence<SchemaElementType, RecordType>> getMaximumWeightGlobalSchemaMatching(
+			Processable<Correspondence<SchemaElementType, RecordType>> correspondences) {
+		
+		MaximumBipartiteMatchingAlgorithm<SchemaElementType, RecordType> maximumMatching = new MaximumBipartiteMatchingAlgorithm<>(correspondences);
+		
+		maximumMatching.run();
+		
+		return maximumMatching.getResult();
+		
+	}
 }
