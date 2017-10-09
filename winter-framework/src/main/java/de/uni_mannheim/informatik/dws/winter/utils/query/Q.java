@@ -425,4 +425,15 @@ public class Q {
     		}
     	}
     }
+    
+    public static <T> Collection<T> take(Collection<T> data, int n) {
+    	ArrayList<T> result = new ArrayList<>(n);
+    	
+    	Iterator<T> it = data.iterator();
+    	while(it.hasNext() && result.size()<n) {
+    		result.add(it.next());
+    	}
+    	
+    	return result;
+    }
 }
