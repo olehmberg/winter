@@ -51,6 +51,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
 	private boolean measureBlockSizes = false;
 	private double blockFilterRatio = 1.0;
+	private boolean deduplicatePairs = true;
 	
 	/**
 	 * @param measureBlockSizes the measureBlockSizes to set
@@ -64,6 +65,13 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	 */
 	public void setBlockFilterRatio(double blockFilterRatio) {
 		this.blockFilterRatio = blockFilterRatio;
+	}
+	
+	/**
+	 * @param deduplicatePairs the deduplicatePairs to set
+	 */
+	public void setDeduplicatePairs(boolean deduplicatePairs) {
+		this.deduplicatePairs = deduplicatePairs;
 	}
 	
 	public StandardBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction) {
@@ -131,11 +139,20 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 		});
 	
+		if(measureBlockSizes) {
+			System.out.println(String.format("[StandardBlocker] created %d blocking keys for first dataset", grouped1.size()));
+			System.out.println(String.format("[StandardBlocker] created %d blocking keys for second dataset", grouped2.size()));
+		}
+		
 		// join the datasets via their blocking keys
 		Processable<Pair<
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>,
 		Pair<String,Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>>
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
+		
+		if(measureBlockSizes) {
+			System.out.println(String.format("[StandardBlocker] created %d blocks from blocking keys", blockedData.size()));
+		}
 		
 		// remove the largest blocks, if requested
 		if(blockFilterRatio<1.0) {
@@ -261,8 +278,11 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				}
 			}
 		});
-		//use .distinct() to remove correspondences that are found in multiple blocks
-		result = result.distinct();
+		
+		if(deduplicatePairs) {
+			//use .distinct() to remove correspondences that are found in multiple blocks
+			result = result.distinct();
+		}
 		
 		calculatePerformance(dataset1, dataset2, result);
 		
