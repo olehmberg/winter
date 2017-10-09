@@ -66,7 +66,15 @@ public class CorrespondenceAggregator<TypeA extends Matchable, TypeB extends Mat
 			return record;
 		} else {
 			previousResult.setsimilarityScore(previousResult.getSimilarityScore() + getSimilarityScore(record));
-			previousResult.setCausalCorrespondences(previousResult.getCausalCorrespondences().append(record.getCausalCorrespondences()));
+			
+			if(record.getCausalCorrespondences()!=null) {
+				
+				if(previousResult.getCausalCorrespondences()!=null) {
+					previousResult.setCausalCorrespondences(previousResult.getCausalCorrespondences().append(record.getCausalCorrespondences()));
+				} else {
+					previousResult.setCausalCorrespondences(record.getCausalCorrespondences().copy());
+				}
+			}
 			return previousResult;
 		}
 	}
