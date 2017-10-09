@@ -295,6 +295,19 @@ public class Table implements Serializable {
 	}
 
 	/**
+	 * 
+	 * Removes a row from the table by its row number. Call reorganiseRowNumbers() afterwards to make sure that row numbers reflect the row's position in the table.
+	 * 
+	 * @param rowNumber
+	 * 				The row number of the row that should be removed
+	 * @return
+	 * 				Returns the row that was removed
+	 */
+	public TableRow removeRow(int rowNumber) {
+		return getRows().remove(rowNumber);
+	}
+	
+	/**
 	 * Detects data types and units for all columns with data type 'unknown' and
 	 * converts their values to the corresponding types
 	 */

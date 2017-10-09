@@ -36,12 +36,23 @@ public class LodCsvTableParser extends TableParser {
 	
 	private boolean useStringCache = true;
 	private boolean parseLists = false;
+	private boolean useRowIndexFromFile = true;
 	
 	/**
 	 * @param parseLists the parseLists to set
 	 */
 	public void setParseLists(boolean parseLists) {
 		this.parseLists = parseLists;
+	}
+	
+	/**
+	 * Specifies how the row numbers are determined
+	 * @param useRowIndexFromFile 
+	 * 					if true, the row number is the same as the line number from the file that was loaded
+	 *					if false, the row number is the row index in the table 						
+	 */
+	public void setUseRowIndexFromFile(boolean useRowIndexFromFile) {
+		this.useRowIndexFromFile = useRowIndexFromFile;
 	}
 	
 	public void setUseStringCache(boolean use) {
@@ -177,6 +188,9 @@ public class LodCsvTableParser extends TableParser {
             }
             
             int row = 4;
+            if(!useRowIndexFromFile) {
+            	row = 0;
+            }
             Object[] values;
             
             // read the table rows
