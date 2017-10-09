@@ -171,6 +171,10 @@ public class Table implements Serializable {
 		return rows;
 	}
 
+	public void setRows(ArrayList<TableRow> rows) {
+		this.rows = rows;
+	}
+	
 	public TableRow get(int rowIndex) {
 		if (rows.size() > rowIndex) {
 			return rows.get(rowIndex);
