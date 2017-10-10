@@ -26,6 +26,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
 
 /**
  * Represent a correspondence. Contains two Records and their similarity
@@ -480,6 +481,16 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		Map<Collection<Integer>, Integer> clustering = clusterer.createResult();
 		
 		return clustering.keySet();
+	}
+	
+	public static <T extends Matchable, U extends Matchable> Graph<T, Correspondence<T, U>> toGraph(Collection<Correspondence<T, U>> correspondences) {
+		Graph<T, Correspondence<T, U>> graph = new Graph<>();
+		
+		for(Correspondence<T, U> cor : correspondences) {
+			graph.addEdge(cor.getFirstRecord(), cor.getSecondRecord(), cor, cor.getSimilarityScore());
+		}
+		
+		return graph;
 	}
 	
 }
