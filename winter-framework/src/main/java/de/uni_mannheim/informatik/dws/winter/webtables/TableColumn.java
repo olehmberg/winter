@@ -136,6 +136,7 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 	public void addProvenanceForColumn(TableColumn column) {
 		if(column.getProvenance()!=null && column.getProvenance().size() > 0) {
 			getProvenance().addAll(column.getProvenance());
+			getProvenance().add(column.getIdentifier());
 		} else {
 			getProvenance().add(column.getIdentifier());
 		}
