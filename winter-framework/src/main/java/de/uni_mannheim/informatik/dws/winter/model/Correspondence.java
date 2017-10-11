@@ -493,4 +493,14 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		return graph;
 	}
 	
+	public static <T extends Matchable, U extends Matchable> Set<Collection<T>> getConnectedComponents(Collection<Correspondence<T, U>> correspondences) {
+		ConnectedComponentClusterer<T> clusterer = new ConnectedComponentClusterer<>();
+		
+		for(Correspondence<T, U> cor : correspondences) {
+			clusterer.addEdge(new Triple<T, T, Double>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));
+		}
+		
+		return clusterer.createResult().keySet();
+	}
+	
 }
