@@ -347,6 +347,16 @@ public class Q {
     	return result;
     }
     
+    public static <KeyType, T, ValueType> Map<KeyType, ValueType> map(Collection<T> data, Func<KeyType, T> mapByKey, Func<ValueType, T> mapToValue) {
+    	HashMap<KeyType, ValueType> result = new HashMap<>();
+    	
+    	for(T t : data) {
+    		result.put(mapByKey.invoke(t), mapToValue.invoke(t));
+    	}
+    	
+    	return result;
+    }
+    
     public static <T> Collection<String> toString(Collection<T> data) {
     	ArrayList<String> result = new ArrayList<>(data.size());
     	
