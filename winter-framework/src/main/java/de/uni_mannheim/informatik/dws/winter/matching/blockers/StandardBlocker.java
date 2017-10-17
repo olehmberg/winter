@@ -191,41 +191,48 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						return record;
 					}
 				});
-			Distribution<Integer> dist = Q.firstOrDefault(aggregated.get()).getSecond();
 			
-			System.out.println("[StandardBlocker] Block size distribution:");
-			System.out.println(dist.format());
-
-			// determine frequent blocking key values
-			Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
-					(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
-					DataIterator<Pair<Integer, String>> resultCollector) 
-					-> {
-						int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
-						resultCollector.next(new Pair<Integer, String>(blockSize, record.getFirst().getFirst()));
-					}
-					, new DataAggregator<Integer, String, String>() {
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public String initialise(Integer keyValue) {
-							return null;
+			Pair<Integer, Distribution<Integer>> aggregationResult = Q.firstOrDefault(aggregated.get());
+			
+			if(aggregationResult!=null) {
+				Distribution<Integer> dist = aggregationResult.getSecond();
+				
+				System.out.println("[StandardBlocker] Block size distribution:");
+				System.out.println(dist.format());
+	
+				// determine frequent blocking key values
+				Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
+						(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
+						DataIterator<Pair<Integer, String>> resultCollector) 
+						-> {
+							int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
+							resultCollector.next(new Pair<Integer, String>(blockSize, record.getFirst().getFirst()));
 						}
-
-						@Override
-						public String aggregate(String previousResult, String record) {
-							if(previousResult==null) {
-								return record;
-							} else {
-								return previousResult + "," + record;
+						, new DataAggregator<Integer, String, String>() {
+							private static final long serialVersionUID = 1L;
+	
+							@Override
+							public String initialise(Integer keyValue) {
+								return null;
 							}
-						}
-					})
-					.sort((p)->p.getFirst(), false);
-			
-			System.out.println("50 most-frequent blocking key values:");
-			for(Pair<Integer, String> value : blockValues.take(50).get()) {
-				System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+	
+							@Override
+							public String aggregate(String previousResult, String record) {
+								if(previousResult==null) {
+									return record;
+								} else {
+									return previousResult + "," + record;
+								}
+							}
+						})
+						.sort((p)->p.getFirst(), false);
+				
+				System.out.println("50 most-frequent blocking key values:");
+				for(Pair<Integer, String> value : blockValues.take(50).get()) {
+					System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+				}
+			} else {
+				System.out.println("No blocks were created!");
 			}
 
 		}
