@@ -98,4 +98,4 @@ WInte.r is developed at the [Data and Web Science Group](http://dws.informatik.u
 
 [3] Lehmberg, O., Ritze, D., Meusel, R., & Bizer, C. (2016, April). A large public corpus of web tables containing time and context metadata. In Proceedings of the 25th International Conference Companion on World Wide Web (pp. 75-76). International World Wide Web Conferences Steering Committee.
 
-[4] Lehmberg, O., Bizer, C. (2017). Stitching Web Tables for Improving Matching Quality. In Proceedings of the VLDB Endowment - Preprint.
+[4] Lehmberg, O., & Bizer, C. (2017). Stitching web tables for improving matching quality. Proceedings of the VLDB Endowment, 10(11), 1502-1513.
