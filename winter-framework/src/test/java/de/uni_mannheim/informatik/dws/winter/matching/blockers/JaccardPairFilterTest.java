@@ -11,6 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
+import java.util.Collection;
+
+import org.apache.commons.lang.StringUtils;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -53,6 +57,10 @@ public class JaccardPairFilterTest extends TestCase {
 		r7.setValue(a2, "e");
 		Record r8 = new Record("r8");
 		r8.setValue(a2, "f");
+		Record r9 = new Record("r9");
+		r9.setValue(a2, "b");
+		Record r10 = new Record("r10");
+		r10.setValue(a2, "b");
 		
 		DataSet<Record, Attribute> ds1 = new HashedDataSet<>();
 		ds1.addAttribute(a1);
@@ -67,6 +75,8 @@ public class JaccardPairFilterTest extends TestCase {
 		ds2.add(r6);
 		ds2.add(r7);
 		ds2.add(r8);
+		ds2.add(r9);
+		ds2.add(r10);
 		
 		ValueBasedBlocker<Record, Attribute, Attribute> blocker = new ValueBasedBlocker<>(new DefaultAttributeValueGenerator(ds1.getSchema()),new DefaultAttributeValueGenerator(ds2.getSchema()));
 		
@@ -77,7 +87,14 @@ public class JaccardPairFilterTest extends TestCase {
 		Processable<Correspondence<Attribute, MatchableValue>> correspondences = engine.runInstanceBasedSchemaMatching(ds1, ds2, blocker, new CorrespondenceAggregator<>(0.0));
 		
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
-			System.out.println(String.format("%s <-> %s (%.6f)", cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));
+			Collection<Object> values = Q.project(cor.getCausalCorrespondences().get(), (c)->c.getFirstRecord().getValue());
+			System.out.println(
+					String.format("%s <-> %s (%.6f)\t%s", 
+							cor.getFirstRecord(), 
+							cor.getSecondRecord(), 
+							cor.getSimilarityScore(),
+							StringUtils.join(values, "/")
+						));
 		}
 		
 		Correspondence<Attribute, MatchableValue> cor = Q.firstOrDefault(correspondences.get());
