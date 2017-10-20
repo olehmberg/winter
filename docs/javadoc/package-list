@@ -13,7 +13,6 @@ de.uni_mannheim.informatik.dws.winter.matching.aggregators
 de.uni_mannheim.informatik.dws.winter.matching.algorithms
 de.uni_mannheim.informatik.dws.winter.matching.blockers
 de.uni_mannheim.informatik.dws.winter.matching.blockers.generators
-de.uni_mannheim.informatik.dws.winter.matching.blocking
 de.uni_mannheim.informatik.dws.winter.matching.rules
 de.uni_mannheim.informatik.dws.winter.matrices
 de.uni_mannheim.informatik.dws.winter.matrices.matcher
@@ -33,11 +32,7 @@ de.uni_mannheim.informatik.dws.winter.similarity.list
 de.uni_mannheim.informatik.dws.winter.similarity.modifiers
 de.uni_mannheim.informatik.dws.winter.similarity.numeric
 de.uni_mannheim.informatik.dws.winter.similarity.string
-de.uni_mannheim.informatik.dws.winter.usecase.movies
-de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation
-de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers
-de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution
-de.uni_mannheim.informatik.dws.winter.usecase.movies.model
+de.uni_mannheim.informatik.dws.winter.similarity.vectorspace
 de.uni_mannheim.informatik.dws.winter.utils
 de.uni_mannheim.informatik.dws.winter.utils.graph
 de.uni_mannheim.informatik.dws.winter.utils.mining
