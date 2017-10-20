@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
-import de.uni_mannheim.informatik.dws.winter.similarity.date.WeightedDateSimilarity;
 import junit.framework.TestCase;
 
 /**
@@ -27,9 +26,6 @@ import junit.framework.TestCase;
  */
 public class WeightedDateSimilarityTest extends TestCase {
 
-	/**
-	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.similarity.date.WeightedDateSimilarity#calculate(org.joda.time.DateTime, org.joda.time.DateTime)}.
-	 */
 	public void testCalculateDateTimeDateTime() {
 		WeightedDateSimilarity sim = new WeightedDateSimilarity(0, 0, 1);
 		sim.setYearRange(10);
