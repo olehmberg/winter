@@ -43,6 +43,14 @@ public class Distribution<T> {
 		sumOfCounts++;
 	}
 	
+	public void add(T element, int frequency) {
+Integer cnt = getNonNull(element);
+		
+		counts.put(element, cnt+frequency);
+		
+		sumOfCounts+=frequency;
+	}
+	
 	protected Integer getNonNull(T element) {
 		Integer cnt = counts.get(element);
 		

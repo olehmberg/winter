@@ -420,8 +420,11 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		aggregateCollector.setAggregator(aggregator);
 		aggregateCollector.initialise();
 		
+		ProgressReporter prg = new ProgressReporter(size(), "Aggregating");
 		for(RecordType r : get()) {
 			groupBy.mapRecordToKey(r, aggregateCollector);
+			prg.incrementProgress();
+			prg.report();
 		}
 		
 		aggregateCollector.finalise();

@@ -11,12 +11,16 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.parallel;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.AggregateCollector;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
+import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.parallel.ThreadBoundObject;
 
 /**
  * Thread-Safe implementation of {@link AggregateCollector}.
@@ -30,7 +34,7 @@ public class ThreadSafeAggregateCollector<KeyType, RecordType, ResultType> exten
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ConcurrentHashMap<KeyType, LockableValue<ResultType>> intermediateResults;
+	private ThreadBoundObject<Map<KeyType, Pair<ResultType,Object>>> intermediateResults;
 	private Processable<Pair<KeyType, ResultType>> aggregationResult;
 	
 	/* (non-Javadoc)
@@ -39,7 +43,7 @@ public class ThreadSafeAggregateCollector<KeyType, RecordType, ResultType> exten
 	@Override
 	public void initialise() {
 		super.initialise();
-		intermediateResults = new ConcurrentHashMap<>();
+		intermediateResults = new ThreadBoundObject<>((t)->new HashMap<>());
 		aggregationResult = new ParallelProcessableCollection<>();
 	}
 	
@@ -72,23 +76,15 @@ public class ThreadSafeAggregateCollector<KeyType, RecordType, ResultType> exten
 	@Override
 	public void next(Pair<KeyType, RecordType> record) {
 		
-		LockableValue<ResultType> value = intermediateResults.get(record.getFirst());
+		Pair<ResultType,Object> value = intermediateResults.get().get(record.getFirst());
 		
 		if(value==null) {
-			intermediateResults.putIfAbsent(record.getFirst(), new LockableValue<ResultType>());
-			value = intermediateResults.get(record.getFirst());
+			value = aggregator.initialise(record.getFirst());
 		}
 		
-		synchronized (value) {
-			
-			if(value.getValue()==null) {
-				value.setValue(aggregator.initialise(record.getFirst()));
-			}
-			
-			value.setValue(aggregator.aggregate(value.getValue(), record.getSecond()));
-			intermediateResults.put(record.getFirst(), value);
-		}
+		value = aggregator.aggregate(value.getFirst(), record.getSecond(), value.getSecond());
 		
+		intermediateResults.get().put(record.getFirst(), value);		
 	}
 	
 	/* (non-Javadoc)
@@ -96,8 +92,41 @@ public class ThreadSafeAggregateCollector<KeyType, RecordType, ResultType> exten
 	 */
 	@Override
 	public void finalise() {
-		for(KeyType key : intermediateResults.keySet()) {
-			aggregationResult.add(new Pair<>(key, aggregator.createFinalValue(key, intermediateResults.get(key).getValue())));
+		
+		Map<KeyType, Pair<ResultType,Object>> results = null;
+		
+		ProgressReporter prg = new ProgressReporter(intermediateResults.getAll().size(), "[ThreadSafeAggregateCollector] Merging partial results");
+		for(Map<KeyType, Pair<ResultType,Object>> partialResult : intermediateResults.getAll()) {
+			if(results==null) {
+				results = partialResult;
+			} else {
+				for(Map.Entry<KeyType, Pair<ResultType,Object>> entry : partialResult.entrySet()) {
+					Pair<ResultType,Object> value = results.get(entry.getKey());
+					
+					if(value==null) {
+						value = entry.getValue();
+					} else {
+						value = aggregator.merge(value, entry.getValue());						
+					}
+					
+					results.put(entry.getKey(), value);
+				}
+			}
+			
+			prg.incrementProgress();
+			prg.report();
+		}
+		
+		if(results!=null) {
+			
+			aggregationResult = new ParallelProcessableCollection<>(results.entrySet()).map(
+					(Map.Entry<KeyType, Pair<ResultType, Object>> record, DataIterator<Pair<KeyType,ResultType>> resultCollector) 
+					-> {
+						KeyType key = record.getKey();
+						Pair<ResultType, Object> value = record.getValue();
+						
+						resultCollector.next(new Pair<>(key, aggregator.createFinalValue(key, value.getFirst(), value.getSecond())));
+					});
 		}
 	}
 	

@@ -53,17 +53,17 @@ public class CorrespondenceAggregator<TypeA extends Matchable, TypeB extends Mat
 	}
 	
 	@Override
-	public Correspondence<TypeA, TypeB> initialise(Pair<TypeA, TypeA> keyValue) {
-		return null;
+	public Pair<Correspondence<TypeA, TypeB>,Object> initialise(Pair<TypeA, TypeA> keyValue) {
+		return stateless(null);
 	}
 	
 	@Override
-	public Correspondence<TypeA, TypeB> aggregate(Correspondence<TypeA, TypeB> previousResult,
-			Correspondence<TypeA, TypeB> record) {
+	public Pair<Correspondence<TypeA, TypeB>,Object> aggregate(Correspondence<TypeA, TypeB> previousResult,
+			Correspondence<TypeA, TypeB> record, Object state) {
 	
 		if(previousResult==null) {
 			record.setsimilarityScore(getSimilarityScore(record));
-			return record;
+			return stateless(record);
 		} else {
 			previousResult.setsimilarityScore(previousResult.getSimilarityScore() + getSimilarityScore(record));
 			
@@ -75,7 +75,7 @@ public class CorrespondenceAggregator<TypeA extends Matchable, TypeB extends Mat
 					previousResult.setCausalCorrespondences(record.getCausalCorrespondences().copy());
 				}
 			}
-			return previousResult;
+			return stateless(previousResult);
 		}
 	}
 
@@ -84,13 +84,23 @@ public class CorrespondenceAggregator<TypeA extends Matchable, TypeB extends Mat
 	 */
 	@Override
 	public Correspondence<TypeA, TypeB> createFinalValue(Pair<TypeA, TypeA> keyValue,
-			Correspondence<TypeA, TypeB> result) {
+			Correspondence<TypeA, TypeB> result, Object state) {
 		
 		if(result.getSimilarityScore()>0.0 && result.getSimilarityScore()>=getFinalThreshold()) {
 			return result;
 		} else {
 			return null;
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Correspondence<TypeA, TypeB>, Object> merge(
+			Pair<Correspondence<TypeA, TypeB>, Object> intermediateResult1,
+			Pair<Correspondence<TypeA, TypeB>, Object> intermediateResult2) {
+		return aggregate(intermediateResult1.getFirst(), intermediateResult2.getFirst(), null);
 	}
 }
 

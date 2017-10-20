@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 
 /**
@@ -25,12 +26,12 @@ public class CountAggregator<KeyType, RecordType> implements DataAggregator<KeyT
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Integer aggregate(Integer previousResult,
-			RecordType record) {
+	public Pair<Integer,Object> aggregate(Integer previousResult,
+			RecordType record, Object state) {
 		if(previousResult==null) {
-			return 1;
+			return stateless(1);
 		} else {
-			return previousResult+1;
+			return stateless(previousResult+1);
 		}
 	}
 
@@ -38,8 +39,17 @@ public class CountAggregator<KeyType, RecordType> implements DataAggregator<KeyT
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Integer initialise(KeyType keyValue) {
-		return null;
+	public Pair<Integer, Object> initialise(KeyType keyValue) {
+		return stateless(null);
+	}
+
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Integer, Object> merge(Pair<Integer, Object> intermediateResult1,
+			Pair<Integer, Object> intermediateResult2) {
+		return stateless(intermediateResult1.getFirst()+intermediateResult2.getFirst());
 	}
 	
 	

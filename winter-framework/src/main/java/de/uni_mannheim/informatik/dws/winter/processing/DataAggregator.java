@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.processing;
 
 import java.io.Serializable;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
+
 /**
  * 
  * Interface for aggregation operations.
@@ -22,12 +24,22 @@ import java.io.Serializable;
  */
 public interface DataAggregator<KeyType, RecordType, ResultType> extends Serializable{
 
-	ResultType initialise(KeyType keyValue);
+	Pair<ResultType,Object> initialise(KeyType keyValue);
 	
-	ResultType aggregate(ResultType previousResult, RecordType record);
+	Pair<ResultType,Object> aggregate(ResultType previousResult, RecordType record, Object state);
 	
-	default ResultType createFinalValue(KeyType keyValue, ResultType result) {
+	Pair<ResultType,Object> merge(Pair<ResultType, Object> intermediateResult1, Pair<ResultType, Object> intermediateResult2);
+	
+	default ResultType createFinalValue(KeyType keyValue, ResultType result, Object state) {
 		return result;
+	}
+	
+	default Pair<ResultType, Object> stateless(ResultType result) {
+		return new Pair<>(result,null);
+	}
+	
+	default Pair<ResultType, Object> state(ResultType result, Object state) {
+		return new Pair<>(result,state);
 	}
 	
 }

@@ -61,8 +61,8 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 	}
 
 	@Override
-	public Correspondence<TypeA, TypeB> aggregate(Correspondence<TypeA, TypeB> previousResult,
-			Correspondence<TypeA, TypeB> record) {
+	public Pair<Correspondence<TypeA, TypeB>, Object> aggregate(Correspondence<TypeA, TypeB> previousResult,
+			Correspondence<TypeA, TypeB> record, Object state) {
 		
 		// multiply the similarity score with each vote (causal correspondences)
 		int numVotes = record.getCausalCorrespondences() == null || record.getCausalCorrespondences().size()==0 ? 1 : record.getCausalCorrespondences().size();
@@ -71,11 +71,11 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 			Correspondence<TypeA, TypeB> result = new Correspondence<>(record.getFirstRecord(), record.getSecondRecord(),getSimilarityScore(record) * numVotes,record.getCausalCorrespondences().copy());
 //			record.setsimilarityScore(getSimilarityScore(record) * numVotes);
 //			return record;
-			return result;
+			return stateless(result);
 		} else {
 			previousResult.setsimilarityScore(previousResult.getSimilarityScore() + (getSimilarityScore(record) * numVotes));
 			previousResult.setCausalCorrespondences(previousResult.getCausalCorrespondences().append(record.getCausalCorrespondences()));
-			return previousResult;
+			return stateless(previousResult);
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 	 */
 	@Override
 	public Correspondence<TypeA, TypeB> createFinalValue(Pair<TypeA, TypeA> keyValue,
-			Correspondence<TypeA, TypeB> result) {
+			Correspondence<TypeA, TypeB> result, Object state) {
 		
 		if(normaliseWith!=0.0) { 
 			result.setsimilarityScore(result.getSimilarityScore() / normaliseWith);
@@ -93,6 +93,26 @@ public class VotingAggregator<TypeA extends Matchable, TypeB extends Matchable>
 			result.setsimilarityScore(result.getSimilarityScore() / (double)result.getCausalCorrespondences().size());
 		}
 		
-		return super.createFinalValue(keyValue, result);
+		return super.createFinalValue(keyValue, result, state);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Correspondence<TypeA, TypeB>, Object> merge(
+			Pair<Correspondence<TypeA, TypeB>, Object> intermediateResult1,
+			Pair<Correspondence<TypeA, TypeB>, Object> intermediateResult2) {
+		
+		Correspondence<TypeA, TypeB> c1 = intermediateResult1.getFirst();
+		Correspondence<TypeA, TypeB> c2 = intermediateResult2.getFirst();
+		
+		Correspondence<TypeA, TypeB> result = new Correspondence<>(
+				c1.getFirstRecord(), 
+				c1.getSecondRecord(), 
+				c1.getSimilarityScore()+c2.getSimilarityScore(), 
+				c1.getCausalCorrespondences().append(c2.getCausalCorrespondences())); 
+		
+		return stateless(result);
 	}
 }

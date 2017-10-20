@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 
@@ -28,20 +29,29 @@ public class PerformanceAggregator<KeyType> implements DataAggregator<KeyType, P
 	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Performance initialise(KeyType keyValue) {
-		return new Performance(0, 0, 0);
+	public Pair<Performance,Object> initialise(KeyType keyValue) {
+		return stateless(new Performance(0, 0, 0));
 	}
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#aggregate(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Performance aggregate(Performance previousResult, Performance record) {
+	public Pair<Performance,Object> aggregate(Performance previousResult, Performance record, Object state) {
 		
-		return new Performance(
+		return stateless(new Performance(
 				previousResult.getNumberOfCorrectlyPredicted() + record.getNumberOfCorrectlyPredicted(), 
 				previousResult.getNumberOfPredicted() + record.getNumberOfPredicted(), 
-				previousResult.getNumberOfCorrectTotal() + record.getNumberOfCorrectTotal());
+				previousResult.getNumberOfCorrectTotal() + record.getNumberOfCorrectTotal()));
 	}
 
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Performance, Object> merge(Pair<Performance, Object> intermediateResult1,
+			Pair<Performance, Object> intermediateResult2) {
+
+		return aggregate(intermediateResult1.getFirst(), intermediateResult2.getFirst(), null);
+	}
 }

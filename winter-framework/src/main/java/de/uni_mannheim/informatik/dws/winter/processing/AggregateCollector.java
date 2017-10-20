@@ -29,7 +29,7 @@ public class AggregateCollector<KeyType, RecordType, ResultType> extends GroupCo
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Map<KeyType, ResultType> intermediateResults;
+	private Map<KeyType, Pair<ResultType,Object>> intermediateResults;
 	private Processable<Pair<KeyType, ResultType>> aggregationResult;
 	
 	/* (non-Javadoc)
@@ -70,13 +70,13 @@ public class AggregateCollector<KeyType, RecordType, ResultType> extends GroupCo
 	 */
 	@Override
 	public void next(Pair<KeyType, RecordType> record) {
-		ResultType result = intermediateResults.get(record.getFirst());
+		Pair<ResultType,Object> result = intermediateResults.get(record.getFirst());
 		
 		if(result==null) {
 			result = aggregator.initialise(record.getFirst());
 		}
 		
-		result = aggregator.aggregate(result, record.getSecond());
+		result = aggregator.aggregate(result.getFirst(), record.getSecond(), result.getSecond());
 		intermediateResults.put(record.getFirst(), result);
 	}
 	
@@ -86,7 +86,8 @@ public class AggregateCollector<KeyType, RecordType, ResultType> extends GroupCo
 	@Override
 	public void finalise() {
 		for(KeyType key : intermediateResults.keySet()) {
-			ResultType result = aggregator.createFinalValue(key, intermediateResults.get(key));
+			Pair<ResultType, Object> value = intermediateResults.get(key);
+			ResultType result = aggregator.createFinalValue(key, value.getFirst(), value.getSecond());
 			if(result!=null) {
 				aggregationResult.add(new Pair<>(key, result));
 			}

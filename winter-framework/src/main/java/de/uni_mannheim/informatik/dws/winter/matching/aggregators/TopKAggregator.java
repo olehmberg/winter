@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.aggregators;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
@@ -40,16 +41,16 @@ public class TopKAggregator<TypeA extends Matchable, TypeB extends Matchable, Ke
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Processable<Correspondence<TypeA, TypeB>> initialise(KeyType keyValue) {
-		return new ProcessableCollection<>();
+	public Pair<Processable<Correspondence<TypeA, TypeB>>, Object> initialise(KeyType keyValue) {
+		return stateless(new ProcessableCollection<>());
 	}
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#aggregate(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Processable<Correspondence<TypeA, TypeB>> aggregate(Processable<Correspondence<TypeA, TypeB>> previousResult,
-			Correspondence<TypeA, TypeB> record) {
+	public Pair<Processable<Correspondence<TypeA, TypeB>>, Object> aggregate(Processable<Correspondence<TypeA, TypeB>> previousResult,
+			Correspondence<TypeA, TypeB> record, Object state) {
 
 		previousResult.add(record);
 		
@@ -60,7 +61,16 @@ public class TopKAggregator<TypeA extends Matchable, TypeB extends Matchable, Ke
 			previousResult = previousResult.sort((r)->r.getIdentifiers()).sort((r)->r.getSimilarityScore(), false).take(k);
 		}
 		
-		return previousResult;
+		return stateless(previousResult);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Processable<Correspondence<TypeA, TypeB>>, Object> merge(
+			Pair<Processable<Correspondence<TypeA, TypeB>>, Object> intermediateResult1,
+			Pair<Processable<Correspondence<TypeA, TypeB>>, Object> intermediateResult2) {
+		return stateless(intermediateResult1.getFirst().append(intermediateResult2.getFirst()).sort((r)->r.getIdentifiers()).sort((r)->r.getSimilarityScore(), false).take(k));
+	}
 }

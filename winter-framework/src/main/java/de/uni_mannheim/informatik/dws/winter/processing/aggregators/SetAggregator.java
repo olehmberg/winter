@@ -14,6 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 
 /**
@@ -30,18 +31,30 @@ public class SetAggregator<KeyType, RecordType> implements DataAggregator<KeyTyp
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Set<RecordType> initialise(KeyType keyValue) {
-		return new HashSet<>();
+	public Pair<Set<RecordType>,Object> initialise(KeyType keyValue) {
+		return stateless(new HashSet<>());
 	}
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#aggregate(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Set<RecordType> aggregate(Set<RecordType> previousResult, RecordType record) {
+	public Pair<Set<RecordType>,Object> aggregate(Set<RecordType> previousResult, RecordType record, Object state) {
 		previousResult.add(record);
 		
-		return previousResult;
+		return stateless(previousResult);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Set<RecordType>, Object> merge(Pair<Set<RecordType>, Object> intermediateResult1,
+			Pair<Set<RecordType>, Object> intermediateResult2) {
+
+		Set<RecordType> result = intermediateResult1.getFirst();
+		result.addAll(intermediateResult2.getFirst());
+		
+		return stateless(result);
+	}
 }

@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 
 /**
@@ -29,12 +30,12 @@ public abstract class SumAggregator<KeyType, RecordType> implements DataAggregat
 	public abstract Double getValue(RecordType record);
 	
 	@Override
-	public Double aggregate(Double previousResult,
-			RecordType record) {
+	public Pair<Double,Object> aggregate(Double previousResult,
+			RecordType record, Object state) {
 		if(previousResult==null) {
-			return getValue(record);
+			return stateless(getValue(record));
 		} else {
-			return previousResult+getValue(record);
+			return stateless(previousResult+getValue(record));
 		}
 	}
 	
@@ -42,8 +43,17 @@ public abstract class SumAggregator<KeyType, RecordType> implements DataAggregat
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Double initialise(KeyType keyValue) {
-		return null;
+	public Pair<Double,Object> initialise(KeyType keyValue) {
+		return stateless(null);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Double, Object> merge(Pair<Double, Object> intermediateResult1,
+			Pair<Double, Object> intermediateResult2) {
+		return stateless(intermediateResult1.getFirst()+intermediateResult2.getFirst());
 	}
 	
 }

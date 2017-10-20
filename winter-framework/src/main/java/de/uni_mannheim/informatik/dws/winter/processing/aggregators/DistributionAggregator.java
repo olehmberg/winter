@@ -11,8 +11,10 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * 
@@ -32,21 +34,40 @@ public abstract class DistributionAggregator<KeyType, RecordType, InnerKeyType> 
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Distribution<InnerKeyType> initialise(KeyType keyValue) {
-		return new Distribution<>();
+	public Pair<Distribution<InnerKeyType>,Object> initialise(KeyType keyValue) {
+		return stateless(new Distribution<>());
 	}
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#aggregate(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Distribution<InnerKeyType> aggregate(Distribution<InnerKeyType> previousResult, RecordType record) {
+	public Pair<Distribution<InnerKeyType>,Object> aggregate(Distribution<InnerKeyType> previousResult, RecordType record, Object state) {
 
 		previousResult.add(getInnerKey(record));
 		
-		return previousResult;
+		return stateless(previousResult);
 	}
 
 	public abstract InnerKeyType getInnerKey(RecordType record);
-	
+
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Distribution<InnerKeyType>, Object> merge(Pair<Distribution<InnerKeyType>, Object> intermediateResult1,
+			Pair<Distribution<InnerKeyType>, Object> intermediateResult2) {
+
+		Distribution<InnerKeyType> dist1 = intermediateResult1.getFirst();
+		Distribution<InnerKeyType> dist2 = intermediateResult2.getFirst();
+		
+		Distribution<InnerKeyType> result = new Distribution<>();
+		
+		for(InnerKeyType elem : Q.union(dist1.getElements(), dist2.getElements())) {
+			result.add(elem, dist1.getFrequency(elem));
+			result.add(elem, dist2.getFrequency(elem));
+		}
+		
+		return stateless(result);
+	}
 }

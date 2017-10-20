@@ -21,13 +21,13 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.PairFirstJoinKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
+import de.uni_mannheim.informatik.dws.winter.processing.aggregators.StringConcatenationAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
@@ -207,24 +207,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						-> {
 							int blockSize = record.getFirst().getSecond().getNumElements() * record.getSecond().getSecond().getNumElements();
 							resultCollector.next(new Pair<Integer, String>(blockSize, record.getFirst().getFirst()));
-						}
-						, new DataAggregator<Integer, String, String>() {
-							private static final long serialVersionUID = 1L;
-	
-							@Override
-							public String initialise(Integer keyValue) {
-								return null;
-							}
-	
-							@Override
-							public String aggregate(String previousResult, String record) {
-								if(previousResult==null) {
-									return record;
-								} else {
-									return previousResult + "," + record;
-								}
-							}
-						})
+						},
+						new StringConcatenationAggregator<>(","))
 						.sort((p)->p.getFirst(), false);
 				
 				System.out.println("50 most-frequent blocking key values:");

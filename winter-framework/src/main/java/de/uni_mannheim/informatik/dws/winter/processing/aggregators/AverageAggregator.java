@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing.aggregators;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 
 /**
@@ -24,7 +25,7 @@ public abstract class AverageAggregator<KeyType, RecordType> implements DataAggr
 
 	private static final long serialVersionUID = 1L;
 
-	int numberofElements = -1;
+	int numberOfElements = -1;
 	boolean fixedNumberOfElements = false;
 	
 	public AverageAggregator() {
@@ -32,20 +33,27 @@ public abstract class AverageAggregator<KeyType, RecordType> implements DataAggr
 	}
 	
 	public AverageAggregator(int numberofElements) {
-		this.numberofElements = numberofElements;
+		this.numberOfElements = numberofElements;
 		this.fixedNumberOfElements = true;
 	}
 	
 	@Override
-	public Double aggregate(Double previousResult,
-			RecordType record) {
-		if(!fixedNumberOfElements) {
-			numberofElements++;
-		}
+	public Pair<Double,Object> aggregate(Double previousResult,
+			RecordType record, Object state) {
+		
+		Double result = null;
 		if(previousResult==null) {
-			return getValue(record);
+			result = getValue(record);
 		} else {
-			return previousResult+getValue(record);
+			result =  previousResult+getValue(record);
+		}
+		
+		if(!fixedNumberOfElements) {
+			Integer numberOfElements = (Integer)state;
+			numberOfElements++;
+			return state(result,numberOfElements);
+		} else {
+			return stateless(result);
 		}
 	}
 	
@@ -55,16 +63,34 @@ public abstract class AverageAggregator<KeyType, RecordType> implements DataAggr
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#initialise(java.lang.Object)
 	 */
 	@Override
-	public Double initialise(KeyType keyValue) {
-		return null;
+	public Pair<Double,Object> initialise(KeyType keyValue) {
+		return state(null,0);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.DataAggregator#merge(de.uni_mannheim.informatik.dws.winter.model.Pair, de.uni_mannheim.informatik.dws.winter.model.Pair)
+	 */
+	@Override
+	public Pair<Double,Object> merge(Pair<Double, Object> intermediateResult1, Pair<Double, Object> intermediateResult2) {
+		if(fixedNumberOfElements) {
+//			return new Pair<Double,Object>(intermediateResult1.getFirst()+intermediateResult2.getFirst(), (Integer)numberOfElements);
+			return stateless(intermediateResult1.getFirst()+intermediateResult2.getFirst());
+		} else {
+			return state(intermediateResult1.getFirst()+intermediateResult2.getFirst(), (Integer)intermediateResult1.getSecond()+(Integer)intermediateResult2.getSecond());
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataAggregator#createFinalValue(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public Double createFinalValue(KeyType keyValue, Double result) {
-		return result / (double)numberofElements;
+	public Double createFinalValue(KeyType keyValue, Double result, Object state) {
+		if(fixedNumberOfElements) {
+			return result / (double)numberOfElements;
+		} else {
+			Integer numberOfElements = (Integer)state;
+			return result / (double)numberOfElements;
+		}
 	}
 	
 }
