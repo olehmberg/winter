@@ -14,8 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 import java.io.File;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
-import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedRecordBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.BlockingKeyIndexer.VectorCreationMethod;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -24,8 +23,9 @@ import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.DefaultRecordValueGenerator;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.DefaultRecordValuesAsBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceMaximumOfContainmentSimilarity;
 
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
@@ -43,21 +43,20 @@ public class Movies_SimpleIdentityResolution {
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
-		// define a blocker that uses the record values to generate pairs
-		InstanceBasedRecordBlocker<Record, Attribute> blocker = new InstanceBasedRecordBlocker<>(
-				new DefaultRecordValueGenerator(data1.getSchema()), 
-				new DefaultRecordValueGenerator(data2.getSchema()));
-		
-		// to calculate the similarity score, aggregate the pairs by counting and normalise with the number of attributes in the smaller schema (= the maximum number of attributes that can match)
-		VotingAggregator<Record, MatchableValue> aggregator = new VotingAggregator<>(true, Math.min(data1.getSchema().size(), data2.getSchema().size()), 0.3);
-
-		Processable<Correspondence<Record, MatchableValue>> correspondences = engine.runSimpleIdentityResolution(data1, data2, blocker, aggregator);
+		Processable<Correspondence<Record, MatchableValue>> correspondences = engine.runVectorBasedIdentityResolution(
+				data1, 
+				data2, 
+				new DefaultRecordValuesAsBlockingKeyGenerator(data1.getSchema()), 
+				new DefaultRecordValuesAsBlockingKeyGenerator(data2.getSchema()), 
+				VectorCreationMethod.TermFrequencies, 
+				new VectorSpaceMaximumOfContainmentSimilarity(),
+				0.35);
 		
 		// print results
 		for(Correspondence<Record, MatchableValue> cor : correspondences.get()) {
 			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
 			for(Correspondence<MatchableValue, Matchable> cause : cor.getCausalCorrespondences().get()) {
-				System.out.print(String.format("%s (%.0f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
+				System.out.print(String.format("%s (%.4f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 			}
 			System.out.println();
 		}

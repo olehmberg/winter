@@ -11,8 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
-import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -71,8 +71,9 @@ public class ValueBasedBlockerTest extends TestCase {
 		
 		ValueBasedBlocker<Record, Attribute, Attribute> blocker = new ValueBasedBlocker<>(new DefaultAttributeValueGenerator(ds1.getSchema()),new DefaultAttributeValueGenerator(ds2.getSchema()));
 		
-		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
-		Processable<Correspondence<Attribute, MatchableValue>> correspondences = engine.runInstanceBasedSchemaMatching(ds1, ds2, blocker, new CorrespondenceAggregator<>(0.0));
+		InstanceBasedSchemaMatchingAlgorithm<Record, Attribute> algo = new InstanceBasedSchemaMatchingAlgorithm<>(ds1, ds2, blocker, new CorrespondenceAggregator<>(0.0));
+		algo.run();
+		Processable<Correspondence<Attribute, MatchableValue>> correspondences = algo.getResult();
 		
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
 			System.out.println(String.format("%s <-> %s (%.6f)", cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));

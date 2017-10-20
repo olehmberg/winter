@@ -66,7 +66,6 @@ public class DefaultRecordValueGenerator extends BlockingKeyGenerator<Record, Ma
 	@Override
 	public void generateBlockingKeys(Record record, Processable<Correspondence<MatchableValue, Matchable>> correspondences,
 			DataIterator<Pair<String, Record>> resultCollector) {
-		// not needed as we re-implement mapRecordToKey
 	}
 
 }

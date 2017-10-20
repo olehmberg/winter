@@ -14,20 +14,18 @@ package de.uni_mannheim.informatik.dws.winter.matching;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKCorrespondencesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
-import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.MaximumBipartiteMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedDuplicateDetectionAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm;
-import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleDuplicateDetectionAlgorithm;
-import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SimpleIdentityResolutionAlgorithm;
-import de.uni_mannheim.informatik.dws.winter.matching.algorithms.SymmetricInstanceBasedSchemaMatchingAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.VectorSpaceIdentityResolutionAlgorithm;
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.VectorSpaceInstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.InstanceBasedSchemaBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.BlockingKeyIndexer.VectorCreationMethod;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.FlattenAggregatedCorrespondencesRule;
@@ -43,6 +41,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.FlattenAggregationResult
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
+import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceSimilarity;
 
 /**
  * The matching engine provides access to the matching algorithms for schema matching and identity resolution.
@@ -152,43 +151,34 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	
 	/**
 	 * 
-	 * Runs identity resolution without considering the schema of records by comparing the value overlap.
+	 * Runs identity resolution on the provided datasets. The blocking functions generate the terms which are used to calculate similarity using the vector space model. 
 	 * 
 	 * @param dataset1
+	 * 			the first dataset
 	 * @param dataset2
-	 * @param blocker
-	 * @param aggregator
-	 * @return The found correspondences
+	 * 			the second dataset
+	 * @param blockingfunction1
+	 * 			the blocking function for the first dataset
+	 * @param blockingfunction2
+	 * 			the blocking function for the second dataset
+	 * @param vectorCreation
+	 * 			the vector creation method
+	 * @param similarity
+	 * 			the similarity function
+	 * @param similarityThreshold
+	 * 			the similarity threshold
+	 * @return
 	 */
-	public Processable<Correspondence<RecordType, MatchableValue>> runSimpleIdentityResolution(
+	public Processable<Correspondence<RecordType, MatchableValue>> runVectorBasedIdentityResolution(
 			DataSet<RecordType, SchemaElementType> dataset1, 
 			DataSet<RecordType, SchemaElementType> dataset2,
-			Blocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
-			CorrespondenceAggregator<RecordType, MatchableValue> aggregator) {
+			BlockingKeyGenerator<RecordType, MatchableValue, RecordType> blockingfunction1,
+			BlockingKeyGenerator<RecordType, MatchableValue, RecordType> blockingfunction2,
+			VectorCreationMethod vectorCreation,
+			VectorSpaceSimilarity similarity,
+			double similarityThreshold) {
 
-		SimpleIdentityResolutionAlgorithm<RecordType, SchemaElementType> algorithm = new SimpleIdentityResolutionAlgorithm<RecordType, SchemaElementType>(dataset1, dataset2, blocker, aggregator);
-		
-		algorithm.run();
-		
-		return algorithm.getResult();
-		
-	}
-
-	/**
-	 * 
-	 * Runs duplicate detection without considering the schema of records by comparing the value overlap.
-	 * 
-	 * @param dataset
-	 * @param blocker
-	 * @param aggregator
-	 * @return The found correspondences
-	 */
-	public Processable<Correspondence<RecordType, MatchableValue>> runSimpleDuplicateDetection(
-			DataSet<RecordType, SchemaElementType> dataset, 
-			SymmetricBlocker<RecordType, SchemaElementType, RecordType, MatchableValue> blocker,
-			CorrespondenceAggregator<RecordType, MatchableValue> aggregator) {
-
-		SimpleDuplicateDetectionAlgorithm<RecordType, SchemaElementType> algorithm = new SimpleDuplicateDetectionAlgorithm<RecordType, SchemaElementType>(dataset, blocker, aggregator);
+		VectorSpaceIdentityResolutionAlgorithm<RecordType, SchemaElementType> algorithm = new VectorSpaceIdentityResolutionAlgorithm<>(dataset1, dataset2, blockingfunction1, blockingfunction2, vectorCreation, similarity, similarityThreshold);
 		
 		algorithm.run();
 		
@@ -315,45 +305,44 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @return
 	 * 		The created schema correspondences
 	 */
-	public Processable<Correspondence<SchemaElementType, MatchableValue>> runInstanceBasedSchemaMatching(
-			DataSet<RecordType, SchemaElementType> dataset1, 
-			DataSet<RecordType, SchemaElementType> dataset2,
-			Blocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
-			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
-
-		InstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new InstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType>(dataset1, dataset2, blocker, aggregator);
-		
-		algorithm.run();
-		
-		return algorithm.getResult();
-		
-	}
+	
+	
 	
 	/**
 	 * 
-	 * Runs instance-based schema matching on the provided datasets. The blocker creates initial correspondences between the schemas, which are then evaluated by the aggregator.
-	 * Using an {@link InstanceBasedSchemaBlocker}, the blocking creates a correspondence for every matching value in the attributes.
-	 * To measure the value overlap of two attributes as similarity value, use a {@link VotingAggregator}.
+	 * Runs instance-based schema matching on the provided datasets. The blocking functions generate the terms which are used to calculate similarity using the vector space model. 
 	 * 
-	 * @param dataset
-	 * 		The dataset (which contains the records with data, not the attributes)
-	 * @param blocker
-	 * 		The blocker that creates pairs of attributes from the values
-	 * @param aggregator
-	 * 		The aggregator that combined the blocker's result into final correspondences
+	 * @param dataset1
+	 * 			the first dataset
+	 * @param dataset2
+	 * 			the second dataset
+	 * @param blockingfunction1
+	 * 			the blocking function for the first dataset
+	 * @param blockingfunction2
+	 * 			the blocking function for the second dataset
+	 * @param vectorCreation
+	 * 			the vector creation method
+	 * @param similarity
+	 * 			the similarity function
+	 * @param similarityThreshold
+	 * 			the similarity threshold
 	 * @return
-	 * 		The created schema correspondences
 	 */
 	public Processable<Correspondence<SchemaElementType, MatchableValue>> runInstanceBasedSchemaMatching(
-			DataSet<RecordType, SchemaElementType> dataset, 
-			SymmetricBlocker<RecordType, SchemaElementType, SchemaElementType, MatchableValue> blocker,
-			CorrespondenceAggregator<SchemaElementType, MatchableValue> aggregator) {
+			DataSet<RecordType, SchemaElementType> dataset1, 
+			DataSet<RecordType, SchemaElementType> dataset2,
+			BlockingKeyGenerator<RecordType, MatchableValue, SchemaElementType> blockingfunction1,
+			BlockingKeyGenerator<RecordType, MatchableValue, SchemaElementType> blockingfunction2,
+			VectorCreationMethod vectorCreation,
+			VectorSpaceSimilarity similarity,
+			double similarityThreshold) {
 
-		SymmetricInstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new SymmetricInstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType>(dataset, blocker, aggregator);
+		VectorSpaceInstanceBasedSchemaMatchingAlgorithm<RecordType, SchemaElementType> algorithm = new VectorSpaceInstanceBasedSchemaMatchingAlgorithm<>(dataset1, dataset2, blockingfunction1, blockingfunction2, vectorCreation, similarity, similarityThreshold);
 		
 		algorithm.run();
 		
 		return algorithm.getResult();
+		
 	}
 	
 	/**

@@ -21,7 +21,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
 /**
  * A blocking key generator that uses the values of an attribute as blocking keys
@@ -29,36 +28,13 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class DefaultAttributeValueGenerator extends BlockingKeyGenerator<Record, MatchableValue, Attribute> {
+public class DefaultAttributeValuesAsBlockingKeyGenerator extends BlockingKeyGenerator<Record, MatchableValue, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 	DataSet<Attribute, Attribute> schema;
 	
-	public DefaultAttributeValueGenerator(DataSet<Attribute, Attribute> schema) {
+	public DefaultAttributeValuesAsBlockingKeyGenerator(DataSet<Attribute, Attribute> schema) {
 		this.schema = schema;
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.matching.blocking.generators.BlockingKeyGenerator#mapRecordToKey(de.uni_mannheim.informatik.wdi.model.Pair, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
-	 */
-	@Override
-	public void mapRecordToKey(Pair<Record, Processable<Correspondence<MatchableValue, Matchable>>> pair,
-			DataIterator<Pair<String, Pair<Attribute, Processable<Correspondence<MatchableValue, Matchable>>>>> resultCollector) {
-
-		Record record = pair.getFirst();
-		
-		for(Attribute a : schema.get()) {
-			if(record.hasValue(a)) {
-				
-				Processable<Correspondence<MatchableValue, Matchable>> causes = new ProcessableCollection<>();
-				MatchableValue value = new MatchableValue(record.getValue(a), record.getIdentifier(), a.getIdentifier());
-				Correspondence<MatchableValue, Matchable> causeCor = new Correspondence<>(value, value, 1.0);
-				causes.add(causeCor);
-				
-				resultCollector.next(new Pair<>(value.getValue().toString(), new Pair<>(a, causes)));
-			}
-		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -67,6 +43,13 @@ public class DefaultAttributeValueGenerator extends BlockingKeyGenerator<Record,
 	@Override
 	public void generateBlockingKeys(Record record, Processable<Correspondence<MatchableValue, Matchable>> correspondences,
 			DataIterator<Pair<String, Attribute>> resultCollector) {
+
+		for(Attribute a : schema.get()) {
+			if(record.hasValue(a)) {
+				resultCollector.next(new Pair<>(record.getValue(a), a));
+			}
+		}
+		
 	}
 
 }
