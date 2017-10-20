@@ -1,6 +1,6 @@
 # **W**eb Data **INTE**g**R**ation Framework (WInte.r)
 
-The WInte.r framework provides methods for end-to-end data integration. The framework implements well-known methods for data pre-processing, schema matching, identity resolution, data fusion, and result evaluation.  The methods are designed to be easily customizable by exchanging pre-defined building blocks, such as blockers, matching rules, similarity functions, and conflict resolution functions. In addition, these pre-defined building blocks can be used as foundation for implementing advanced integration methods.
+The WInte.r framework [5] provides methods for end-to-end data integration. The framework implements well-known methods for data pre-processing, schema matching, identity resolution, data fusion, and result evaluation.  The methods are designed to be easily customizable by exchanging pre-defined building blocks, such as blockers, matching rules, similarity functions, and conflict resolution functions. In addition, these pre-defined building blocks can be used as foundation for implementing advanced integration methods.
 
 ## Contents
 - [Functionality](#functionality)
@@ -27,7 +27,7 @@ You can include the WInte.r framework via the following Maven dependency:
 <dependency>
 	<groupId>de.uni_mannheim.informatik.dws</groupId>
 	<artifactId>winter</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 </dependency>
 ```
 
@@ -77,7 +77,10 @@ Many web sites provide data in the form of HTML tables. Millions of such data ta
 Tables on web pages ("web tables") cover a diversity of topics and can be a source of information for different tasks such as knowledge base augmentation or the ad-hoc extension of datasets. However, to use this information, the tables must first be integrated, either with each other or into existing data sources. The challenges that matching methods for this purpose have to overcome are the high heterogeneity and the small size of the tables.
 To counter these problems, web tables from the same web site can be stitched before running any of the existing matching systems. This means that web tables are combined based on a schema mapping, which results in fewer and larger stitched tables [4].
 The source code of the stitching method is available in the [Web Tables Stitching project](https://github.com/olehmberg/WebTableStitching).
-  
+
+**Data Search for Data Mining (DS4DM)**
+
+Analysts increasingly have the problem that they know that some data which they need for a project is available somewhere on the Web or in the corporate intranet, but they are unable to find the data. The goal of the ['Data Search for Data Mining' (DS4DM) project](http://ds4dm.de/) is to extend the data mining platform Rapidminer with data search and data integration functionalities which enable analysts to find relevant data in potentially very large data corpora, and to semi-automatically integrate the discovered data with existing local data.
 
 ## Contact
 
@@ -85,7 +88,9 @@ If you have any questions, please refer to the [Wiki](../../wiki) and the [JavaD
 
 ## License
 
-The WInte.r framework can be used under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
+The WInte.r framework can be used under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
+
+If you use the WInte.r framework in any publication, please cite [5].
 
 ## Acknowledgements
 
@@ -99,3 +104,5 @@ WInte.r is developed at the [Data and Web Science Group](http://dws.informatik.u
 [3] Lehmberg, O., Ritze, D., Meusel, R., & Bizer, C. (2016, April). A large public corpus of web tables containing time and context metadata. In Proceedings of the 25th International Conference Companion on World Wide Web (pp. 75-76). International World Wide Web Conferences Steering Committee.
 
 [4] Lehmberg, O., & Bizer, C. (2017). Stitching web tables for improving matching quality. Proceedings of the VLDB Endowment, 10(11), 1502-1513.
+
+[5] Lehmberg, O., Brinkmann, A., & Bizer, C. WInte. r - A Web Data Integration Framework. ISWC 2017.
