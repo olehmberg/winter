@@ -69,7 +69,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * @param correspondenceFile	the to load from
 	 * @param first					the dataset that contains the records on the left-hand side of the correspondences
 	 * @param second				the dataset that contains the records on the right-hand side of the correspondences
-	 * @throws IOException
+	 * @throws IOException			thrown if there is a problem loading the file
 	 */
 	public void loadCorrespondences(File correspondenceFile,
                                     FusibleDataSet<RecordType, SchemaElementType> first, FusibleDataSet<RecordType, SchemaElementType> second)
@@ -130,7 +130,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * 
 	 * @param correspondenceFile	the file to load from
 	 * @param first					the dataset that contains the records
-	 * @throws IOException
+	 * @throws IOException			thrown if there is a problem loading the file
 	 */
 	public void loadCorrespondences(File correspondenceFile,
 			FusibleDataSet<RecordType, SchemaElementType> first)
@@ -215,7 +215,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * specified file
 	 * 
 	 * @param outputFile	the file to write to
-	 * @throws IOException
+	 * @throws IOException	Thrown if there is a problem writing to the file
 	 */
 	public void writeGroupSizeDistribution(File outputFile) throws IOException {
 		Map<Integer, Integer> sizeDist = new HashMap<>();
@@ -247,9 +247,8 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	 * prints the distribution of the sizes of the groups of records to the
 	 * specified file
 	 * 
-	 * @throws IOException
 	 */
-	public void printGroupSizeDistribution() throws IOException {
+	public void printGroupSizeDistribution()  {
 		Map<Integer, Integer> sizeDist = new HashMap<>();
 
 		for (RecordGroup<RecordType, SchemaElementType> grp : groups) {

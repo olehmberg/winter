@@ -29,7 +29,8 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.Reco
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type of records that are compared with this comparator
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public interface Comparator<RecordType extends Matchable, SchemaElementType extends Matchable> extends Serializable {
 

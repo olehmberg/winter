@@ -19,7 +19,8 @@ import java.util.Map;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type that represents a record
+ * @param <SchemaElementType>	the type that represents a schema element
  */
 public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends
 		DataSet<RecordType, SchemaElementType> {
@@ -27,8 +28,8 @@ public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Add an original ID to a fused record (can be called multiple times)
 	 * 
-	 * @param record
-	 * @param id
+	 * @param record	the record for which to set the id
+	 * @param id	the id
 	 */
 	void addOriginalId(RecordType record, String id);
 
@@ -41,7 +42,7 @@ public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Sets the score of this dataset
 	 * 
-	 * @param score
+	 * @param score	the score
 	 */
 	void setScore(double score);
 
@@ -54,7 +55,7 @@ public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Sets the date of this dataset
 	 * 
-	 * @param date
+	 * @param date	the date
 	 */
 	void setDate(LocalDateTime date);
 
@@ -66,14 +67,14 @@ public interface FusibleDataSet<RecordType extends Matchable & Fusible<SchemaEle
 
 	/**
 	 * 
-	 * @param record
+	 * @param record	the record for which to return the number of values
 	 * @return Returns the number of attributes that have a value for the given record
 	 */
 	int getNumberOfValues(RecordType record);
 
 	/**
 	 * 
-	 * @param record
+	 * @param record	the record for which to return the number of attributes
 	 * @return Returns the number of attributes for the given record
 	 */
 	int getNumberOfAttributes(RecordType record);

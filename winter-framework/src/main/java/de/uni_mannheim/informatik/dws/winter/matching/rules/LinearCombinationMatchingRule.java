@@ -32,7 +32,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type of records that are matched with this rule
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable>
 		extends FilteringMatchingRule<RecordType, SchemaElementType>
@@ -47,7 +48,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * Initialises the rule. The finalThreshold determines the matching
 	 * decision.
 	 * 
-	 * @param finalThreshold
+	 * @param finalThreshold	the similarity threshold of this rule
 	 */
 	public LinearCombinationMatchingRule(double finalThreshold) {
 		super(finalThreshold);
@@ -58,8 +59,8 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * Initialises the rule. The offset is added to the weighted sum of
 	 * similarities, the finalThreshold determines the matching decision.
 	 * 
-	 * @param offset
-	 * @param finalThreshold
+	 * @param offset	the offset 
+	 * @param finalThreshold	the similarity threshold of this rule
 	 */
 	public LinearCombinationMatchingRule(double offset, double finalThreshold) {
 		this(finalThreshold);
@@ -69,10 +70,9 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	/**
 	 * Adds a comparator with the specified weight to this rule.
 	 * 
-	 * @param comparator
-	 * @param weight
-	 *            a double value larger than 0.
-	 * @throws Exception
+	 * @param comparator	the comparator
+	 * @param weight	the weight (a double value larger than 0)
+	 * @throws Exception	Throws an exception if the weight is equal to or below 0.0
 	 */
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight)
 			throws Exception {

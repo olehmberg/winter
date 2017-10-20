@@ -20,12 +20,15 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
  * An {@link IdentityMatchingRule} that specifies that correspondences should be grouped by their left-hand side
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
+ * 
+ * @param <RecordType>	the type of records that are matched with this rule
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  *
  */
 public class AggregateByFirstRecordRule<RecordType extends Matchable, SchemaElementType extends Matchable> extends IdentityMatchingRule<RecordType, SchemaElementType> {
 
 	/**
-	 * @param finalThreshold
+	 * @param finalThreshold	the similarity threshold of this rule
 	 */
 	public AggregateByFirstRecordRule(double finalThreshold) {
 		super(finalThreshold);

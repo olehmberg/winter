@@ -27,7 +27,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>			the type of records which are the input for the blocking operation 
+ * @param <CorrespondenceType>	the type of correspondences which are the input for the blocking operation
+ * @param <BlockedType>			the type of record which is actually blocked
  */
 public abstract class BlockingKeyGenerator<RecordType extends Matchable, CorrespondenceType extends Matchable, BlockedType extends Matchable> 
 	implements RecordKeyValueMapper<String, Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>,
@@ -70,9 +72,9 @@ public abstract class BlockingKeyGenerator<RecordType extends Matchable, Corresp
 	 * 
 	 * Generates the blocking key(s) for the given record.
 	 * 
-	 * @param record
-	 * @param correspondences
-	 * @param resultCollector
+	 * @param record		the record for which the blocking keys should be generated
+	 * @param correspondences	the correspondences for the record
+	 * @param resultCollector	the {@link DataIterator} that collects the results
 	 */
 	public abstract void generateBlockingKeys(RecordType record, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences, DataIterator<Pair<String, BlockedType>> resultCollector);
 

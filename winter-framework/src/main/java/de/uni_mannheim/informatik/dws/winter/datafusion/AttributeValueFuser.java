@@ -43,6 +43,8 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	/**
 	 * Collects all fusable values from the group of records
 	 * @param group	the group of records to use
+	 * @param schemaCorrespondences	optional schema correspondences
+	 * @param schemaElement	the schema element for which to collect the values
 	 * @return A list of fusable values
 	 */
 	protected List<FusibleValue<ValueType, RecordType, SchemaElementType>> getFusableValues(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {

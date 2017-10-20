@@ -35,7 +35,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
  * @author Robert Meusel (robert@dwslab.de)
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>			the type of records which are the input for the blocking operation
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType 
+ * @param <CorrespondenceType>	the type of correspondences which are the input for the blocking operation
  */
 public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable> 
 	extends AbstractBlocker<RecordType, SchemaElementType, CorrespondenceType>

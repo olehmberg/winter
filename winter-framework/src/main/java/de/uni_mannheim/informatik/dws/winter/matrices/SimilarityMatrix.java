@@ -31,15 +31,15 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
  * 
  * @author Oliver
  * 
- * @param <T>
+ * @param <T>	the type of the matrix' dimensions
  */
 public abstract class SimilarityMatrix<T> {
 
     /**
      * 
      * 
-     * @param first
-     * @param second
+     * @param first	the value for the first dimension
+     * @param second	the value for the second dimension
      * @return returns the similarity of the provided objects
      */
     public abstract Double get(T first, T second);
@@ -47,9 +47,9 @@ public abstract class SimilarityMatrix<T> {
     /**
      * sets the similarity of the provided objects
      * 
-     * @param first
-     * @param second
-     * @param similarity
+     * @param first		the value for the first dimension
+     * @param second	the value for the second dimension
+     * @param similarity	the similarity value
      */
     public abstract void set(T first, T second, Double similarity);
     
@@ -67,15 +67,15 @@ public abstract class SimilarityMatrix<T> {
 
     /**
      * 
-     * @param first 
+     * @param first 	the value for the first dimension
      * @return returns all objects in the second dimension that have a similarity &gt; 0
      */
     public abstract Collection<T> getMatches(T first);
 
     /**
      * 
-     * @param first
-     * @param similarityThreshold
+     * @param first		the value for the first dimension
+     * @param similarityThreshold	the minimal similarity value
      * @return returns all objects in the second dimension that have a similarity &gt; similarityThreshold
      */
     public abstract Collection<T> getMatchesAboveThreshold(T first,
@@ -83,9 +83,9 @@ public abstract class SimilarityMatrix<T> {
 
     /***
      * Adds value to the existing value for first and second, if no value exists yet, value is set
-     * @param first
-     * @param second
-     * @param value
+     * @param first		the value for the first dimension
+     * @param second	the value for the second dimension
+     * @param value		the similarity value
      */
     public void add(T first, T second, Double value) {
     	Double existing = get(first, second);
@@ -102,7 +102,7 @@ public abstract class SimilarityMatrix<T> {
      * 
      * v = v / normalizingFactor
      * 
-     * @param normalizingFactor
+     * @param normalizingFactor	the factor to normalise with
      */
     public void normalize(double normalizingFactor) {
         //System.out.println("norm: " + normalizingFactor);
@@ -117,7 +117,7 @@ public abstract class SimilarityMatrix<T> {
     /**
      * Multiply the matrix with a scalar value
      * 
-     * @param scalar
+     * @param scalar	the value to multiply with
      */
     public void multiplyScalar(double scalar) {
         if(scalar==1.0) {
@@ -251,7 +251,8 @@ public abstract class SimilarityMatrix<T> {
     
     /**
      * Changes the values of the matrix such that each value is either 1 (if above the threshold) or 0.
-     * returns this instance
+     * @param threshold		the threshold for removing values from the matrix
+     * @return returns this instance
      */
     public SimilarityMatrix<T> makeBinary(double threshold) {
         
@@ -333,7 +334,7 @@ public abstract class SimilarityMatrix<T> {
     
     /**
      * removes all elements below the given threshold
-     * @param belowThreshold
+     * @param belowThreshold	the minimal similarity value
      */
     public void prune(double belowThreshold) {
         
@@ -367,7 +368,7 @@ public abstract class SimilarityMatrix<T> {
 
     /**
      * 
-     * @param instance
+     * @param instance	the instance for which the label should be returned
      * @return returns the label of an instance that is part of the first or second dimension
      */
     public Object getLabel(T instance) {
@@ -859,9 +860,6 @@ public abstract class SimilarityMatrix<T> {
 
     	private SimilarityMatrix<T> m;
     	
-    	/**
-		 * 
-		 */
 		public HasMatchPredicate(SimilarityMatrix<T> m) {
 			this.m = m;
 		}

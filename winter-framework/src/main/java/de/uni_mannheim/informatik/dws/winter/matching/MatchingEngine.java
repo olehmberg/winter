@@ -48,7 +48,8 @@ import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceS
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type of records that are matched
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public class MatchingEngine<RecordType extends Matchable, SchemaElementType extends Matchable>  {
 	
@@ -69,7 +70,9 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param dataset
 	 *            The data set
 	 * @param rule
-	 * 			  The {@link MatchingRule} that is used to compare the records. 
+	 * 			  The {@link MatchingRule} that is used to compare the records.
+	 * @param blocker
+	 * 			  The blocker to use 
 	 * @return A list of correspondences
 	 */
 	public Processable<Correspondence<RecordType, SchemaElementType>> runDuplicateDetection(
@@ -101,7 +104,9 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param schemaCorrespondences
 	 * 			  The schema correspondences            
 	 * @param rule
-	 * 			  The {@link MatchingRule} that is used to compare the records. 
+	 * 			  The {@link MatchingRule} that is used to compare the records.
+	 * @param blocker
+	 * 			  The blocker to use 
 	 * @return A list of correspondences
 	 */
 	public Processable<Correspondence<RecordType, SchemaElementType>> runDuplicateDetection(
@@ -168,6 +173,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param similarityThreshold
 	 * 			the similarity threshold
 	 * @return
+	 * 			the resulting correspondences
 	 */
 	public Processable<Correspondence<RecordType, MatchableValue>> runVectorBasedIdentityResolution(
 			DataSet<RecordType, SchemaElementType> dataset1, 
@@ -233,6 +239,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @return
 	 * 			The discovered schema correspondences
 	 * @throws Exception
+	 * 			From LinearCombinationMatchingRule
 	 */
 	public Processable<Correspondence<SchemaElementType, SchemaElementType>> runLabelBasedSchemaMatching(
 			DataSet<SchemaElementType, SchemaElementType> schema1, 
@@ -267,6 +274,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @return
 	 * 			The discovered schema correspondences
 	 * @throws Exception
+	 * 			From LinearCombinationMatchingRule
 	 */
 	public Processable<Correspondence<SchemaElementType, SchemaElementType>> runLabelBasedSchemaMatching(
 			DataSet<SchemaElementType, SchemaElementType> schema, 
@@ -286,27 +294,6 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		
 		return algorithm.getResult();
 	}
-			
-	
-	/**
-	 * 
-	 * Runs instance-based schema matching on the provided datasets. The blocker creates initial correspondences between the schemas, which are then evaluated by the aggregator.
-	 * Using an {@link InstanceBasedSchemaBlocker}, the blocking creates a correspondence for every matching value in the attributes.
-	 * To measure the value overlap of two attributes as similarity value, use a {@link VotingAggregator}.
-	 * 
-	 * @param dataset1
-	 * 		The first dataset (which contains the records with data, not the attributes)
-	 * @param dataset2
-	 * 		The second dataset (which contains the records with data, not the attributes)
-	 * @param blocker
-	 * 		The blocker that creates pairs of attributes from the values
-	 * @param aggregator
-	 * 		The aggregator that combined the blocker's result into final correspondences
-	 * @return
-	 * 		The created schema correspondences
-	 */
-	
-	
 	
 	/**
 	 * 
@@ -327,6 +314,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 * @param similarityThreshold
 	 * 			the similarity threshold
 	 * @return
+	 * 			the resulting correspondences
 	 */
 	public Processable<Correspondence<SchemaElementType, MatchableValue>> runInstanceBasedSchemaMatching(
 			DataSet<RecordType, SchemaElementType> dataset1, 

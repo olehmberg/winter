@@ -24,7 +24,7 @@ public interface FusibleFactory<RecordType extends Matchable & Fusible<SchemaEle
 	 * Creates a record that will receive all the values from the data fusion
 	 * for the given record group
 	 * 
-	 * @param cluster
+	 * @param cluster	the record cluster for which to create a new instance
 	 * @return Returns a new instance of RecordType
 	 */
 	abstract RecordType createInstanceForFusion(RecordGroup<RecordType, SchemaElementType> cluster);

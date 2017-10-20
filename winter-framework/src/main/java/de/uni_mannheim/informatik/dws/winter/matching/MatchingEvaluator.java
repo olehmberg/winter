@@ -28,7 +28,8 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type of records between which the correspondences exist
+ * @param <SchemaElementType>	the type of the causal correspondences
  */
 public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType extends Matchable> {
 

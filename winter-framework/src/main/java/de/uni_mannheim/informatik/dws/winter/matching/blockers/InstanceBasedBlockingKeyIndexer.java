@@ -23,20 +23,14 @@ import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceS
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <RecordType>
- * @param <SchemaElementType>
- * @param <BlockedType>
+ * @param <RecordType>			the type of records which are the input for the blocking operation
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType 
+ * @param <BlockedType>			the type of record which is actually blocked
  */
 public class InstanceBasedBlockingKeyIndexer<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable> 
 	extends BlockingKeyIndexer<RecordType, SchemaElementType, BlockedType, MatchableValue>
 {
 
-	/**
-	 * @param blockingFunction
-	 * @param secondBlockingFunction
-	 * @param similarityFunction
-	 * @param vectorCreationMethod
-	 */
 	public InstanceBasedBlockingKeyIndexer(
 			BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction,
 			BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> secondBlockingFunction,

@@ -28,8 +28,8 @@ public abstract class GraphBasedClusteringAlgorithm<T> {
 	/**
 	 * Applies the clustering algorithm and returns a map of cluster -&gt; centroid, if no centroid is available it returns a map of cluster -&gt; null 
 	 * 
-	 * @param similarityGraph
-	 * @return 
+	 * @param similarityGraph	the similarity graph that should be clustered
+	 * @return 	the clustering
 	 */
 	public abstract Map<Collection<T>, T> cluster(
 			Collection<Triple<T, T, Double>> similarityGraph);

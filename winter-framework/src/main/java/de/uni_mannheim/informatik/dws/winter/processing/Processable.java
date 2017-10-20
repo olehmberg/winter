@@ -26,26 +26,23 @@ import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcess
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
+ * @param <RecordType> the type of elements in this processable
  */
 public interface Processable<RecordType> extends Serializable {
 
 	/**
 	 * Adds an entry to this collection.
 	 * 
-	 * @param element
+	 * @param element	the element that should be added
 	 */
 	void add(RecordType element);
 
 	/**
-	 * 
-	 * 
 	 * @return Returns a collection with all entries of this data set.
 	 */
 	Collection<RecordType> get();
 	
 	/**
-	 * 
-	 * 
 	 * @return Returns the number of entries in this data set.
 	 */
 	int size();
@@ -63,14 +60,14 @@ public interface Processable<RecordType> extends Serializable {
 	
 	/**
 	 * Creates a new {@link Processable} for the type given as parameter.
-	 * @param dummyForTypeInference
+	 * @param dummyForTypeInference	a dummy variable that is used to infer the type parameter
 	 * @return a new {@link Processable}
 	 */
 	<OutputRecordType> Processable<OutputRecordType> createProcessable(OutputRecordType dummyForTypeInference);
 
 	/**
 	 * Creates a new {@link Processable} with the provided elements as content
-	 * @param data
+	 * @param data	the data from which the new processable should be created
 	 * @return a new {@link Processable}
 	 */
 	<OutputRecordType> Processable<OutputRecordType> createProcessableFromCollection(Collection<OutputRecordType> data);
@@ -78,40 +75,40 @@ public interface Processable<RecordType> extends Serializable {
 	/**
 	 * Executes the given function for every record and provides a unique long value for each call, effectively allowing the assignment of unique ids to all records.
 	 * 
-	 * @param assignUniqueId
+	 * @param assignUniqueId	a function that creates the unique ids
 	 * @return A {@link Processable} with the result of the operation
 	 */
 	Processable<RecordType> assignUniqueRecordIds(Function<RecordType, Pair<Long, RecordType>> assignUniqueId);
 
 	/**
 	 * Iterates over the given dataset without producing a result
-	 * @param iterator
+	 * @param iterator	the iterator that should be executed
 	 */
 	void foreach(DataIterator<RecordType> iterator);
 
 	/**
 	 * Iterates over the processable and executes the provided action for each element.
-	 * @param action
+	 * @param action	the action that should be executed
 	 */
 	void foreach(Action<RecordType> action);
 	
 	/**
 	 * Iterates over all elements and produces a result
-	 * @param transformation
+	 * @param transformation	the transformation that should be applied
 	 * @return A {@link Processable} with the result of the operation
 	 */
 	<OutputRecordType> Processable<OutputRecordType> map(RecordMapper<RecordType, OutputRecordType> transformation);
 
 	/**
 	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
-	 * @param joinKeyGenerator
+	 * @param joinKeyGenerator	a function that returns the join key for each element
 	 * @return A {@link Processable} with the result of the operation
 	 */
 	<KeyType> Processable<Pair<RecordType, RecordType>> symmetricJoin(Function<KeyType, RecordType> joinKeyGenerator);
 
 	/**
 	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
-	 * @param joinKeyGenerator
+	 * @param joinKeyGenerator	a function that returns the join key for each element
 	 * @param collector
 	 * @return A {@link Processable} with the result of the operation
 	 */

@@ -20,7 +20,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
+ * @param <RecordType>	the type of records that are matched with this rule
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public abstract class MatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable> 
 	implements Comparator<RecordType,SchemaElementType>,

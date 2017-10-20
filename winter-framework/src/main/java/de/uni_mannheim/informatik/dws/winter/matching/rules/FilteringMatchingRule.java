@@ -21,13 +21,15 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
+ * @param <RecordType>	the type of records that are matched with this rule
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public abstract class FilteringMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable> extends MatchingRule<RecordType, SchemaElementType> {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param finalThreshold
+	 * @param finalThreshold	the similarity threshold of this rule
 	 */
 	public FilteringMatchingRule(double finalThreshold) {
 		super(finalThreshold);

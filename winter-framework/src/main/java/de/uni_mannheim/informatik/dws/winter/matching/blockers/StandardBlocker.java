@@ -36,10 +36,10 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
- * @param <SchemaElementType>
- * @param <BlockedType>
- * @param <CorrespondenceType>
+ * @param <RecordType>			the type of records which are the input for the blocking operation
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType 
+ * @param <CorrespondenceType>	the type of correspondences which are the input for the blocking operation
+ * @param <BlockedType>			the type of record which is actually blocked
  */
 public class StandardBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable>
 	extends AbstractBlocker<RecordType, BlockedType, CorrespondenceType>
@@ -84,8 +84,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	 * Creates a new Standard Blocker with the given blocking function(s). 
 	 * If two datasets are used and secondBlockingFunction is not null, secondBlockingFunction will be used for the second dataset. If it is null, blockingFunction will be used for both datasets 
 	 * 
-	 * @param blockingFunction
-	 * @param secondBlockingFunction
+	 * @param blockingFunction		the blocking function for the first dataset
+	 * @param secondBlockingFunction	the blocking function for the second dataset
 	 */
 	public StandardBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction, BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction) {
 		this.blockingFunction = blockingFunction;

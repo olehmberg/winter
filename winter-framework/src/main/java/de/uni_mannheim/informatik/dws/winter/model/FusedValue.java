@@ -21,8 +21,9 @@ import java.util.Map;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <ValueType>
- * @param <RecordType>
+ * @param <ValueType>	the value type
+ * @param <RecordType>	the type that represents a record
+ * @param <SchemaElementType> the type that represents a schema element
  */
 public class FusedValue<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
@@ -32,7 +33,7 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	/**
 	 * Creates a fused value without any provenance information
 	 * 
-	 * @param value
+	 * @param value	the value
 	 */
 	public FusedValue(ValueType value) {
 		this.value = value;
@@ -42,7 +43,7 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	 * Creates a fused value with the original record and dataset as provenance
 	 * information
 	 * 
-	 * @param value
+	 * @param value	the value
 	 */
 	public FusedValue(FusibleValue<ValueType, RecordType, SchemaElementType> value) {
 		if (value != null) {
@@ -82,8 +83,8 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	/**
 	 * Adds an original record as provenance information
 	 * 
-	 * @param record
-	 * @param dataset
+	 * @param record	the record
+	 * @param dataset	the dataset that contains the record
 	 */
 	public void addOriginalRecord(RecordType record,
 			FusibleDataSet<RecordType, SchemaElementType> dataset) {
@@ -93,7 +94,7 @@ public class FusedValue<ValueType, RecordType extends Matchable & Fusible<Schema
 	/**
 	 * Adds an original record as provenance information
 	 * 
-	 * @param value
+	 * @param value	the value that was generated from the original record
 	 */
 	public void addOriginalRecord(FusibleValue<ValueType, RecordType, SchemaElementType> value) {
 		originalRecords.put(value.getRecord(), value.getDataset());

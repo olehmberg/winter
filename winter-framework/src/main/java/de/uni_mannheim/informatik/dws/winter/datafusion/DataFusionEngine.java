@@ -55,6 +55,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	 * Runs the data fusion process on the provided set of correspondences and returns a fused data set
 	 * 
 	 * @param correspondences	correspondences between the records
+	 * @param schemaCorrespondences	optional schema correspondences between the records
 	 * @return a {@link FusibleDataSet} based on the RecordType of the
 	 *         {@link CorrespondenceSet}
 	 */

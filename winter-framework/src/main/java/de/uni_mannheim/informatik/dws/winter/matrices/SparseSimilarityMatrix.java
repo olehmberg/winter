@@ -23,7 +23,7 @@ import java.util.Set;
  * A similarity matrix that uses HashMaps as storage
  * @author Oliver
  *
- * @param <T>
+ * @param <T>	the type of the matrix' dimensions
  */
 public class SparseSimilarityMatrix<T> extends SimilarityMatrix<T> {
 

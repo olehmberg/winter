@@ -29,7 +29,7 @@ public abstract class ConflictResolutionFunction<ValueType, RecordType extends M
 
 	/**
 	 * Fuses a collection of fusable values by applying the conflict resolution
-	 * @param values
+	 * @param values	the values to fuse
 	 * @return The fused value
 	 */
 	public abstract FusedValue<ValueType, RecordType, SchemaElementType> resolveConflict(Collection<FusibleValue<ValueType, RecordType, SchemaElementType>> values);

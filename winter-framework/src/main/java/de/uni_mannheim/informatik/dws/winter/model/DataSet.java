@@ -20,8 +20,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <RecordType>
- * @param <SchemaElementType>
+ * @param <RecordType>		the type that represents a record
+ * @param <SchemaElementType>	the type that represents a schema element
  */
 public interface DataSet<RecordType extends Matchable, SchemaElementType extends Matchable> extends Processable<RecordType> {
 

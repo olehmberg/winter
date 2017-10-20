@@ -19,7 +19,7 @@ import java.util.Collection;
  * Similarity matrix that uses an array as storage
  * @author Oliver
  *
- * @param <T>
+ * @param <T>	the type of the matrix' dimensions
  */
 public class ArrayBasedSimilarityMatrix<T> extends SimilarityMatrix<T> {
 

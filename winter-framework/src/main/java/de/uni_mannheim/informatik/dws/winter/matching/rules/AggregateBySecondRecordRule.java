@@ -21,11 +21,13 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
+ * @param <RecordType>	the type of records that are matched with this rule
+ * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public class AggregateBySecondRecordRule<RecordType extends Matchable, SchemaElementType extends Matchable> extends IdentityMatchingRule<RecordType, SchemaElementType> {
 
 	/**
-	 * @param finalThreshold
+	 * @param finalThreshold	the similarity threshold of this rule
 	 */
 	public AggregateBySecondRecordRule(double finalThreshold) {
 		super(finalThreshold);

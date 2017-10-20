@@ -31,7 +31,7 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 	private Collection<FilteringMatchingRule<RecordType, SchemaElementType>> rules;
 	
 	/**
-	 * @param finalThreshold
+	 * @param finalThreshold	the similariy threshold for this rule
 	 */
 	public MaxScoreMatchingRule(double finalThreshold) {
 		super(finalThreshold);

@@ -24,13 +24,15 @@ public abstract class MatrixMatcher {
 
 	SimilarityMatrixFactory similarityMatrixFactory;
 	/**
-	 * returns the similarity matrix factory that is used to create the similarity matrix containing the matching result
+	 * @return returns the similarity matrix factory that is used to create the similarity matrix containing the matching result
 	 */
 	public SimilarityMatrixFactory getSimilarityMatrixFactory() {
 		return similarityMatrixFactory;
 	}
 	/**
 	 * sets the similarity matrix factory that is used to create the similarity matrix containing the matching result
+	 * 
+	 * @param factory 	the factory that will be used to create new matrices
 	 */
 	public void setSimilarityMatrixFactory(SimilarityMatrixFactory factory) {
 		similarityMatrixFactory = factory;

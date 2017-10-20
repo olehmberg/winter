@@ -113,7 +113,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	/**
 	 * sets the first record
 	 * 
-	 * @param firstRecord
+	 * @param firstRecord	the first record
 	 */
 	public void setFirstRecord(RecordType firstRecord) {
 		this.firstRecord = firstRecord;
@@ -130,7 +130,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	/**
 	 * sets the second record
 	 * 
-	 * @param secondRecord
+	 * @param secondRecord	the second record
 	 */
 	public void setSecondRecord(RecordType secondRecord) {
 		this.secondRecord = secondRecord;
@@ -147,7 +147,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	/**
 	 * sets the similarity score
 	 * 
-	 * @param similarityScore
+	 * @param similarityScore	the similarity score
 	 */
 	public void setsimilarityScore(double similarityScore) {
 		this.similarityScore = similarityScore;
@@ -194,6 +194,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	 * 
 	 * performs an *unchecked* cast of the causal correspondences and returns them.
 	 * 
+	 * 
 	 * @return A {@link Processable} with changed type 
 	 */
 	public <T extends Matchable> Processable<Correspondence<CausalType, T>> castCausalCorrespondences() {
@@ -220,8 +221,8 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	
 	/**
 	 * Combines two correspondences which have the same target schema to a correspondence between the two source schemas, i.e. a-&gt;c; b-&gt;c will be combined to a-&gt;b
-	 * @param first
-	 * @param second
+	 * @param first	the first correspondence
+	 * @param second	the second corespondence
 	 * @return The combined correspondence
 	 */
 	public static <RecordType extends Matchable, SchemaElementType extends Matchable> Correspondence<RecordType, SchemaElementType> combine(Correspondence<RecordType, SchemaElementType> first, Correspondence<RecordType, SchemaElementType> second) {

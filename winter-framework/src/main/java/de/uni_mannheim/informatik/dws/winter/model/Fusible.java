@@ -21,7 +21,9 @@ public interface Fusible<SchemaElementType> {
 
 	/**
 	 * 
-	 * @param attribute
+	 * checks if this fusible has a value for the given attribute
+	 * 
+	 * @param attribute	the attribute to check
 	 * @return Returns whether the attribute has a value. Required for the calculation of density.
 	 */
 	boolean hasValue(SchemaElementType attribute);
