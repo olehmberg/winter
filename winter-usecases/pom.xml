@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>de.uni_mannheim.informatik.dws</groupId>
 			<artifactId>winter</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 </project>
