@@ -40,13 +40,6 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
  *
  */
 public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClusteringAlgorithm<T> {
-
-	// algorithm (basically the same as in table synthesis for partitioning):
-	// - start with graph of tables with positive edges (similarity) and negative edges (violations)
-	// - choose the strongest positive edge to merge two partitions, such that there is no negative edge between them
-	// - merge the partitions
-	// - update all edges
-	// - repeat until no more partitions can be merged
 	
 	private HashMap<T, Set<T>> clusterAssignment = new HashMap<>();
 	private Set<T> nodes = new HashSet<>();
