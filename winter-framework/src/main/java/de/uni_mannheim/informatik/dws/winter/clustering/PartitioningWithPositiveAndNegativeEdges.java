@@ -197,7 +197,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 		Map<Set<T>, Pair<Double, Double>> secondPartitionLinks = clusterEdges.get(selectedEdge.getSecond());
 		
 		// update all nodes connected to the first of the two merged partitions
-		for(Set<T> n2 : firstPartitionLinks.keySet()) {
+		for(Set<T> n2 : new HashSet<>(firstPartitionLinks.keySet())) {
 			if(n2!=selectedEdge.getSecond()) {
 				
 				Pair<Double, Double> e1 = firstPartitionLinks.get(n2);
@@ -225,7 +225,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 		}
 		
 		// update all nodes connected to the second of the two merged partitions
-		for(Set<T> n2 : secondPartitionLinks.keySet()) {
+		for(Set<T> n2 : new HashSet<>(secondPartitionLinks.keySet())) {
 			if(n2!=selectedEdge.getFirst()) {
 				
 				// we already updated the nodes connected to both partitions, so here we only consider those which are only connected to the second partition
