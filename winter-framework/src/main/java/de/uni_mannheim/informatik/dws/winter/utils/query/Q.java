@@ -148,20 +148,6 @@ public class Q {
         return minObj;
     }
     
-//    /**
-//     * @param first
-//     * @param second
-//     * @return returns all elements (de-duplicated) that appear in first or second
-//     */
-//    public static <T> Set<T> union(Collection<T> first, Collection<T> second) {
-//        Set<T> result = new HashSet<T>(first.size()+second.size());
-//        
-//        result.addAll(first);
-//        result.addAll(second);
-//        
-//        return result;
-//    }
-    
     /**
      * Creates the union of all provided collections
      * @param params	the collections for which to create the union
