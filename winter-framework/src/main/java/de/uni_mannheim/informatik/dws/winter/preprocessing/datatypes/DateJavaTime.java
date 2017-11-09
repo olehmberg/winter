@@ -18,10 +18,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Pattern;
+
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 
 /**
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
@@ -37,105 +39,103 @@ public class DateJavaTime {
 
 	// Init
 	// ---------------------------------------------------------------------------------------
-	private static final Map<Pattern, String> DATE_FORMAT_REGEXPS = new HashMap<Pattern, String>() {
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = 1L;
+	private static final Collection<Pair<Pattern, String>> DATE_FORMAT_REGEXPS = new LinkedList<>(); 
+		
+	static {
+		
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-##-##$", Pattern.CASE_INSENSITIVE), "yyyy"));
+		
+		
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-##$", Pattern.CASE_INSENSITIVE), "yyyy-MM"));
 
-		{
-			put(Pattern.compile("^\\d{4}-##-##$", Pattern.CASE_INSENSITIVE), "yyyy");
-			put(Pattern.compile("^\\d{4}-\\d{2}-##$", Pattern.CASE_INSENSITIVE), "yyyy-MM");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}$", Pattern.CASE_INSENSITIVE), "yyyy"));
 
-			put(Pattern.compile("^\\d{4}$", Pattern.CASE_INSENSITIVE), "yyyy");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{8}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MM.yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MM/yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "dd.MM.yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "dd-MM-yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{2}$", Pattern.CASE_INSENSITIVE), "dd/MM/yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "MM.yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{4}$", Pattern.CASE_INSENSITIVE), "MM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "MM/yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "MM.yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "MM-yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{2}$", Pattern.CASE_INSENSITIVE), "MM/yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy-MM-dd"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "MM/dd/yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy/MM/dd"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMM yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMMM yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^[a-z]{4,}\\s\\d{1,2}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "MMMM dd yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{4,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.[a-z]{4,}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}$", Pattern.CASE_INSENSITIVE), "dd MMMM"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^[a-z]{4,}\\s\\d{1,2}$", Pattern.CASE_INSENSITIVE), "MMMM dd"));
 
-			put(Pattern.compile("^\\d{8}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd");
-			put(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MM.yyyy");
-			put(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MM-yyyy");
-			put(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MM/yyyy");
-			put(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "dd.MM.yy");
-			put(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "dd-MM-yy");
-			put(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{2}$", Pattern.CASE_INSENSITIVE), "dd/MM/yy");
-			put(Pattern.compile("^\\d{1,2}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "MM.yyyy");
-			put(Pattern.compile("^\\d{1,2}-\\d{4}$", Pattern.CASE_INSENSITIVE), "MM-yyyy");
-			put(Pattern.compile("^\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "MM/yyyy");
-			put(Pattern.compile("^\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "MM.yy");
-			put(Pattern.compile("^\\d{1,2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "MM-yy");
-			put(Pattern.compile("^\\d{1,2}/\\d{2}$", Pattern.CASE_INSENSITIVE), "MM/yy");
-			put(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy-MM-dd");
-			put(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "MM/dd/yyyy");
-			put(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy/MM/dd");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMM yyyy");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMMM yyyy");
-			put(Pattern.compile("^[a-z]{4,}\\s\\d{1,2}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "MMMM dd yyyy");
-			put(Pattern.compile("^\\d{1,2}-[a-z]{4,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy");
-			put(Pattern.compile("^\\d{1,2}\\.[a-z]{4,}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yyyy");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}$", Pattern.CASE_INSENSITIVE), "dd MMMM");
-			put(Pattern.compile("^[a-z]{4,}\\s\\d{1,2}$", Pattern.CASE_INSENSITIVE), "MMMM dd");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}$", Pattern.CASE_INSENSITIVE), "dd MMMM"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{2,}$", Pattern.CASE_INSENSITIVE), "dd-MMMM"));
 
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}$", Pattern.CASE_INSENSITIVE), "dd MMMM");
-			put(Pattern.compile("^\\d{1,2}-[a-z]{2,}$", Pattern.CASE_INSENSITIVE), "dd-MMMM");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMMM yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/[a-z]{2,}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MMMM/yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{2,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.[a-z]{2,}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yyyy"));
 
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMMM yyyy");
-			put(Pattern.compile("^\\d{1,2}/[a-z]{2,}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MMMM/yyyy");
-			put(Pattern.compile("^\\d{1,2}-[a-z]{2,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy");
-			put(Pattern.compile("^\\d{1,2}\\.[a-z]{2,}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yyyy");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{2}$", Pattern.CASE_INSENSITIVE), "dd MMMM yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/[a-z]{2,}/\\d{2}$", Pattern.CASE_INSENSITIVE), "dd/MMMM/yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{2,}-\\d{2}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.[a-z]{2,}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yy"));
 
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{2}$", Pattern.CASE_INSENSITIVE), "dd MMMM yy");
-			put(Pattern.compile("^\\d{1,2}/[a-z]{2,}/\\d{2}$", Pattern.CASE_INSENSITIVE), "dd/MMMM/yy");
-			put(Pattern.compile("^\\d{1,2}-[a-z]{2,}-\\d{2}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yy");
-			put(Pattern.compile("^\\d{1,2}\\.[a-z]{2,}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yy");
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{12}$", Pattern.CASE_INSENSITIVE), "yyyyMMddHHmm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{8}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd HHmm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd-MM-yyyy HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"yyyy-MM-dd HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"MM/dd/yyyy HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"yyyy/MM/dd HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd MMM yyyy HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd MMMM yyyy HH:mm"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{14}$", Pattern.CASE_INSENSITIVE), "yyyyMMddHHmmss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{8}\\s\\d{6}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd HHmmss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd-MM-yyyy HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"yyyy-MM-dd HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"MM/dd/yyyy HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"yyyy/MM/dd HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd MMM yyyy HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
+				"dd MMMM yyyy HH:mm:ss"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
+				Pattern.CASE_INSENSITIVE), "dd MMMM yyyy HH:mm:ss.SSSSSS"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s\\d{2}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
+				Pattern.CASE_INSENSITIVE), "dd MM yyyy HH:mm:ss.SSSSSS"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}\\s\\d{2}\\s\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
+				Pattern.CASE_INSENSITIVE), "yyyy MM dd HH:mm:ss.SSSSSS"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$", Pattern.CASE_INSENSITIVE),
+				"yyyy-MM-dd HH:mm:ss.SSSSSS"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{2}$",
+				Pattern.CASE_INSENSITIVE), "dd MMMM yyyy HH:mm:ss.SS"));
+		// put(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}\\+\\d{2}:\\d{2}$",
+		// Pattern.CASE_INSENSITIVE),
+		// "yyyy-MM-dd'T'HH:mm:ssZZZ");
+		// this seems to work for gYear...
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}\\+\\d{2}:\\d{2}$",
+				Pattern.CASE_INSENSITIVE), "yyyy-MM-dd'T'HH:mm:ssXXX"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}Z$", Pattern.CASE_INSENSITIVE),
+				"yyyy-MM-dd'T'HH:mm:ssXXX"));
 
-			put(Pattern.compile("^\\d{12}$", Pattern.CASE_INSENSITIVE), "yyyyMMddHHmm");
-			put(Pattern.compile("^\\d{8}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd HHmm");
-			put(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd-MM-yyyy HH:mm");
-			put(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"yyyy-MM-dd HH:mm");
-			put(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"MM/dd/yyyy HH:mm");
-			put(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"yyyy/MM/dd HH:mm");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd MMM yyyy HH:mm");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd MMMM yyyy HH:mm");
-			put(Pattern.compile("^\\d{14}$", Pattern.CASE_INSENSITIVE), "yyyyMMddHHmmss");
-			put(Pattern.compile("^\\d{8}\\s\\d{6}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd HHmmss");
-			put(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd-MM-yyyy HH:mm:ss");
-			put(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"yyyy-MM-dd HH:mm:ss");
-			put(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"MM/dd/yyyy HH:mm:ss");
-			put(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"yyyy/MM/dd HH:mm:ss");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd MMM yyyy HH:mm:ss");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", Pattern.CASE_INSENSITIVE),
-					"dd MMMM yyyy HH:mm:ss");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
-					Pattern.CASE_INSENSITIVE), "dd MMMM yyyy HH:mm:ss.SSSSSS");
-			put(Pattern.compile("^\\d{1,2}\\s\\d{2}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
-					Pattern.CASE_INSENSITIVE), "dd MM yyyy HH:mm:ss.SSSSSS");
-			put(Pattern.compile("^\\d{4}\\s\\d{2}\\s\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$",
-					Pattern.CASE_INSENSITIVE), "yyyy MM dd HH:mm:ss.SSSSSS");
-			put(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{6}$", Pattern.CASE_INSENSITIVE),
-					"yyyy-MM-dd HH:mm:ss.SSSSSS");
-			put(Pattern.compile("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\.\\d{2}$",
-					Pattern.CASE_INSENSITIVE), "dd MMMM yyyy HH:mm:ss.SS");
-			// put(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}\\+\\d{2}:\\d{2}$",
-			// Pattern.CASE_INSENSITIVE),
-			// "yyyy-MM-dd'T'HH:mm:ssZZZ");
-			// this seems to work for gYear...
-			put(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}\\+\\d{2}:\\d{2}$",
-					Pattern.CASE_INSENSITIVE), "yyyy-MM-dd'T'HH:mm:ssXXX");
-			put(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}Z$", Pattern.CASE_INSENSITIVE),
-					"yyyy-MM-dd'T'HH:mm:ssXXX");
-
-			// put("^\\d{2}$", "yy");
-		}
-	};
+		// put("^\\d{2}$", "yy");
+	}
 
 	/**
 	 * Parse the given date string to date object and return a localDateTime
@@ -246,9 +246,9 @@ public class DateJavaTime {
 	 * @see SimpleDateFormat
 	 */
 	public static String determineDateFormat(String dateString) {
-		for (Pattern regexp : DATE_FORMAT_REGEXPS.keySet()) {
-			if (regexp.matcher(dateString).matches()) {
-				return DATE_FORMAT_REGEXPS.get(regexp);
+		for (Pair<Pattern,String> regexp : DATE_FORMAT_REGEXPS) {
+			if (regexp.getFirst().matcher(dateString).matches()) {
+				return regexp.getSecond();
 			}
 		}
 		return null; // Unknown format.
