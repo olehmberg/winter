@@ -501,6 +501,27 @@ public class Table implements Serializable {
 		}
 	}
 
+	/**
+	 * Projects the table and returns a map that translates the column indices to the projected column indices
+	 * @param projectedColumns	the columns to project
+	 * @return	a map that translates the column indices to the projected column indices
+	 */
+	public Map<Integer, Integer> projectColumnIndices(Collection<TableColumn> projectedColumns) {
+		Map<Integer, Integer> columnIndexProjection = new HashMap<>();
+
+		// project the table schema
+		int idx = 0;
+		for (int i = 0; i < getColumns().size(); i++) {
+			TableColumn c = getSchema().get(i);
+
+			if (projectedColumns.contains(c)) {
+				columnIndexProjection.put(i, idx++);
+			}
+		}
+		
+		return columnIndexProjection;
+	}
+	
 	public Table project(Collection<TableColumn> projectedColumns) throws Exception {
 		return project(projectedColumns, true);
 	}
@@ -647,6 +668,25 @@ public class Table implements Serializable {
 	 * @param conflictHandling
 	 */
 	public void deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling) {
+		deduplicate(key, conflictHandling, true);
+	}
+
+	/**
+	 * 
+	 * Removes duplicates from the table. The provided key is used to find the
+	 * duplicates. If duplicates are found, the remaining values are checked for
+	 * conflicts and the ConflictHandling is applied:
+	 * ConflictHandling.KeepFirst: The first record is kept, all others are
+	 * removed ConflictHandling.KeepBoth: All conflicting records are kept
+	 * ConflictHandling.ReplaceNULLs: Like KeepBoth, but if conflicts are only
+	 * between a value and a NULL, the NULLs are replaced such that only one
+	 * record needs to be kept
+	 * 
+	 * @param key
+	 * @param conflictHandling
+	 * @param reorganiseRowNumbers specifies if reorganiseRowNumbers() should be called after deduplication
+	 */
+	public void deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling, boolean reorganiseRowNumbers) {
 		/***********************************************
 		 * De-Duplication
 		 ***********************************************/
@@ -735,6 +775,39 @@ public class Table implements Serializable {
 		}
 
 		reorganiseRowNumbers();
+	}
+	
+	public Collection<TableRow> findUniquenessViolations(Collection<TableColumn> uniqueColumnCombination) {
+		// use the provided key to perform duplicate detection
+		// keep a map of (key values)->(first row with these values) for the
+		// chosen key
+		HashMap<List<Object>, TableRow> seenKeyValues = new HashMap<>();
+		Set<TableRow> conflicts = new HashSet<>();
+		
+		// iterate the table row by row
+		Iterator<TableRow> rowIt = getRows().iterator();
+		while (rowIt.hasNext()) {
+			TableRow r = rowIt.next();
+
+			// get the values of the key for the current row
+			ArrayList<Object> keyValues = new ArrayList<>(uniqueColumnCombination.size());
+			for (TableColumn c : uniqueColumnCombination) {
+				keyValues.add(r.get(c.getColumnIndex()));
+			}
+
+			// check if the key values have been seen before
+			if (seenKeyValues.containsKey(keyValues)) {
+
+				TableRow existing = seenKeyValues.get(keyValues);
+
+				conflicts.add(existing);
+				conflicts.add(r);
+			} else {
+				seenKeyValues.put(keyValues, r);
+			}
+		}
+
+		return conflicts;
 	}
 	
 	public Map<TableColumn, Double> getColumnDensities() {
