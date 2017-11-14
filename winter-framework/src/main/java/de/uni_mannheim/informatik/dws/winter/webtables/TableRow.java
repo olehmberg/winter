@@ -80,7 +80,7 @@ public class TableRow implements Serializable {
 		values[columnIndex] = value;
 	}
 	public Object get(int columnIndex) {
-		if(columnIndex>=values.length) {
+		if(values==null || columnIndex>=values.length) {
 			return null;
 		} else {
 			return values[columnIndex];
