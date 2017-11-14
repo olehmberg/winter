@@ -11,9 +11,11 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables;
 
-import de.uni_mannheim.informatik.dws.winter.webtables.Table;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
 /**
@@ -137,6 +139,83 @@ public class TableTest extends TestCase {
 	 */
 	public void testCopySchema() {
 //		fail("Not yet implemented");
+	}
+	
+	public void testJoin() throws Exception {
+		Table t1 = new Table();
+		t1.setPath("table1");
+		TableColumn t1c1 = new TableColumn(0, t1);
+		t1c1.setHeader("A");
+		TableColumn t1c2 = new TableColumn(1, t1);
+		t1c2.setHeader("B");
+		TableColumn t1c3 = new TableColumn(2, t1);
+		t1c3.setHeader("C");
+		t1.addColumn(t1c1);
+		t1.addColumn(t1c2);
+		t1.addColumn(t1c3);
+		TableRow t1r1 = new TableRow(0, t1);
+		t1r1.set(new Object[] {"a", "a", "a"});
+		TableRow t1r2 = new TableRow(1, t1);
+		t1r2.set(new Object[] {"b", "b", "b"});
+		TableRow t1r3 = new TableRow(2, t1);
+		t1r3.set(new Object[] {"c", "c", "c"});
+		TableRow t1r4 = new TableRow(3, t1);
+		t1r4.set(new Object[] {"d", "d", "d"});
+		TableRow t1r5 = new TableRow(4, t1);
+		t1.addRow(t1r1);
+		t1.addRow(t1r2);
+		t1.addRow(t1r3);
+		t1.addRow(t1r4);
+		t1.addRow(t1r5);
+		
+		Table t2 = new Table();
+		t2.setPath("table2");
+		t2.setTableId(1);
+		TableColumn t2c1 = new TableColumn(0, t2);
+		t2c1.setHeader("C");
+		TableColumn t2c2 = new TableColumn(1, t2);
+		t2c2.setHeader("D");
+		TableColumn t2c3 = new TableColumn(2, t2);
+		t2c3.setHeader("E");
+		t2.addColumn(t2c1);
+		t2.addColumn(t2c2);
+		t2.addColumn(t2c3);
+		TableRow t2r1 = new TableRow(0, t2);
+		t2r1.set(new Object[] {"a", "1", "1"});
+		TableRow t2r2 = new TableRow(1, t2);
+		t2r2.set(new Object[] {"b", "2", "2"});
+		TableRow t2r3 = new TableRow(2, t2);
+		t2r3.set(new Object[] {"c", "3", "3"});
+		TableRow t2r4 = new TableRow(3, t2);
+		t2.addRow(t2r1);
+		t2.addRow(t2r2);
+		t2.addRow(t2r3);
+		t2.addRow(t2r4);
+		
+		Collection<Pair<TableColumn, TableColumn>> joinOn = new LinkedList<>();
+		joinOn.add(new Pair<>(t1c3, t2c1));
+		
+		Table joined = t1.join(t2, joinOn, Q.toList(t1c1,t1c2,t1c3,t2c2,t2c3));
+		
+		for(TableRow r : joined.getRows()) {
+		
+			System.out.println(r.format(10));
+			
+			switch (r.get(0).toString()) {
+			case "a":
+				assertEquals("1", r.get(4));
+				break;
+			case "b":
+				assertEquals("2", r.get(4));
+				break;
+			case "c":
+				assertEquals("3", r.get(4));
+				break;
+			default:
+				break;
+			}
+			
+		}
 	}
 
 }

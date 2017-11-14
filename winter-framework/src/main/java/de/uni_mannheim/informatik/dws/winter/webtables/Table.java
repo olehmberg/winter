@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
@@ -584,9 +585,11 @@ public class Table implements Serializable {
 			Object[] oldValues = r.getValueArray();
 			Object[] newValues = new Object[projectedColumns.size()];
 
-			for (int i = 0; i < oldValues.length; i++) {
-				if (columnIndexProjection.containsKey(i)) {
-					newValues[columnIndexProjection.get(i)] = oldValues[i];
+			if(oldValues!=null) {
+				for (int i = 0; i < oldValues.length; i++) {
+					if (columnIndexProjection.containsKey(i)) {
+						newValues[columnIndexProjection.get(i)] = oldValues[i];
+					}
 				}
 			}
 
@@ -598,6 +601,94 @@ public class Table implements Serializable {
 		return result;
 	}
 
+	public Table join(Table otherTable, Collection<Pair<TableColumn,TableColumn>> joinOn, Collection<TableColumn> projection) throws Exception {
+		
+		// hash the join keys
+		Map<TableColumn, Map<Object, Collection<TableRow>>> index = new HashMap<>();
+		for(TableRow r : otherTable.getRows()) {
+			for(Pair<TableColumn, TableColumn> p : joinOn) {
+				TableColumn joinKey = p.getSecond();
+				Object value = r.get(joinKey.getColumnIndex());
+				if(value!=null) {
+					Map<Object, Collection<TableRow>> columnValues = MapUtils.getFast(index, joinKey, (c)->new HashMap<Object,Collection<TableRow>>());
+					Collection<TableRow> rowsWithValue = MapUtils.getFast(columnValues, value, (o)->new LinkedList<TableRow>());
+					rowsWithValue.add(r);
+				}
+			}
+		}
+		
+		// create the result table
+		Table result = project(Q.intersection(getColumns(), projection));
+		result.clear();
+		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
+		for(Map.Entry<Integer, Integer> translation : projectColumnIndices(Q.intersection(getColumns(), projection)).entrySet()) {
+			inputColumnToOutputColumn.put(getSchema().get(translation.getKey()), result.getSchema().get(translation.getValue()));
+		}
+		Collection<TableColumn> otherColumns = Q.without(projection, getColumns());
+		for(TableColumn c : otherColumns) {
+			TableColumn out = new TableColumn(result.getColumns().size(), result);
+			out.setDataType(c.getDataType());
+			out.setHeader(c.getHeader());
+			result.addColumn(out);
+			inputColumnToOutputColumn.put(c, out);
+		}
+		
+		// create the join
+		for(TableRow r : getRows()) {
+			
+			// find all rows statisfying the join condition
+			Collection<TableRow> matchingRows = null;
+			for(Pair<TableColumn, TableColumn> p : joinOn) {
+				Object leftValue = r.get(p.getFirst().getColumnIndex());
+				
+				Collection<TableRow> otherRows = index.get(p.getSecond()).get(leftValue);
+				
+				if(otherRows==null) {
+					matchingRows = null;
+					break;
+				}
+				
+				if(matchingRows==null) {
+					matchingRows = otherRows;
+				} else {
+					matchingRows = Q.intersection(matchingRows, otherRows);
+				}
+			}
+			
+			// iterate over the matching rows
+			if(matchingRows!=null && matchingRows.size()>0) {
+				for(TableRow r2 : matchingRows) {
+					
+					// create a result row
+					TableRow out = new TableRow(result.getRows().size(), result);
+					Object[] values = new Object[inputColumnToOutputColumn.size()];
+					out.set(values);
+					result.addRow(out);
+					
+					// copy all values from the left table
+					for(TableColumn c : getColumns()) {
+						TableColumn c2 = inputColumnToOutputColumn.get(c);
+						if(c2!=null) {
+							values[c2.getColumnIndex()] = r.get(c.getColumnIndex());
+						}
+					}
+					
+					// copy all values from the right table
+					for(TableColumn c : otherTable.getColumns()) {
+						TableColumn c2 = inputColumnToOutputColumn.get(c);
+						if(c2!=null) {
+							values[c2.getColumnIndex()] = r2.get(c.getColumnIndex());
+						}
+					}
+					
+				}
+				
+			}
+		}
+		
+		return result;
+	}
+	
 	public Table copySchema() {
 		Table result = new Table();
 
