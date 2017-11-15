@@ -740,8 +740,8 @@ public class Table implements Serializable {
 	 * 
 	 * @param key
 	 */
-	public void deduplicate(Collection<TableColumn> key) {
-		deduplicate(key, ConflictHandling.KeepFirst);
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key) {
+		return deduplicate(key, ConflictHandling.KeepFirst);
 	}
 
 	/**
@@ -758,8 +758,8 @@ public class Table implements Serializable {
 	 * @param key
 	 * @param conflictHandling
 	 */
-	public void deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling) {
-		deduplicate(key, conflictHandling, true);
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling) {
+		return deduplicate(key, conflictHandling, true);
 	}
 
 	/**
@@ -777,11 +777,12 @@ public class Table implements Serializable {
 	 * @param conflictHandling
 	 * @param reorganiseRowNumbers specifies if reorganiseRowNumbers() should be called after deduplication
 	 */
-	public void deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling, boolean reorganiseRowNumbers) {
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling, boolean reorganiseRowNumbers) {
 		/***********************************************
 		 * De-Duplication
 		 ***********************************************/
-
+		Collection<Pair<TableRow, TableRow>> duplicates = new LinkedList<>();
+		
 		// use the provided key to perform duplicate detection
 		// keep a map of (key values)->(first row with these values) for the
 		// chosen key
@@ -803,6 +804,8 @@ public class Table implements Serializable {
 
 				TableRow existing = seenKeyValues.get(keyValues);
 
+				duplicates.add(new Pair<>(existing, r));
+				
 				if (conflictHandling != ConflictHandling.KeepFirst) {
 
 					// check the remaining attributes for equality
@@ -866,6 +869,8 @@ public class Table implements Serializable {
 		}
 
 		reorganiseRowNumbers();
+		
+		return duplicates;
 	}
 	
 	public Collection<TableRow> findUniquenessViolations(Collection<TableColumn> uniqueColumnCombination) {
