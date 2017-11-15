@@ -553,7 +553,7 @@ public class Table implements Serializable {
 		for (Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
 
 			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
-			if (projectedColumns.containsAll(det) && projectedColumns.containsAll(dep)) {
+			if (det!=null && dep!=null && projectedColumns.containsAll(det) && projectedColumns.containsAll(dep)) {
 				Collection<TableColumn> newDet = new ArrayList<>(det.size());
 
 				for (TableColumn c : det) {
