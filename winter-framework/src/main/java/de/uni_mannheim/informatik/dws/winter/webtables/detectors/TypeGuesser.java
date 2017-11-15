@@ -12,14 +12,16 @@
 
 package de.uni_mannheim.informatik.dws.winter.webtables.detectors;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import java.text.ParseException;
-import java.time.LocalDateTime;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DateJavaTime;
@@ -29,6 +31,7 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.URLParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * @author petar
@@ -178,8 +181,18 @@ public class TypeGuesser implements TypeDetector {
 			rowCounter++;
 		}
 
+		// create default order to guarantee that results are reproducible in case multiple types have the same number of votes
+		List<Pair<Object, Integer>> typeVotes = new ArrayList<>(typeCount.size());
+		for(Object type : DataType.values()) {
+			Integer count = typeCount.get(type);
+			if(count!=null) {
+				typeVotes.add(new Pair<>(type, count));
+			}
+		}
+		
 		// majority vote for type
-		Object type = MapUtils.max(typeCount);
+//		Object type = MapUtils.max(typeCount);
+		Object type = Q.max(typeVotes, (p)->p.getSecond()).getFirst();
 		if (type == null) {
 			type = DataType.string;
 		}
