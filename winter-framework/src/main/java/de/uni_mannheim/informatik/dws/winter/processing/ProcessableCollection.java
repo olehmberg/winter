@@ -61,6 +61,13 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		elements.add(element);
 	}
 	
+	@Override
+	public void addAll(Collection<RecordType> elements) {
+		if(elements!=null && elements.size()>0) {
+			this.elements.addAll(elements);
+		}
+	}
+	
 	public Collection<RecordType> get() {
 		return elements;
 	}
@@ -574,14 +581,16 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	append(Processable<RecordType> data2) {
 		Processable<RecordType> result = createProcessable((RecordType)null);
 		
-		for(RecordType r : get()) {
-			result.add(r);
-		}
+		result.addAll(get());
+//		for(RecordType r : get()) {
+//			result.add(r);
+//		}
 		
 		if(data2!=null) {
-			for(RecordType r : data2.get()) {
-				result.add(r);
-			}
+//			for(RecordType r : data2.get()) {
+//				result.add(r);
+//			}
+			result.addAll(data2.get());
 		}
 
 		return result;
