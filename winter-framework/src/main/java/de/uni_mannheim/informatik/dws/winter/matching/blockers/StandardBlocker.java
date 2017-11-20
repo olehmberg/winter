@@ -162,10 +162,12 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 					.sort((p)->p.getFirst().getSecond().getNumElements()*p.getSecond().getSecond().getNumElements(), false)
 					.take((int)(blockedData.size()*(1-blockFilterRatio)));
 			
-			for(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> p : toRemove.get()) {
-				System.out.println(String.format("\tRemoving block '%s' (%d pairs)", 
-						p.getFirst().getFirst(),
-						p.getFirst().getSecond().getNumElements() * p.getSecond().getSecond().getNumElements()));
+			if(measureBlockSizes) {
+				for(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> p : toRemove.get()) {
+					System.out.println(String.format("\tRemoving block '%s' (%d pairs)", 
+							p.getFirst().getFirst(),
+							p.getFirst().getSecond().getNumElements() * p.getSecond().getSecond().getNumElements()));
+				}
 			}
 			
 			blockedData = blockedData
