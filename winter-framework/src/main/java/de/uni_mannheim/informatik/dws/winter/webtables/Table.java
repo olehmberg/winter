@@ -972,4 +972,28 @@ public class Table implements Serializable {
 		
 		return uniqueness;
 	}
+	
+	public Map<TableColumn, Set<Object>> getColumnDomains() {
+
+		Map<TableColumn, Set<Object>> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					Set<Object> domain = valuesByColumn.get(c);
+					if(domain==null) {
+						domain = new HashSet<>();
+						valuesByColumn.put(c, domain);
+					}
+					domain.add(r.get(c.getColumnIndex()));
+				}
+				
+			}
+			
+		}
+		
+		return valuesByColumn;
+	}
 }
