@@ -73,6 +73,9 @@ public class ShowTableData extends Executable {
 	@Parameter(names = "-dep")
 	private boolean showDependencyInfo = false;
 	
+	@Parameter(names = "-prov")
+	private boolean showProvenanceInfo = false;
+	
 	public static void main(String[] args) throws IOException {
 		ShowTableData s = new ShowTableData();
 		
@@ -166,6 +169,19 @@ public class ShowTableData extends Executable {
 				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
 				System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
 
+				if(showProvenanceInfo) {
+					// collect all provenance data
+					Set<String> provenance = getOriginalTables(t);
+					
+					if(provenance.size()>0) {
+						System.out.println(String.format("Provenance:\n\t%s", 
+								StringUtils.join(Q.sort(provenance), ",")
+								));
+					} else {
+						System.out.println("Table has no provenance data attached.");
+					}
+				}
+				
 				if(showDependencyInfo) {
 					
 					if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
