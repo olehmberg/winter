@@ -52,6 +52,7 @@ public class DateJavaTime {
 
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{8}$", Pattern.CASE_INSENSITIVE), "yyyyMMdd"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MM.yyyy"));
+//		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-(\\d{1,2}|[a-z]+)-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MM-yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{1,2}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MM-yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MM/yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "dd.MM.yy"));
@@ -79,7 +80,9 @@ public class DateJavaTime {
 
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMMM yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/[a-z]{2,}/\\d{4}$", Pattern.CASE_INSENSITIVE), "dd/MMMM/yyyy"));
-		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{2,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1}-[a-z]{3}-\\d{4}$", Pattern.CASE_INSENSITIVE), "d-MMM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{3}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMM-yyyy"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-[a-z]{3,}-\\d{4}$", Pattern.CASE_INSENSITIVE), "dd-MMMM-yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.[a-z]{2,}\\.\\d{4}$", Pattern.CASE_INSENSITIVE), "dd.MMMM.yyyy"));
 
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{2,}\\s\\d{2}$", Pattern.CASE_INSENSITIVE), "dd MMMM yy"));
@@ -223,7 +226,9 @@ public class DateJavaTime {
 	 * @see SimpleDateFormat
 	 */
 	public static LocalDateTime parse(String dateString, String dateFormat) throws ParseException {
-		DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern(dateFormat)
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+				.parseCaseInsensitive()
+				.appendPattern(dateFormat)
 				.parseDefaulting(ChronoField.YEAR_OF_ERA, 1).parseDefaulting(ChronoField.MONTH_OF_YEAR, 1)
 				.parseDefaulting(ChronoField.DAY_OF_MONTH, 1).parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
 				.parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0).parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
