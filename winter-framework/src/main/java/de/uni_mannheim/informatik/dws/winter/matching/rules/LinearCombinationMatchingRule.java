@@ -15,6 +15,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
@@ -23,6 +25,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * A {@link MatchingRule} that is defined by a weighted linear
@@ -201,4 +204,11 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		return new FeatureVectorDataSet();
 	}
 
+	@Override
+	public String toString() {
+		return String.format("LinearCombinationMatchingRule: %f + %s",
+				offset,
+				StringUtils.join(Q.project(comparators, (c)->c.getSecond() + " " + c.getFirst().toString()), " + ")
+				);
+	}
 }
