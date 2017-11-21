@@ -101,6 +101,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	private RecordType firstRecord;
 	private RecordType secondRecord;
 	private double similarityScore;
+	private Object provenance;
 
 	/**
 	 * 
@@ -153,6 +154,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		this.similarityScore = similarityScore;
 	}
 	
+	public Object getProvenance() {
+		return provenance;
+	}
+	public void setProvenance(Object provenance) {
+		this.provenance = provenance;
+	}
+	
 	public Correspondence() {
 		
 	}
@@ -179,6 +187,19 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		this.causalCorrespondences = correspondences;
 	}
 
+	public Correspondence(
+			RecordType first, 
+			RecordType second,
+			double similarityScore, 
+			Processable<Correspondence<CausalType, Matchable>> correspondences,
+			Object provenance) {
+		firstRecord = first;
+		secondRecord = second;
+		this.similarityScore = similarityScore;
+		this.causalCorrespondences = correspondences;
+		this.provenance = provenance;
+	}
+	
 	public String getIdentifiers() {
 		return String.format("%s/%s", getFirstRecord().getIdentifier(), getSecondRecord().getIdentifier());
 	}
