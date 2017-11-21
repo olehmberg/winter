@@ -122,7 +122,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public double compare(RecordType record1, RecordType record2,
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence) {
 		double sum = 0.0;
-		double wSum = 0.0;
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
 
@@ -130,11 +129,12 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
  
 			double similarity = comp.compare(record1, record2, null);
 			double weight = pair.getSecond();
-			wSum += weight;
 			sum += (similarity * weight);
 		}
 
-		return offset + (sum / wSum);
+		// do not normalise the sum of weights
+		// if a normalised score in the range [0,1] is desired, users should call normaliseWeights()
+		return offset + sum;
 	}
 	
 	@Override
