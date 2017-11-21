@@ -62,6 +62,7 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 		
 		Correspondence<RecordType, SchemaElementType> max = null;
+		FilteringMatchingRule<RecordType, SchemaElementType> maxRule = null;
 		
 		for(FilteringMatchingRule<RecordType, SchemaElementType> rule : rules) {
 			Correspondence<RecordType, SchemaElementType> cor = rule.apply(record1, record2, schemaCorrespondences);
@@ -70,7 +71,12 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 					cor.getSimilarityScore() >= rule.getFinalThreshold() &&
 					(max==null ||  cor.getSimilarityScore() > max.getSimilarityScore())) {
 				max = cor;
+				maxRule = rule;
 			}
+		}
+		
+		if(max!=null) {
+			max.setProvenance(maxRule);
 		}
 		
 		return max;
