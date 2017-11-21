@@ -101,7 +101,8 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	}
 	
 	public Collection<Collection<RecordType>> partitionRecords() {
-		int partitionSize = (int)Math.ceil(size() / Runtime.getRuntime().availableProcessors());
+		// create more partitions than available threads so we can compensate for partitions which create less workload than others (so no thread runs idle) 
+		int partitionSize = (int)Math.floor(size() / (Runtime.getRuntime().availableProcessors() * 10));
 		
 		Collection<Collection<RecordType>> partitions = new LinkedList<>();
 		
@@ -117,7 +118,9 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 				partition = new LinkedList<>();
 			}
 		}
-		partitions.add(partition);
+		if(partition.size()>0) {
+			partitions.add(partition);
+		}
 		
 		return partitions;
 	}
