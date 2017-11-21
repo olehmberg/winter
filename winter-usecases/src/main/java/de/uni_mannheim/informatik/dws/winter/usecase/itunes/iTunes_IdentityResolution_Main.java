@@ -98,6 +98,7 @@ public class iTunes_IdentityResolution_Main {
 		RecordComparatorJaccard labelNoBrackets = new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true);
 		labelNoBrackets.setRemoveBrackets(true);
 		matchingRule.addComparator(labelNoBrackets, 0.2);
+		matchingRule.normalizeWeights();
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
