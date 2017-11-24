@@ -216,6 +216,9 @@ public class ShowTableData extends Executable {
 					
 					for(int i = 0; i < maxRows; i++) {
 						TableRow r = t.getRows().get(i);
+						if(showProvenanceInfo) {
+							System.out.println(StringUtils.join(r.getProvenance(), " / "));
+						}
 						System.out.println(r.format(columnWidth));
 					}
 				} else {
@@ -247,7 +250,7 @@ public class ShowTableData extends Executable {
 		for(TableColumn c : t.getColumns()) {
 			for(String prov : c.getProvenance()) {
 				
-				tbls.add(prov.split(";")[0]);
+				tbls.add(prov.split("~")[0]);
 				
 			}
 		}
