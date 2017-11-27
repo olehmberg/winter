@@ -51,6 +51,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
 	private boolean measureBlockSizes = false;
 	private double blockFilterRatio = 1.0;
+	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
 	
 	/**
@@ -65,6 +66,16 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	 */
 	public void setBlockFilterRatio(double blockFilterRatio) {
 		this.blockFilterRatio = blockFilterRatio;
+	}
+	
+	/**
+	 * Sets the maximum number of pairs that can be produced by each block, blocks with more pairs are removed completely.
+	 * Ignored if set to 0.
+	 * 
+	 * @param maxBlockPairSize		the maximum number of pairs that can be produced by each block
+	 */
+	public void setMaxBlockPairSize(int maxBlockPairSize) {
+		this.maxBlockPairSize = maxBlockPairSize;
 	}
 	
 	/**
@@ -152,6 +163,17 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		
 		if(measureBlockSizes) {
 			System.out.println(String.format("[StandardBlocker] created %d blocks from blocking keys", blockedData.size()));
+		}
+		
+		if(maxBlockPairSize>0) {
+			blockedData = blockedData
+					.where(
+						(p)->((long)p.getFirst().getSecond().getNumElements() * (long)p.getSecond().getSecond().getNumElements()) <= maxBlockPairSize
+					);
+			
+			if(measureBlockSizes) {
+				System.out.println(String.format("[StandardBlocker] %d blocks after filtering by max block size (<= %d pairs)", blockedData.size(), maxBlockPairSize));
+			}
 		}
 		
 		// remove the largest blocks, if requested
