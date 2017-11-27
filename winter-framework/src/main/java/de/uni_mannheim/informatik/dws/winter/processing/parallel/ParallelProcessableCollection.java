@@ -101,26 +101,37 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	}
 	
 	public Collection<Collection<RecordType>> partitionRecords() {
-		// create more partitions than available threads so we can compensate for partitions which create less workload than others (so no thread runs idle) 
-		int partitionSize = (int)Math.floor(size() / (Runtime.getRuntime().availableProcessors() * 10));
+		// create more partitions than available threads so we can compensate for partitions which create less workload than others (so no thread runs idle)
+		int numPartitions = (Runtime.getRuntime().availableProcessors() * 10);
+		int partitionSize = (int)Math.floor(size() / numPartitions);
 		
-		Collection<Collection<RecordType>> partitions = new LinkedList<>();
+		List<Collection<RecordType>> partitions = new LinkedList<>();
+		for(int i = 0; i < numPartitions; i++) {
+			partitions.add(new LinkedList<>());
+		}
+		int pIdx = 0;
 		
-		Collection<RecordType> partition = new LinkedList<>();
+//		Collection<RecordType> partition = new LinkedList<>();
 		
 		Iterator<RecordType> it = get().iterator();
 		
 		while(it.hasNext()) {
-			partition.add(it.next());
+			partitions.get(pIdx++).add(it.next());
 			
-			if(partition.size()==partitionSize) {
-				partitions.add(partition);
-				partition = new LinkedList<>();
+			if(pIdx==numPartitions) {
+				pIdx=0;
 			}
+//			
+//			partition.add(it.next());
+//			
+//			if(partition.size()==partitionSize) {
+//				partitions.add(partition);
+//				partition = new LinkedList<>();
+//			}
 		}
-		if(partition.size()>0) {
-			partitions.add(partition);
-		}
+//		if(partition.size()>0) {
+//			partitions.add(partition);
+//		}
 		
 		return partitions;
 	}
@@ -191,13 +202,15 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		aggregateCollector.setAggregator(aggregator);
 		aggregateCollector.initialise();
 		
-		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
+		new Parallel<Collection<RecordType>>().tryForeach(partitionRecords(), new Consumer<Collection<RecordType>>() {
 
 			@Override
-			public void execute(RecordType parameter) {
-				groupBy.mapRecordToKey(parameter, aggregateCollector);
+			public void execute(Collection<RecordType> parameter) {
+				for(RecordType record : parameter) {
+					groupBy.mapRecordToKey(record, aggregateCollector);
+				}
 			}
-		});
+		}, "ParallelProcessableCollection.aggregate");
 		
 		aggregateCollector.finalise();
 		
