@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.model;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
 
 /**
  * Class representing a gold standard data.
@@ -180,6 +182,14 @@ public class MatchingGoldStandard implements Serializable{
 
 		printGSReport();
 	}
+	
+	public void writeToCSVFile(File file) throws IOException {
+		CSVWriter writer = new CSVWriter(new FileWriter(file));
+		
+		writeAllLines(writer);
+		
+		writer.close();
+	}
 
 	/**
 	 * Read all lines. Add positive and negative examples.
@@ -212,6 +222,19 @@ public class MatchingGoldStandard implements Serializable{
 		}
 	}
 
+	private void writeAllLines(CSVWriter writer) {
+		String[] values = null;
+		
+		for(Pair<String, String> p : getPositiveExamples()) {
+			values = new String[] { p.getFirst(), p.getSecond(), "true" };
+			writer.writeNext(values);
+		}
+		for(Pair<String, String> p : getNegativeExamples()) {
+			values = new String[] { p.getFirst(), p.getSecond(), "false" };
+			writer.writeNext(values);
+		}
+	}
+	
 	/**
 	 * Loads a gold standard from a TSV file
 	 *
@@ -227,6 +250,14 @@ public class MatchingGoldStandard implements Serializable{
 
 		printGSReport();
 
+	}
+	
+	public void writeToTSVFile(File file) throws IOException {
+		CSVWriter writer = new CSVWriter(new FileWriter(file), '\t');
+		
+		writeAllLines(writer);
+		
+		writer.close();
 	}
 
 	private void printGSReport() {
