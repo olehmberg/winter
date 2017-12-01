@@ -180,12 +180,14 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			// perform 10-fold Cross Validation to evaluate classifier
 			eval.crossValidateModel(this.classifier, trainingData, 10, new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
+			System.out.println(eval.toClassDetailsString());
+			System.out.println(eval.toMatrixString());
 			
 			this.classifier.buildClassifier(trainingData);
 			
-			int truePositive = (int) eval.numTruePositives(trainingData.classIndex());
-			int falsePositive = (int) eval.numFalsePositives(trainingData.classIndex());
-			int falseNegative = (int) eval.numFalseNegatives(trainingData.classIndex());
+			int truePositive = (int) eval.numTruePositives(1);
+			int falsePositive = (int) eval.numFalsePositives(1);
+			int falseNegative = (int) eval.numFalseNegatives(1);
 			Performance performance = new Performance(truePositive, truePositive + falsePositive,
 					truePositive + falseNegative);
 
