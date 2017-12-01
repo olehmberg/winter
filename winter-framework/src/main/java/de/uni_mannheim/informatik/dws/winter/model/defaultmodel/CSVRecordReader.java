@@ -31,7 +31,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
-
+	private Attribute[] attributes = null;
+	
 	/**
 	 * 
 	 * @param idColumnIndex
@@ -53,6 +54,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;
+		this.attributes = null;
 	}
 
 	/*
@@ -67,8 +69,6 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 		Set<String> ids = new HashSet<>();
 
-		Attribute[] attributes = null;
-		
 		if (rowNumber == 0) {
 
 			attributes = new Attribute[values.length];
