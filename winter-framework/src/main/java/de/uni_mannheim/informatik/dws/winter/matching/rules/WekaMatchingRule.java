@@ -505,4 +505,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		this.backwardSelection = backwardSelection;
 	}
 
+	public String getModelDescription() {
+		return String.format("%s", classifier);
+	}
 }
