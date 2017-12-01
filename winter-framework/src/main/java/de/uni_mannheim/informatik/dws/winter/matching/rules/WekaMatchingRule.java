@@ -327,7 +327,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				//e.printStackTrace();
 			}
 			
-			String name = String.format("[%d] %s %s %s", i, comp.getClass().getSimpleName(), attribute1, attribute2);
+			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
 			Attribute att = null;
 			for (Attribute elem : features.getSchema().get()) {
 				if (elem.toString().equals(name)) {
@@ -480,7 +480,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				//e.printStackTrace();
 			}
 			
-			String name = String.format("[%d] %s %s %s", i, comp.getClass().getSimpleName(), attribute1, attribute2);
+			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
 
 			Attribute att = new Attribute(name);
 			result.addAttribute(att);
@@ -491,6 +491,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		return result;
 	}
 
+	protected String getComparatorName(Comparator<RecordType, SchemaElementType> comp) {
+		return comp.toString();
+	}
+	
 	public boolean isForwardSelection() {
 		return forwardSelection;
 	}
