@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
-import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -99,9 +99,12 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 				record2 = dataset1.getRecord(correspondence.getSecond());
 			}
 
-			Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
-			features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "1");
-			result.add(features);
+			// if we still didn't find records, they are not in the data sets!
+			if (record1 != null && record2 != null) {
+				Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
+				features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "1");
+				result.add(features);
+			}
 
 			// increment and report status
 			progress.incrementProgress();
@@ -121,9 +124,12 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 				record2 = dataset1.getRecord(correspondence.getSecond());
 			}
 
-			Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
-			features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "0");
-			result.add(features);
+			// if we still didn't find records, they are not in the data sets!
+			if (record1 != null && record2 != null) {
+				Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
+				features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "0");
+				result.add(features);
+			}
 
 			// increment and report status
 			progress.incrementProgress();
