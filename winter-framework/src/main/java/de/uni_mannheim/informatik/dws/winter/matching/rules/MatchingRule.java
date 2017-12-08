@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 
 /**
@@ -41,5 +42,31 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 
 	public MatchingRule(double finalThreshold) {
 		this.finalThreshold = finalThreshold;
+	}
+	
+	public Correspondence<SchemaElementType, Matchable> getCorrespondenceForComparator(
+			Processable<Correspondence<SchemaElementType, Matchable>> correspondences,
+			RecordType record1,
+			RecordType record2,
+			Comparator<RecordType, SchemaElementType> comparator) {
+		if(correspondences!=null) {
+			Processable<Correspondence<SchemaElementType, Matchable>> matchingSchemaCorrespondences = correspondences
+					// first filter correspondences to make sure we only use correspondences between the data sources of record1 and record2
+				.where((c)->
+					c.getFirstRecord().getDataSourceIdentifier()==record1.getDataSourceIdentifier()
+					&&
+					c.getSecondRecord().getDataSourceIdentifier()==record2.getDataSourceIdentifier()
+					)
+					// then filter the remaining correspondences based on the comparators arguments, if present
+				.where((c)->
+					(comparator.getFirstSchemaElement()==null || comparator.getFirstSchemaElement()==c.getFirstRecord())
+					&&
+					(comparator.getSecondSchemaElement()==null || comparator.getSecondSchemaElement()==c.getSecondRecord())
+					);
+			// after the filtering, there should only be one correspondence left (if not, the mapping is ambiguous)
+			return matchingSchemaCorrespondences.firstOrNull();
+		} else {
+			return null;
+		}
 	}
 }

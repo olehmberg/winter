@@ -31,6 +31,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.StringUtils;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
@@ -39,6 +41,8 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import de.uni_mannheim.informatik.dws.winter.utils.weka.EvaluationWithBalancing;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.GreedyStepwise;
 import weka.attributeSelection.WrapperSubsetEval;
@@ -49,6 +53,8 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Utils;
 import weka.core.pmml.PMMLFactory;
+import weka.filters.Filter;
+import weka.filters.supervised.instance.Resample;
 
 /**
  * Class that creates and applies a matching Rule based on supervised learning
@@ -71,7 +77,8 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private boolean forwardSelection = false;
 	private boolean backwardSelection = false;
 	private AttributeSelection fs;
-
+	private boolean balanceTrainingData = false;
+	
 	public final String trainingSet = "trainingSet";
 	public final String machtSet = "matchSet";
 
@@ -152,7 +159,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		Instances trainingData = transformToWeka(features, this.trainingSet);
 
 		try {
-			Evaluation eval = new Evaluation(trainingData);
 			// apply feature subset selection
 			if (this.forwardSelection || this.backwardSelection) {
 
@@ -176,18 +182,38 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 				trainingData = fs.reduceDimensionality(trainingData);
 
-			}
+			}			
 			// perform 10-fold Cross Validation to evaluate classifier
-			eval.crossValidateModel(this.classifier, trainingData, 10, new Random(1));
+			Evaluation eval = new Evaluation(trainingData);
+			
+			if(balanceTrainingData) {
+				Resample filter = new Resample();
+				filter.setBiasToUniformClass(1.0);
+				filter.setInputFormat(trainingData);
+				filter.setSampleSizePercent(100);
+				eval = new EvaluationWithBalancing(trainingData, filter);
+			}
+			
+			eval.crossValidateModel(this.classifier, trainingData, Math.min(10, trainingData.size()), new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 			System.out.println(eval.toClassDetailsString());
 			System.out.println(eval.toMatrixString());
 			
+			if(balanceTrainingData) {
+				Resample filter = new Resample();
+				filter.setBiasToUniformClass(1.0);
+				filter.setInputFormat(trainingData);
+				filter.setSampleSizePercent(100);
+				trainingData = Filter.useFilter(trainingData, filter);
+			}
+			
 			this.classifier.buildClassifier(trainingData);
 			
-			int truePositive = (int) eval.numTruePositives(1);
-			int falsePositive = (int) eval.numFalsePositives(1);
-			int falseNegative = (int) eval.numFalseNegatives(1);
+			int positiveClassIndex = trainingData.attribute(trainingData.classIndex()).indexOfValue("1");
+			
+			int truePositive = (int) eval.numTruePositives(positiveClassIndex);
+			int falsePositive = (int) eval.numFalsePositives(positiveClassIndex);
+			int falseNegative = (int) eval.numFalseNegatives(positiveClassIndex);
 			Performance performance = new Performance(truePositive, truePositive + falsePositive,
 					truePositive + falseNegative);
 
@@ -314,7 +340,27 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 			Comparator<RecordType, SchemaElementType> comp = comparators.get(i);
 
-			double similarity = comp.compare(record1, record2, null);
+			// check if there is a schema correspondence that we can pass on to the comparator
+			Correspondence<SchemaElementType, Matchable> schemaCorrespondence = null;
+			if(schemaCorrespondences!=null) {
+				Processable<Correspondence<SchemaElementType, Matchable>> matchingSchemaCorrespondences = schemaCorrespondences
+						// first filter correspondences to make sure we only use correspondences between the data sources of record1 and record2
+					.where((c)->
+						c.getFirstRecord().getDataSourceIdentifier()==record1.getDataSourceIdentifier()
+						&&
+						c.getSecondRecord().getDataSourceIdentifier()==record2.getDataSourceIdentifier()
+						)
+						// then filter the remaining correspondences based on the comparators arguments, if present
+					.where((c)->
+						(comp.getFirstSchemaElement()==null || comp.getFirstSchemaElement()==c.getFirstRecord())
+						&&
+						(comp.getSecondSchemaElement()==null || comp.getSecondSchemaElement()==c.getSecondRecord())
+						);
+				// after the filtering, there should only be one correspondence left (if not, the mapping is ambiguous)
+				schemaCorrespondence = matchingSchemaCorrespondences.firstOrNull();
+			}
+			
+			double similarity = comp.compare(record1, record2, schemaCorrespondence);
 
 			String attribute1 = "";
 			String attribute2 = "";
@@ -382,8 +428,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			}
 		// Apply matching rule
 		try {
-			double result = this.classifier.classifyInstance(matchInstances.firstInstance());
-			return new Correspondence<RecordType, SchemaElementType>(record1, record2, result, schemaCorrespondences);
+			double[] distribution = this.classifier.distributionForInstance(matchInstances.firstInstance());
+			int positiveClassIndex = matchInstances.attribute(matchInstances.classIndex()).indexOfValue("1");
+			double matchConfidence = distribution[positiveClassIndex];
+			return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence, schemaCorrespondences);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -511,7 +559,21 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		this.backwardSelection = backwardSelection;
 	}
 
+	public void setBalanceTrainingData(boolean balanceTrainingData) {
+		this.balanceTrainingData = balanceTrainingData;
+	}
+	
 	public String getModelDescription() {
 		return String.format("%s", classifier);
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return String.format("WekaMatchingRule: p(match|%s)",
+				StringUtils.join(Q.project(comparators, (c)->c), ", ")
+				);
 	}
 }

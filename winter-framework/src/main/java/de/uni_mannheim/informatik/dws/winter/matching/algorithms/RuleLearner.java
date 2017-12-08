@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
@@ -24,10 +26,13 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  * Class that controls the learning of matching rules
@@ -37,18 +42,61 @@ import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
  */
 public class RuleLearner<RecordType extends Matchable, SchemaElementType extends Matchable> {
 
-	
 	public Performance learnMatchingRule(
 			DataSet<RecordType, SchemaElementType> data1, 
 			DataSet<RecordType, SchemaElementType> data2,
 			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
 			LearnableMatchingRule<RecordType, SchemaElementType> rule, 
 			MatchingGoldStandard trainingData) {
+		return learnMatchingRule(data1, data2, schemaCorrespondences, rule, trainingData, false);
+	}
+	
+	public Performance learnMatchingRule(
+			DataSet<RecordType, SchemaElementType> data1, 
+			DataSet<RecordType, SchemaElementType> data2,
+			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
+			LearnableMatchingRule<RecordType, SchemaElementType> rule, 
+			MatchingGoldStandard trainingData,
+			boolean deduplicateTrainingData) {
 		
 		FeatureVectorDataSet features = generateTrainingDataForLearning(data1, data2, trainingData, rule, schemaCorrespondences);
+		
+		if(deduplicateTrainingData) {
+			features = deduplicateFeatureDataSet(features);
+		}
+		
 		return rule.learnParameters(features);
 	}
 	
+	public FeatureVectorDataSet deduplicateFeatureDataSet(FeatureVectorDataSet features) {
+		
+		FeatureVectorDataSet deduplicated = new FeatureVectorDataSet();
+		
+		List<Attribute> orderedAttributes = new LinkedList<>();
+		for(Attribute a : features.getSchema().get()) {
+			orderedAttributes.add(a);
+			deduplicated.addAttribute(a);
+		}
+		
+		for(Record r : features.get()) {
+			
+			// create a unique id from all values
+			String id = StringUtils.join(Q.project(orderedAttributes, (a)->r.getValue(a)));
+			
+			Record uniqueRecord = new Record(id);
+			
+			for(Attribute a : orderedAttributes) {
+				uniqueRecord.setValue(a, r.getValue(a));
+			}
+			
+			deduplicated.add(uniqueRecord);
+			
+		}
+		
+		System.out.println(String.format("[RuleLeaner] Deduplication removed %d/%d examples.", features.size()-deduplicated.size(), features.size()));
+		
+		return deduplicated;
+	}
 	
 	/**
 	 * Generates a data set containing features that can be used to learn

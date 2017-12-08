@@ -46,5 +46,14 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	 * @return the similarity of the records
 	 */
 	double compare(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
+	
+	/**
+	 * @return Returns the schema element which is the first argument to this comparator and determines which value of the first record to compare.
+	 */
+	default SchemaElementType getFirstSchemaElement() { return null; }
+	/**
+	 * @return Returns the schema element which is the second argument to this comparator and determines which value of the second record to compare.
+	 */
+	default SchemaElementType getSecondSchemaElement() { return null; }
 
 }

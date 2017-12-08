@@ -106,7 +106,23 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	@Override
 	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
-		double similarity = compare(record1, record2, null);
+//		double similarity = compare(record1, record2, null);
+		double sum = 0.0;
+		for (int i = 0; i < comparators.size(); i++) {
+			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
+
+			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
+ 
+			Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
+			
+			double similarity = comp.compare(record1, record2, correspondence);
+			double weight = pair.getSecond();
+			sum += (similarity * weight);
+		}
+
+		// do not normalise the sum of weights
+		// if a normalised score in the range [0,1] is desired, users should call normaliseWeights()
+		double similarity = offset + sum;
 
 //		if (similarity >= getFinalThreshold() && similarity > 0.0) {
 			return new Correspondence<RecordType, SchemaElementType>(record1, record2, similarity, schemaCorrespondences);
@@ -121,20 +137,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	@Override
 	public double compare(RecordType record1, RecordType record2,
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence) {
-		double sum = 0.0;
-		for (int i = 0; i < comparators.size(); i++) {
-			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
-
-			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
- 
-			double similarity = comp.compare(record1, record2, null);
-			double weight = pair.getSecond();
-			sum += (similarity * weight);
-		}
-
-		// do not normalise the sum of weights
-		// if a normalised score in the range [0,1] is desired, users should call normaliseWeights()
-		return offset + sum;
+		return 0.0;
 	}
 	
 	@Override
