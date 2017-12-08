@@ -167,6 +167,12 @@ public class TableTest extends TestCase {
 		t1.addRow(t1r3);
 		t1.addRow(t1r4);
 		t1.addRow(t1r5);
+		t1.getMapping().setMappedClass(new Pair<>("A",1.0));
+		t1.getMapping().setMappedProperty(0, new Pair<>("A", 1.0));
+		t1.getMapping().setMappedProperty(2, new Pair<>("C", 1.0));
+		t1.getMapping().setMappedInstance(0, new Pair<>("a",1.0));
+		t1.getMapping().setMappedInstance(1, new Pair<>("b",1.0));
+		t1.getMapping().setMappedInstance(2, new Pair<>("c1",1.0));
 		
 		Table t2 = new Table();
 		t2.setPath("table2");
@@ -191,6 +197,11 @@ public class TableTest extends TestCase {
 		t2.addRow(t2r2);
 		t2.addRow(t2r3);
 		t2.addRow(t2r4);
+		t2.getMapping().setMappedClass(new Pair<>("A", 1.0));
+		t2.getMapping().setMappedProperty(0, new Pair<>("C", 1.0));
+		t2.getMapping().setMappedProperty(1, new Pair<>("D", 1.0));
+		t2.getMapping().setMappedInstance(0, new Pair<>("a", 1.0));
+		t2.getMapping().setMappedInstance(2, new Pair<>("c2", 1.0));
 		
 		Collection<Pair<TableColumn, TableColumn>> joinOn = new LinkedList<>();
 		joinOn.add(new Pair<>(t1c3, t2c1));
@@ -204,12 +215,53 @@ public class TableTest extends TestCase {
 			switch (r.get(0).toString()) {
 			case "a":
 				assertEquals("1", r.get(4));
+				assertEquals("a", joined.getMapping().getMappedInstance(r.getRowNumber()).getFirst());
 				break;
 			case "b":
 				assertEquals("2", r.get(4));
+				assertEquals("b", joined.getMapping().getMappedInstance(r.getRowNumber()).getFirst());
 				break;
 			case "c":
 				assertEquals("3", r.get(4));
+				assertNull(joined.getMapping().getMappedInstance(r.getRowNumber()));
+				break;
+			default:
+				break;
+			}
+			
+		}
+		
+		assertEquals("A", joined.getMapping().getMappedClass().getFirst());
+		
+		for(TableColumn c : joined.getColumns()) {
+			
+			switch (c.getIdentifier()) {
+			case "A":
+				assertEquals("A", joined.getMapping().getMappedProperty(c.getColumnIndex()));
+				break;
+			case "C":
+				assertEquals("C", joined.getMapping().getMappedProperty(c.getColumnIndex()));
+				break;
+			case "D":
+				assertEquals("D", joined.getMapping().getMappedProperty(c.getColumnIndex()));
+				break;
+			default:
+				break;
+			}
+			
+		}
+		
+		t2.getMapping().setMappedClass(new Pair<>("B", 1.0));
+		t2.getMapping().setMappedProperty(0, new Pair<>("C2", 1.0));
+		
+		joined = t1.join(t2, joinOn, Q.toList(t1c1,t1c2,t1c3,t2c2,t2c3));
+		
+		assertNull(joined.getMapping().getMappedClass());
+		for(TableColumn c : joined.getColumns()) {
+			
+			switch (c.getIdentifier()) {
+			case "C":
+				assertNull(joined.getMapping().getMappedProperty(c.getColumnIndex()));
 				break;
 			default:
 				break;

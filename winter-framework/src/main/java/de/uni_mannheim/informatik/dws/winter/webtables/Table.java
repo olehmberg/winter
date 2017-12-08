@@ -633,6 +633,30 @@ public class Table implements Serializable {
 			inputColumnToOutputColumn.put(c, out);
 		}
 		
+		// set the table mapping - class
+		Pair<String, Double> thisClass = getMapping().getMappedClass();
+		Pair<String, Double> otherClass = otherTable.getMapping().getMappedClass();
+		if(Q.equals(thisClass, otherClass, false) || (thisClass==null ^ otherClass==null)) {
+			if(thisClass==null) {
+				thisClass = otherClass;
+			}
+			result.getMapping().setMappedClass(thisClass);
+		}
+
+		// set the table mapping - properties
+		for(TableColumn projectedColumn : projection) {
+			Pair<String, Double> colMapping = null;
+			
+			if(getColumns().contains(projectedColumn)) {
+				colMapping = getMapping().getMappedProperty(projectedColumn.getColumnIndex());
+			} else {
+				colMapping = otherTable.getMapping().getMappedProperty(projectedColumn.getColumnIndex());
+			}
+			if(colMapping!=null) {
+				result.getMapping().setMappedProperty(inputColumnToOutputColumn.get(projectedColumn).getColumnIndex(), colMapping);
+			}			
+		}
+		
 		// create the join
 		for(TableRow r : getRows()) {
 			
@@ -679,6 +703,16 @@ public class Table implements Serializable {
 						if(c2!=null) {
 							values[c2.getColumnIndex()] = r2.get(c.getColumnIndex());
 						}
+					}
+					
+					// set the table mapping - instances
+					Pair<String, Double> thisRowMapping = getMapping().getMappedInstance(r.getRowNumber());
+					Pair<String, Double> otherRowMapping = otherTable.getMapping().getMappedInstance(r2.getRowNumber());
+					if(Q.equals(thisRowMapping, otherRowMapping, false) || (thisRowMapping==null ^ otherRowMapping==null)) {
+						if(thisRowMapping==null) {
+							thisRowMapping = otherClass;
+						}
+						result.getMapping().setMappedInstance(out.getRowNumber(), thisRowMapping);
 					}
 					
 				}
