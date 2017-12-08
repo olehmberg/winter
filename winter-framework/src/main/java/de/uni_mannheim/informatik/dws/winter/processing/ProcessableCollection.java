@@ -206,6 +206,14 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		return resultCollector.getResult();
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.Processable#map(de.uni_mannheim.informatik.dws.winter.processing.Function)
+	 */
+	@Override
+	public <OutputRecordType> Processable<OutputRecordType> map(Function<OutputRecordType, RecordType> transformation) {
+		return map((RecordType record, DataIterator<OutputRecordType> resultCollector) -> resultCollector.next(transformation.execute(record)));
+	}
+	
 	/**
 	 * Applies the hash function to all records
 	 * @param dataset

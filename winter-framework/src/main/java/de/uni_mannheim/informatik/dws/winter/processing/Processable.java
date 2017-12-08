@@ -106,6 +106,13 @@ public interface Processable<RecordType> extends Serializable {
 	<OutputRecordType> Processable<OutputRecordType> map(RecordMapper<RecordType, OutputRecordType> transformation);
 
 	/**
+	 * Iterates over all elements and produces a result
+	 * @param transformation	the transformation that should be applied
+	 * @return A {@link Processable} with the result of the operation
+	 */
+	<OutputRecordType> Processable<OutputRecordType> map(Function<OutputRecordType, RecordType> transformation);
+
+	/**
 	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.
 	 * @param joinKeyGenerator	a function that returns the join key for each element
 	 * @return A {@link Processable} with the result of the operation
