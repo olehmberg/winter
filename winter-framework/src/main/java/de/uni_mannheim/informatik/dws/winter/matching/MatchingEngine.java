@@ -111,7 +111,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	 */
 	public Processable<Correspondence<RecordType, SchemaElementType>> runDuplicateDetection(
 			DataSet<RecordType, SchemaElementType> dataset,
-			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
+			Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences,
 			MatchingRule<RecordType, SchemaElementType> rule, 
 			SymmetricBlocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
 
@@ -141,7 +141,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	public Processable<Correspondence<RecordType, SchemaElementType>> runIdentityResolution(
 			DataSet<RecordType, SchemaElementType> dataset1, 
 			DataSet<RecordType, SchemaElementType> dataset2, 
-			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences,
+			Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences,
 			MatchingRule<RecordType, SchemaElementType> rule,
 			Blocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
 
@@ -211,7 +211,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	public Processable<Correspondence<SchemaElementType, RecordType>> runSchemaMatching(
 			DataSet<SchemaElementType, SchemaElementType> schema1, 
 			DataSet<SchemaElementType, SchemaElementType> schema2,
-			Processable<? extends Correspondence<RecordType, ?>> instanceCorrespondences,
+			Processable<? extends Correspondence<RecordType, ? extends Matchable>> instanceCorrespondences,
 			MatchingRule<SchemaElementType, RecordType> rule,
 			Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker) {
 
@@ -359,7 +359,7 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 	public Processable<Correspondence<SchemaElementType, RecordType>> runDuplicateBasedSchemaMatching(
 			DataSet<SchemaElementType, SchemaElementType> schema1, 
 			DataSet<SchemaElementType, SchemaElementType> schema2,
-			Processable<? extends Correspondence<RecordType, ?>> instanceCorrespondences,
+			Processable<? extends Correspondence<RecordType, ? extends Matchable>> instanceCorrespondences,
 			VotingMatchingRule<SchemaElementType, RecordType> rule,
 			TopKVotesAggregator<SchemaElementType, RecordType> voteFilter,
 			CorrespondenceAggregator<SchemaElementType, RecordType> voteAggregator,

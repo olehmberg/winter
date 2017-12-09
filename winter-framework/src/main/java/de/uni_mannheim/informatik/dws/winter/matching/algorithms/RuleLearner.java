@@ -120,7 +120,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			DataSet<RecordType, SchemaElementType> dataset2,
 			MatchingGoldStandard goldStandard,
 			LearnableMatchingRule<RecordType, SchemaElementType> rule,
-			Processable<? extends Correspondence<SchemaElementType, ?>> schemaCorrespondences) {
+			Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences) {
 		LocalDateTime start = LocalDateTime.now();
 
 		FeatureVectorDataSet result = rule.initialiseFeatures();
