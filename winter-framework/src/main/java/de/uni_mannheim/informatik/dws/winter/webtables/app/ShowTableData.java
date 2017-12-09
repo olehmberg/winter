@@ -32,6 +32,8 @@ import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableParser;
+import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableDisambiguationExtractor;
+import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableNumberingExtractor;
 import de.uni_mannheim.informatik.dws.winter.webtables.writers.JsonTableWriter;
 
 /**
@@ -75,6 +77,9 @@ public class ShowTableData extends Executable {
 	
 	@Parameter(names = "-prov")
 	private boolean showProvenanceInfo = false;
+	
+	@Parameter(names = "-pre")
+	private boolean applyPreprocessing = false;
 	
 	public static void main(String[] args) throws IOException {
 		ShowTableData s = new ShowTableData();
@@ -120,6 +125,11 @@ public class ShowTableData extends Executable {
 			}
 			
 			t = p.parseTable(f);
+			
+			if(applyPreprocessing) {
+				new TableDisambiguationExtractor().extractDisambiguations(Q.toList(t));
+				new TableNumberingExtractor().extractNumbering(Q.toList(t));
+			}
 			
 			// update the table if requested
 			if(detectKey) {
