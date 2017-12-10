@@ -36,6 +36,14 @@
 						${project.build.directory}/lib
 					</outputDirectory>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -106,7 +114,8 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<!-- <version>3.8.1</version> -->
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
