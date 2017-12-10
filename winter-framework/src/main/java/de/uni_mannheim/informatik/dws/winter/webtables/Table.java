@@ -619,6 +619,8 @@ public class Table implements Serializable {
 		
 		// create the result table
 		Table result = project(Q.intersection(getColumns(), projection));
+		result.getSchema().setFunctionalDependencies(new HashMap<>());
+		result.getSchema().setCandidateKeys(new LinkedList<>());
 		result.clear();
 		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
 		for(Map.Entry<Integer, Integer> translation : projectColumnIndices(Q.intersection(getColumns(), projection)).entrySet()) {
