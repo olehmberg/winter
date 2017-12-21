@@ -260,7 +260,7 @@ public class MatchingGoldStandard implements Serializable{
 		writer.close();
 	}
 
-	private void printGSReport() {
+	public void printGSReport() {
 		int numPositive = getPositiveExamples().size();
 		int numNegative = getNegativeExamples().size();
 		int ttl = numPositive + numNegative;
@@ -288,7 +288,7 @@ public class MatchingGoldStandard implements Serializable{
 		allExamples.addAll(canonicalPositiveExamples);
 		allExamples.addAll(canonicalNegativeExamples);
 
-		if (allExamples.size() != ttl) {
+		if (allExamples.size() != (canonicalPositiveExamples.size() + canonicalNegativeExamples.size())) {
 			System.err
 					.println("The gold standard contains an example that is both labelled as positive and negative!");
 		}
