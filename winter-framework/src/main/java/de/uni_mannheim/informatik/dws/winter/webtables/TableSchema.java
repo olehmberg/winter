@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -34,8 +35,8 @@ public class TableSchema implements Serializable {
 	private ArrayList<TableColumn> columns;
 	private HashMap<String, TableColumn> columnsById;
 	
-	private Map<Collection<TableColumn>, Collection<TableColumn>> functionalDependencies;
-	private Collection<Set<TableColumn>> candidateKeys;
+	private Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies;
+	private Set<Set<TableColumn>> candidateKeys;
 	
 	public TableSchema() {
 		columns = new ArrayList<>();
@@ -78,17 +79,41 @@ public class TableSchema implements Serializable {
 			}
 		}
 		
-		// re-create column-by-id lookup
-		columnsById.clear();
-		
+		// update column indices		
 		for(TableColumn c: columns) {
 			if(c.getColumnIndex()>column.getColumnIndex()) {
 				c.setColumnIndex(c.getColumnIndex()-1);
 			}
-			columnsById.put(c.getIdentifier(), c);
 		}
+
+		updateIdentifiers();
 	}
 	
+	/**
+	 * Re-builds all HashMaps and HashSets that use the column identifiers to reflect changes
+	 */
+	protected void updateIdentifiers() {
+		// update columns by id
+		columnsById.clear();
+		for(TableColumn c: columns) {
+			columnsById.put(c.getIdentifier(), c);
+		}
+
+		// update functional dependencies: update the hash values by re-inserting all data into a new HashMap
+		Set<Entry<Set<TableColumn>, Set<TableColumn>>> oldMap = functionalDependencies.entrySet();
+		functionalDependencies = new HashMap<>();
+		for(Entry<Set<TableColumn>, Set<TableColumn>> e : oldMap) {
+			functionalDependencies.put(new HashSet<>(e.getKey()), new HashSet<>(e.getValue()));
+		}
+
+		// update candidate keys
+		Set<Set<TableColumn>> oldKeys = candidateKeys;
+		candidateKeys = new HashSet<>();
+		for(Set<TableColumn> key : oldKeys) {
+			candidateKeys.add(new HashSet<>(key));
+		}
+	}
+
 	public TableColumn get(int index) {
 		return columns.get(index);
 	}
@@ -174,7 +199,7 @@ public class TableSchema implements Serializable {
 	/**
 	 * @return the functionalDependencies
 	 */
-	public Map<Collection<TableColumn>, Collection<TableColumn>> getFunctionalDependencies() {
+	public Map<Set<TableColumn>, Set<TableColumn>> getFunctionalDependencies() {
 		return functionalDependencies;
 	}
 	
@@ -182,7 +207,7 @@ public class TableSchema implements Serializable {
 	 * @param functionalDependencies the functionalDependencies to set
 	 */
 	public void setFunctionalDependencies(
-			Map<Collection<TableColumn>, Collection<TableColumn>> functionalDependencies) {
+			Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies) {
 		this.functionalDependencies = functionalDependencies;
 	}
 	
@@ -197,7 +222,7 @@ public class TableSchema implements Serializable {
 	 * @param candidateKeys the candidateKeys to set
 	 */
 	public void setCandidateKeys(
-			Collection<Set<TableColumn>> candidateKeys) {
+		Set<Set<TableColumn>> candidateKeys) {
 		this.candidateKeys = candidateKeys;
 	}
 }

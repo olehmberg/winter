@@ -134,6 +134,10 @@ public class Table implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+
+		// changing the path will change the identifiers of all rows and columns of this table
+		// so we have to update all HashMaps which contain rows or columns
+		getSchema().updateIdentifiers();
 	}
 
 	public Collection<TableColumn> getColumns() {
@@ -436,6 +440,15 @@ public class Table implements Serializable {
 	}
 
 	/**
+	 * Adds the current data types of all columns to this tables mapping
+	 */
+	public void addDataTypesToMapping() {
+		for(TableColumn c : getColumns()) {
+			getMapping().setDataType(c.getColumnIndex(), c.getDataType());
+		}
+	}
+
+	/**
 	 * Detects and sets the key column for this table
 	 */
 	public void identifySubjectColumn() {
@@ -550,18 +563,19 @@ public class Table implements Serializable {
 		result.setPath(getPath());
 
 		// copy functional dependencies
-		for (Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+		for (Set<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
 
-			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
-			if (det!=null && dep!=null && projectedColumns.containsAll(det) && projectedColumns.containsAll(dep)) {
-				Collection<TableColumn> newDet = new ArrayList<>(det.size());
+			Set<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			Set<TableColumn> depIntersection = Q.intersection(projectedColumns,dep);
+			if (det!=null && dep!=null && projectedColumns.containsAll(det) && depIntersection.size()>0) {
+				Set<TableColumn> newDet = new HashSet<>();
 
 				for (TableColumn c : det) {
 					newDet.add(result.getSchema().get(columnIndexProjection.get(c.getColumnIndex())));
 				}
 
-				Collection<TableColumn> newDep = new ArrayList<>(dep.size());
-				for (TableColumn c : dep) {
+				Set<TableColumn> newDep = new HashSet<>();
+				for (TableColumn c : depIntersection) {
 					newDep.add(result.getSchema().get(columnIndexProjection.get(c.getColumnIndex())));
 				}
 
@@ -620,7 +634,7 @@ public class Table implements Serializable {
 		// create the result table
 		Table result = project(Q.intersection(getColumns(), projection));
 		result.getSchema().setFunctionalDependencies(new HashMap<>());
-		result.getSchema().setCandidateKeys(new LinkedList<>());
+		result.getSchema().setCandidateKeys(new HashSet<>());
 		result.clear();
 		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
 		for(Map.Entry<Integer, Integer> translation : projectColumnIndices(Q.intersection(getColumns(), projection)).entrySet()) {
@@ -740,15 +754,15 @@ public class Table implements Serializable {
 		result.setPath(getPath());
 
 		// copy functional dependencies
-		for (Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
-			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
-			Collection<TableColumn> newDet = new ArrayList<>(det.size());
+		for (Set<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+			Set<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			Set<TableColumn> newDet = new HashSet<>(det.size());
 
 			for (TableColumn c : det) {
 				newDet.add(result.getSchema().get(c.getColumnIndex()));
 			}
 
-			Collection<TableColumn> newDep = new ArrayList<>(dep.size());
+			Set<TableColumn> newDep = new HashSet<>(dep.size());
 			for (TableColumn c : dep) {
 				newDep.add(result.getSchema().get(c.getColumnIndex()));
 			}
@@ -765,7 +779,7 @@ public class Table implements Serializable {
 	}
 
 	public static enum ConflictHandling {
-		KeepFirst, KeepBoth, ReplaceNULLs
+		KeepFirst, KeepBoth, ReplaceNULLs, CreateList, CreateSet
 	}
 
 	/**
@@ -852,15 +866,15 @@ public class Table implements Serializable {
 						Object existingValue = existing.get(c.getColumnIndex());
 						Object duplicateValue = r.get(c.getColumnIndex());
 
-						if (existingValue != null && existingValue.equals(duplicateValue)) {
+						// if (existingValue != null && existingValue.equals(duplicateValue)) {
+						if(Q.equals(existingValue, duplicateValue, true)) {				// both values equal or both NULL
 							// equal values
-						}
-						if (existingValue == null && duplicateValue != null
-								|| existingValue != null && duplicateValue == null) {
+						} else if (existingValue == null && duplicateValue != null
+								|| existingValue != null && duplicateValue == null) {	// one value NULL
 							// conflict with a NULL value
 							equal = false;
 							nullIndices.add(c.getColumnIndex());
-						} else {
+						} else {														// different values
 							equal = false;
 							conflictingNullsOnly = false;
 						}
@@ -875,6 +889,43 @@ public class Table implements Serializable {
 							// a conflict between non-null values, we don't
 							// merge
 							continue;
+						} else if(conflictHandling == ConflictHandling.CreateList || conflictHandling == ConflictHandling.CreateSet) {
+							// if handling is set to create list or create set, we merge all values and  assign them to the first record
+							
+							for (TableColumn c : Q.without(getColumns(), key)) {
+								
+								Object existingValue = existing.get(c.getColumnIndex());
+								Object conflictingValue = r.get(c.getColumnIndex());
+								Collection<Object> values = null;
+								if(conflictHandling==ConflictHandling.CreateSet) {
+									values = new HashSet<>();
+								} else {
+									values = new LinkedList<>();
+								}
+
+								if(existingValue!=null) {
+									if(existingValue.getClass().isArray()) {
+										values.addAll(Q.toList((Object[])existingValue));
+									} else {
+										values.add(existingValue);
+									}
+								}
+
+								if(conflictingValue!=null) {
+									if(conflictingValue.getClass().isArray()) {
+										values.addAll(Q.toList((Object[])conflictingValue));
+									} else {
+										values.add(conflictingValue);
+									}
+								}
+								
+								if(values.size()<=1) {
+									// if the result has only one element, don't treat it as multi-valued
+									existing.set(c.getColumnIndex(), Q.firstOrDefault(values));
+								} else {
+									existing.set(c.getColumnIndex(), values.toArray());
+								}
+							}
 						} else {
 							// if handling is set to replace nulls, and there
 							// are only conflicts between values and nulls, we
@@ -904,7 +955,9 @@ public class Table implements Serializable {
 			}
 		}
 
-		reorganiseRowNumbers();
+		if(reorganiseRowNumbers) {
+			reorganiseRowNumbers();
+		}
 		
 		return duplicates;
 	}
@@ -973,6 +1026,23 @@ public class Table implements Serializable {
 		return densities;
 	}
 	
+	public Map<TableColumn, Integer> getNumberOfValuesPerColumn() {
+		Map<TableColumn, Integer> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					MapUtils.increment(valuesByColumn, c);
+				}
+				
+			}
+			
+		}
+
+		return valuesByColumn;
+	}
 	public Map<TableColumn, Double> getColumnUniqueness() {
 
 		Map<TableColumn, Double> uniqueness = new HashMap<>();
@@ -1031,5 +1101,20 @@ public class Table implements Serializable {
 		}
 		
 		return valuesByColumn;
+	}
+
+	public Set<String> getProvenance() {
+		
+		Set<String> tbls = new HashSet<>();
+		
+		for(TableColumn c : getColumns()) {
+			for(String prov : c.getProvenance()) {
+				
+				tbls.add(prov.split("~")[0]);
+				
+			}
+		}
+		
+		return tbls;
 	}
 }

@@ -11,18 +11,22 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.junit.Test;
+
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import de.uni_mannheim.informatik.dws.winter.webtables.Table.ConflictHandling;
 import junit.framework.TestCase;
 
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class TableTest extends TestCase {
+ public class TableTest extends TestCase {
 
 	private Table getTestTable() {
 		
@@ -61,6 +65,7 @@ public class TableTest extends TestCase {
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.Table#removeColumn(de.uni_mannheim.informatik.dws.winter.webtables.TableColumn)}.
 	 */
+	@Test
 	public void testRemoveColumn() {
 		Table table = getTestTable();
 		
@@ -141,6 +146,89 @@ public class TableTest extends TestCase {
 //		fail("Not yet implemented");
 	}
 	
+	@Test
+	public void testDeduplicate() {
+		Table t = new Table();
+		t.setPath("table1");
+		TableColumn c1 = new TableColumn(0, t);
+		c1.setHeader("A");
+		TableColumn c2 = new TableColumn(1, t);
+		c2.setHeader("B");
+		TableColumn c3 = new TableColumn(2, t);
+		c3.setHeader("C");
+		t.addColumn(c1);
+		t.addColumn(c2);
+		t.addColumn(c3);
+		TableRow r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", "a"});
+		TableRow r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", "a", "b"});
+		t.addRow(r1);
+		t.addRow(r2);
+
+		t.deduplicate(Q.toList(c1), ConflictHandling.KeepFirst);
+		assertEquals(1,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertEquals("a", t.get(0).get(1));
+		assertEquals("a", t.get(0).get(2));
+
+		t.clear();
+		r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", "a"});
+		r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", "a", "b"});
+		t.addRow(r1);
+		t.addRow(r2);
+		t.deduplicate(Q.toList(c1), ConflictHandling.KeepBoth);
+		assertEquals(2,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertEquals("a", t.get(0).get(1));
+		assertEquals("a", t.get(0).get(2));
+		assertEquals("a", t.get(1).get(0));
+		assertEquals("a", t.get(1).get(1));
+		assertEquals("b", t.get(1).get(2));
+
+		t.clear();
+		r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", null});
+		r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", null, "b"});
+		t.addRow(r1);
+		t.addRow(r2);
+		t.deduplicate(Q.toList(c1), ConflictHandling.ReplaceNULLs);
+		assertEquals(1,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertEquals("a", t.get(0).get(1));
+		assertEquals("b", t.get(0).get(2));
+
+		t.clear();
+		r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", "a"});
+		r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", "a", "b"});
+		t.addRow(r1);
+		t.addRow(r2);
+		t.deduplicate(Q.toList(c1), ConflictHandling.CreateList);
+		assertEquals(1,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertTrue(Arrays.equals(new Object[] { "a", "a" }, (Object[])t.get(0).get(1)));
+		assertTrue(Arrays.equals(new Object[] { "a", "b" }, (Object[])t.get(0).get(2)));
+	
+		t.clear();
+		r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", "a"});
+		r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", "a", "b"});
+		t.addRow(r1);
+		t.addRow(r2);
+		t.deduplicate(Q.toList(c1), ConflictHandling.CreateSet);
+		assertEquals(1,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertEquals("a", t.get(0).get(1));
+		assertTrue(Arrays.equals(new Object[] { "a", "b" }, (Object[])t.get(0).get(2)));
+	}
+
+	@Test
 	public void testJoin() throws Exception {
 		Table t1 = new Table();
 		t1.setPath("table1");

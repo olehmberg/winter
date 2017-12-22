@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -229,7 +228,7 @@ public class JsonTableParser extends TableParser {
 
 	protected void parseCandidateKeys(JsonTableSchema data, Table table) {
 		if (data.getCandidateKeys() != null && data.getCandidateKeys().length > 0) {
-			Collection<Set<TableColumn>> candidateKeys = new ArrayList<>(data.getCandidateKeys().length);
+			Set<Set<TableColumn>> candidateKeys = new HashSet<>();
 			for (Integer[] key : data.getCandidateKeys()) {
 				Set<TableColumn> cols = new HashSet<>(key.length);
 				for (Integer idx : key) {
@@ -243,14 +242,14 @@ public class JsonTableParser extends TableParser {
 
 	protected void parseDependencies(JsonTableSchema data, Table table) {
 		if (data.getFunctionalDependencies() != null && data.getFunctionalDependencies().length > 0) {
-			Map<Collection<TableColumn>, Collection<TableColumn>> dependencies = new HashMap<>();
+			Map<Set<TableColumn>, Set<TableColumn>> dependencies = new HashMap<>();
 			for (Dependency fd : data.getFunctionalDependencies()) {
 				if (fd.getDeterminant() != null) {
-					ArrayList<TableColumn> det = new ArrayList<>(fd.getDeterminant().length);
+					Set<TableColumn> det = new HashSet<>();
 					for (Integer i : fd.getDeterminant()) {
 						det.add(table.getSchema().get(i));
 					}
-					ArrayList<TableColumn> dep = new ArrayList<>(fd.getDeterminant().length);
+					Set<TableColumn> dep = new HashSet<>();
 					for (Integer i : fd.getDependant()) {
 						dep.add(table.getSchema().get(i));
 					}
