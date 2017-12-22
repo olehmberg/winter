@@ -102,17 +102,15 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	
 	public Collection<Collection<RecordType>> partitionRecords() {
 		// create more partitions than available threads so we can compensate for partitions which create less workload than others (so no thread runs idle)
-		int numPartitions = (Runtime.getRuntime().availableProcessors() * 10);
-		int partitionSize = (int)Math.floor(size() / numPartitions);
-		
+		int numPartitions = (Runtime.getRuntime().availableProcessors() * 10);		
+		numPartitions = Math.min(size(), numPartitions);
+
 		List<Collection<RecordType>> partitions = new LinkedList<>();
 		for(int i = 0; i < numPartitions; i++) {
 			partitions.add(new LinkedList<>());
 		}
 		int pIdx = 0;
-		
-//		Collection<RecordType> partition = new LinkedList<>();
-		
+
 		Iterator<RecordType> it = get().iterator();
 		
 		while(it.hasNext()) {
@@ -121,17 +119,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 			if(pIdx==numPartitions) {
 				pIdx=0;
 			}
-//			
-//			partition.add(it.next());
-//			
-//			if(partition.size()==partitionSize) {
-//				partitions.add(partition);
-//				partition = new LinkedList<>();
-//			}
 		}
-//		if(partition.size()>0) {
-//			partitions.add(partition);
-//		}
 		
 		return partitions;
 	}
@@ -156,7 +144,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 				}
 			}
 			
-		}, "ParallelProcessableCollection.map");
+		}, String.format("ParallelProcessableCollection.map: %d elements", size()));
 
 		resultCollector.finalise();
 		
@@ -182,7 +170,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 					groupBy.mapRecordToKey(r, groupCollector);
 				}
 			}
-		}, "ParallelProcessableCollection.group");
+		}, String.format("ParallelProcessableCollection.group: %d elements", size()));
 		
 		groupCollector.finalise();
 		
@@ -210,7 +198,7 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 					groupBy.mapRecordToKey(record, aggregateCollector);
 				}
 			}
-		}, "ParallelProcessableCollection.aggregate");
+		}, String.format("ParallelProcessableCollection.aggregate: %d elements", size()));
 		
 		aggregateCollector.finalise();
 		
