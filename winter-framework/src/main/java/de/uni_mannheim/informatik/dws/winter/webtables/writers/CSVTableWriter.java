@@ -18,7 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
-import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
