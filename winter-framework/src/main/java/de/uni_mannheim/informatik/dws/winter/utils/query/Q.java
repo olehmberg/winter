@@ -402,9 +402,9 @@ public class Q {
     		subset.remove(element);
     		result.add(subset);
     		
-    		if(subset.size()>1)
+    		if(subset.size()>0)
     		{
-    			result.addAll(getAllSubsets(subset));
+    			result.addAll(getAllProperSubsets(subset));
     		}
     	}
     	
@@ -429,7 +429,7 @@ public class Q {
     		if(subset.size()>0)
     		{
     			result.addAll(getAllSubsets(subset));
-    		}
+    		} 
     	}
     	
     	return result;
