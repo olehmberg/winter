@@ -211,7 +211,12 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	 */
 	@Override
 	public <OutputRecordType> Processable<OutputRecordType> map(Function<OutputRecordType, RecordType> transformation) {
-		return map((RecordType record, DataIterator<OutputRecordType> resultCollector) -> resultCollector.next(transformation.execute(record)));
+		return map((RecordType record, DataIterator<OutputRecordType> resultCollector) -> {
+			OutputRecordType result = transformation.execute(record);
+			if(result!=null) {
+				resultCollector.next(result);
+			}
+		});
 	}
 	
 	/**
