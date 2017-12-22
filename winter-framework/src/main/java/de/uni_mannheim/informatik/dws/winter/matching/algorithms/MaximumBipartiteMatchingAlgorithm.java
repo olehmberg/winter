@@ -120,10 +120,14 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 					graph.addVertex(cor.getFirstRecord());
 					graph.addVertex(cor.getSecondRecord());
 					DefaultWeightedEdge edge = graph.addEdge(cor.getFirstRecord(), cor.getSecondRecord());
-					graph.setEdgeWeight(edge,(int)( cor.getSimilarityScore() * 1000000)); // MaximumWeightBipartiteMatching only accepts integer weights ...
-					edgeToCorrespondence.put(edge, cor);
+					if(edge!=null) {
+						graph.setEdgeWeight(edge,(int)( cor.getSimilarityScore() * 1000000)); // MaximumWeightBipartiteMatching only accepts integer weights ...
+						edgeToCorrespondence.put(edge, cor);
+						sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
+					} else {
+						sb.append(String.format("\t%.6f\t%s <-> %s (skipped)\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
+					}
 					
-					sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
 				}
 				
 				// run the bipartite matching
