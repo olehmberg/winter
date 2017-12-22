@@ -22,6 +22,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
@@ -104,7 +105,12 @@ public class JsonTableWriter implements TableWriter {
 				TableRow r = rows.get(row);
 				Object v = r.get(c.getColumnIndex());
 				if(v!=null) {
-					values[row+1] = v.toString();
+					if(v.getClass().isArray()) {
+						List<String> stringValues = new ArrayList<>(Q.project(Q.toList((Object[])v), (o)->o==null?null:o.toString()));
+						ListHandler.formatList(stringValues);
+					} else {
+						values[row+1] = v.toString();
+					}
 				} else {
 					values[row+1] = null;
 				}
@@ -128,17 +134,21 @@ public class JsonTableWriter implements TableWriter {
 				}
 				
 				Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
-				int[] indicesDep = new int[dep.size()];
-				idx = 0;
-				for(TableColumn c : dep) {
-					indicesDep[idx++] = c.getColumnIndex();
+				if(dep!=null) {
+					// if the table has changed since the FDs were calculated, dep can be null
+					// in this case, we assume that the FDs are not valid anymore and don't write them to the file
+					int[] indicesDep = new int[dep.size()];
+					idx = 0;
+					for(TableColumn c : dep) {
+						indicesDep[idx++] = c.getColumnIndex();
+					}
+					
+					fd.setDeterminant(indicesDet);
+					fd.setDependant(indicesDep);
+					fd.setProbability(1.0);
+					
+					functionalDependencies.add(fd);
 				}
-				
-				fd.setDeterminant(indicesDet);
-				fd.setDependant(indicesDep);
-				fd.setProbability(1.0);
-				
-				functionalDependencies.add(fd);
 			}
 			
 			data.setFunctionalDependencies(functionalDependencies.toArray(new Dependency[functionalDependencies.size()]));
