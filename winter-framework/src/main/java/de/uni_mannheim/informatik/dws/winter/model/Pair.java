@@ -99,4 +99,9 @@ public class Pair<T, U> implements Serializable {
 		
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("(%s,%s)", first, second);
+	}
 }
