@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-
+import org.junit.Test;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
@@ -29,6 +29,7 @@ public class PartitioningWithPositiveAndNegativeEdgesTest extends TestCase {
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.clustering.PartitioningWithPositiveAndNegativeEdges#createResult()}.
 	 */
+	@Test
 	public void testCreateResult() {
 		
 		PartitioningWithPositiveAndNegativeEdges<String> clusterer = new PartitioningWithPositiveAndNegativeEdges<>(0.0);
@@ -44,6 +45,17 @@ public class PartitioningWithPositiveAndNegativeEdgesTest extends TestCase {
 		clusterer.addEdge(new Triple<String, String, Double>("3", "5", 0.8));
 		clusterer.addEdge(new Triple<String, String, Double>("4", "5", 0.6));
 		
+		clusterer.addEdge(new Triple<String, String, Double>("2", "1", 0.67));
+		clusterer.addEdge(new Triple<String, String, Double>("3", "1", 0.5));
+		clusterer.addEdge(new Triple<String, String, Double>("3", "1", -0.5));
+		clusterer.addEdge(new Triple<String, String, Double>("4", "1", -0.7));
+		clusterer.addEdge(new Triple<String, String, Double>("3", "2", 0.33));
+		clusterer.addEdge(new Triple<String, String, Double>("3", "2", -0.33));
+		clusterer.addEdge(new Triple<String, String, Double>("5", "2", 0.67));
+		clusterer.addEdge(new Triple<String, String, Double>("4", "3", 0.7));
+		clusterer.addEdge(new Triple<String, String, Double>("5", "3", 0.8));
+		clusterer.addEdge(new Triple<String, String, Double>("5", "4", 0.6));
+
 		Map<Collection<String>, String> clustering = clusterer.createResult();
 		
 		for(Collection<String> cluster : clustering.keySet()) {

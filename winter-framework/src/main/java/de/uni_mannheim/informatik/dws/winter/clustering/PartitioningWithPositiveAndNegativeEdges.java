@@ -67,6 +67,9 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 
 		clusterAssignment = new HashMap<>();
 
+		// make sure no edges was added multiple times
+		similarityGraph = new HashSet<>(similarityGraph);
+
 		// iterate over all edges
 		for(Triple<T, T, Double> edge : similarityGraph) {
 			
@@ -103,6 +106,9 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 		for(T node : nodes) {
 			clusterAssignment.put(node, Q.toSet(node));
 		}
+		if(log) {
+			printNodes();
+		}
 		
 		// initialise edges between partitions
 		Map<Set<T>, Map<Set<T>, Pair<Double, Double>>> clusterEdges = new HashMap<>();
@@ -129,9 +135,9 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 			map2.put(clusterAssignment.get(e.getFirst()), scores);
 		}
 		
-		if(log) {
-			printGraph(clusterEdges);
-		}
+		// if(log) {
+		// 	printGraph(clusterEdges);
+		// }
 		
 		while(true) {
 			
@@ -159,12 +165,13 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 			updateEdges(clusterEdges, bestEdge, mergedPartition);
 			
 			// remove the partitions that are connected by the selected edge and all their edges from the graph
-			clusterEdges.remove(bestEdge.getFirst());
-			clusterEdges.remove(bestEdge.getSecond());
+			// clusterEdges.remove(bestEdge.getFirst());
+			// clusterEdges.remove(bestEdge.getSecond());
+			removeAllEdges(bestEdge, clusterEdges);
 			
-			if(log) {
-				printGraph(clusterEdges);
-			}
+			// if(log) {
+			// 	printGraph(clusterEdges);
+			// }
 		}
 		
 		// format result
@@ -175,6 +182,26 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 		return result;
 	}
 	
+	private void removeAllEdges(Triple<Set<T>, Set<T>, Pair<Double,Double>> edge, Map<Set<T>, Map<Set<T>, Pair<Double, Double>>> clusterEdges) {
+		for(Set<T> n1 : clusterEdges.keySet()) {
+			Map<Set<T>, Pair<Double, Double>> map2 = clusterEdges.get(n1);
+	
+			map2.remove(edge.getFirst());
+			map2.remove(edge.getSecond());
+
+		}
+
+		clusterEdges.remove(edge.getFirst());
+		clusterEdges.remove(edge.getSecond());
+	}
+
+	private void printNodes() {
+		System.out.println("[PartitioningWithPositiveAndNegativeEdges] Nodes:");
+		for(T node : nodes) {
+			System.out.println(String.format("\t%s", node.toString()));
+		}
+	}
+
 	private void printGraph(Map<Set<T>, Map<Set<T>, Pair<Double, Double>>> clusterEdges) {
 		System.out.println("***********************************************");
 		for(Set<T> n1 : clusterEdges.keySet()) {
