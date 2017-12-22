@@ -343,21 +343,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			// check if there is a schema correspondence that we can pass on to the comparator
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence = null;
 			if(schemaCorrespondences!=null) {
-				Processable<Correspondence<SchemaElementType, Matchable>> matchingSchemaCorrespondences = schemaCorrespondences
-						// first filter correspondences to make sure we only use correspondences between the data sources of record1 and record2
-					.where((c)->
-						c.getFirstRecord().getDataSourceIdentifier()==record1.getDataSourceIdentifier()
-						&&
-						c.getSecondRecord().getDataSourceIdentifier()==record2.getDataSourceIdentifier()
-						)
-						// then filter the remaining correspondences based on the comparators arguments, if present
-					.where((c)->
-						(comp.getFirstSchemaElement()==null || comp.getFirstSchemaElement()==c.getFirstRecord())
-						&&
-						(comp.getSecondSchemaElement()==null || comp.getSecondSchemaElement()==c.getSecondRecord())
-						);
-				// after the filtering, there should only be one correspondence left (if not, the mapping is ambiguous)
-				schemaCorrespondence = matchingSchemaCorrespondences.firstOrNull();
+				schemaCorrespondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
 			}
 			
 			double similarity = comp.compare(record1, record2, schemaCorrespondence);

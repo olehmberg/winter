@@ -59,9 +59,9 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 					)
 					// then filter the remaining correspondences based on the comparators arguments, if present
 				.where((c)->
-					(comparator.getFirstSchemaElement()==null || comparator.getFirstSchemaElement()==c.getFirstRecord())
+					(comparator.getFirstSchemaElement(record1)==null || comparator.getFirstSchemaElement(record1).equals(c.getFirstRecord()))
 					&&
-					(comparator.getSecondSchemaElement()==null || comparator.getSecondSchemaElement()==c.getSecondRecord())
+					(comparator.getSecondSchemaElement(record2)==null || comparator.getSecondSchemaElement(record2).equals(c.getSecondRecord()))
 					);
 			// after the filtering, there should only be one correspondence left (if not, the mapping is ambiguous)
 			return matchingSchemaCorrespondences.firstOrNull();
