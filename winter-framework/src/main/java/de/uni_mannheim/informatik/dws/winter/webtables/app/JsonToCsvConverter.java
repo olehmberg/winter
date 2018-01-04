@@ -18,7 +18,10 @@ import com.beust.jcommander.Parameter;
 
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
 import de.uni_mannheim.informatik.dws.winter.utils.FileUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableParser;
 import de.uni_mannheim.informatik.dws.winter.webtables.writers.CSVTableWriter;
 
@@ -33,7 +36,10 @@ public class JsonToCsvConverter extends Executable {
 	
 	@Parameter(names = "-result", required=true)
 	private String resultLocation;
-	
+
+	@Parameter(names = "-addRowProvenance")
+	private boolean addRowProcenance;
+
 	public static void main(String[] args) throws IOException {
 		JsonToCsvConverter conv = new JsonToCsvConverter();
 		
@@ -63,6 +69,15 @@ public class JsonToCsvConverter extends Executable {
 			
 			Table t = p.parseTable(f);
 			
+			if(addRowProcenance) {
+				TableColumn prov = new TableColumn(t.getColumns().size(), t);
+				prov.setHeader("Row provenance");
+				t.insertColumn(prov.getColumnIndex(), prov);
+				for(TableRow r : t.getRows()) {
+					r.set(prov.getColumnIndex(), StringUtils.join(r.getProvenance(), " "));
+				}
+			}
+
 			w.write(t, new File(resultFile, t.getPath()));
 		}
 		
