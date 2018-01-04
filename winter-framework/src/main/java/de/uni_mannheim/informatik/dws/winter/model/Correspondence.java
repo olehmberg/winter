@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
+import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
@@ -358,6 +359,10 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		public RecordId(String identifier) {
 			this.identifier = identifier;
 		}
+	}
+	
+	public static <RecordType extends Matchable> void writeToCsv(File location, Processable<Correspondence<RecordType, Matchable>> correspondences) throws IOException {
+		new CSVCorrespondenceFormatter().writeCSV(location, correspondences);
 	}
 	
 	public static Processable<Correspondence<RecordId, RecordId>> loadFromCsv(File location) throws IOException {
