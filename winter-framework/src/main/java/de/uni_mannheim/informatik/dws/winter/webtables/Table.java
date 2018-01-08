@@ -28,6 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Consumer;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Parallel;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
@@ -838,8 +839,13 @@ public class Table implements Serializable {
 		// chosen key
 		HashMap<List<Object>, TableRow> seenKeyValues = new HashMap<>();
 
+		// use a linked list during de-duplication, which has O(1) cost for removing entries
+		// LinkedList<TableRow> linkedRows = new LinkedList<>(getRows());
+		ArrayList<TableRow> deduplicatedRows = new ArrayList<>(getRows().size());
+
 		// iterate the table row by row
 		Iterator<TableRow> rowIt = getRows().iterator();
+		// Iterator<TableRow> rowIt = linkedRows.iterator();
 		while (rowIt.hasNext()) {
 			TableRow r = rowIt.next();
 
@@ -848,6 +854,8 @@ public class Table implements Serializable {
 			for (TableColumn c : key) {
 				keyValues.add(r.get(c.getColumnIndex()));
 			}
+
+			boolean keepRow = true;
 
 			// check if the key values have been seen before
 			if (seenKeyValues.containsKey(keyValues)) {
@@ -888,7 +896,8 @@ public class Table implements Serializable {
 							// if handling is set to replace nulls, but there is
 							// a conflict between non-null values, we don't
 							// merge
-							continue;
+							// continue;
+							keepRow = true;
 						} else if(conflictHandling == ConflictHandling.CreateList || conflictHandling == ConflictHandling.CreateSet) {
 							// if handling is set to create list or create set, we merge all values and  assign them to the first record
 							
@@ -926,6 +935,8 @@ public class Table implements Serializable {
 									existing.set(c.getColumnIndex(), values.toArray());
 								}
 							}
+
+							keepRow = false;
 						} else {
 							// if handling is set to replace nulls, and there
 							// are only conflicts between values and nulls, we
@@ -936,15 +947,22 @@ public class Table implements Serializable {
 									existing.set(idx, r.get(idx));
 								}
 							}
+
+							keepRow = false;
 						}
 					}
+				} else {
+					keepRow = false;
 				}
 
-				// remove the duplicate row
-				rowIt.remove();
-				// and add the table name of the duplicate row to the existing
-				// row
-				existing.addProvenanceForRow(r);
+				if(!keepRow) {
+					// remove the duplicate row
+					// rowIt.remove();
+					
+					// and add the table name of the duplicate row to the existing
+					// row
+					existing.addProvenanceForRow(r);
+				}
 			} else {
 				// if not, add the current key values to the list of seen values
 				seenKeyValues.put(keyValues, r);
@@ -953,7 +971,17 @@ public class Table implements Serializable {
 				// source information if later rows are merged with this one)
 				// r.addProvenanceForRow(r);
 			}
+
+			if(keepRow) {
+				// add the row to the output
+				deduplicatedRows.add(r);
+			}
 		}
+
+		// re-create the array list
+		// setRows(new ArrayList<>(linkedRows));
+		setRows(deduplicatedRows);
+		rows.trimToSize();
 
 		if(reorganiseRowNumbers) {
 			reorganiseRowNumbers();
@@ -1116,5 +1144,25 @@ public class Table implements Serializable {
 		}
 		
 		return tbls;
+	}
+
+	public String formatFunctionalDependencies() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("Table #%d %s: {%s}\n", getTableId(), getPath(), StringUtils.join(Q.project(getColumns(), (c)->c.getHeader()), ",")));
+		sb.append("*** Functional Dependencies\n");
+		for(Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			sb.append(String.format("\t{%s} -> {%s}\n", 
+					StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
+					StringUtils.join(Q.project(dep, new TableColumn.ColumnHeaderProjection()), ",")
+					));
+		}
+		sb.append("*** Candidate Keys\n");
+		for(Collection<TableColumn> key : getSchema().getCandidateKeys()) {
+			sb.append(String.format("\t{%s}\n", 
+					StringUtils.join(Q.project(key, new TableColumn.ColumnHeaderProjection()), ",")
+					));
+		}
+		return sb.toString();
 	}
 }
