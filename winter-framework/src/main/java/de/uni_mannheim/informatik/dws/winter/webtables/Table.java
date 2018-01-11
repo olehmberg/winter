@@ -780,7 +780,7 @@ public class Table implements Serializable {
 	}
 
 	public static enum ConflictHandling {
-		KeepFirst, KeepBoth, ReplaceNULLs, CreateList, CreateSet
+		KeepFirst, KeepBoth, ReplaceNULLs, CreateList, CreateSet, ReturnConflicts
 	}
 
 	/**
@@ -820,9 +820,8 @@ public class Table implements Serializable {
 	 * conflicts and the ConflictHandling is applied:
 	 * ConflictHandling.KeepFirst: The first record is kept, all others are
 	 * removed ConflictHandling.KeepBoth: All conflicting records are kept
-	 * ConflictHandling.ReplaceNULLs: Like KeepBoth, but if conflicts are only
-	 * between a value and a NULL, the NULLs are replaced such that only one
-	 * record needs to be kept
+	 * ConflictHandling.ReplaceNULLs: Like KeepBoth, but if conflicts are only between a value and a NULL, the NULLs are replaced such that only one record needs to be kept
+	 * ConflictHandling.ReturnConflicts: Like KeepBoth, but returns the conflicts instead of the duplicates
 	 * 
 	 * @param key
 	 * @param conflictHandling
@@ -862,7 +861,9 @@ public class Table implements Serializable {
 
 				TableRow existing = seenKeyValues.get(keyValues);
 
-				duplicates.add(new Pair<>(existing, r));
+				if(conflictHandling != ConflictHandling.ReturnConflicts) {
+					duplicates.add(new Pair<>(existing, r));
+				}
 				
 				if (conflictHandling != ConflictHandling.KeepFirst) {
 
@@ -898,7 +899,10 @@ public class Table implements Serializable {
 							// merge
 							// continue;
 							keepRow = true;
-						} else if(conflictHandling == ConflictHandling.CreateList || conflictHandling == ConflictHandling.CreateSet) {
+						} else if(conflictHandling == ConflictHandling.ReturnConflicts) {
+							duplicates.add(new Pair<>(existing, r));
+							keepRow = true;
+					 	} else if(conflictHandling == ConflictHandling.CreateList || conflictHandling == ConflictHandling.CreateSet) {
 							// if handling is set to create list or create set, we merge all values and  assign them to the first record
 							
 							for (TableColumn c : Q.without(getColumns(), key)) {
