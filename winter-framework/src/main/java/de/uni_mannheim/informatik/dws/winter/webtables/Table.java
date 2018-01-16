@@ -564,11 +564,12 @@ public class Table implements Serializable {
 		result.setPath(getPath());
 
 		// copy functional dependencies
-		for (Set<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+		for(Pair<Set<TableColumn>,Set<TableColumn>> fd : Pair.fromMap(getSchema().getFunctionalDependencies())) {
+			Set<TableColumn> det = fd.getFirst();
 
-			Set<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			Set<TableColumn> dep = fd.getSecond();
 			Set<TableColumn> depIntersection = Q.intersection(projectedColumns,dep);
-			if (det!=null && dep!=null && projectedColumns.containsAll(det) && depIntersection.size()>0) {
+			if (projectedColumns.containsAll(det) && depIntersection.size()>0) {
 				Set<TableColumn> newDet = new HashSet<>();
 
 				for (TableColumn c : det) {
