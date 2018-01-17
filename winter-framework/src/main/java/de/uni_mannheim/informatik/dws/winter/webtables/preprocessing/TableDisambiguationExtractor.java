@@ -85,12 +85,13 @@ public class TableDisambiguationExtractor {
 				
 				if(percentDisambiguated>=0.05) {
 					
-					TableColumn newCol = new TableColumn(t.getColumns().size(), t);
-					newCol.setDataType(c.getDataType());
+					// TableColumn newCol = new TableColumn(t.getColumns().size(), t);
+					// newCol.setDataType(c.getDataType());
 					
-					if(c.getHeader()!=null && !"".equals(c.getHeader())) {
-						newCol.setHeader(String.format("Disambiguation of %s", c.getHeader()));
-					}
+					// if(c.getHeader()!=null && !"".equals(c.getHeader())) {
+					// 	newCol.setHeader(String.format("Disambiguation of %s", c.getHeader()));
+					// }
+					TableColumn newCol = createDisambiguationColumn(c);
 					
 					t.insertColumn(newCol.getColumnIndex(), newCol);
 					
@@ -130,5 +131,16 @@ public class TableDisambiguationExtractor {
 		
 		return tableToColumnToDisambiguation;
 	}
-	
+
+	public TableColumn createDisambiguationColumn(TableColumn forColumn) {
+		TableColumn newCol = new TableColumn(forColumn.getTable().getColumns().size(), forColumn.getTable());
+		newCol.setDataType(forColumn.getDataType());
+		
+		if(forColumn.getHeader()!=null && !"".equals(forColumn.getHeader())) {
+			newCol.setHeader(String.format("Disambiguation of %s", forColumn.getHeader()));
+		}
+		
+		return newCol;
+	}
+
 }
