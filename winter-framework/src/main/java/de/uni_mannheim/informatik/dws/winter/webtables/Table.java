@@ -537,6 +537,27 @@ public class Table implements Serializable {
 		return columnIndexProjection;
 	}
 	
+	/**
+	 * Returns the functional dependencies which will still exist if the table is projected using the specified columns.
+	 * The result uses the columns of this Table instance and does not create new column instances.
+	 */
+	public Map<Set<TableColumn>,Set<TableColumn>> projectFunctionalDependencies(Collection<TableColumn> projectedColumns) throws Exception {
+		Map<Set<TableColumn>,Set<TableColumn>> result = new HashMap<>();
+
+		// copy functional dependencies
+		for(Pair<Set<TableColumn>,Set<TableColumn>> fd : Pair.fromMap(getSchema().getFunctionalDependencies())) {
+			Set<TableColumn> det = fd.getFirst();
+
+			Set<TableColumn> dep = fd.getSecond();
+			Set<TableColumn> depIntersection = Q.intersection(projectedColumns,dep);
+			if (projectedColumns.containsAll(det) && depIntersection.size()>0) {
+				result.put(det, depIntersection);
+			}
+		}
+
+		return result;
+	}
+
 	public Table project(Collection<TableColumn> projectedColumns) throws Exception {
 		return project(projectedColumns, true);
 	}
