@@ -84,13 +84,6 @@ public class TableDisambiguationExtractor {
 				double percentDisambiguated = values.size() / (double)t.getRows().size();
 				
 				if(percentDisambiguated>=0.05) {
-					
-					// TableColumn newCol = new TableColumn(t.getColumns().size(), t);
-					// newCol.setDataType(c.getDataType());
-					
-					// if(c.getHeader()!=null && !"".equals(c.getHeader())) {
-					// 	newCol.setHeader(String.format("Disambiguation of %s", c.getHeader()));
-					// }
 					TableColumn newCol = createDisambiguationColumn(c);
 					
 					t.insertColumn(newCol.getColumnIndex(), newCol);
