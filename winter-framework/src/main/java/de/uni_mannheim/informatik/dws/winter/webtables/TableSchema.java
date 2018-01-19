@@ -96,6 +96,7 @@ public class TableSchema implements Serializable {
 		// update columns by id
 		columnsById.clear();
 		for(TableColumn c: columns) {
+			c.updateIdentifier();
 			columnsById.put(c.getIdentifier(), c);
 		}
 

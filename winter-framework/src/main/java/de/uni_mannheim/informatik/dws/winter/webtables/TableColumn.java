@@ -120,7 +120,8 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 	private Unit unit;
 	private List<String> provenance;
 	private Collection<String> synonyms;
-	
+	private String identifier=null;
+
 	public TableColumn() {
 		provenance = new LinkedList<>();
 		synonyms = new LinkedList<>();
@@ -131,6 +132,7 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 		this.table = table;
 		provenance = new LinkedList<>();
 		synonyms = new LinkedList<>();
+		updateIdentifier();
 	}
 	
 	public void addProvenanceForColumn(TableColumn column) {
@@ -142,8 +144,12 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 		}
 	}
 	
+	public void updateIdentifier() {
+		identifier = String.format("%s~Col%s", table.getPath(), columnIndex);
+	}
+
 	public String getIdentifier() {
-		return String.format("%s~Col%s", table.getPath(), columnIndex);
+		return identifier;
 	}
 	
 	public String getUniqueName() {
@@ -169,6 +175,7 @@ public class TableColumn implements Serializable, Comparable<TableColumn> {
 	}
 	public void setColumnIndex(int columnIndex) {
 		this.columnIndex = columnIndex;
+		updateIdentifier();
 	}
 	
 	public Table getTable() {
