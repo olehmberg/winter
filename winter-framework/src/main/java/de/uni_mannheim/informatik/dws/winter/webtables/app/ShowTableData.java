@@ -31,6 +31,7 @@ import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
+import de.uni_mannheim.informatik.dws.winter.webtables.parsers.CsvTableParser;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableParser;
 import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableDisambiguationExtractor;
 import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableNumberingExtractor;
@@ -95,6 +96,9 @@ public class ShowTableData extends Executable {
 		JsonTableParser p = new JsonTableParser();
 		JsonTableWriter w = new JsonTableWriter();
 		p.setConvertValues(convertValues | detectKey);
+
+		CsvTableParser csvP = new CsvTableParser();
+		csvP.setConvertValues(convertValues | detectKey);
 		
 		String[] files = getParams().toArray(new String[getParams().size()]);
 		
@@ -124,7 +128,14 @@ public class ShowTableData extends Executable {
 				f = new File(dir,s);
 			}
 			
-			t = p.parseTable(f);
+			if(s.endsWith("json")) {
+				t = p.parseTable(f);
+			} else if(s.endsWith("csv")) {
+				t = csvP.parseTable(f);
+			} else {
+				System.err.println(String.format("Unknown table format '%s' (must be .json or .csv)", f.getName()));
+				continue;
+			}
 			
 			if(applyPreprocessing) {
 				new TableDisambiguationExtractor().extractDisambiguations(Q.toList(t));
@@ -171,9 +182,11 @@ public class ShowTableData extends Executable {
 				TableContext ctx = t.getContext();
 				
 				System.out.println(String.format("*** Table %s ***", s));
-				System.out.println(String.format("* URL: %s", ctx.getUrl()));
-				System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
-				System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
+				if(ctx!=null) {
+					System.out.println(String.format("* URL: %s", ctx.getUrl()));
+					System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
+					System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
+				}
 				System.out.println(String.format("* # Columns: %d", t.getColumns().size()));
 				System.out.println(String.format("* # Rows: %d", t.getRows().size()));
 				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
