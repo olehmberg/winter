@@ -269,24 +269,28 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						
 						BlockedType record2 = p2.getFirst();
 						
-						Processable<Correspondence<CorrespondenceType, Matchable>> causes = 
-								new ProcessableCollection<>(p1.getSecond())
-								.append(p2.getSecond())
-								.distinct();
-						
-						int[] pairIds = new int[] { p1.getFirst().getDataSourceIdentifier(), p2.getFirst().getDataSourceIdentifier() };
-						Arrays.sort(pairIds);
-						
-						// filter the correspondences such that only correspondences between the two records are contained (by data source id)
-						causes = causes.where((c)-> {
-						
-							int[] causeIds = new int[] { c.getFirstRecord().getDataSourceIdentifier(), c.getSecondRecord().getDataSourceIdentifier() };
-							Arrays.sort(causeIds);
+						if(schemaCorrespondences!=null) {
+							Processable<Correspondence<CorrespondenceType, Matchable>> causes = 
+									new ProcessableCollection<>(p1.getSecond())
+									.append(p2.getSecond())
+									.distinct();
 							
-							return Arrays.equals(pairIds, causeIds);
-						});
-						
-						resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, causes));
+							int[] pairIds = new int[] { p1.getFirst().getDataSourceIdentifier(), p2.getFirst().getDataSourceIdentifier() };
+							Arrays.sort(pairIds);
+							
+							// filter the correspondences such that only correspondences between the two records are contained (by data source id)
+							causes = causes.where((c)-> {
+							
+								int[] causeIds = new int[] { c.getFirstRecord().getDataSourceIdentifier(), c.getSecondRecord().getDataSourceIdentifier() };
+								Arrays.sort(causeIds);
+								
+								return Arrays.equals(pairIds, causeIds);
+							});
+							
+							resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, causes));
+						} else {
+							resultCollector.next(new Correspondence<BlockedType, CorrespondenceType>(record1, record2, 1.0, null));
+						}
 						
 					}
 					
