@@ -191,6 +191,7 @@ public class JsonTableParser extends TableParser {
 		int[] skipRows = ArrayUtils.addAll(emptyRowCount, headerRowIndex);
 		skipRows = ArrayUtils.addAll(skipRows, sumRowCount);
 		populateTable(data.getRelation(), t, skipRows);
+		System.gc();
 
 		parseProvenance(data, t);
 
@@ -199,6 +200,7 @@ public class JsonTableParser extends TableParser {
 		} else if (isInferSchema()) {
 			t.inferSchema(this.getTypeDetector());
 		}
+		System.gc();
 
 		if (mapping != null) {
 			t.setMapping(mapping);
