@@ -1015,8 +1015,11 @@ public class Table implements Serializable {
 		
 		return duplicates;
 	}
-	
-	public Collection<TableRow> findUniquenessViolations(Collection<TableColumn> uniqueColumnCombination) {
+
+	/**
+	 * checks for duplicate values of the provided column combination and returns all rows which contain duplicate values.
+	 */
+	public Set<TableRow> findUniquenessViolations(Collection<TableColumn> uniqueColumnCombination) {
 		// use the provided key to perform duplicate detection
 		// keep a map of (key values)->(first row with these values) for the
 		// chosen key
