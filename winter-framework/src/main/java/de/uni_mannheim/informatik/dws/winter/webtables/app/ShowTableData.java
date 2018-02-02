@@ -95,10 +95,10 @@ public class ShowTableData extends Executable {
 		
 		JsonTableParser p = new JsonTableParser();
 		JsonTableWriter w = new JsonTableWriter();
-		p.setConvertValues(convertValues | detectKey);
+		// p.setConvertValues(convertValues | detectKey);
 
 		CsvTableParser csvP = new CsvTableParser();
-		csvP.setConvertValues(convertValues | detectKey);
+		// csvP.setConvertValues(convertValues | detectKey);
 		
 		String[] files = getParams().toArray(new String[getParams().size()]);
 		
@@ -142,6 +142,10 @@ public class ShowTableData extends Executable {
 				new TableNumberingExtractor().extractNumbering(Q.toList(t));
 			}
 			
+			if(convertValues) {
+				t.convertValues();
+			}
+
 			// update the table if requested
 			if(detectKey) {
 				t.identifySubjectColumn(0.3,true);
