@@ -352,12 +352,30 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		 */
 		@Override
 		public String getProvenance() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
 		public RecordId(String identifier) {
 			this.identifier = identifier;
+		}
+
+		@Override
+		public String toString() {
+			return identifier;
+		}
+
+		@Override
+		public int hashCode() {
+			return identifier.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof RecordId) {
+				return identifier.equals(((RecordId)obj).getIdentifier());
+			} else {
+				return false;
+			}
 		}
 	}
 	
