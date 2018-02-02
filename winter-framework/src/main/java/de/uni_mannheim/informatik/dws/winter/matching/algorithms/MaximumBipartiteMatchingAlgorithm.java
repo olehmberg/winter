@@ -43,6 +43,15 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 	private boolean groupByLeftDataSource = false;
 	private boolean groupByRightDataSource = false;
 	
+	private boolean verbose = false;
+
+	/**
+	 * @param verbose the verbose to set
+	 */
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
+
 	/**
 	 * 
 	 * Specifies if correspondences should first be grouped by the data source ID of the left-hand side of the correspondences.
@@ -144,7 +153,9 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 					sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
 				}
 				
-//				System.out.println(sb.toString());
+				if(verbose) {
+					System.out.println(sb.toString());
+				}
 			}
 		});
 
