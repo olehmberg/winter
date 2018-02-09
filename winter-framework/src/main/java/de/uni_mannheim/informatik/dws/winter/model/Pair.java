@@ -11,13 +11,13 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model;
 
-import de.uni_mannheim.informatik.dws.winter.processing.Function;
-import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.uni_mannheim.informatik.dws.winter.processing.Function;
 
 /**
  * A pair of two objects.
