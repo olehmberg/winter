@@ -11,10 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.Test;
 
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
