@@ -21,8 +21,10 @@ public class ThreadSafeProcessableCollector<RecordType> extends ProcessableColle
 	@Override
 	public void next(RecordType record) {		
 		Processable<RecordType> localResult = intermediateResults.get();
-		
-		localResult.add(record);
+	
+		if(record!=null) {
+			localResult.add(record);
+		}
 	}
 	
 	@Override
