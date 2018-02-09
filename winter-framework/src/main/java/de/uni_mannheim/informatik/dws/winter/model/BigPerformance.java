@@ -88,11 +88,23 @@ public class BigPerformance extends Performance {
 		return created.intValue();
 	}
 	
+	public BigDecimal getNumberOfPredicedBig() {
+		return created;
+	}
+
 	public int getNumberOfCorrectlyPredicted() {
 		return correct.intValue();
 	}
 	
+	public BigDecimal getNumberOfCorrectlyPredictedBig() {
+		return correct;
+	}
+
 	public int getNumberOfCorrectTotal() {
 		return correct_total.intValue();
+	}
+
+	public BigDecimal getNumberOfCorrectTotalBig() {
+		return correct_total;
 	}
 }
