@@ -470,7 +470,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		if(correspondences==null) {
 			return null;
 		} else {
-			Processable<Correspondence<RecordType, Matchable>> result = new ProcessableCollection<>();
+			Processable<Correspondence<RecordType, Matchable>> result = correspondences.createProcessable((Correspondence<RecordType, Matchable>)null);
 			for(CorType cor : correspondences.get()) {
 				
 				Correspondence<RecordType, Matchable> simple = new Correspondence<RecordType, Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), toMatchable2(cor.getCausalCorrespondences()));
