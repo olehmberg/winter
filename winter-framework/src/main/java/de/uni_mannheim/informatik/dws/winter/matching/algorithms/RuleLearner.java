@@ -30,6 +30,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import edu.stanford.nlp.util.StringUtils;
@@ -135,8 +136,8 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 				+ goldStandard.getNegativeExamples().size(), "GenerateFeatures");
 
 		// create positive examples
-		for (Pair<String, String> correspondence : goldStandard
-				.getPositiveExamples()) {
+		Processable<Record> positiveExamples = new ParallelProcessableCollection<>(goldStandard.getPositiveExamples())
+			.map((Pair<String, String> correspondence) -> {
 			RecordType record1 = dataset1.getRecord(correspondence.getFirst());
 			RecordType record2 = dataset2.getRecord(correspondence.getSecond());
 
@@ -151,17 +152,15 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			if (record1 != null && record2 != null) {
 				Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
 				features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "1");
-				result.add(features);
+				return features;
+			} else {
+				return null;
 			}
-
-			// increment and report status
-			progress.incrementProgress();
-			progress.report();
-		}
+		});
 
 		// create negative examples
-		for (Pair<String, String> correspondence : goldStandard
-				.getNegativeExamples()) {
+		Processable<Record> negativeExamples = new ParallelProcessableCollection<>(goldStandard.getNegativeExamples())
+			.map((Pair<String, String> correspondence) -> {
 			RecordType record1 = dataset1.getRecord(correspondence.getFirst());
 			RecordType record2 = dataset2.getRecord(correspondence.getSecond());
 
@@ -176,12 +175,18 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			if (record1 != null && record2 != null) {
 				Record features = rule.generateFeatures(record1, record2, Correspondence.toMatchable(schemaCorrespondences), result);
 				features.setValue(FeatureVectorDataSet.ATTRIBUTE_LABEL, "0");
-				result.add(features);
+				// result.add(features);
+				return features;
+			} else {
+				return null;
 			}
+		});
 
-			// increment and report status
-			progress.incrementProgress();
-			progress.report();
+		for(Record r : positiveExamples.get()) {
+			result.add(r);
+		}
+		for(Record r : negativeExamples.get()) {
+			result.add(r);
 		}
 
 		// report total time
