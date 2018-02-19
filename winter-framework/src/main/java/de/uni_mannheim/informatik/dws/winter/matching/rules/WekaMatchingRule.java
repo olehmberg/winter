@@ -420,7 +420,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence, schemaCorrespondences);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(String.format("[WekaMatchingRule] Classifier Exception for Record '%s': %s",
+				matchRecord==null ? "null" : matchRecord.toString(),
+				e.getMessage()
+			));
 		}
 		return null;
 	}
