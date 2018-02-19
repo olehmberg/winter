@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.webtables;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -255,8 +256,21 @@ public class Table implements Serializable {
 			subjectColumnIndex++;
 		}
 
-		getSchema().insertColumn(index, c);
+		// update column mapping
+		if(getMapping().getMappedProperties()!=null) {
+			Pair<String,Double>[] columnMapping = Arrays.copyOf(getMapping().getMappedProperties(), getMapping().getMappedProperties().length);
+			for(int i = 0; i < getColumns().size(); i++) {
+				if(i>=index) {
+					getMapping().setMappedProperty(i+1, columnMapping[i]);
+				}
+			}
+			getMapping().setMappedProperty(index, null);
+		}
 
+		// insert the new column
+		getSchema().insertColumn(index, c);
+		
+		// update row values
 		for (TableRow r : getRows()) {
 			Object[] oldValues = r.getValueArray();
 			Object[] newValues = new Object[oldValues.length + 1];
@@ -976,6 +990,8 @@ public class Table implements Serializable {
 
 							keepRow = false;
 						}
+					} else {
+						keepRow = false;
 					}
 				} else {
 					keepRow = false;

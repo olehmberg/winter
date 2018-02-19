@@ -58,8 +58,30 @@ import junit.framework.TestCase;
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.Table#insertColumn(int, de.uni_mannheim.informatik.dws.winter.webtables.TableColumn)}.
 	 */
+	@Test
 	public void testInsertColumn() {
-//		fail("Not yet implemented");
+		Table t = new Table();
+		TableColumn a = new TableColumn(0, t);
+		a.setHeader("a");
+		t.addColumn(a);
+		TableColumn b = new TableColumn(1, t);
+		b.setHeader("b");
+		t.addColumn(b);
+
+		t.getMapping().setMappedProperty(0, new Pair<>("a", 1.0));
+		t.getMapping().setMappedProperty(1, new Pair<>("b", 1.0));
+
+		TableColumn c = new TableColumn(1, t);
+		c.setHeader("c");
+		t.insertColumn(1,c);
+
+		assertEquals("a", t.getSchema().get(0).getHeader());
+		assertEquals("c", t.getSchema().get(1).getHeader());
+		assertEquals("b", t.getSchema().get(2).getHeader());
+
+		assertEquals("a", t.getMapping().getMappedProperty(0).getFirst());
+		assertNull(t.getMapping().getMappedProperty(1));
+		assertEquals("b", t.getMapping().getMappedProperty(2).getFirst());
 	}
 
 	/**
@@ -200,6 +222,19 @@ import junit.framework.TestCase;
 		assertEquals("a", t.get(0).get(0));
 		assertEquals("a", t.get(0).get(1));
 		assertEquals("b", t.get(0).get(2));
+
+		t.clear();
+		r1 = new TableRow(0, t);
+		r1.set(new Object[] {"a", "a", "a"});
+		r2 = new TableRow(1, t);
+		r2.set(new Object[] {"a", "a", "a"});
+		t.addRow(r1);
+		t.addRow(r2);
+		t.deduplicate(Q.toList(c1), ConflictHandling.ReplaceNULLs);
+		assertEquals(1,t.getSize());
+		assertEquals("a", t.get(0).get(0));
+		assertEquals("a", t.get(0).get(1));
+		assertEquals("a", t.get(0).get(2));
 
 		t.clear();
 		r1 = new TableRow(0, t);
