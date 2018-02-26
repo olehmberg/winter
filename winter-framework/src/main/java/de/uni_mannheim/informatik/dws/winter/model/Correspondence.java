@@ -27,7 +27,9 @@ import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentCluste
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Represent a correspondence. Contains two Records and their similarity
@@ -548,4 +550,11 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		return clusterer.createResult().keySet();
 	}
 	
+	public static <T extends Matchable, U extends Matchable> Distribution<Integer> getLHSFrequencyDistribution(Collection<Correspondence<T, U>> correspondences) {
+		return Distribution.fromCollection(Q.project(Q.group(correspondences, (c)->c.getFirstRecord()).entrySet(), (g)->g.getValue().size()));
+	}
+
+	public static <T extends Matchable, U extends Matchable> Distribution<Integer> getRHSFrequencyDistribution(Collection<Correspondence<T, U>> correspondences) {
+		return Distribution.fromCollection(Q.project(Q.group(correspondences, (c)->c.getSecondRecord()).entrySet(), (g)->g.getValue().size()));
+	}
 }
