@@ -69,10 +69,11 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> impleme
 			String date = getValueFromChildElement(node, "date");
 			if (date != null && !date.isEmpty()) {
 				DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-				        .appendPattern("yyyy-MM-dd")
+				        .appendPattern("yyyy-MM-dd['T'HH:mm:ss.SSS]")
 				        .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
 				        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-				        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+						.parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+						.optionalStart().appendOffset("+HH:MM", "+00:00").optionalEnd()
 				        .toFormatter(Locale.ENGLISH);
 				LocalDateTime dt = LocalDateTime.parse(date, formatter);
 				movie.setDate(dt);
