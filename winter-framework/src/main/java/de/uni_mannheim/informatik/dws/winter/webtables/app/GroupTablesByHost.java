@@ -12,10 +12,16 @@
 package de.uni_mannheim.informatik.dws.winter.webtables.app;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -71,19 +77,35 @@ public class GroupTablesByHost extends Executable {
 		System.out.println(in.getAbsolutePath());
 		
 		LinkedList<File> files = new LinkedList<>();
-		LinkedList<File> toList = new LinkedList<>(Arrays.asList(in.listFiles()));
+		// LinkedList<File> toList = new LinkedList<>(Arrays.asList(in.listFiles()));
 		
 		// first list all files that need to be processed (including subdirectories)
-		while(!toList.isEmpty()) {
-			File f = toList.poll();
+		// while(!toList.isEmpty()) {
+		// 	File f = toList.poll();
 			
-			if(f.isDirectory()) {
-				System.out.println(f.getAbsolutePath());
-				toList.addAll(Arrays.asList(f.listFiles()));
-			} else {
-				files.add(f);
+		// 	if(f.isDirectory()) {
+		// 		System.out.println(f.getAbsolutePath());
+		// 		toList.addAll(Arrays.asList(f.listFiles()));
+		// 	} else {
+		// 		files.add(f);
+		// 	}
+		// }
+
+		Path path = in.toPath();
+		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+
+			long last = System.currentTimeMillis();
+
+			@Override
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				files.add(file.toFile());
+				if(System.currentTimeMillis()-last>10000) {
+					System.out.println(String.format("Listing files, %d so far ...", files.size()));
+					last = System.currentTimeMillis();
+				}
+				return FileVisitResult.CONTINUE;
 			}
-		}
+		});
 		
 		UriParser p = new UriParser();
 		long start = System.currentTimeMillis();
@@ -94,10 +116,10 @@ public class GroupTablesByHost extends Executable {
 		while(!files.isEmpty()) {
 			File f = files.poll();
 			
-			if(f.isDirectory()) {
-				// this cannot happen
-				throw new Exception();
-			} else {
+			// if(f.isDirectory()) {
+			// 	// this cannot happen
+			// 	throw new Exception();
+			// } else {
 				Table t = p.parseTable(f);
 				
 				File newFile = new File(new File(out, getHostName(t)), t.getPath());
@@ -109,7 +131,7 @@ public class GroupTablesByHost extends Executable {
 					Files.createLink(newFile.toPath(), f.toPath());
 				}
 				
-			}
+			// }
 			
 
 			if(System.currentTimeMillis()-lastTime>=10000) {
