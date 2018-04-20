@@ -100,16 +100,20 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		for(int i=0; i<records.size();i++) {
 			RecordType r1 = records.get(i);
 			Correspondence<SchemaElementType, Matchable> cor1 = group.getSchemaCorrespondenceForRecord(r1, schemaCorrespondences, schemaElement);
-			if(cor1!=null) {
+			// if(cor1!=null) {
 				for(int j=i+1; j<records.size(); j++) {
 					RecordType r2 = records.get(j);
 					Correspondence<SchemaElementType, Matchable> cor2 = group.getSchemaCorrespondenceForRecord(r2, schemaCorrespondences, schemaElement);
 				
-					if(cor2!=null && !con.isEdgeAlreadyInCluster(r1, r2)) {
+					// if(cor2!=null && !con.isEdgeAlreadyInCluster(r1, r2)) {
+					if(!con.isEdgeAlreadyInCluster(r1, r2)) {
 
-						// assumption: in fusion we have a target schema, so all schema correspondences refer to the target schema 
-						// this means that we can simply combine both schema correspondences to get a schema correspondence between the two records
-						Correspondence<SchemaElementType, Matchable> cor = Correspondence.<SchemaElementType, Matchable>combine(cor1, cor2);
+						Correspondence<SchemaElementType, Matchable> cor = null;
+						if(cor1!=null && cor2!=null) {
+							// assumption: in fusion we have a target schema, so all schema correspondences refer to the target schema 
+							// this means that we can simply combine both schema correspondences to get a schema correspondence between the two records
+							cor = Correspondence.<SchemaElementType, Matchable>combine(cor1, cor2);
+						}
 						
 						if(rule.isEqual(r1, r2, cor)) {
 							con.addEdge(new Triple<>(r1, r2, 1.0));
@@ -117,7 +121,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 					
 					}
 				}
-			}
+			// }
 		}
 		
 		Map<Collection<RecordType>, RecordType> clusters = con.createResult();
