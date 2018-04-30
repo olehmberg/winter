@@ -260,7 +260,7 @@ public class Table implements Serializable {
 		if(getMapping().getMappedProperties()!=null) {
 			Pair<String,Double>[] columnMapping = Arrays.copyOf(getMapping().getMappedProperties(), getMapping().getMappedProperties().length);
 			for(int i = 0; i < getColumns().size(); i++) {
-				if(i>=index) {
+				if(i>=index && columnMapping.length>i) {
 					getMapping().setMappedProperty(i+1, columnMapping[i]);
 				}
 			}
