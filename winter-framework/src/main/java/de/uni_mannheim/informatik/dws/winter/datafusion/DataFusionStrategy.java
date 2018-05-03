@@ -18,7 +18,9 @@ import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -55,6 +57,17 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		attributeFusers = new HashMap<>();
 		evaluationRules = new HashMap<>();
 		this.factory = factory;
+	}
+
+	/**
+	 * Creates a new instance of a {@link FusibleDataSet} and adds attributes for all known attribute fusers.
+	 */
+	public FusibleDataSet<RecordType, SchemaElementType> createFusedDataSet() {
+		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
+		for(SchemaElementType attribute : attributeFusers.keySet()) {
+			fusedDataSet.addAttribute(attribute);
+		}
+		return fusedDataSet;
 	}
 
 	/**

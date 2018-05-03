@@ -62,7 +62,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	public FusibleDataSet<RecordType, SchemaElementType> run(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
-		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
+		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = strategy.createFusedDataSet();
 
 		// iterate over all correspondence groups (all records mapped to the same target)
 		for (RecordGroup<RecordType, SchemaElementType> clu : correspondences.getRecordGroups()) {
