@@ -65,6 +65,16 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	}
 
 	/**
+	 * Creates a new instance with the provided strategy
+	 * 
+	 * @param strategy		the fusion strategy
+	 */
+	public DataFusionEvaluator(DataFusionStrategy<RecordType, SchemaElementType> strategy) {
+		this.strategy = strategy;
+		this.groupFactory = new RecordGroupFactory<RecordType, SchemaElementType>();
+	}
+
+	/**
 	 * Evaluates the the data fusion result against a gold standard
 	 * 
 	 * @param dataset			the fused data
