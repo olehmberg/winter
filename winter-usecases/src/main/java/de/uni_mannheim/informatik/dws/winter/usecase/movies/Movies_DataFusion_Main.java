@@ -113,6 +113,7 @@ public class Movies_DataFusion_Main {
 		
 		// run the fusion
 		FusibleDataSet<Movie, Attribute> fusedDataSet = engine.run(correspondences, null);
+		fusedDataSet.printDataSetDensityReport();
 
 		// write the result
 		new MovieXMLFormatter().writeXML(new File("usecase/movie/output/fused.xml"), fusedDataSet);
