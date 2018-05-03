@@ -35,6 +35,20 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 
 	private boolean verbose = false;
 
+	/**
+	 * @param verbose the verbose to set
+	 */
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
+
+	/**
+	 * @return the verbose
+	 */
+	public boolean isVerbose() {
+		return verbose;
+	}
+
 	public MatchingEvaluator() {
 	}
 
