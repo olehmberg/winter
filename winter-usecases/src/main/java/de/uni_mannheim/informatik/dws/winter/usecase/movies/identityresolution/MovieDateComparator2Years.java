@@ -38,7 +38,7 @@ public class MovieDateComparator2Years implements Comparator<Movie, Attribute> {
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		double similarity = sim.calculate(record1.getDate(), record2.getDate());
 
-		return similarity * similarity;
+		return similarity;
 	}
 
 }
