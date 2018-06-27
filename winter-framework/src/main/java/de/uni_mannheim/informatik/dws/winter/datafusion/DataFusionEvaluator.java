@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.util.HashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
@@ -33,6 +36,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 
 	private DataFusionStrategy<RecordType, SchemaElementType> strategy;
 	private RecordGroupFactory<RecordType, SchemaElementType> groupFactory;
+	private static final Logger logger = LogManager.getLogger();
 	
 	private boolean verbose = false;
 
@@ -110,20 +114,19 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 						attributeCount.put(fusionTask.getSchemaElement(),
 								attributeCount.get(fusionTask.getSchemaElement()) + 1);
 					} else if (verbose) {
-						System.out.println(String.format(
-								"[error] %s: %s <> %s", r.getClass()
-										.getSimpleName(), fused.toString(),
-								record.toString()));
+						logger.error(String.format(
+								" %s <> %s",
+								fused.toString(), record.toString()));
 					}
 				}
 			}
 		}
 		if (verbose) {
-			System.out.println("Attribute-specific Accuracy:");
+			logger.info("Attribute-specific Accuracy:");
 			for (AttributeFusionTask<RecordType, SchemaElementType> fusionTask : strategy.getAttributeFusers(null, schemaCorrespondences)) {
 				double acc = (double) attributeCount.get(fusionTask.getSchemaElement())
 						/ (double) goldStandard.size();
-				System.out.println(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
+				logger.info(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
 
 			}
 		}

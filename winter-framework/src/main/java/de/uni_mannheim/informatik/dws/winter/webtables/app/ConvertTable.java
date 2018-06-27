@@ -12,6 +12,10 @@
 package de.uni_mannheim.informatik.dws.winter.webtables.app;
 
 import java.io.File;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.beust.jcommander.Parameter;
 
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
@@ -44,6 +48,8 @@ public class ConvertTable extends Executable {
 	
 	@Parameter(names = "-out", required=true)
 	private String outputDirectory;
+	
+	private static final Logger logger = LogManager.getLogger();
 	
 	public static void main(String[] args) throws Exception {
 		ConvertTable ct = new ConvertTable();
@@ -86,7 +92,7 @@ public class ConvertTable extends Executable {
 			writer = new RdfXmlTableWriter();
 			break;
 		default:
-			System.err.println("Invalid output format specified!");
+			logger.error("Invalid output format specified!");
 			return;
 		}
 		
@@ -109,7 +115,7 @@ public class ConvertTable extends Executable {
 			} else if(file.endsWith("json")) {
 				t = jsonParser.parseTable(f);
 			} else {
-				System.err.println(String.format("Cannot parse table '%s' (file format must be 'csv' or 'json')!", file));
+				logger.error(String.format("Cannot parse table '%s' (file format must be 'csv' or 'json')!", file));
 			}
 			
 			if(t!=null) {

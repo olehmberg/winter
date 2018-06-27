@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVMatchableReader;
 
@@ -32,6 +35,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
 	private Attribute[] attributes = null;
+	private static final Logger logger = LogManager.getLogger();
 	
 	/**
 	 * 
@@ -100,7 +104,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 				if (ids.contains(id)) {
 					String replacementId = String.format("%s_%d", file.getName(), rowNumber);
-					System.err.println(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id,
+					logger.error(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id,
 							rowNumber, replacementId));
 					id = replacementId;
 				}

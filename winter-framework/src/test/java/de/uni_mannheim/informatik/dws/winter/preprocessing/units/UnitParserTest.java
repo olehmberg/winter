@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.preprocessing.units;
 
 
 import org.junit.Test;
-import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
 import junit.framework.TestCase;
 
 public class UnitParserTest extends TestCase {

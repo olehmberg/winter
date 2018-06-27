@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.processing;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
@@ -18,6 +21,7 @@ package de.uni_mannheim.informatik.dws.winter.processing;
 public class SysOutDatasetIterator<ElementType> implements DataIterator<ElementType> {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger();
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DatasetIterator#initialise()
@@ -32,7 +36,7 @@ public class SysOutDatasetIterator<ElementType> implements DataIterator<ElementT
 	 */
 	@Override
 	public void next(ElementType record) {
-		System.out.println(String.format("%s", record));
+		logger.info(String.format("%s", record));
 	}
 
 	/* (non-Javadoc)

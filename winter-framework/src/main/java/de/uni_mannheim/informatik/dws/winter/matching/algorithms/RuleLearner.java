@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
@@ -42,7 +44,9 @@ import edu.stanford.nlp.util.StringUtils;
  *
  */
 public class RuleLearner<RecordType extends Matchable, SchemaElementType extends Matchable> {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	public Performance learnMatchingRule(
 			DataSet<RecordType, SchemaElementType> data1, 
 			DataSet<RecordType, SchemaElementType> data2,
@@ -94,7 +98,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			
 		}
 		
-		System.out.println(String.format("[RuleLeaner] Deduplication removed %d/%d examples.", features.size()-deduplicated.size(), features.size()));
+		logger.info(String.format("Deduplication removed %d/%d examples.", features.size()-deduplicated.size(), features.size()));
 		
 		return deduplicated;
 	}
@@ -128,7 +132,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 		
 		goldStandard.printBalanceReport();
 
-		System.out.println(String.format("[%s] Starting GenerateFeatures",
+		logger.info(String.format("Starting GenerateFeatures",
 				start.toString()));
 
 		ProgressReporter progress = new ProgressReporter(goldStandard
@@ -192,10 +196,8 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 		// report total time
 		LocalDateTime end = LocalDateTime.now();
 		
-		System.out
-				.println(String
-						.format("[%s] GenerateFeatures finished after %s; created %,d examples.",
-								end.toString(),
+		logger.info(String
+						.format("GenerateFeatures finished after %s; created %,d examples.",
 								DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()),
 								result.size()));
 		

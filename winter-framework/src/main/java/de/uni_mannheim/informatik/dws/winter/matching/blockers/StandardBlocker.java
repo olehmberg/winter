@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -53,6 +56,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	private double blockFilterRatio = 1.0;
 	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
+	
+	private static final Logger logger = LogManager.getLogger();
 	
 	/**
 	 * @param measureBlockSizes the measureBlockSizes to set
@@ -151,8 +156,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		});
 	
 		if(measureBlockSizes) {
-			System.out.println(String.format("[StandardBlocker] created %d blocking keys for first dataset", grouped1.size()));
-			System.out.println(String.format("[StandardBlocker] created %d blocking keys for second dataset", grouped2.size()));
+			logger.info(String.format("created %d blocking keys for first dataset", grouped1.size()));
+			logger.info(String.format("created %d blocking keys for second dataset", grouped2.size()));
 		}
 		
 		// join the datasets via their blocking keys
@@ -162,7 +167,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			blockedData = grouped1.join(grouped2, new PairFirstJoinKeyGenerator<>());
 		
 		if(measureBlockSizes) {
-			System.out.println(String.format("[StandardBlocker] created %d blocks from blocking keys", blockedData.size()));
+			logger.info(String.format("created %d blocks from blocking keys", blockedData.size()));
 		}
 		
 		if(maxBlockPairSize>0) {
@@ -172,13 +177,13 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 					);
 			
 			if(measureBlockSizes) {
-				System.out.println(String.format("[StandardBlocker] %d blocks after filtering by max block size (<= %d pairs)", blockedData.size(), maxBlockPairSize));
+				logger.info(String.format("%d blocks after filtering by max block size (<= %d pairs)", blockedData.size(), maxBlockPairSize));
 			}
 		}
 		
 		// remove the largest blocks, if requested
 		if(blockFilterRatio<1.0) {
-			System.out.println(String.format("[StandardBlocker] %d blocks before filtering", blockedData.size()));
+			logger.info(String.format("%d blocks before filtering", blockedData.size()));
 			
 			Processable<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> toRemove = blockedData
 					.sort((p)->p.getFirst().getSecond().getNumElements()*p.getSecond().getSecond().getNumElements(), false)
@@ -186,7 +191,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			
 			if(measureBlockSizes) {
 				for(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> p : toRemove.get()) {
-					System.out.println(String.format("\tRemoving block '%s' (%d pairs)", 
+					logger.info(String.format("\tRemoving block '%s' (%d pairs)", 
 							p.getFirst().getFirst(),
 							p.getFirst().getSecond().getNumElements() * p.getSecond().getSecond().getNumElements()));
 				}
@@ -195,7 +200,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			blockedData = blockedData
 					.sort((p)->p.getFirst().getSecond().getNumElements()*p.getSecond().getSecond().getNumElements(), true)
 					.take((int)(blockedData.size()*blockFilterRatio));
-			System.out.println(String.format("[StandardBlocker] %d blocks after filtering", blockedData.size()));
+			logger.info(String.format("%d blocks after filtering", blockedData.size()));
 		}
 		
 		if(measureBlockSizes) {			
@@ -221,8 +226,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			if(aggregationResult!=null) {
 				Distribution<Integer> dist = aggregationResult.getSecond();
 				
-				System.out.println("[StandardBlocker] Block size distribution:");
-				System.out.println(dist.format());
+				logger.info("Block size distribution:");
+				logger.info(dist.format());
 	
 				// determine frequent blocking key values
 				Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
@@ -235,12 +240,12 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						new StringConcatenationAggregator<>(","))
 						.sort((p)->p.getFirst(), false);
 				
-				System.out.println("50 most-frequent blocking key values:");
+				logger.info("50 most-frequent blocking key values:");
 				for(Pair<Integer, String> value : blockValues.take(50).get()) {
-					System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+					logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 				}
 			} else {
-				System.out.println("No blocks were created!");
+				logger.info("No blocks were created!");
 			}
 
 		}

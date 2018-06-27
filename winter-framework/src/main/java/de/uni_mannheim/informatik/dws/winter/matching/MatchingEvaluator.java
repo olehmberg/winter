@@ -16,6 +16,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
@@ -32,7 +35,9 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
  * @param <SchemaElementType>	the type of the causal correspondences
  */
 public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType extends Matchable> {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	private boolean verbose = false;
 
 	/**
@@ -83,7 +88,7 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 				matched++;
 
 				if (verbose) {
-					System.out.println(String
+					logger.info(String
 							.format("[correct] %s,%s,%s", correspondence
 									.getFirstRecord().getIdentifier(),
 									correspondence.getSecondRecord()
@@ -114,7 +119,7 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 				matched++;
 
 				if (verbose) {
-					System.out.println(String
+					logger.info(String
 							.format("[wrong] %s,%s,%s", correspondence
 									.getFirstRecord().getIdentifier(),
 									correspondence.getSecondRecord()
@@ -128,7 +133,7 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 		if (verbose) {
 			// print all missing positive examples
 			for (Pair<String, String> p : positives) {
-				System.out.println(String.format("[missing] %s,%s",
+				logger.info(String.format("[missing] %s,%s",
 						p.getFirst(), p.getSecond()));
 			}
 		}

@@ -15,6 +15,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
@@ -44,6 +46,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	private CorrespondenceAggregator<SchemaElementType, RecordType> voting;
 	private Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker;
 	private Processable<Correspondence<SchemaElementType, RecordType>> result;
+	private static final Logger logger = LogManager.getLogger();
 
 	/**
 	 * 
@@ -146,16 +149,15 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	public void run() {
 		LocalDateTime start = LocalDateTime.now();
 
-		System.out.println(String.format("[%s] Starting Duplicate-based Schema Matching",
+		logger.info(String.format("[%s] Starting Duplicate-based Schema Matching",
 				start.toString()));
 
-		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
+		logger.info(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
 		// run the blocking
 		Processable<Correspondence<SchemaElementType, RecordType>> blocked = runBlocking(getDataset1(), getDataset2(), Correspondence.toMatchable(getCorrespondences()));
 		
-		System.out
-		.println(String
+		logger.info(String
 				.format("Matching %,d x %,d elements; %,d blocked pairs (reduction ratio: %s)",
 						getDataset1().size(), getDataset2().size(),
 						blocked.size(), Double.toString(getBlocker().getReductionRatio())));
@@ -200,9 +202,8 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 		// report total matching time
 		LocalDateTime end = LocalDateTime.now();
 		
-		System.out.println(String.format(
-				"[%s] Duplicate-based Schema Matching finished after %s; found %d correspondences from %,d duplicates.",
-				end.toString(),
+		logger.info(String.format(
+				"Duplicate-based Schema Matching finished after %s; found %d correspondences from %,d duplicates.",
 				DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size(), getCorrespondences().size()));
 
 	}

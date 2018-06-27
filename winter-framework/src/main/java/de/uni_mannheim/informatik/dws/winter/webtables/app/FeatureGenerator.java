@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.beust.jcommander.Parameter;
@@ -47,6 +50,8 @@ public class FeatureGenerator extends Executable {
 	
 	@Parameter(names = "-rowNumbers")
 	private String rowNumbersFile;
+	
+	private static final Logger logger = LogManager.getLogger();
 	
 //	@Parameter(names = "-out")
 //	private String outputLocation;
@@ -120,7 +125,7 @@ public class FeatureGenerator extends Executable {
 				}
 				
 				if(t==null) {
-					System.err.println(String.format("Unknown input format: %s", tableFile.getName()));
+					logger.error(String.format("Unknown input format: %s", tableFile.getName()));
 					continue;
 				}
 				
@@ -153,7 +158,7 @@ public class FeatureGenerator extends Executable {
 				}
 				
 				if(done%progressStep==0) {
-					System.err.println(String.format("%2.2f%%: %s", (float)done/(float)tableFiles.length*100.0, tableFile.getName()));
+					logger.error(String.format("%2.2f%%: %s", (float)done/(float)tableFiles.length*100.0, tableFile.getName()));
 					w.flush();
 				}
 				done++;
@@ -165,7 +170,7 @@ public class FeatureGenerator extends Executable {
 				wRow.close();
 			}
 		} else {
-			System.err.println("Could not find web tables!");
+			logger.error("Could not find web tables!");
 		}
 	}
 }

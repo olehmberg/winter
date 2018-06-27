@@ -21,6 +21,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -46,6 +49,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
 
+
 /**
  * Class containing the standard setup to perform a identity resolution task by using learning matching rules,
  * reading input data from the Restaurants use case.
@@ -55,6 +59,9 @@ import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restauran
  */
 public class Restaurant_IdentityResolutionLearningMatchingRule {
 
+	private static final Logger logger = LogManager.getLogger();
+	
+	
 	public static void main(String[] args) throws Exception {
 		// loading data
 		Map<String, Attribute> nodeMapping = new HashMap<>();
@@ -155,7 +162,6 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
-
 		// Execute the matching
 		Processable<Correspondence<Record, Attribute>> correspondences = engine.runIdentityResolution(dataFodors,
 				dataZagats, null, matchingRule, blocker);
@@ -173,8 +179,10 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
-		System.out.println("Fodors <-> Zagats");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("Fodors <-> Zagats");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
+
 	}
 }

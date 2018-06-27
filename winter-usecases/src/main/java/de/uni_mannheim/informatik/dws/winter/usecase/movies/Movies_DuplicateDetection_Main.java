@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
@@ -40,7 +43,9 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  */
 public class Movies_DuplicateDetection_Main {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	public static void main(String[] args) throws Exception {
 
 		// define the matching rule
@@ -93,8 +98,8 @@ public class Movies_DuplicateDetection_Main {
 
 		// print the correspondences
 		for (Correspondence<Movie, Attribute> correspondence : correspondences) {
-			System.out.println(String
-					.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
+			logger.info(String
+					.format("%s,%s |\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
 							correspondence.getFirstRecord().getIdentifier(),
 							correspondence.getSecondRecord().getIdentifier(),
 							correspondence.getSimilarityScore(),

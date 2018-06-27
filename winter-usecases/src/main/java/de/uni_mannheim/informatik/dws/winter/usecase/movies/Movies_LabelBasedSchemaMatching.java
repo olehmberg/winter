@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -31,7 +34,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  *
  */
 public class Movies_LabelBasedSchemaMatching {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	public static void main(String[] args) throws Exception {
 		
 		// load data
@@ -47,7 +52,7 @@ public class Movies_LabelBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, Attribute> cor : correspondences.get()) {
-			System.out.println(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
+			logger.info(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
 					cor.getFirstRecord().getIdentifier(),
 					cor.getFirstRecord().getName(), 
 					cor.getSecondRecord().getIdentifier(),

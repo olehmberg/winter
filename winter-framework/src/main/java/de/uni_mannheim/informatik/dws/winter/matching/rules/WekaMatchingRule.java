@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -72,6 +74,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private String[] parameters;
 	private Classifier classifier;
 	private List<Comparator<RecordType, SchemaElementType>> comparators;
+	private static final Logger logger = LogManager.getLogger();
 
 	// Handling of feature subset selection
 	private boolean forwardSelection = false;
@@ -195,9 +198,18 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			}
 			
 			eval.crossValidateModel(this.classifier, trainingData, Math.min(10, trainingData.size()), new Random(1));
-			System.out.println(eval.toSummaryString("\nResults\n\n", false));
-			System.out.println(eval.toClassDetailsString());
-			System.out.println(eval.toMatrixString());
+			
+			for(String line : eval.toSummaryString("\nResults\n\n", false).split("\n")){
+				logger.info(line);
+			}
+			
+			for(String line : eval.toClassDetailsString().split("\n")){
+				logger.info(line);
+			}
+			
+			for(String line : eval.toMatrixString().split("\n")){
+				logger.info(line);
+			}
 			
 			if(balanceTrainingData) {
 				Resample filter = new Resample();
@@ -420,7 +432,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence, schemaCorrespondences);
 
 		} catch (Exception e) {
-			System.err.println(String.format("[WekaMatchingRule] Classifier Exception for Record '%s': %s",
+			logger.error(String.format("Classifier Exception for Record '%s': %s",
 				matchRecord==null ? "null" : matchRecord.toString(),
 				e.getMessage()
 			));

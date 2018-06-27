@@ -18,6 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -39,7 +42,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @param <RecordType>	the type that represents a record
  */
 public abstract class AttributeValueFuser<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends AttributeFuser<RecordType, SchemaElementType> {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Collects all fusable values from the group of records
 	 * @param group	the group of records to use
@@ -133,7 +138,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		}
 		
 		if(largestClusterSize>group.getSize()) {
-			System.out.println("Wrong cluster!");
+			logger.error("Wrong cluster!");
 		}
 		
 		return (double)largestClusterSize / (double)records.size();

@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
@@ -27,7 +29,9 @@ import junit.framework.TestCase;
  *
  */
  public class TableTest extends TestCase {
-
+	 
+	private static final Logger logger = LogManager.getLogger();
+	 
 	private Table getTestTable() {
 		
 		Table table = new Table();
@@ -333,7 +337,7 @@ import junit.framework.TestCase;
 		
 		for(TableRow r : joined.getRows()) {
 		
-			System.out.println(r.format(10));
+			logger.info(r.format(10));
 			
 			switch (r.get(0).toString()) {
 			case "a":

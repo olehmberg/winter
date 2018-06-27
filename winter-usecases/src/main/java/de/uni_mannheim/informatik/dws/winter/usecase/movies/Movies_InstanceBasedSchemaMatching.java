@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.BlockingKeyIndexer.VectorCreationMethod;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -32,7 +35,8 @@ import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceM
  *
  */
 public class Movies_InstanceBasedSchemaMatching {
-
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) throws Exception {
 		// load data
@@ -57,12 +61,12 @@ public class Movies_InstanceBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
-			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
+			logger.info(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
 			if(cor.getCausalCorrespondences()!=null) {
 				for(Correspondence<MatchableValue, Matchable> cause : cor.getCausalCorrespondences().get()) {
-					System.out.print(String.format("%s (%.4f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
+					logger.info(String.format("%s (%.4f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 				}
-				System.out.println();
+				logger.info("");
 			}
 		}
 	}

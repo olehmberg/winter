@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
@@ -33,6 +36,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  *
  */
 public class Movies_DuplicateBasedSchemaMatching {
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) throws Exception {
 		// load data
@@ -46,7 +51,7 @@ public class Movies_DuplicateBasedSchemaMatching {
 
 		// print the duplicates
 		for(Correspondence<Record, Attribute> cor : duplicates.get()) {
-			System.out.println(String.format("'%s' <-> '%s'", cor.getFirstRecord(), cor.getSecondRecord()));
+			logger.info(String.format("'%s' <-> '%s'", cor.getFirstRecord(), cor.getSecondRecord()));
 		}
 		
 		// define the schema matching rule
@@ -78,7 +83,7 @@ public class Movies_DuplicateBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, Record> cor : correspondences.get()) {
-			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
+			logger.info(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
 		}
 	}
 	

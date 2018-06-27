@@ -55,6 +55,8 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType>
 {
 
+	//private static final Logger logger = LogManager.getLogger();
+	
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
 	private double ratio;
@@ -333,11 +335,11 @@ public class StandardBlockerWithBlockFiltering<RecordType extends Matchable, Sch
 
 				//calcluate the number of blocks that should be deleted using the user-defined ratio
 				int blocksToDelete = (int) Math.floor(sortedBlockCardinalities.size() * ratio);
-				//System.out.println(record.getKey().getFirst().getIdentifier().toString() + " has " + sortedBlockCardinalities.size() + " keys. Deleting "+ blocksToDelete);
+				//logger.info(record.getKey().getFirst().getIdentifier().toString() + " has " + sortedBlockCardinalities.size() + " keys. Deleting "+ blocksToDelete);
 				int deletedBlocks = 0;
 				//iterate over sortedBlockCardinalities and add recordValues that should be deleted to the recordValuesToDelete-HashSet
 				for (Map.Entry<Pair<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, String>, Long> entry : sortedBlockCardinalities.entrySet()) {
-					//System.out.println(entry.getKey().getSecond() + ": " + entry.getValue().toString());
+					//logger.info(entry.getKey().getSecond() + ": " + entry.getValue().toString());
 					if (deletedBlocks<blocksToDelete) {
 						deletedBlocks++;
 					} else {

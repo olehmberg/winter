@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.interfaces.MatchingAlgorithm.Matching;
 import org.jgrapht.alg.matching.MaximumWeightBipartiteMatching;
@@ -36,7 +38,9 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
  *
  */
 public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB extends Matchable> implements MatchingAlgorithm<TypeA, TypeB> {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
 	
@@ -154,7 +158,7 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 				}
 				
 				if(verbose) {
-					System.out.println(sb.toString());
+					logger.info(sb.toString());
 				}
 			}
 		});

@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -25,7 +27,9 @@ import junit.framework.TestCase;
  *
  */
 public class PartitioningWithPositiveAndNegativeEdgesTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.clustering.PartitioningWithPositiveAndNegativeEdges#createResult()}.
 	 */
@@ -59,7 +63,7 @@ public class PartitioningWithPositiveAndNegativeEdgesTest extends TestCase {
 		Map<Collection<String>, String> clustering = clusterer.createResult();
 		
 		for(Collection<String> cluster : clustering.keySet()) {
-			System.out.println(StringUtils.join(cluster, ","));
+			logger.info(StringUtils.join(cluster, ","));
 		}
 		
 		assertTrue(Q.toSet(Q.toSet("1", "2"), Q.toSet("3", "4", "5")).equals(clustering.keySet()));

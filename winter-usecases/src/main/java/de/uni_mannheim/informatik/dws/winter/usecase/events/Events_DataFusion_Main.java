@@ -30,6 +30,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 //import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;
@@ -60,7 +62,9 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader
  * 
  */
 public class Events_DataFusion_Main {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			TransformerException {
@@ -101,11 +105,11 @@ public class Events_DataFusion_Main {
 																		   boolean filterTo, LocalDate toDate, boolean applyKeywordSearch, String keyword) throws IOException {
 
 		//FusableDataSet<Event, DefaultSchemaElement> fusableDataSetD = (FusableDataSet<Event, DefaultSchemaElement>) dataSetD;
-		System.out.println("DBpedia Data Set Density Report:");
+		logger.info("DBpedia Data Set Density Report:");
 		fusableDataSetD.printDataSetDensityReport();
 
 		//FusableDataSet<Event, DefaultSchemaElement> fusableDataSetY = (FusableDataSet<Event, DefaultSchemaElement>) dataSetY;
-		System.out.println("YAGO Data Set Density Report:");
+		logger.info("YAGO Data Set Density Report:");
 		fusableDataSetY.printDataSetDensityReport();
 
 		// Maintain Provenance
@@ -175,7 +179,7 @@ public class Events_DataFusion_Main {
 		evaluator.setVerbose(true);
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
 
-		System.out.println(String.format("Accuracy: %.2f", accuracy));
+		logger.info(String.format("Accuracy: %.2f", accuracy));
 
 		return fusedDataSet;
 	}

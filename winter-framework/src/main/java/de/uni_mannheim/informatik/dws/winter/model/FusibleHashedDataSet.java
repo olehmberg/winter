@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * {@link HashedDataSet} class extended by functionalities for data fusion
  * 
@@ -28,6 +31,7 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 	private static final long serialVersionUID = 1L;
 	private double score;
 	private LocalDateTime date;
+	private static final Logger logger = LogManager.getLogger();
 	
 	private Map<String, RecordType> originalIdIndex = new HashMap<>();
 
@@ -175,12 +179,11 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 	 * and prints the result to the console
 	 */
 	public void printDataSetDensityReport() {
-		System.out
-				.println(String.format("DataSet density: %.2f", getDensity()));
-		System.out.println("Attributes densities:");
+		logger.info(String.format("DataSet density: %.2f", getDensity()));
+		logger.info("Attributes densities:");
 		Map<SchemaElementType, Double> densities = getAttributeDensities();
 		for (SchemaElementType att : densities.keySet()) {
-			System.out.println(String.format("\t%s: %.2f", att.toString(),
+			logger.info(String.format("\t%s: %.2f", att.toString(),
 					densities.get(att)));
 		}
 	}

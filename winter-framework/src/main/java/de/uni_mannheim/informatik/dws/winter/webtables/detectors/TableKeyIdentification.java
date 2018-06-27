@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
@@ -23,7 +26,9 @@ import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 public class TableKeyIdentification {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	private double keyUniquenessThreshold;
 	public double getKeyUniquenessThreshold() {
 		return keyUniquenessThreshold;
@@ -89,7 +94,7 @@ public class TableKeyIdentification {
             
             if(isVerbose()) {
             	TableColumn c = table.getSchema().get(i);
-            	System.err.println(String.format("[TableKeyIdentification] [%d]%s (%s) Uniqueness=%.4f; Nullness=%.4f; Combined=%.4f; Length=%.4f", i, c.getHeader(), c.getDataType(), uniqueness, nullness, columnUniqueness.get(columnUniqueness.size()-1), columnValueLength.get(columnValueLength.size()-1)));
+            	logger.error(String.format("[%d]%s (%s) Uniqueness=%.4f; Nullness=%.4f; Combined=%.4f; Length=%.4f", i, c.getHeader(), c.getDataType(), uniqueness, nullness, columnUniqueness.get(columnUniqueness.size()-1), columnValueLength.get(columnValueLength.size()-1)));
             }
         }
         
@@ -142,7 +147,7 @@ public class TableKeyIdentification {
             	table.setSubjectColumnIndex(keyColumnIndex);
 
             	if(isVerbose()) {
-            		System.err.println(String.format("[TableKeyIdentification] RegEx Header Match: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
+            		logger.error(String.format("RegEx Header Match: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
             	}
             	
                 return;
@@ -151,13 +156,13 @@ public class TableKeyIdentification {
             key = null;
             
             if(isVerbose()) {
-            	System.err.println(String.format("[TableKeyIdentification] RegEx Header Match: '%s' - insufficient", table.getSchema().get(keyColumnIndex).getHeader()));
+            	logger.error(String.format("RegEx Header Match: '%s' - insufficient", table.getSchema().get(keyColumnIndex).getHeader()));
             }
         }
 
         if (columnUniqueness.isEmpty()) {
         	if(isVerbose()) {
-        		System.err.println("[TableKeyIdentification] no columns");
+        		logger.error("no columns");
         	}
             return;
         }
@@ -176,7 +181,7 @@ public class TableKeyIdentification {
         if (key == null) {
             if (maxColumn == -1) {
             	if(isVerbose()) {
-            		System.err.println("[TableKeyIdentification] no columns that match criteria (data type, min length, max length)");
+            		logger.error("no columns that match criteria (data type, min length, max length)");
             	}
                 return;
             }
@@ -187,14 +192,14 @@ public class TableKeyIdentification {
         if (columnUniqueness.get(keyColumnIndex) < getKeyUniquenessThreshold()) {
         	
         	if(isVerbose()) {
-        		System.err.println(String.format("[TableKeyIdentification] Most unique column: '%s' - insufficient (%.4f)", table.getSchema().get(keyColumnIndex).getHeader(), columnUniqueness.get(keyColumnIndex)));
+        		logger.error(String.format("[TableKeyIdentification] Most unique column: '%s' - insufficient (%.4f)", table.getSchema().get(keyColumnIndex).getHeader(), columnUniqueness.get(keyColumnIndex)));
         	}
         	
             return;
         }
 
         if(isVerbose()) {
-        	System.err.println(String.format("[TableKeyIdentification] Most unique column: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
+        	logger.error(String.format("[TableKeyIdentification] Most unique column: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
         }
         table.setSubjectColumnIndex(keyColumnIndex);
     }

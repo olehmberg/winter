@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -49,7 +52,9 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 	implements Blocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType> //,
 	//SymmetricBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType> 
 {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	protected class BlockingVector extends HashMap<String, Double> {
 		private static final long serialVersionUID = 1L;
 		
@@ -145,17 +150,17 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds2 = combineDataWithCorrespondences(dataset2, schemaCorrespondences, (r,c)->c.next(new Pair<>(r.getSecondRecord().getDataSourceIdentifier(),r)));
 
 		// create blocking key value vectors
-		System.out.println("[BlockingKeyIndexer] Creating blocking key value vectors");
+		logger.info("Creating blocking key value vectors");
 		Processable<Pair<BlockedType, BlockingVector>> vectors1 = createBlockingVectors(ds1, blockingFunction);
 		Processable<Pair<BlockedType, BlockingVector>> vectors2 = createBlockingVectors(ds2, secondBlockingFunction);
 		
 		// create inverted index
-		System.out.println("[BlockingKeyIndexer] Creating inverted index");
+		logger.info("[BlockingKeyIndexer] Creating inverted index");
 		Processable<Block> blocks1 = createInvertedIndex(vectors1);
 		Processable<Block> blocks2 = createInvertedIndex(vectors2);
 		
 		if(vectorCreationMethod==VectorCreationMethod.TFIDF) {
-			System.out.println("[BlockingKeyIndexer] Calculating TFIDF vectors");
+			logger.info("Calculating TFIDF vectors");
 			// update blocking key value vectors to TF-IDF weights
 			Processable<Pair<String, Double>> documentFrequencies = createDocumentFrequencies(blocks1, blocks2);
 			int documentCount = vectors1.size() + vectors2.size();
@@ -164,7 +169,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		}
 		
 		// create pairs (contains duplicates)
-		System.out.println("[BlockingKeyIndexer] Creating record pairs");
+		logger.info("Creating record pairs");
 		Processable<Triple<String, BlockedType, BlockedType>> pairs = blocks1
 			.join(blocks2, new BlockJoinKeyGenerator())
 			.map((Pair<BlockingKeyIndexer<RecordType, SchemaElementType, BlockedType, CorrespondenceType>.Block, BlockingKeyIndexer<RecordType, SchemaElementType, BlockedType, CorrespondenceType>.Block> record, DataIterator<Triple<String, BlockedType, BlockedType>> resultCollector) 
@@ -187,7 +192,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		}
 		
 		// join pairs with vectors on BlockedType
-		System.out.println("[BlockingKeyIndexer] Joining record pairs with vectors");
+		logger.info("Joining record pairs with vectors");
 		Processable<Triple<String, Pair<BlockedType, BlockingVector>, Pair<BlockedType, BlockingVector>>> pairsWithVectors = pairs
 			.join(vectors1, (t)->t.getSecond(), (p)->p.getFirst())
 			.join(vectors2, (p)->p.getFirst().getThird(), (p)->p.getFirst())
@@ -197,7 +202,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 				});
 		
 		// aggregate pairs and create correspondences
-		System.out.println("[BlockingKeyIndexer] Aggregating record pairs");
+		logger.info("Aggregating record pairs");
 		return createCorrespondences(pairsWithVectors);
 		
 	}
@@ -212,9 +217,9 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 			}
 			, new CountAggregator<>());
 
-			System.out.println("50 most-frequent blocking key values:");
+			logger.info("50 most-frequent blocking key values:");
 			for(Pair<String, Integer> value : aggregated.sort((v)->v.getSecond(), false).take(50).get()) {
-				System.out.println(String.format("\t%d\t%s", value.getSecond(), value.getFirst()));
+				logger.info(String.format("\t%d\t%s", value.getSecond(), value.getFirst()));
 			}
 	}
 	

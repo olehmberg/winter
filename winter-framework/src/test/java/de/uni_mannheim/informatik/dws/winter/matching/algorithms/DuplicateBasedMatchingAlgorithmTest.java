@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
@@ -31,7 +34,9 @@ import junit.framework.TestCase;
  *
  */
 public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm#run()}.
 	 */
@@ -81,7 +86,7 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 				
 				double d = sim.calculate(v1, v2);
 				
-				System.out.println(String.format("Vote: %s<->%s %f: %s<->%s", record1, record2, d, v1, v2));
+				logger.info(String.format("Vote: %s<->%s %f: %s<->%s", record1, record2, d, v1, v2));
 				
 				return d;
 			}
@@ -103,10 +108,10 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 		Processable<Correspondence<Attribute, Record>> result = algo.getResult();
 		
 		for(Correspondence<Attribute, Record> cor : result.get()) {
-			System.out.println(String.format("%s<->%s %f", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
+			logger.info(String.format("%s<->%s %f", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
 			
 			for(Correspondence<Record, Matchable> cause : cor.getCausalCorrespondences().get()) {
-				System.out.println(String.format("\t%s<->%s %f", cause.getFirstRecord().getValue(cor.getFirstRecord()), cause.getSecondRecord().getValue(cor.getSecondRecord()), cause.getSimilarityScore()));
+				logger.info(String.format("\t%s<->%s %f", cause.getFirstRecord().getValue(cor.getFirstRecord()), cause.getSecondRecord().getValue(cor.getSecondRecord()), cause.getSimilarityScore()));
 			}
 		}
 	}

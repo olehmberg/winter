@@ -16,6 +16,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 
@@ -34,6 +36,8 @@ public class RunnableProgressReporter
 	private boolean stop;
 	private String message;
 	private boolean reportIfStuck = true;
+	
+	private static final Logger logger = LogManager.getLogger();
 	
 	public Task getUserTask() {
 		return userTask;
@@ -124,7 +128,7 @@ public class RunnableProgressReporter
 			String remaining = DurationFormatUtils.formatDuration(left, "HH:mm:ss.S");
 			
 			String usrMsg = message==null ? "" : message + ": ";
-			System.err.println(String.format("%s%,d of %,d tasks completed after %s (%d/%d active threads). Avg: %.2f items/s, Current: %.2f items/s, %s left.", usrMsg, done, tasks, ttl, pool.getActiveCount(), pool.getPoolSize(), itemsPerSecAvg, itemsPerSecNow, remaining));
+			logger.error(String.format("%s%,d of %,d tasks completed after %s (%d/%d active threads). Avg: %.2f items/s, Current: %.2f items/s, %s left.", usrMsg, done, tasks, ttl, pool.getActiveCount(), pool.getPoolSize(), itemsPerSecAvg, itemsPerSecNow, remaining));
 	
 			if(userTask!=null)
 				userTask.execute();
@@ -137,7 +141,7 @@ public class RunnableProgressReporter
 			}
 			
 			if(stuckIterations>=3 && reportIfStuck) {
-			    System.err.println("ThreadPool seems to be stuck!");
+			    logger.error("ThreadPool seems to be stuck!");
 			    int threadCnt = 0;
 			    int parkedCnt = 0;
 			    Entry<Thread, StackTraceElement[]> main = null;
@@ -148,9 +152,9 @@ public class RunnableProgressReporter
 			            if(e.getValue()[0].toString().startsWith("sun.misc.Unsafe.park")) {
 			            	parkedCnt++;
 			            } else {
-			            	System.err.println(e.getKey().getName());
+			            	logger.error(e.getKey().getName());
 			            	for(StackTraceElement elem : e.getValue()) {
-				                System.err.println("\t" + elem.toString());
+				                logger.error("\t" + elem.toString());
 				            }
 			            }
 			            
@@ -161,12 +165,12 @@ public class RunnableProgressReporter
 			        }
 			    }
 			    
-			    System.err.println(String.format("%s %d Parallel.X threads (%d parked) --- %d total", pool.isTerminated() ? "[pool terminated]" : "", threadCnt, parkedCnt, Thread.getAllStackTraces().size()));
+			    logger.error(String.format("%s %d Parallel.X threads (%d parked) --- %d total", pool.isTerminated() ? "[pool terminated]" : "", threadCnt, parkedCnt, Thread.getAllStackTraces().size()));
 			    
 			    if(main!=null) {
-			    	System.err.println(main.getKey().getName());
+			    	logger.error(main.getKey().getName());
 	            	for(StackTraceElement elem : main.getValue()) {
-		                System.err.println("\t" + elem.toString());
+		                logger.error("\t" + elem.toString());
 		            }
 			    }
 			}

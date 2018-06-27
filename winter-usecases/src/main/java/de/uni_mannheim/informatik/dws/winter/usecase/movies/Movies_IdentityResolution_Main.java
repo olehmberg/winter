@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -50,6 +53,8 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  */
 public class Movies_IdentityResolution_Main {
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) throws Exception {
 		// loading data
@@ -93,12 +98,10 @@ public class Movies_IdentityResolution_Main {
 				gsTest);
 
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 	}
 
 	public static void createDatasetToTrain() throws Exception {
@@ -173,12 +176,10 @@ public class Movies_IdentityResolution_Main {
 				gsTest);
 
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 	}
 
 	public static void runWhole() throws Exception {
@@ -239,17 +240,15 @@ public class Movies_IdentityResolution_Main {
 		Performance perf2 = evaluator.evaluateMatching(correspondences2.get(), gs2);
 
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 
-		System.out.println("Actors <-> Golden Globes");
-		System.out.println(String.format(
-				"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-				perf2.getPrecision(), perf2.getRecall(), perf2.getF1()));
+		logger.info("Actors <-> Golden Globes");
+		logger.info(String.format("Precision: %.4f", perf2.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perf2.getRecall()));
+		logger.info(String.format("F1: %.4f", perf2.getF1()));
 	}
 
 	private static void printCorrespondences(
@@ -277,7 +276,7 @@ public class Movies_IdentityResolution_Main {
 
 		// print the correspondences
 		for (Correspondence<Movie, Attribute> correspondence : correspondences) {
-			System.out.println(String
+			logger.info(String
 					.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
 							correspondence.getFirstRecord().getIdentifier(),
 							correspondence.getSecondRecord().getIdentifier(),

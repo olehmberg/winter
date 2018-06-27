@@ -14,6 +14,9 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -45,7 +48,9 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	implements Blocker<RecordType, SchemaElementType, BlockedType, MatchableValue>,
 	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>
 {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	protected class Block extends LeftIdentityPair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>> {
 		private static final long serialVersionUID = 1L;
 
@@ -194,8 +199,8 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 				});
 			Distribution<Integer> dist = Q.firstOrDefault(aggregated.get()).getSecond();
 			
-			System.out.println("[ValueBasedBlocker] Block size distribution:");
-			System.out.println(dist.format());
+			logger.info("Block size distribution:");
+			logger.info(dist.format());
 
 			// determine frequent blocking key values
 			Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
@@ -207,9 +212,9 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					, new StringConcatenationAggregator<>(","))
 					.sort((p)->p.getFirst(), false);
 			
-			System.out.println("50 most-frequent blocking key values:");
+			logger.info("50 most-frequent blocking key values:");
 			for(Pair<Integer, String> value : blockValues.take(50).get()) {
-				System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+				logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 			}
 
 		}
