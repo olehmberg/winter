@@ -40,7 +40,10 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 	public FusedValue<List<ValueType>, RecordType, SchemaElementType> resolveConflict(
 			Collection<FusibleValue<List<ValueType>, RecordType, SchemaElementType>> values) {
 		// determine the intersection of values
-		Set<ValueType> allValues = new HashSet<>();
+		Set<ValueType> allValues = null;
+		if(values.size() == 0){
+			allValues = new HashSet<>();
+		}
 
 		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 
