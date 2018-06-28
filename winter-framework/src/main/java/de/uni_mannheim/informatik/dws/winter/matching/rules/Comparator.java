@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -33,7 +34,18 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.Reco
  * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public interface Comparator<RecordType extends Matchable, SchemaElementType extends Matchable> extends Serializable {
-
+	
+	/**
+	 * Use these keys to construct a summary of the comparator's results
+	 */
+	public static final Integer record1Value= 1;
+	public static final Integer record2Value= 2;
+	public static final Integer record1PreprocessedValue= 3;
+	public static final Integer record2PreprocessedValue= 4;
+	public static final Integer comparatorName= 5;
+	public static final Integer similarity= 6;
+	public static final Integer postproccesedSimilarity= 7;
+	
 	/**
 	 * Compares two records and returns a similarity value
 	 * 
@@ -55,5 +67,10 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	 * @return Returns the schema element which is the second argument to this comparator and determines which value of the second record to compare.
 	 */
 	default SchemaElementType getSecondSchemaElement(RecordType record) { return null; }
+	
+	/**
+	 * @return Returns the comparison results
+	 */
+	 Map<Integer,String> getComparisonResult();
 
 }

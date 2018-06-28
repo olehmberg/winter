@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
@@ -576,5 +577,12 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		return String.format("WekaMatchingRule: p(match|%s)",
 				StringUtils.join(Q.project(comparators, (c)->c), ", ")
 				);
+	}
+
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

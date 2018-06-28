@@ -12,7 +12,9 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -35,6 +37,8 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 	private List<Attribute> attributeRecords1;
 	private List<Attribute> attributeRecords2;
 	
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	
 	
 	public RecordComparatorOverlapMultipleAttributes(List<Attribute> attributeRecords1, List<Attribute> attributeRecords2) {
 		super();
@@ -48,6 +52,7 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 	 */
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		this.comparisonResult.put(Comparator.comparatorName, RecordComparatorOverlapMultipleAttributes.class.getName());
 		ArrayList<String> first 	= new ArrayList<String>();
 		ArrayList<String> second 	= new ArrayList<String>();
 		
@@ -70,8 +75,14 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 				}
 			}
 		}
-		if(!first.isEmpty()&& !second.isEmpty())
-			return similarity.calculate(first, second);
+		
+		if(!first.isEmpty()&& !second.isEmpty()){
+			this.comparisonResult.put(Comparator.record1Value, first.toString());
+			this.comparisonResult.put(Comparator.record2Value, second.toString());
+			double sim = similarity.calculate(first, second);
+			this.comparisonResult.put(Comparator.similarity, Double.toString(sim));
+			return sim;
+		}
 		
 		return 0;
 	}
@@ -94,6 +105,13 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 
 	public void setAttributeRecords2(List<Attribute> attributeRecords2) {
 		this.attributeRecords2 = attributeRecords2;
+	}
+
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		// TODO Auto-generated method stub
+		return this.comparisonResult;
 	}
 
 }

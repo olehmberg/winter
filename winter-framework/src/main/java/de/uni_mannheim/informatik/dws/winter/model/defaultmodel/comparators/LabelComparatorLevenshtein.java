@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -30,13 +33,26 @@ public class LabelComparatorLevenshtein implements Comparator<Attribute, Record>
 	private static final long serialVersionUID = 1L;
 
 	private LevenshteinSimilarity similarity = new LevenshteinSimilarity();
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
 	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
 	public double compare(Attribute record1, Attribute record2, Correspondence<Record, Matchable> schemaCorrespondence) {
-		return similarity.calculate(record1.getName(), record2.getName());
+		this.comparisonResult.put(Comparator.comparatorName, LabelComparatorLevenshtein.class.getName());
+		this.comparisonResult.put(Comparator.record1Value, record1.getName());
+		this.comparisonResult.put(Comparator.record2Value, record2.getName());
+		
+		double sim = similarity.calculate(record1.getName(), record2.getName());
+		this.comparisonResult.put(Comparator.similarity, Double.toString(sim));
+		
+		return sim;
+	}
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		return this.comparisonResult;
 	}
 
 }

@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -71,6 +72,12 @@ public class Movies_DuplicateBasedSchemaMatching {
 						} else {
 							return 0.0;
 						}
+					}
+
+					@Override
+					public Map<Integer, String> getComparisonResult() {
+						// TODO Auto-generated method stub
+						return null;
 					}
 			
 				};

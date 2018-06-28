@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -30,6 +33,8 @@ public class RecordComparatorJaccard extends StringComparator {
 
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
+	
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
 
 	public RecordComparatorJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold, boolean squared) {
 		super(attributeRecord1, attributeRecord2);
@@ -42,9 +47,14 @@ public class RecordComparatorJaccard extends StringComparator {
 	
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		this.comparisonResult.put(Comparator.comparatorName, LabelComparatorJaccard.class.getName());
+		
 		// preprocessing
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
+		
+		this.comparisonResult.put(Comparator.record1Value, s1);
+		this.comparisonResult.put(Comparator.record2Value, s2);
 	
 		if(s1==null || s2==null) {
 			return 0.0;
@@ -53,8 +63,12 @@ public class RecordComparatorJaccard extends StringComparator {
 		s1 = preprocess(s1);
 		s2 = preprocess(s2);
 		
+		this.comparisonResult.put(Comparator.record1PreprocessedValue, s1);
+		this.comparisonResult.put(Comparator.record2PreprocessedValue, s2);
+		
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
+		this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
 
 		// postprocessing
 		if (similarity <= this.threshold) {
@@ -62,8 +76,15 @@ public class RecordComparatorJaccard extends StringComparator {
 		}
 		if(squared)
 			similarity *= similarity;
+		
+		this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
 
 		return similarity;
+	}
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		return this.comparisonResult;
 	}
 
 

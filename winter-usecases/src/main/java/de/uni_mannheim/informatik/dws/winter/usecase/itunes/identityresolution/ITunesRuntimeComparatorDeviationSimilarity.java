@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -30,6 +33,8 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 
 	private static final long serialVersionUID = 1L;
 	DeviationSimilarity sim = new DeviationSimilarity();
+	
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
 
 	public ITunesRuntimeComparatorDeviationSimilarity(Attribute attributeRecord1, Attribute attributeRecord2) {
 		super(attributeRecord1, attributeRecord2);
@@ -41,13 +46,21 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 			Record record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
+		this.comparisonResult.put(Comparator.comparatorName, ITunesRuntimeComparatorDeviationSimilarity.class.getName());
+    	
+		
 		double sim_temp = 0.00;
 		double similarity = 0.00;
 		
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = convertTimeToSongFormat(record2.getValue(this.getAttributeRecord2()));
 		
+		this.comparisonResult.put(Comparator.record1Value, s1);
+    	this.comparisonResult.put(Comparator.record2Value, s2);
+		
+		
 		if(s1.equals("NULL")){
+			this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
 			return similarity;
 		}
 		else if(s1.contains("{")){
@@ -64,6 +77,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		else{
 			similarity = sim.calculate(Double.parseDouble(s1), Double.parseDouble(s2));
 		}
+		this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
 		return similarity;
 	}
 	
@@ -82,6 +96,12 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		time_converted = runtime.toString();
 		
 		return time_converted;
+	}
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		// TODO Auto-generated method stub
+		return this.comparisonResult;
 	}
 
 }

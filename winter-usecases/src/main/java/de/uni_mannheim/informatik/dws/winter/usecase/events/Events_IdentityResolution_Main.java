@@ -275,11 +275,11 @@ public class Events_IdentityResolution_Main {
 
 		logger.info("Actors <-> Golden Globes");
 		logger.info(String.format(
-				"Precision: %.4f",perfTest.getPrecision()));
+				"Precision: %.4f",perf2.getPrecision()));
 		logger.info(String.format(
-				"Recall: %.4f",	perfTest.getRecall()));
+				"Recall: %.4f",	perf2.getRecall()));
 		logger.info(String.format(
-				"F1: %.4f",perfTest.getF1()));
+				"F1: %.4f",perf2.getF1()));
 	}
 
 	private static void printCorrespondences(

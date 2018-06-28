@@ -11,6 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -89,6 +91,12 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 				logger.info(String.format("Vote: %s<->%s %f: %s<->%s", record1, record2, d, v1, v2));
 				
 				return d;
+			}
+
+			@Override
+			public Map<Integer, String> getComparisonResult() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		

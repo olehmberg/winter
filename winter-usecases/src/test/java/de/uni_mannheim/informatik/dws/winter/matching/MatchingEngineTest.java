@@ -13,6 +13,7 @@
 package de.uni_mannheim.informatik.dws.winter.matching;
 
 import java.io.File;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
@@ -121,6 +122,12 @@ public class MatchingEngineTest extends TestCase {
 					Attribute record2,
 					Correspondence<Movie, Matchable> schemaCorrespondences) {
 				return record1.getIdentifier().equals(record2.getIdentifier()) ? 1.0 : 0.0;
+			}
+
+			@Override
+			public Map<Integer, String> getComparisonResult() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		rule.addComparator(comp, 1.0);

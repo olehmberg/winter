@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -32,6 +35,8 @@ public class MovieTitleComparatorEqual implements Comparator<Movie, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 	private EqualsSimilarity<String> sim = new EqualsSimilarity<String>();
+	
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
 
 
 	@Override
@@ -39,10 +44,22 @@ public class MovieTitleComparatorEqual implements Comparator<Movie, Attribute> {
 			Movie record1,
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
-		double similarity = sim.calculate(record1.getTitle(),
-				record2.getTitle());
-
+		
+		this.comparisonResult.put(Comparator.comparatorName, MovieTitleComparatorEqual.class.getName());
+    	
+    	this.comparisonResult.put(Comparator.record1Value, record1.getTitle());
+    	this.comparisonResult.put(Comparator.record2Value, record2.getTitle());
+    	
+    	double similarity = sim.calculate(record1.getTitle(), record2.getTitle());
+    	
+    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
 		return similarity;
+	}
+
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		return this.comparisonResult;
 	}
 
 }

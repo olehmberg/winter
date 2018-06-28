@@ -1,5 +1,8 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.identityresolution;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -22,6 +25,8 @@ public class EventDateComparatorLevenshteinEditDistance implements Comparator<Ev
     private BestListSimilarity bestListSimilarity = new BestListSimilarity();
     private LevenshteinEditDistance sim = new LevenshteinEditDistance();
     private double threshold;
+    
+    private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
 
     public EventDateComparatorLevenshteinEditDistance(double t) {
         threshold = t;
@@ -32,8 +37,24 @@ public class EventDateComparatorLevenshteinEditDistance implements Comparator<Ev
             Event record1,
             Event record2,
             Correspondence<Attribute, Matchable> schemaCorrespondences) {
-        return bestListSimilarity.getBestDatesEditDistance(sim, record1.getDates(), record2.getDates(), threshold);
+    	
+    	this.comparisonResult.put(Comparator.comparatorName, EventDateComparatorLevenshteinEditDistance.class.getName());
+    	
+    	double similarity = bestListSimilarity.getBestDatesEditDistance(sim, record1.getDates(), record2.getDates(), threshold);
+    	
+    	this.comparisonResult.put(Comparator.record1Value, record1.getDates().toString());
+    	this.comparisonResult.put(Comparator.record2Value, record2.getDates().toString());
+    	
+    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
+    	
+        return similarity;
     }
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		return this.comparisonResult;
+	}
 }
 
 

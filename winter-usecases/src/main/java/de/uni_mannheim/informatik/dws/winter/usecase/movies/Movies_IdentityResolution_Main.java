@@ -66,12 +66,17 @@ public class Movies_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		
+		//////////// CONTINUE HERE!!! --> Add file path here for logging!
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
 //		matchingRule.addComparator((m1, m2, c) -> new YearSimilarity(10).calculate(m1.getDate(), m2.getDate()), 0.2);
 
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
+		
+		matchingRule.setFilePathResults("usecase/movie/output/resultsMatchingRule.tsv");
+		matchingRule.resetResultCounter();
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());

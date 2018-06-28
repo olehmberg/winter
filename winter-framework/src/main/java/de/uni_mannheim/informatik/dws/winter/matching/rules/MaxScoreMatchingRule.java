@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -80,6 +81,12 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 		}
 		
 		return max;
+	}
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

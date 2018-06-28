@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -31,19 +34,26 @@ public class MovieDirectorComparatorJaccard implements Comparator<Movie, Attribu
 
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
-
+	
+	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	
 	@Override
 	public double compare(
 			Movie record1,
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
+		
+		this.comparisonResult.put(Comparator.comparatorName, MovieDirectorComparatorJaccard.class.getName());
 
-		// preprocessing
 		String s1 = record1.getDirector();
 		String s2 = record2.getDirector();
+		this.comparisonResult.put(Comparator.record1Value, s1);
+    	this.comparisonResult.put(Comparator.record2Value, s1);
 
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
+		
+		this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
 
 		// postprocessing
 		if (similarity <= 0.3) {
@@ -51,8 +61,16 @@ public class MovieDirectorComparatorJaccard implements Comparator<Movie, Attribu
 		}
 
 		similarity *= similarity;
-
+		
+		this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
+		
 		return similarity;
+	}
+
+	@Override
+	public Map<Integer, String> getComparisonResult() {
+		// TODO Auto-generated method stub
+		return this.comparisonResult;
 	}
 
 
