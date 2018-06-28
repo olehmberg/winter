@@ -24,27 +24,27 @@ public class EventDateComparator implements Comparator<Event, Attribute> {
     private BestListSimilarity bestListSimilarity = new BestListSimilarity();
     private YearSimilarity sim = new YearSimilarity(1);
     
-    private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+    private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
     @Override
     public double compare(
             Event record1,
             Event record2,
             Correspondence<Attribute, Matchable> schemaCorrespondences) {
-    	this.comparisonResult.put(Comparator.comparatorName, EventDateComparator.class.getName());
+    	this.comparisonResult.put(ComparatorDetails.comparatorName, EventDateComparator.class.getName());
     	
     	double similarity = bestListSimilarity.getBestDatesSimilarity(sim, record1.getDates(), record2.getDates());
     	
-    	this.comparisonResult.put(Comparator.record1Value, record1.getDates().toString());
-    	this.comparisonResult.put(Comparator.record2Value, record2.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDates().toString());
     	
-    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
     	
         return similarity;
     }
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

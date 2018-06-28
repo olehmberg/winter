@@ -33,7 +33,7 @@ public class MovieTitleComparatorLevenshtein implements Comparator<Movie, Attrib
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity sim = new LevenshteinSimilarity();
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	@Override
 	public double compare(
@@ -41,20 +41,20 @@ public class MovieTitleComparatorLevenshtein implements Comparator<Movie, Attrib
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		this.comparisonResult.put(Comparator.comparatorName, MovieTitleComparatorLevenshtein.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, MovieTitleComparatorLevenshtein.class.getName());
     	
-    	this.comparisonResult.put(Comparator.record1Value, record1.getTitle());
-    	this.comparisonResult.put(Comparator.record2Value, record2.getTitle());
+    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getTitle());
+    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getTitle());
     	
     	double similarity = sim.calculate(record1.getTitle(), record2.getTitle());
     	
-    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 		return similarity;
 		
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

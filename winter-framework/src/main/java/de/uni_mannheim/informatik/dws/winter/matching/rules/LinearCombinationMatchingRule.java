@@ -55,8 +55,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	private List<Pair<Comparator<RecordType, SchemaElementType>, Double>> comparators;
 	private double offset;
 
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
-
 	private String filePathResults;
 	private int resultCounter;
 	private PrintWriter writer;
@@ -160,13 +158,13 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			sum += (similarity * weight);
 
 			if (this.filePathResults != null) {
-				Map<Integer, String> resultMap = comp.getComparisonResult();
-				detailedComparatorResults = detailedComparatorResults + "\t" + resultMap.get(Comparator.comparatorName) + "\t"
-						+ resultMap.get(Comparator.record1Value) + "\t" + resultMap.get(Comparator.record2Value) + "\t"
-						+ resultMap.get(Comparator.record1PreprocessedValue) + "\t"
-						+ resultMap.get(Comparator.record2PreprocessedValue) + "\t"
-						+ resultMap.get(Comparator.similarity) + "\t"
-						+ resultMap.get(Comparator.postproccesedSimilarity);
+				Map<ComparatorDetails, String> resultMap = comp.getComparisonResult();
+				detailedComparatorResults = detailedComparatorResults + "\t" + resultMap.get(ComparatorDetails.comparatorName) + "\t"
+						+ resultMap.get(ComparatorDetails.record1Value) + "\t" + resultMap.get(ComparatorDetails.record2Value) + "\t"
+						+ resultMap.get(ComparatorDetails.record1PreprocessedValue) + "\t"
+						+ resultMap.get(ComparatorDetails.record2PreprocessedValue) + "\t"
+						+ resultMap.get(ComparatorDetails.similarity) + "\t"
+						+ resultMap.get(ComparatorDetails.postproccesedSimilarity);
 			}
 
 		}
@@ -306,7 +304,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
-		return this.comparisonResult;
+	public Map<ComparatorDetails, String> getComparisonResult() {
+		return null;
 	}
 }

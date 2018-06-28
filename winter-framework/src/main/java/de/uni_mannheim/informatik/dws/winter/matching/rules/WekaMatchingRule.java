@@ -581,8 +581,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
-		// TODO Auto-generated method stub
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return null;
 	}
 }

@@ -34,7 +34,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 	private static final long serialVersionUID = 1L;
 	DeviationSimilarity sim = new DeviationSimilarity();
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	public ITunesRuntimeComparatorDeviationSimilarity(Attribute attributeRecord1, Attribute attributeRecord2) {
 		super(attributeRecord1, attributeRecord2);
@@ -46,7 +46,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 			Record record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		this.comparisonResult.put(Comparator.comparatorName, ITunesRuntimeComparatorDeviationSimilarity.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, ITunesRuntimeComparatorDeviationSimilarity.class.getName());
     	
 		
 		double sim_temp = 0.00;
@@ -55,12 +55,12 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = convertTimeToSongFormat(record2.getValue(this.getAttributeRecord2()));
 		
-		this.comparisonResult.put(Comparator.record1Value, s1);
-    	this.comparisonResult.put(Comparator.record2Value, s2);
+		this.comparisonResult.put(ComparatorDetails.record1Value, s1);
+    	this.comparisonResult.put(ComparatorDetails.record2Value, s2);
 		
 		
 		if(s1.equals("NULL")){
-			this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+			this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 			return similarity;
 		}
 		else if(s1.contains("{")){
@@ -77,7 +77,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		else{
 			similarity = sim.calculate(Double.parseDouble(s1), Double.parseDouble(s2));
 		}
-		this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+		this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 		return similarity;
 	}
 	
@@ -99,7 +99,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		// TODO Auto-generated method stub
 		return this.comparisonResult;
 	}

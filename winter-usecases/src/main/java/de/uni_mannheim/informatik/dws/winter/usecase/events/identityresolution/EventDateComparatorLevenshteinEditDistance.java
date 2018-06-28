@@ -26,7 +26,7 @@ public class EventDateComparatorLevenshteinEditDistance implements Comparator<Ev
     private LevenshteinEditDistance sim = new LevenshteinEditDistance();
     private double threshold;
     
-    private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+    private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
     public EventDateComparatorLevenshteinEditDistance(double t) {
         threshold = t;
@@ -38,21 +38,21 @@ public class EventDateComparatorLevenshteinEditDistance implements Comparator<Ev
             Event record2,
             Correspondence<Attribute, Matchable> schemaCorrespondences) {
     	
-    	this.comparisonResult.put(Comparator.comparatorName, EventDateComparatorLevenshteinEditDistance.class.getName());
+    	this.comparisonResult.put(ComparatorDetails.comparatorName, EventDateComparatorLevenshteinEditDistance.class.getName());
     	
     	double similarity = bestListSimilarity.getBestDatesEditDistance(sim, record1.getDates(), record2.getDates(), threshold);
     	
-    	this.comparisonResult.put(Comparator.record1Value, record1.getDates().toString());
-    	this.comparisonResult.put(Comparator.record2Value, record2.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDates().toString());
     	
-    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
-    	this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.postproccesedSimilarity, Double.toString(similarity));
     	
         return similarity;
     }
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 }

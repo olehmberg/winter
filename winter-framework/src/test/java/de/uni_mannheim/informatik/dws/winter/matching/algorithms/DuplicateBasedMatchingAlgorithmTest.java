@@ -94,8 +94,7 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 			}
 
 			@Override
-			public Map<Integer, String> getComparisonResult() {
-				// TODO Auto-generated method stub
+			public Map<ComparatorDetails, String> getComparisonResult() {
 				return null;
 			}
 		};

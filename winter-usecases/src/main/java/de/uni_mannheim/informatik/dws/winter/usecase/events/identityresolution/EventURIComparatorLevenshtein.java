@@ -26,7 +26,7 @@ public class EventURIComparatorLevenshtein implements Comparator<Event, Attribut
     private BestListSimilarity bestListSimilarity = new BestListSimilarity();
     private LevenshteinSimilarity sim = new LevenshteinSimilarity();
     
-    private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+    private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
     @Override
     public double compare(
@@ -34,21 +34,20 @@ public class EventURIComparatorLevenshtein implements Comparator<Event, Attribut
             Event record2,
             Correspondence<Attribute, Matchable> schemaCorrespondences) {
     	
-    	this.comparisonResult.put(Comparator.comparatorName, EventURIComparatorLevenshtein.class.getName());
+    	this.comparisonResult.put(ComparatorDetails.comparatorName, EventURIComparatorLevenshtein.class.getName());
     	
-    	this.comparisonResult.put(Comparator.record1Value, record1.getDates().toString());
-    	this.comparisonResult.put(Comparator.record2Value, record2.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDates().toString());
+    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDates().toString());
     	
     	double similarity = bestListSimilarity.getBestStripedStringSimilarity(sim, record1.getUris(), record2.getUris());
     	
-    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
         
     	return similarity;
     }
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
-		// TODO Auto-generated method stub
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

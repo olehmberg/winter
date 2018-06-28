@@ -67,7 +67,6 @@ public class Movies_IdentityResolution_Main {
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
 		
-		//////////// CONTINUE HERE!!! --> Add file path here for logging!
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
 //		matchingRule.addComparator((m1, m2, c) -> new YearSimilarity(10).calculate(m1.getDate(), m2.getDate()), 0.2);

@@ -4,10 +4,16 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%c{1}] - %msg%n}"/>
         </Console>
+        <File name="file" fileName="logs/winter.log">
+            <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%c{1}] - %msg%n}"/>
+        </File>
     </Appenders>
     <Loggers>
         <Root level="info" additivity="false">
             <AppenderRef ref="console"/>
+            <!-- Uncomment to write logs to file as specified in appender above
+             <AppenderRef ref="file"/> 
+             -->
         </Root>
     </Loggers>
 </Configuration>

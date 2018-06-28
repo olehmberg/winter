@@ -37,7 +37,7 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 	private List<Attribute> attributeRecords1;
 	private List<Attribute> attributeRecords2;
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 	
 	
 	public RecordComparatorOverlapMultipleAttributes(List<Attribute> attributeRecords1, List<Attribute> attributeRecords2) {
@@ -52,7 +52,7 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 	 */
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		this.comparisonResult.put(Comparator.comparatorName, RecordComparatorOverlapMultipleAttributes.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, RecordComparatorOverlapMultipleAttributes.class.getName());
 		ArrayList<String> first 	= new ArrayList<String>();
 		ArrayList<String> second 	= new ArrayList<String>();
 		
@@ -77,10 +77,10 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 		}
 		
 		if(!first.isEmpty()&& !second.isEmpty()){
-			this.comparisonResult.put(Comparator.record1Value, first.toString());
-			this.comparisonResult.put(Comparator.record2Value, second.toString());
+			this.comparisonResult.put(ComparatorDetails.record1Value, first.toString());
+			this.comparisonResult.put(ComparatorDetails.record2Value, second.toString());
 			double sim = similarity.calculate(first, second);
-			this.comparisonResult.put(Comparator.similarity, Double.toString(sim));
+			this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(sim));
 			return sim;
 		}
 		
@@ -109,7 +109,7 @@ public class RecordComparatorOverlapMultipleAttributes implements Comparator<Rec
 
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		// TODO Auto-generated method stub
 		return this.comparisonResult;
 	}

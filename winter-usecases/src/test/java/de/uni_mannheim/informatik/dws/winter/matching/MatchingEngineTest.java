@@ -125,7 +125,7 @@ public class MatchingEngineTest extends TestCase {
 			}
 
 			@Override
-			public Map<Integer, String> getComparisonResult() {
+			public Map<ComparatorDetails, String> getComparisonResult() {
 				// TODO Auto-generated method stub
 				return null;
 			}

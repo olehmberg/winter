@@ -34,7 +34,7 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	public RecordComparatorJaccardWithBrackets(Attribute attributeRecord1, Attribute attributeRecord2, double threshold,
 			boolean squared) {
@@ -48,14 +48,14 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		this.comparisonResult.put(Comparator.comparatorName, RecordComparatorJaccardWithBrackets.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, RecordComparatorJaccardWithBrackets.class.getName());
 		
 		
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
 		
-		this.comparisonResult.put(Comparator.record1Value, s1);
-		this.comparisonResult.put(Comparator.record1Value, s2);
+		this.comparisonResult.put(ComparatorDetails.record1Value, s1);
+		this.comparisonResult.put(ComparatorDetails.record1Value, s2);
 		
 		// preprocessing
 		if (s1.contains("(") || s2.contains("(")) {
@@ -63,13 +63,13 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 			String s1_temp = s1.replaceAll("\\(.*\\)", "");
 			String s2_temp = s2.replaceAll("\\(.*\\)", "");
 			
-			this.comparisonResult.put(Comparator.record1PreprocessedValue, s1_temp);
-			this.comparisonResult.put(Comparator.record2PreprocessedValue, s2_temp);
+			this.comparisonResult.put(ComparatorDetails.record1PreprocessedValue, s1_temp);
+			this.comparisonResult.put(ComparatorDetails.record2PreprocessedValue, s2_temp);
 			
 			// calculate similarity
 			if (!s1_temp.equals(s1) || !s2_temp.equals(s2)) {
 				double similarity = sim.calculate(s1_temp, s2_temp);
-				this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+				this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 				// postprocessing
 				if (similarity <= this.threshold) {
 					similarity = 0;
@@ -78,16 +78,16 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 				if (squared)
 					similarity *= similarity;
 				
-				this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
+				this.comparisonResult.put(ComparatorDetails.postproccesedSimilarity, Double.toString(similarity));
 				return similarity;
 			}
 		}
-		this.comparisonResult.put(Comparator.similarity, "0");
+		this.comparisonResult.put(ComparatorDetails.similarity, "0");
 		return 0;
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

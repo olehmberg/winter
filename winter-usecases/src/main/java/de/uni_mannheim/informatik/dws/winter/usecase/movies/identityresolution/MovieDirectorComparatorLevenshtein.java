@@ -34,27 +34,26 @@ public class MovieDirectorComparatorLevenshtein implements Comparator<Movie, Att
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity sim = new LevenshteinSimilarity();
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	@Override
 	public double compare(
 			Movie record1,
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
-		this.comparisonResult.put(Comparator.comparatorName, MovieDirectorComparatorLevenshtein.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, MovieDirectorComparatorLevenshtein.class.getName());
     	
-    	this.comparisonResult.put(Comparator.record1Value, record1.getDirector());
-    	this.comparisonResult.put(Comparator.record2Value, record2.getDirector());
+    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDirector());
+    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDirector());
     	
     	double similarity = sim.calculate(record1.getDirector(), record2.getDirector());
     	
-    	this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 		return similarity;
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
-		// TODO Auto-generated method stub
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

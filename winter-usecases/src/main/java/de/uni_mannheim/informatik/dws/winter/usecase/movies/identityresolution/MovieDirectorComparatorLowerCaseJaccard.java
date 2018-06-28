@@ -37,7 +37,7 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 	
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	@Override
 	public double compare(
@@ -45,14 +45,14 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		this.comparisonResult.put(Comparator.comparatorName, MovieDirectorComparatorLowerCaseJaccard.class.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, MovieDirectorComparatorLowerCaseJaccard.class.getName());
 		
 		// preprocessing
 		String s1 = record1.getDirector();
 		String s2 = record2.getDirector();
 		
-		this.comparisonResult.put(Comparator.record1Value, s1);
-		this.comparisonResult.put(Comparator.record2Value, s2);
+		this.comparisonResult.put(ComparatorDetails.record1Value, s1);
+		this.comparisonResult.put(ComparatorDetails.record2Value, s2);
 		
 		if (s1 != null) {
 			s1 = s1.toLowerCase();
@@ -66,12 +66,12 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 			s2 = "";
 		}
 		
-		this.comparisonResult.put(Comparator.record1PreprocessedValue, s1);
-		this.comparisonResult.put(Comparator.record2PreprocessedValue, s2);
+		this.comparisonResult.put(ComparatorDetails.record1PreprocessedValue, s1);
+		this.comparisonResult.put(ComparatorDetails.record2PreprocessedValue, s2);
 
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
-		this.comparisonResult.put(Comparator.similarity, Double.toString(similarity));
+		this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
 
 		// postprocessing
 		if (similarity <= 0.3) {
@@ -80,13 +80,13 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 
 		similarity *= similarity;
 		
-		this.comparisonResult.put(Comparator.postproccesedSimilarity, Double.toString(similarity));
+		this.comparisonResult.put(ComparatorDetails.postproccesedSimilarity, Double.toString(similarity));
 		
 		return similarity;
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 

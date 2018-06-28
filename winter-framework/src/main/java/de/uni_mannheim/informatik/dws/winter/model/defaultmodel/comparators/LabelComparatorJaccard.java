@@ -31,25 +31,25 @@ public class LabelComparatorJaccard implements Comparator<Attribute, Attribute> 
 	private static final long serialVersionUID = 1L;
 
 	private TokenizingJaccardSimilarity similarity = new TokenizingJaccardSimilarity();
-	private HashMap<Integer, String> comparisonResult = new HashMap<Integer, String>();
+	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
 	public double compare(Attribute record1, Attribute record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		this.comparisonResult.put(Comparator.comparatorName, LabelComparatorJaccard.class.getName());
-		this.comparisonResult.put(Comparator.record1Value, record1.getName());
-		this.comparisonResult.put(Comparator.record2Value, record2.getName());
+		this.comparisonResult.put(ComparatorDetails.comparatorName, LabelComparatorJaccard.class.getName());
+		this.comparisonResult.put(ComparatorDetails.record1Value, record1.getName());
+		this.comparisonResult.put(ComparatorDetails.record2Value, record2.getName());
 		
 		double sim = similarity.calculate(record1.getName(), record2.getName());
-		this.comparisonResult.put(Comparator.similarity, Double.toString(sim));
+		this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(sim));
 		
 		return sim;
 	}
 
 	@Override
-	public Map<Integer, String> getComparisonResult() {
+	public Map<ComparatorDetails, String> getComparisonResult() {
 		return this.comparisonResult;
 	}
 
