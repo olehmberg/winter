@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -78,9 +79,11 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private boolean backwardSelection = false;
 	private AttributeSelection fs;
 	private boolean balanceTrainingData = false;
-	
+
 	public final String trainingSet = "trainingSet";
-	public final String machtSet = "matchSet";
+	public final String matchSet = "matchSet";
+
+	private Instances trainingData;
 
 	// TODO Discuss finalThreshold --> Can be set via options -C <confidence
 	// factor for pruning>
@@ -113,7 +116,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		// create list for comparators
 		this.comparators = new LinkedList<>();
 	}
-	
 
 	public String[] getparameters() {
 		return parameters;
@@ -156,7 +158,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	@Override
 	public Performance learnParameters(FeatureVectorDataSet features) {
 		// create training
-		Instances trainingData = transformToWeka(features, this.trainingSet);
+		this.trainingData = transformToWeka(features, this.trainingSet);
 
 		try {
 			// apply feature subset selection
@@ -170,7 +172,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 				// Do feature subset selection, but using a 10-fold cross
 				// validation
-				wrapper.buildEvaluator(trainingData);
+				wrapper.buildEvaluator(this.trainingData);
 				wrapper.setClassifier(this.classifier);
 				wrapper.setFolds(10);
 				wrapper.setThreshold(0.01);
@@ -178,39 +180,40 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				this.fs.setEvaluator(wrapper);
 				this.fs.setSearch(search);
 
-				this.fs.SelectAttributes(trainingData);
+				this.fs.SelectAttributes(this.trainingData);
 
-				trainingData = fs.reduceDimensionality(trainingData);
+				this.trainingData = fs.reduceDimensionality(this.trainingData);
 
-			}			
+			}
 			// perform 10-fold Cross Validation to evaluate classifier
-			Evaluation eval = new Evaluation(trainingData);
-			
-			if(balanceTrainingData) {
+			Evaluation eval = new Evaluation(this.trainingData);
+
+			if (balanceTrainingData) {
 				Resample filter = new Resample();
 				filter.setBiasToUniformClass(1.0);
-				filter.setInputFormat(trainingData);
+				filter.setInputFormat(this.trainingData);
 				filter.setSampleSizePercent(100);
-				eval = new EvaluationWithBalancing(trainingData, filter);
+				eval = new EvaluationWithBalancing(this.trainingData, filter);
 			}
-			
-			eval.crossValidateModel(this.classifier, trainingData, Math.min(10, trainingData.size()), new Random(1));
+
+			eval.crossValidateModel(this.classifier, this.trainingData, Math.min(10, this.trainingData.size()),
+					new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 			System.out.println(eval.toClassDetailsString());
 			System.out.println(eval.toMatrixString());
-			
-			if(balanceTrainingData) {
+
+			if (balanceTrainingData) {
 				Resample filter = new Resample();
 				filter.setBiasToUniformClass(1.0);
-				filter.setInputFormat(trainingData);
+				filter.setInputFormat(this.trainingData);
 				filter.setSampleSizePercent(100);
-				trainingData = Filter.useFilter(trainingData, filter);
+				this.trainingData = Filter.useFilter(this.trainingData, filter);
 			}
-			
-			this.classifier.buildClassifier(trainingData);
-			
-			int positiveClassIndex = trainingData.attribute(trainingData.classIndex()).indexOfValue("1");
-			
+
+			this.classifier.buildClassifier(this.trainingData);
+
+			int positiveClassIndex = this.trainingData.attribute(this.trainingData.classIndex()).indexOfValue("1");
+
 			int truePositive = (int) eval.numTruePositives(positiveClassIndex);
 			int falsePositive = (int) eval.numFalsePositives(positiveClassIndex);
 			int falseNegative = (int) eval.numFalseNegatives(positiveClassIndex);
@@ -330,7 +333,8 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	public Record generateFeatures(RecordType record1, RecordType record2,
-			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, FeatureVectorDataSet features) {
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences,
+			FeatureVectorDataSet features) {
 
 		Record model = new Record(String.format("%s-%s", record1.getIdentifier(), record2.getIdentifier()),
 				this.getClass().getSimpleName());
@@ -340,25 +344,26 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 			Comparator<RecordType, SchemaElementType> comp = comparators.get(i);
 
-			// check if there is a schema correspondence that we can pass on to the comparator
+			// check if there is a schema correspondence that we can pass on to
+			// the comparator
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence = null;
-			if(schemaCorrespondences!=null) {
+			if (schemaCorrespondences != null) {
 				schemaCorrespondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
 			}
-			
+
 			double similarity = comp.compare(record1, record2, schemaCorrespondence);
 
 			String attribute1 = "";
 			String attribute2 = "";
-			try{
-				attribute1 = ((RecordComparator)comp).getAttributeRecord1().toString();
-				attribute2 = ((RecordComparator)comp).getAttributeRecord2().toString();
-			
-			} catch (ClassCastException  e) {
+			try {
+				attribute1 = ((RecordComparator) comp).getAttributeRecord1().toString();
+				attribute2 = ((RecordComparator) comp).getAttributeRecord2().toString();
+
+			} catch (ClassCastException e) {
 				// Not possible to add attribute names
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
-			
+
 			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
 			Attribute att = null;
 			for (Attribute elem : features.getSchema().get()) {
@@ -403,10 +408,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 		// transform entry for classification.
 		matchSet.add(matchRecord);
-		Instances matchInstances = this.transformToWeka(matchSet, this.machtSet);
-		
+		Instances matchInstances = this.transformToWeka(matchSet, this.matchSet);
+
 		// reduce dimensions if feature subset selection was applied before.
-		if((this.backwardSelection|| this.forwardSelection) && this.fs != null)
+		if ((this.backwardSelection || this.forwardSelection) && this.fs != null)
 			try {
 				matchInstances = this.fs.reduceDimensionality(matchInstances);
 			} catch (Exception e1) {
@@ -417,13 +422,12 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			double[] distribution = this.classifier.distributionForInstance(matchInstances.firstInstance());
 			int positiveClassIndex = matchInstances.attribute(matchInstances.classIndex()).indexOfValue("1");
 			double matchConfidence = distribution[positiveClassIndex];
-			return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence, schemaCorrespondences);
+			return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence,
+					schemaCorrespondences);
 
 		} catch (Exception e) {
 			System.err.println(String.format("[WekaMatchingRule] Classifier Exception for Record '%s': %s",
-				matchRecord==null ? "null" : matchRecord.toString(),
-				e.getMessage()
-			));
+					matchRecord == null ? "null" : matchRecord.toString(), e.getMessage()));
 		}
 		return null;
 	}
@@ -484,7 +488,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		}
 	}
 
-
 	@Override
 	public double compare(RecordType record1, RecordType record2,
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence) {
@@ -505,18 +508,18 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		for (int i = 0; i < comparators.size(); i++) {
 
 			Comparator<RecordType, SchemaElementType> comp = comparators.get(i);
-			
+
 			String attribute1 = "";
 			String attribute2 = "";
-			try{
-				attribute1 = ((RecordComparator)comp).getAttributeRecord1().toString();
-				attribute2 = ((RecordComparator)comp).getAttributeRecord2().toString();
-			
-			} catch (ClassCastException  e) {
+			try {
+				attribute1 = ((RecordComparator) comp).getAttributeRecord1().toString();
+				attribute2 = ((RecordComparator) comp).getAttributeRecord2().toString();
+
+			} catch (ClassCastException e) {
 				// Not possible to add attribute names
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
-			
+
 			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
 
 			Attribute att = new Attribute(name);
@@ -531,7 +534,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	protected String getComparatorName(Comparator<RecordType, SchemaElementType> comp) {
 		return comp.toString();
 	}
-	
+
 	public boolean isForwardSelection() {
 		return forwardSelection;
 	}
@@ -551,18 +554,42 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	public void setBalanceTrainingData(boolean balanceTrainingData) {
 		this.balanceTrainingData = balanceTrainingData;
 	}
-	
+
 	public String getModelDescription() {
 		return String.format("%s", classifier);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return String.format("WekaMatchingRule: p(match|%s)",
-				StringUtils.join(Q.project(comparators, (c)->c), ", ")
-				);
+		return String.format("WekaMatchingRule: p(match|%s)", StringUtils.join(Q.project(comparators, (c) -> c), ", "));
+	}
+
+	/**
+	 * Store Training Data to file system,
+	 * 
+	 * @param location
+	 *            file location of a model
+	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule#storeTrainingData(java.io.File)
+	 */
+
+	@Override
+	public void storeTrainingData(File location) {
+
+		try {
+			FileOutputStream fout = new FileOutputStream(location);
+			PrintStream out = new PrintStream(fout);
+			out.print(this.trainingData.toString());
+			out.flush();
+			out.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

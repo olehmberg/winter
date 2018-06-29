@@ -47,4 +47,6 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 	void storeModel(File location);
 	void readModel(File location);
 	
+	void storeTrainingData(File location);
+	
 }

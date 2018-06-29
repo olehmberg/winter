@@ -214,4 +214,10 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				StringUtils.join(Q.project(comparators, (c)->c.getSecond() + " " + c.getFirst().toString()), " + ")
 				);
 	}
+
+	@Override
+	public void storeTrainingData(File location) {
+		// TODO Auto-generated method stub
+		
+	}
 }

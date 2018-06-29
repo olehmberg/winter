@@ -164,6 +164,9 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 
 		// Store Matching Rule
 		matchingRule.storeModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
+		
+		// Store Training Data
+		matchingRule.storeTrainingData(new File("usecase/itunes/matchingRule/itunesTrainingData.arff"));
 
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
