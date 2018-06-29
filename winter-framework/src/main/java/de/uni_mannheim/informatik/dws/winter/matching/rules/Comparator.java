@@ -39,7 +39,7 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	 * Use these keys to construct a summary of the comparator's results
 	 */
 	public enum ComparatorDetails{
-		record1Value, record2Value, record1PreprocessedValue, record2PreprocessedValue, comparatorName, similarity, postproccesedSimilarity
+		comparatorName, record1Value, record2Value, record1PreprocessedValue, record2PreprocessedValue, similarity, postproccesedSimilarity
 	}
 	
 	/**

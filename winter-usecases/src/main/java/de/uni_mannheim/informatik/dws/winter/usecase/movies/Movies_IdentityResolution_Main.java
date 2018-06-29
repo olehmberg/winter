@@ -73,9 +73,8 @@ public class Movies_IdentityResolution_Main {
 
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
-		
-		matchingRule.setFilePathResults("usecase/movie/output/resultsMatchingRule.tsv");
-		matchingRule.resetResultCounter();
+
+		matchingRule.setResultSize(1000);
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
@@ -95,7 +94,9 @@ public class Movies_IdentityResolution_Main {
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File(
 				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
-
+		
+		matchingRule.writeMatchingResultsToFile("usecase/movie/output/resultsMatchingRule");
+		
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),

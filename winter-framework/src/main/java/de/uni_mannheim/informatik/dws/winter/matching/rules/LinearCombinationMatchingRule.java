@@ -12,16 +12,11 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -32,6 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * A {@link MatchingRule} that is defined by a weighted linear combination of
@@ -53,13 +49,10 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 
 	private static final long serialVersionUID = 1L;
 	private List<Pair<Comparator<RecordType, SchemaElementType>, Double>> comparators;
+	private String [] headerResultsComparator = {"ComparatorName", "Record1Value", "Record2Value", 
+			"Record1PreprocessedValue", "Record2PreprocessedValue", "Similarity", "PostproccesedSimilarity"	};
 	private double offset;
 
-	private String filePathResults;
-	private int resultCounter;
-	private PrintWriter writer;
-
-	private static final Logger logger = LogManager.getLogger();
 
 	/**
 	 * Initialises the rule. The finalThreshold determines the matching
@@ -71,6 +64,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public LinearCombinationMatchingRule(double finalThreshold) {
 		super(finalThreshold);
 		comparators = new LinkedList<>();
+		buildResultsTable();
 	}
 
 	/**
@@ -85,23 +79,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public LinearCombinationMatchingRule(double offset, double finalThreshold) {
 		this(finalThreshold);
 		this.offset = offset;
-	}
-
-	public String getFilePathResults() {
-		return filePathResults;
-	}
-
-	public void setFilePathResults(String filePathResults) {
-		this.filePathResults = filePathResults;
-		try {
-			this.writer = new PrintWriter(this.filePathResults, "UTF-8");
-		} catch (IOException e) {
-			logger.error("Something went wrong when creating the Filewriter!");
-		}
-	}
-
-	public void resetResultCounter() {
-		this.resultCounter = 0;
+		buildResultsTable();
 	}
 
 	/**
@@ -117,6 +95,9 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight) throws Exception {
 		if (weight > 0.0) {
 			comparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(comparator, weight));
+			for(int i = 0; i < this.headerResultsComparator.length; i++){
+				this.addColumnToResults(this.headerResultsComparator[i] + comparators.size());
+			}
 		} else {
 			throw new Exception("Weight cannot be 0.0 or smaller");
 		}
@@ -143,7 +124,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
 		// double similarity = compare(record1, record2, null);
-		String detailedComparatorResults = "";
+		LinkedList<String> detailedResults = new LinkedList<String>();
 		double sum = 0.0;
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
@@ -157,53 +138,37 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			double weight = pair.getSecond();
 			sum += (similarity * weight);
 
-			if (this.filePathResults != null) {
-				Map<ComparatorDetails, String> resultMap = comp.getComparisonResult();
-				detailedComparatorResults = detailedComparatorResults + "\t" + resultMap.get(ComparatorDetails.comparatorName) + "\t"
-						+ resultMap.get(ComparatorDetails.record1Value) + "\t" + resultMap.get(ComparatorDetails.record2Value) + "\t"
-						+ resultMap.get(ComparatorDetails.record1PreprocessedValue) + "\t"
-						+ resultMap.get(ComparatorDetails.record2PreprocessedValue) + "\t"
-						+ resultMap.get(ComparatorDetails.similarity) + "\t"
-						+ resultMap.get(ComparatorDetails.postproccesedSimilarity);
+			Map<ComparatorDetails, String> resultMap = comp.getComparisonResult();
+			if(resultMap != null){
+				for(ComparatorDetails id : ComparatorDetails.values() ){
+					detailedResults.add(resultMap.get(id));
+				}
 			}
-
 		}
 
 		// do not normalise the sum of weights
 		// if a normalised score in the range [0,1] is desired, users should
 		// call normaliseWeights()
 		double similarity = offset + sum;
-		if (this.filePathResults != null) {
-			String detailedResult = LinearCombinationMatchingRule.class.getName() + "\t" + record1.getIdentifier()
-					+ "\t" + record2.getIdentifier() + "\t" + Double.toString(similarity)
-					+ detailedComparatorResults;
+		
+		LinkedList<String> results = new LinkedList<String>();
+		results.add("");
+		results.add(LinearCombinationMatchingRule.class.getName());
+		results.add(record1.getIdentifier());
+		results.add(record2.getIdentifier());
+		results.add(Double.toString(similarity));
+		results.addAll(detailedResults);
 
-			writeResultsToFile(detailedResult);
-		}
+		
+		TableRow resultsRow = new TableRow(this.getMatchingResults().getSize() + 1, this.getMatchingResults());
+		resultsRow.set(results.toArray());
+		this.appendRowToResults(resultsRow);
 
 		// if (similarity >= getFinalThreshold() && similarity > 0.0) {
 		return new Correspondence<RecordType, SchemaElementType>(record1, record2, similarity, schemaCorrespondences);
 		// } else {
 		// return null;
 		// }
-	}
-
-	private void writeResultsToFile(String line) {
-		if (this.filePathResults != null && this.resultCounter == 0) {
-			String headerRow = "MatchingRule\tRecord1Identifier\tRecord2Identifier\tTotalSimilarity";
-			for (int i = 0; i < comparators.size(); i++) {
-				headerRow = headerRow + "\tComparatorName" + i + "\tRecord1Value" + i + "\tRecord2Value" + i
-						+ "\tRecord1PreprocessedValue" + i + "\tRecord2PreprocessedValue" + i + "\tSimilarity" + i
-						+ "\tPostproccesedSimilarity" + i;
-			}
-			this.writer.println(headerRow);
-		}
-		if (this.filePathResults != null && this.resultCounter < 1000) {
-			this.writer.println(line);
-			this.resultCounter++;
-		} else if (this.resultCounter == 1000) {
-			this.writer.close();
-		}
 	}
 
 	/*
