@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -33,6 +32,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a duplicate detection task,
@@ -44,7 +44,16 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  */
 public class Movies_DuplicateDetection_Main {
 	
-	private static final Logger logger = LogManager.getLogger();
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws Exception {
 

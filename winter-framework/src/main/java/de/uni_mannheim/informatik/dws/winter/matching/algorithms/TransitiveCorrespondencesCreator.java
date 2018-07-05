@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -19,6 +18,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class TransitiveCorrespondencesCreator<TypeA extends Matchable, TypeB ext
 
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	private boolean isDirected = true;
 	

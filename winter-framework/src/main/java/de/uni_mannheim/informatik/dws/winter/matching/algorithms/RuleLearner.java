@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
@@ -34,6 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import edu.stanford.nlp.util.StringUtils;
 
@@ -45,7 +45,7 @@ import edu.stanford.nlp.util.StringUtils;
  */
 public class RuleLearner<RecordType extends Matchable, SchemaElementType extends Matchable> {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public Performance learnMatchingRule(
 			DataSet<RecordType, SchemaElementType> data1, 

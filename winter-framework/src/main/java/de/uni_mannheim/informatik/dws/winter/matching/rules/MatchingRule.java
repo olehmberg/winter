@@ -14,13 +14,13 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
@@ -42,13 +42,13 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private static final long serialVersionUID = 1L;
 	private double finalThreshold;
 	
-	private Table matchingResults;
+	private Table debugMatchingResults;
 	private String [] headerMatchingResults = {"MatchingRule", "Record1Identifier", "Record2Identifier", "TotalSimilarity"};
 
 	private String filePathResults;
 	private int resultSize;
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	public double getFinalThreshold() {
 		return finalThreshold;
@@ -74,12 +74,12 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		this.resultSize = size;
 	}
 	
-	public Table getMatchingResults() {
-		return matchingResults;
+	public Table getDebugMatchingResults() {
+		return debugMatchingResults;
 	}
 
-	public void setMatchingResults(Table matchingResults) {
-		this.matchingResults = matchingResults;
+	public void setDebugMatchingResults(Table debugMatchingResults) {
+		this.debugMatchingResults = debugMatchingResults;
 	}
 
 	
@@ -110,17 +110,17 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	}
 	
 	public void buildResultsTable(){
-		this.matchingResults = new Table();
+		this.debugMatchingResults = new Table();
 		for(int i = 0; i < this.headerMatchingResults.length; i++){
 			this.addColumnToResults(this.headerMatchingResults[i]);
 		}
 	}
 	
 	public void addColumnToResults(String header){
-		if(this.matchingResults != null){
-			TableColumn c = new TableColumn(this.matchingResults.getColumns().size() + 1, this.matchingResults);
+		if(this.debugMatchingResults != null){
+			TableColumn c = new TableColumn(this.debugMatchingResults.getColumns().size() + 1, this.debugMatchingResults);
 			c.setHeader(header);
-			this.matchingResults.addColumn(c);
+			this.debugMatchingResults.addColumn(c);
 		}
 		else{
 			logger.error("The table for the matching results is not defined!");
@@ -128,16 +128,16 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	}
 	
 	public void appendRowToResults(TableRow r){
-		if(this.matchingResults != null && this.matchingResults.getSize() <= this.resultSize ){
-			this.matchingResults.addRow(r);
+		if(this.debugMatchingResults != null && this.debugMatchingResults.getSize() <= this.resultSize ){
+			this.debugMatchingResults.addRow(r);
 		}
 	}
 	
-	public void writeMatchingResultsToFile(String path){
-		if(path != null && this.matchingResults != null){
+	public void writeDebugMatchingResultsToFile(String path){
+		if(path != null && this.debugMatchingResults != null){
 			CSVTableWriter csvTableWriter = new CSVTableWriter();
 			try {
-				csvTableWriter.write(this.matchingResults, new File(path));
+				csvTableWriter.write(this.debugMatchingResults, new File(path));
 			} catch (IOException e) {
 				e.printStackTrace();
 				logger.error("Writing matching results to file is not possible.");

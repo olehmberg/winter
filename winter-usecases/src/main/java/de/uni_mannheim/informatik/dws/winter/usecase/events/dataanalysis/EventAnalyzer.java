@@ -1,11 +1,11 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.dataanalysis;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
 /**
@@ -15,7 +15,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
  */
 public class EventAnalyzer {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
     public EventAnalyzer() {}
 

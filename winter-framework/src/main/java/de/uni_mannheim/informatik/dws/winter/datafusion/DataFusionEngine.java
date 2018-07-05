@@ -14,7 +14,6 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -24,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Executer class to run the data fusion based on a selected
@@ -36,7 +36,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
 public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
 	private DataFusionStrategy<RecordType, SchemaElementType> strategy;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * @return the strategy

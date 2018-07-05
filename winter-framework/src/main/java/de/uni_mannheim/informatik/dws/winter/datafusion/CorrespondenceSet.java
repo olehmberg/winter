@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -34,6 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -50,7 +50,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	private Map<String, RecordGroup<RecordType, SchemaElementType>> recordIndex;
 
 	private RecordGroupFactory<RecordType, SchemaElementType> groupFactory;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public CorrespondenceSet() {
 		groups = new LinkedList<>();

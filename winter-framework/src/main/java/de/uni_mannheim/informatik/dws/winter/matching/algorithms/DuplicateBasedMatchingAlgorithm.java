@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
@@ -27,6 +26,7 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -46,7 +46,7 @@ public class DuplicateBasedMatchingAlgorithm<RecordType extends Matchable, Schem
 	private CorrespondenceAggregator<SchemaElementType, RecordType> voting;
 	private Blocker<SchemaElementType, SchemaElementType, SchemaElementType, RecordType> blocker;
 	private Processable<Correspondence<SchemaElementType, RecordType>> result;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * 

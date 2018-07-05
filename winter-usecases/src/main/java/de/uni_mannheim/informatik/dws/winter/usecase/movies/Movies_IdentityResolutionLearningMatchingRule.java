@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -54,6 +53,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a identity resolution task by
@@ -64,7 +64,16 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  */
 public class Movies_IdentityResolutionLearningMatchingRule {
 	
-	private static final Logger logger = LogManager.getLogger();
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws Exception {
 		// loading data
@@ -122,7 +131,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
@@ -196,7 +205,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
@@ -257,7 +266,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gs2.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_actors_2_golden_globes.csv"));
 
 		// evaluate the result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 		Performance perf2 = evaluator.evaluateMatching(correspondences2.get(), gs2);
 

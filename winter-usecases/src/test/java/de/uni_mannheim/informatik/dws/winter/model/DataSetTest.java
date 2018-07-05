@@ -51,7 +51,7 @@ public class DataSetTest extends TestCase {
 		
 		HashMap<String, Movie> movies = new HashMap<>();
 		for(Movie movie : ds.get()) {
-			logger.info(String.format("[%s] %s", movie.getIdentifier(), movie.getTitle()));
+			logger.trace(String.format("[%s] %s", movie.getIdentifier(), movie.getTitle()));
 			movies.put(movie.getIdentifier(), movie);
 		}
 		

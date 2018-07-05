@@ -14,7 +14,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
@@ -32,6 +31,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.StringConcatenationAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -49,7 +49,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>
 {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	protected class Block extends LeftIdentityPair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>> {
 		private static final long serialVersionUID = 1L;

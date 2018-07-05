@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
@@ -36,6 +35,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.aggregators.CountAggrega
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.SetAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.SumDoubleAggregator;
 import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceSimilarity;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -53,7 +53,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 	//SymmetricBlocker<RecordType, SchemaElementType, BlockedType, CorrespondenceType> 
 {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	protected class BlockingVector extends HashMap<String, Double> {
 		private static final long serialVersionUID = 1L;

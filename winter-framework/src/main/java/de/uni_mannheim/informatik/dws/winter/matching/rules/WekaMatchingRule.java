@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -44,6 +43,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.utils.weka.EvaluationWithBalancing;
 import weka.attributeSelection.AttributeSelection;
@@ -75,7 +75,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private String[] parameters;
 	private Classifier classifier;
 	private List<Comparator<RecordType, SchemaElementType>> comparators;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	// Handling of feature subset selection
 	private boolean forwardSelection = false;

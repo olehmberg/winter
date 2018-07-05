@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
@@ -29,6 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import junit.framework.TestCase;
 
 /**
@@ -37,7 +37,7 @@ import junit.framework.TestCase;
  */
 public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm#run()}.

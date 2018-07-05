@@ -14,7 +14,6 @@ package de.uni_mannheim.informatik.dws.winter.webtables.app;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -22,6 +21,7 @@ import com.beust.jcommander.Parameter;
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
 import de.uni_mannheim.informatik.dws.winter.utils.FileUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
@@ -43,7 +43,7 @@ public class JsonToCsvConverter extends Executable {
 	@Parameter(names = "-addRowProvenance")
 	private boolean addRowProcenance;
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	public static void main(String[] args) throws IOException {
 		JsonToCsvConverter conv = new JsonToCsvConverter();

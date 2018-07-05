@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -24,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Evaluates a set of {@link Correspondence}s against a
@@ -36,30 +36,11 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
  */
 public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType extends Matchable> {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
-	private boolean verbose = false;
-
-	/**
-	 * @param verbose the verbose to set
-	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
-	}
-
-	/**
-	 * @return the verbose
-	 */
-	public boolean isVerbose() {
-		return verbose;
-	}
-
 	public MatchingEvaluator() {
 	}
 
-	public MatchingEvaluator(boolean isVerbose) {
-		verbose = isVerbose;
-	}
 
 	/**
 	 * Evaluates the given correspondences against the gold standard
@@ -87,8 +68,7 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 				correct++;
 				matched++;
 
-				if (verbose) {
-					logger.info(String
+					logger.trace(String
 							.format("[correct] %s,%s,%s", correspondence
 									.getFirstRecord().getIdentifier(),
 									correspondence.getSecondRecord()
@@ -112,31 +92,27 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 							it.remove();
 						}
 					}
-				}
 			} else if (goldStandard.isComplete() || goldStandard.containsNegative(
 					correspondence.getFirstRecord(),
 					correspondence.getSecondRecord())) {
 				matched++;
 
-				if (verbose) {
-					logger.info(String
+					logger.trace(String
 							.format("[wrong] %s,%s,%s", correspondence
 									.getFirstRecord().getIdentifier(),
 									correspondence.getSecondRecord()
 											.getIdentifier(), Double
 											.toString(correspondence
 													.getSimilarityScore())));
-				}
+				
 			}
 		}
 
-		if (verbose) {
 			// print all missing positive examples
 			for (Pair<String, String> p : positives) {
-				logger.info(String.format("[missing] %s,%s",
+				logger.trace(String.format("[missing] %s,%s",
 						p.getFirst(), p.getSecond()));
 			}
-		}
 
 		return new Performance(correct, matched, correct_max);
 	}

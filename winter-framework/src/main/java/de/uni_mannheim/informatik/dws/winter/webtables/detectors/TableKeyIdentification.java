@@ -16,192 +16,171 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 public class TableKeyIdentification {
-	
-	private static final Logger logger = LogManager.getLogger();
-	
+
+	private static final Logger logger = WinterLogManager.getLogger();
+
 	private double keyUniquenessThreshold;
+
 	public double getKeyUniquenessThreshold() {
 		return keyUniquenessThreshold;
 	}
+
 	public void setKeyUniquenessThreshold(double keyUniquenessThreshold) {
 		this.keyUniquenessThreshold = keyUniquenessThreshold;
 	}
-	
-	private boolean verbose = false;
-	/**
-	 * @param verbose the verbose to set
-	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
+
+	private static final Pattern prefLabelPattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?prefLabel$");
+	private static final Pattern namePattern = Pattern.compile("([^#]*#)?name$");
+	private static final Pattern labelPattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?label$");
+	private static final Pattern titlePattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?title$");
+	private static final Pattern labelPattern2 = Pattern.compile("([^#]*#)?.*Label$");
+	private static final Pattern namePattern2 = Pattern.compile("([^#]*#)?.*Name$");
+	private static final Pattern titlePattern2 = Pattern.compile("([^#]*#)?.*Title$");
+	private static final Pattern alternateNamePattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?alternateName$");
+
+	public void identifyKeys(Table table) {
+		TableColumn key = null;
+		int keyColumnIndex = -1;
+		List<Double> columnUniqueness = new ArrayList<>(table.getColumns().size());
+		List<Double> columnValueLength = new ArrayList<>(table.getColumns().size());
+
+		for (int i = 0; i < table.getSchema().getSize(); i++) {
+
+			// int valueCount = 0;
+			int nullCount = 0;
+			int numRows = 0;
+			List<Integer> valueLength = new ArrayList<>(table.getSize());
+			HashSet<Object> uniqueValues = new HashSet<>();
+
+			for (TableRow r : table.getRows()) {
+				Object value = r.get(i);
+				if (value != null) {
+					uniqueValues.add(value);
+					// valueCount++;
+					valueLength.add(value.toString().length());
+				} else {
+					nullCount++;
+				}
+				numRows++;
+			}
+
+			double uniqueness = (double) uniqueValues.size() / (double) numRows;
+			double nullness = (double) nullCount / (double) numRows;
+
+			columnUniqueness.add(uniqueness - nullness);
+			columnValueLength.add(Q.average(valueLength));
+
+			TableColumn c = table.getSchema().get(i);
+			logger.trace(String.format("[%d]%s (%s) Uniqueness=%.4f; Nullness=%.4f; Combined=%.4f; Length=%.4f", i,
+					c.getHeader(), c.getDataType(), uniqueness, nullness,
+					columnUniqueness.get(columnUniqueness.size() - 1),
+					columnValueLength.get(columnValueLength.size() - 1)));
+		}
+
+		for (int i = table.getColumns().size() - 1; i >= 0; i--) {
+			TableColumn column = table.getSchema().get(i);
+
+			if (column.getDataType() != DataType.string) {
+				continue;
+			}
+			if (prefLabelPattern.matcher(column.getHeader()).matches()) {
+				key = column;
+				break;
+			}
+			if (namePattern.matcher(column.getHeader()).matches()) {
+				key = column;
+				break;
+			}
+			if (labelPattern.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+
+			if (titlePattern.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+			if (labelPattern2.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+
+			if (namePattern2.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+
+			if (titlePattern2.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+			if (alternateNamePattern.matcher(column.getHeader()).matches()) {
+				key = column;
+			}
+
+		}
+
+		if (key != null) {
+			keyColumnIndex = table.getSchema().indexOf(key);
+
+			if (columnUniqueness.get(keyColumnIndex) >= getKeyUniquenessThreshold()
+					&& columnValueLength.get(keyColumnIndex) > 3.5 && columnValueLength.get(keyColumnIndex) <= 200) {
+
+				table.setSubjectColumnIndex(keyColumnIndex);
+
+				logger.trace(
+						String.format("RegEx Header Match: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
+
+				return;
+			}
+			// the found key does not fit the requirements, see if another
+			// column does
+			key = null;
+
+			logger.trace(String.format("RegEx Header Match: '%s' - insufficient",
+					table.getSchema().get(keyColumnIndex).getHeader()));
+		}
+
+		if (columnUniqueness.isEmpty()) {
+			logger.trace("no columns");
+			return;
+		}
+		double maxCount = -1;
+		int maxColumn = -1;
+
+		for (int i = 0; i < columnUniqueness.size(); i++) {
+			if (columnUniqueness.get(i) > maxCount && table.getSchema().get(i).getDataType() == DataType.string
+					&& columnValueLength.get(i) > 3.5 && columnValueLength.get(i) <= 200) {
+				maxCount = (Double) columnUniqueness.get(i);
+				maxColumn = i;
+			}
+		}
+
+		if (key == null) {
+			if (maxColumn == -1) {
+				logger.trace("no columns that match criteria (data type, min length, max length)");
+				return;
+			}
+			key = table.getSchema().get(maxColumn);
+		}
+		keyColumnIndex = table.getSchema().indexOf(key);
+
+		if (columnUniqueness.get(keyColumnIndex) < getKeyUniquenessThreshold()) {
+
+			logger.trace(String.format("Most unique column: '%s' - insufficient (%.4f)",
+					table.getSchema().get(keyColumnIndex).getHeader(), columnUniqueness.get(keyColumnIndex)));
+
+			return;
+		}
+
+		logger.trace(String.format("[TableKeyIdentification] Most unique column: '%s'",
+				table.getSchema().get(keyColumnIndex).getHeader()));
+		table.setSubjectColumnIndex(keyColumnIndex);
 	}
-	/**
-	 * @return the verbose
-	 */
-	public boolean isVerbose() {
-		return verbose;
-	}
 
-    private static final Pattern prefLabelPattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?prefLabel$");
-    private static final Pattern namePattern =Pattern.compile("([^#]*#)?name$");
-    private static final Pattern labelPattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?label$");
-    private static final Pattern titlePattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?title$");
-    private static final Pattern labelPattern2 =Pattern.compile("([^#]*#)?.*Label$");
-    private static final Pattern namePattern2 = Pattern.compile("([^#]*#)?.*Name$");
-    private static final Pattern titlePattern2 = Pattern.compile("([^#]*#)?.*Title$");
-    private static final Pattern alternateNamePattern = Pattern.compile("([^#]*#)?([a-z]{1,9})?alternateName$");
-    
-    public void identifyKeys(Table table) {
-        TableColumn key = null;
-        int keyColumnIndex = -1;
-        List<Double> columnUniqueness = new ArrayList<>(table.getColumns().size());
-        List<Double> columnValueLength = new ArrayList<>(table.getColumns().size());
-
-        for (int i = 0; i < table.getSchema().getSize(); i++) {
-        	
-        	//int valueCount = 0;
-        	int nullCount = 0;
-        	int numRows = 0;
-        	List<Integer> valueLength = new ArrayList<>(table.getSize());
-        	HashSet<Object> uniqueValues = new HashSet<>();
-        	
-        	for(TableRow r : table.getRows()) {
-        		Object value = r.get(i);
-        		if(value!=null) {
-	        		uniqueValues.add(value);
-	        		//valueCount++;
-	        		valueLength.add(value.toString().length());
-        		} else {
-        			nullCount++;
-        		}
-        		numRows++;
-        	}
-        	
-        	double uniqueness = (double)uniqueValues.size() / (double)numRows;
-        	double nullness = (double)nullCount / (double)numRows;
-        	
-            columnUniqueness.add(uniqueness - nullness);
-            columnValueLength.add(Q.average(valueLength));
-            
-            if(isVerbose()) {
-            	TableColumn c = table.getSchema().get(i);
-            	logger.error(String.format("[%d]%s (%s) Uniqueness=%.4f; Nullness=%.4f; Combined=%.4f; Length=%.4f", i, c.getHeader(), c.getDataType(), uniqueness, nullness, columnUniqueness.get(columnUniqueness.size()-1), columnValueLength.get(columnValueLength.size()-1)));
-            }
-        }
-        
-        for (int i=table.getColumns().size()-1; i>=0; i--) {
-            TableColumn column = table.getSchema().get(i);
-
-            if (column.getDataType() != DataType.string) {
-                continue;
-            }
-            if (prefLabelPattern.matcher(column.getHeader()).matches()) {
-                key = column;
-                break;
-            }
-            if (namePattern.matcher(column.getHeader()).matches()) {
-                key = column;
-                break;
-            }
-            if (labelPattern.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-
-            if (titlePattern.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-            if (labelPattern2.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-
-            if (namePattern2.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-
-            if (titlePattern2.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-            if (alternateNamePattern.matcher(column.getHeader()).matches()) {
-                key = column;
-            }
-
-        }
-        
-        
-        if (key != null) {
-            keyColumnIndex = table.getSchema().indexOf(key);
-            
-            if (columnUniqueness.get(keyColumnIndex) >= getKeyUniquenessThreshold()
-                    && columnValueLength.get(keyColumnIndex) > 3.5
-                    && columnValueLength.get(keyColumnIndex) <= 200) {
-            	
-            	table.setSubjectColumnIndex(keyColumnIndex);
-
-            	if(isVerbose()) {
-            		logger.error(String.format("RegEx Header Match: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
-            	}
-            	
-                return;
-            }
-            //the found key does not fit the requirements, see if another column does
-            key = null;
-            
-            if(isVerbose()) {
-            	logger.error(String.format("RegEx Header Match: '%s' - insufficient", table.getSchema().get(keyColumnIndex).getHeader()));
-            }
-        }
-
-        if (columnUniqueness.isEmpty()) {
-        	if(isVerbose()) {
-        		logger.error("no columns");
-        	}
-            return;
-        }
-        double maxCount = -1;
-        int maxColumn = -1;
-
-        for (int i = 0; i < columnUniqueness.size(); i++) {
-            if (columnUniqueness.get(i) > maxCount && table.getSchema().get(i).getDataType() == DataType.string
-                    && columnValueLength.get(i) > 3.5
-                    && columnValueLength.get(i) <= 200) {
-                maxCount = (Double) columnUniqueness.get(i);
-                maxColumn = i;
-            }
-        }
-
-        if (key == null) {
-            if (maxColumn == -1) {
-            	if(isVerbose()) {
-            		logger.error("no columns that match criteria (data type, min length, max length)");
-            	}
-                return;
-            }
-            key = table.getSchema().get(maxColumn);
-        }
-        keyColumnIndex = table.getSchema().indexOf(key);
-
-        if (columnUniqueness.get(keyColumnIndex) < getKeyUniquenessThreshold()) {
-        	
-        	if(isVerbose()) {
-        		logger.error(String.format("[TableKeyIdentification] Most unique column: '%s' - insufficient (%.4f)", table.getSchema().get(keyColumnIndex).getHeader(), columnUniqueness.get(keyColumnIndex)));
-        	}
-        	
-            return;
-        }
-
-        if(isVerbose()) {
-        	logger.error(String.format("[TableKeyIdentification] Most unique column: '%s'", table.getSchema().get(keyColumnIndex).getHeader()));
-        }
-        table.setSubjectColumnIndex(keyColumnIndex);
-    }
-	
 }

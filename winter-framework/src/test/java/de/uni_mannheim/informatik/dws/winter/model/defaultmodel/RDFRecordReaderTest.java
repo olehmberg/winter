@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  */
 public class RDFRecordReaderTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.model.io.RDFMatchableReader#loadFromRDF(java.io.File, java.lang.String, de.uni_mannheim.informatik.dws.winter.model.DataSet)}.

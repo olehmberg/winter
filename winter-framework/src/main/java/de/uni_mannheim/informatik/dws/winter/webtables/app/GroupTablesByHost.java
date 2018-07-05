@@ -24,12 +24,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.beust.jcommander.Parameter;
 
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.specialised.uri.UriParser;
 
@@ -48,7 +48,7 @@ public class GroupTablesByHost extends Executable {
 	@Parameter(names = "-copy")
 	private boolean copy;
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public static void main(String[] args) throws Exception {
 		

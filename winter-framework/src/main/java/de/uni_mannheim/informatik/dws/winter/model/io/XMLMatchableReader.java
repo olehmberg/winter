@@ -25,7 +25,6 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -34,6 +33,7 @@ import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Super class for reading records from XML
@@ -44,7 +44,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  */
 public abstract class XMLMatchableReader<RecordType extends Matchable, SchemaElementType extends Matchable> {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * creates a RecordType record from an XML node

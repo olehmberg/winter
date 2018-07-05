@@ -15,10 +15,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
@@ -28,7 +28,7 @@ import junit.framework.TestCase;
  */
 public class PartitioningWithPositiveAndNegativeEdgesTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.clustering.PartitioningWithPositiveAndNegativeEdges#createResult()}.

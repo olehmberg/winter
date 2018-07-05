@@ -16,7 +16,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -33,7 +32,7 @@ public class ProgressReporter {
 	private LocalDateTime start;
 	private String message;
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	public ProgressReporter(int totalElements, String message) {
 		total = totalElements;

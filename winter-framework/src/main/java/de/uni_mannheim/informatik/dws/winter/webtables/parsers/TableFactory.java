@@ -15,9 +15,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 
 /**
@@ -26,7 +26,7 @@ import de.uni_mannheim.informatik.dws.winter.webtables.Table;
  */
 public class TableFactory {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	private Map<String, TableParser> parsers = new HashMap<>();
 	
 	public void addParser(String extension, TableParser p) {

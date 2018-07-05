@@ -141,7 +141,24 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			Map<ComparatorDetails, String> resultMap = comp.getComparisonResult();
 			if(resultMap != null){
 				for(ComparatorDetails id : ComparatorDetails.values() ){
-					detailedResults.add(resultMap.get(id));
+					String value = resultMap.get(id);
+					if(value != null){
+						detailedResults.add(value);
+					}
+					else{
+						if(id == ComparatorDetails.record1PreprocessedValue){
+							detailedResults.add(resultMap.get(ComparatorDetails.record1Value));
+						}
+						else if(id == ComparatorDetails.record2PreprocessedValue){
+							detailedResults.add(resultMap.get(ComparatorDetails.record2Value));
+						}
+						else if(id == ComparatorDetails.postproccesedSimilarity){
+							detailedResults.add(resultMap.get(ComparatorDetails.similarity));
+						}
+						else{
+							detailedResults.add(value);
+						}
+					}
 				}
 			}
 		}
@@ -160,7 +177,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		results.addAll(detailedResults);
 
 		
-		TableRow resultsRow = new TableRow(this.getMatchingResults().getSize() + 1, this.getMatchingResults());
+		TableRow resultsRow = new TableRow(this.getDebugMatchingResults().getSize() + 1, this.getDebugMatchingResults());
 		resultsRow.set(results.toArray());
 		this.appendRowToResults(resultsRow);
 

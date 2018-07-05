@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -39,6 +38,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.ITunesBlockingKeyByArtistTitleGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
 /**
@@ -50,7 +50,16 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
  */
 public class iTunes_IdentityResolution_Main {
 	
-	private static final Logger logger = LogManager.getLogger();
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws Exception {
 		// loading data
@@ -126,7 +135,7 @@ public class iTunes_IdentityResolution_Main {
 				"usecase/itunes/goldstandard/gs_iTunes_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
 		

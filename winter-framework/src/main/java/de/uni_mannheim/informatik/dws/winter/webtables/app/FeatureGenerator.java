@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVWriter;
@@ -25,6 +24,7 @@ import au.com.bytecode.opencsv.CSVWriter;
 import com.beust.jcommander.Parameter;
 
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableMapping;
 import de.uni_mannheim.informatik.dws.winter.webtables.features.Feature;
@@ -51,7 +51,7 @@ public class FeatureGenerator extends Executable {
 	@Parameter(names = "-rowNumbers")
 	private String rowNumbersFile;
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 //	@Parameter(names = "-out")
 //	private String outputLocation;

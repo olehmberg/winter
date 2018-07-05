@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * {@link HashedDataSet} class extended by functionalities for data fusion
@@ -31,7 +32,7 @@ public class FusibleHashedDataSet<RecordType extends Matchable & Fusible<SchemaE
 	private static final long serialVersionUID = 1L;
 	private double score;
 	private LocalDateTime date;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	private Map<String, RecordType> originalIdIndex = new HashMap<>();
 

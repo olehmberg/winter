@@ -30,7 +30,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -52,6 +51,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.Ev
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.EventURIFuserAll;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a data fusion task, reading
@@ -63,7 +63,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader
  */
 public class Events_DataFusion_Main {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,

@@ -23,7 +23,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -47,6 +46,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.Ti
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLFormatter;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a data fusion task, reading
@@ -57,7 +57,16 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  */
 public class Movies_DataFusion_Main {
 	
-	private static final Logger logger = LogManager.getLogger();
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,

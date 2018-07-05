@@ -2,18 +2,27 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%c{1}] - %msg%n}"/>
+            <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%C{1}] - %msg%n}"/>
         </Console>
         <File name="file" fileName="logs/winter.log">
-            <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%c{1}] - %msg%n}"/>
+            <PatternLayout pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%C{1}] - %msg%n}"/>
         </File>
     </Appenders>
     <Loggers>
+    	<Logger name="trace" level="trace" additivity="false">
+            <AppenderRef ref="console"/>
+             -->
+        </Logger>
+        <Logger name="traceFile" level="trace" additivity="false">
+            <AppenderRef ref="console"/>
+             <AppenderRef ref="file"/> 
+        </Logger>
+        <Logger name="infoFile" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+             <AppenderRef ref="file"/> 
+        </Logger>
         <Root level="info" additivity="false">
             <AppenderRef ref="console"/>
-            <!-- Uncomment to write logs to file as specified in appender above
-             <AppenderRef ref="file"/> 
-             -->
         </Root>
     </Loggers>
 </Configuration>

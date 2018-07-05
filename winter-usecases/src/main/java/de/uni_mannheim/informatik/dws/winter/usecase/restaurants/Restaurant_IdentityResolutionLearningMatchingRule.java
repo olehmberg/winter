@@ -21,7 +21,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -48,6 +47,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
 /**
@@ -59,8 +59,16 @@ import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restauran
  */
 public class Restaurant_IdentityResolutionLearningMatchingRule {
 
-	private static final Logger logger = LogManager.getLogger();
-	
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws Exception {
 		// loading data
@@ -175,7 +183,7 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		gsTest.loadFromCSVFile(new File("usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result

@@ -16,11 +16,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.io.RDFMatchableReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
@@ -30,7 +30,7 @@ public class RDFRecordReader extends RDFMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * 

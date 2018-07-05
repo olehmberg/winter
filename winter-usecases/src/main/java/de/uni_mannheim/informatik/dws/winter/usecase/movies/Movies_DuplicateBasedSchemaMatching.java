@@ -14,7 +14,6 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 import java.io.File;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -29,6 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Example of a basic setup for duplicate-based schema matching.
@@ -38,7 +38,16 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  */
 public class Movies_DuplicateBasedSchemaMatching {
 	
-	private static final Logger logger = LogManager.getLogger();
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
+	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 
 	public static void main(String[] args) throws Exception {
 		// load data

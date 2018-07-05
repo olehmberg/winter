@@ -19,13 +19,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils2;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -48,7 +48,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 	private Collection<Triple<T, T, Double>> positiveEdges;
 	private Collection<Triple<T, T, Double>> negativeEdges;
 	private double negativeThreshold;
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	private boolean log = false;
 	public void setLog(boolean log) {

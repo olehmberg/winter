@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * {@link ParallelHashedDataSet} class extended by functionalities for data fusion
@@ -34,7 +35,7 @@ public class FusibleParallelHashedDataSet<RecordType extends Matchable & Fusible
 	
 	private Map<String, RecordType> originalIdIndex = new HashMap<>();
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * Add an original ID to a fused record (can be called multiple times)
