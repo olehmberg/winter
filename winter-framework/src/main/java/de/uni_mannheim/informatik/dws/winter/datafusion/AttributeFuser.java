@@ -11,11 +11,17 @@
  */
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.Table;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * Abstract super class for all Fusers used by a fusion strategy
@@ -24,7 +30,15 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @param <RecordType>	the type that represents a record
  */
 public abstract class AttributeFuser<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
-
+	
+	private Table debugFusionResults;
+	private String [] headerFusionResults = {"Value IDS", "Values", "Fused Value"};
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
+	public Table getDebugFusionResults() {
+		return debugFusionResults;
+	}
 	/**
 	 * fuses the group of records and assigns values to the fused Record
 	 * @param group the group of values to be fused (input)
@@ -51,5 +65,29 @@ public abstract class AttributeFuser<RecordType extends Matchable & Fusible<Sche
 	 * @return the consistency value if any values are available. NULL if no values are available
 	 */
 	public abstract Double getConsistency(RecordGroup<RecordType, SchemaElementType> group, EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement);
-
+	
+	public void buildResultsTable(){
+		this.debugFusionResults = new Table();
+		for(int i = 0; i < this.headerFusionResults.length; i++){
+			this.addColumnToResults(this.headerFusionResults[i]);
+		}
+	}
+	
+	public void addColumnToResults(String header){
+		if(this.debugFusionResults != null){
+			TableColumn c = new TableColumn(this.debugFusionResults.getColumns().size() + 1, this.debugFusionResults);
+			c.setHeader(header);
+			this.debugFusionResults.addColumn(c);
+		}
+		else{
+			logger.error("The table for the matching results is not defined!");
+		}
+	}
+	
+	public void appendRowToResults(TableRow r){
+		if(this.debugFusionResults != null){
+			this.debugFusionResults.addRow(r);
+		}
+	}
+	
 }

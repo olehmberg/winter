@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -33,6 +34,7 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * Abstract super class for all Fusers tailored to specific attributes (hence the ValueType). Ignores schema correspondences.
@@ -44,7 +46,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public abstract class AttributeValueFuser<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends AttributeFuser<RecordType, SchemaElementType> {
 	
 	private static final Logger logger = WinterLogManager.getLogger();
-	
+
 	/**
 	 * Collects all fusable values from the group of records
 	 * @param group	the group of records to use
@@ -152,6 +154,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 */
 	public AttributeValueFuser(ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> conflictResolution) {
 		this.conflictResolution = conflictResolution;
+		buildResultsTable();
 	}
 
 	/**
@@ -164,6 +167,33 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @return	returns the fused value for a given schema element
 	 */
 	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
-		return conflictResolution.resolveConflict(getFusableValues(group, schemaCorrespondences, schemaElement));
+		List<FusibleValue<ValueType, RecordType, SchemaElementType>> fusableValues = getFusableValues(group, schemaCorrespondences, schemaElement);
+		FusedValue<ValueType, RecordType, SchemaElementType> fusedValueInstance = conflictResolution.resolveConflict(fusableValues);
+		
+		// Collect fusion results for debugging purposes!
+		if(fusableValues.size() != 0 && fusedValueInstance.getValue() != null){
+			
+			TableRow resultsRow = new TableRow(this.getDebugFusionResults().getSize() + 1, this.getDebugFusionResults());
+			
+			String[] identifiersArray = new String[fusableValues.size()];
+			String[] valuesArray = new String[fusableValues.size()];
+			for(int i = 0; i < fusableValues.size(); i++){
+				identifiersArray[i] = fusableValues.get(i).getRecord().getIdentifier().toString();
+				valuesArray[i] = fusableValues.get(i).getValue().toString();
+			}
+			
+			String identifiers = Arrays.toString(identifiersArray);
+			String values = Arrays.toString(valuesArray);
+		
+			String fusedValue = fusedValueInstance.getValue().toString();
+			
+			String[] results = {"", identifiers, values, fusedValue};
+			resultsRow.set(results);
+			this.appendRowToResults(resultsRow);
+		}
+		
+		
+		return fusedValueInstance;
 	}
+	
 }

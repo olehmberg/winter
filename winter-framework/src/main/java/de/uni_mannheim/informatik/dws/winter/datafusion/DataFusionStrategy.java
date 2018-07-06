@@ -11,10 +11,15 @@
  */
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
@@ -25,6 +30,9 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.Table;
+import de.uni_mannheim.informatik.dws.winter.webtables.writers.CSVTableWriter;
 
 /**
  * Defines which fuser should be applied and which evaluation rules should be
@@ -39,6 +47,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	private Map<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> attributeFusers;
 	private Map<SchemaElementType, EvaluationRule<RecordType, SchemaElementType>> evaluationRules;
 	private FusibleFactory<RecordType, SchemaElementType> factory;
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * @return the evaluationRules
@@ -181,6 +191,30 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		}
 
 		return consistencies;
+	}
+	
+	public void writeDebugDataFusionResultsToFile(String path){
+		if(path != null && this.attributeFusers != null){
+			Table debugFusionResults = null;
+			for (Entry<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> entry : this.attributeFusers.entrySet()){
+				if(debugFusionResults == null){
+					debugFusionResults= entry.getValue().getDebugFusionResults();
+				}
+				else{
+					debugFusionResults.append(entry.getValue().getDebugFusionResults());
+				}
+			}
+			if(debugFusionResults != null){
+				CSVTableWriter csvTableWriter = new CSVTableWriter();
+				try {
+					csvTableWriter.write(debugFusionResults, new File(path));
+					logger.info("Writing debug blocking results to file: " + path + ".csv");
+				} catch (IOException e) {
+					e.printStackTrace();
+					logger.error("Writing matching results to file is not possible.");
+				}
+			}
+		}
 	}
 
 }

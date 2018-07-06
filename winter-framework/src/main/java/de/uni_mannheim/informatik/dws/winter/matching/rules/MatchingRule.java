@@ -138,6 +138,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			CSVTableWriter csvTableWriter = new CSVTableWriter();
 			try {
 				csvTableWriter.write(this.debugMatchingResults, new File(path));
+				logger.info("Writing debug matching results to file: " + path + ".csv");
 			} catch (IOException e) {
 				e.printStackTrace();
 				logger.error("Writing matching results to file is not possible.");

@@ -37,25 +37,6 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 	private DataFusionStrategy<RecordType, SchemaElementType> strategy;
 	private RecordGroupFactory<RecordType, SchemaElementType> groupFactory;
 	private static final Logger logger = WinterLogManager.getLogger();
-	
-	private boolean verbose = false;
-
-	/**
-	 * 
-	 * @return Returns whether additional information will be written to the console
-	 */
-	public boolean isVerbose() {
-		return verbose;
-	}
-
-	/**
-	 * Sets whether additional information will be written to the console
-	 * 
-	 * @param verbose	whether there should be additional information written to the console
-	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
-	}
 
 	/**
 	 * Creates a new instance with the provided strategy
@@ -113,8 +94,8 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 						correctValues++;
 						attributeCount.put(fusionTask.getSchemaElement(),
 								attributeCount.get(fusionTask.getSchemaElement()) + 1);
-					} else if (verbose) {
-						logger.error(String.format(
+					} else {
+						logger.trace(String.format(
 								" %s <> %s",
 								fused.toString(), record.toString()));
 					}
@@ -125,7 +106,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 			for (AttributeFusionTask<RecordType, SchemaElementType> fusionTask : strategy.getAttributeFusers(null, schemaCorrespondences)) {
 				double acc = (double) attributeCount.get(fusionTask.getSchemaElement())
 						/ (double) goldStandard.size();
-				logger.info(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
+				logger.trace(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
 
 			}
 

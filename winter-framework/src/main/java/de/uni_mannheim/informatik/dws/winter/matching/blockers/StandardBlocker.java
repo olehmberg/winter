@@ -33,6 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.aggregators.StringConcat
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * Implementation of a standard {@link AbstractBlocker} based on blocking keys. All records for which the same blocking key is generated are returned as pairs.
@@ -52,7 +53,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
-	private boolean measureBlockSizes = false;
+	private boolean measureBlockSizes = false; //@Oli: verbose Flag? --> set logging to trace and remove flag
 	private double blockFilterRatio = 1.0;
 	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
@@ -203,7 +204,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			logger.info(String.format("%d blocks after filtering", blockedData.size()));
 		}
 		
-		if(measureBlockSizes) {			
+		if(measureBlockSizes) {
+			
 			// calculate block size distribution
 			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
 				(Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> record,
@@ -240,8 +242,15 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						new StringConcatenationAggregator<>(","))
 						.sort((p)->p.getFirst(), false);
 				
+				this.buildResultsTable();
+				
 				logger.info("50 most-frequent blocking key values:");
 				for(Pair<Integer, String> value : blockValues.take(50).get()) {
+					TableRow resultsRow = new TableRow(this.getDebugBlockingResults().getSize() + 1, this.getDebugBlockingResults());
+					String[] results = {"", value.getFirst().toString(), value.getSecond().toString() };
+					resultsRow.set(results);
+					this.appendRowToResults(resultsRow);
+					
 					logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 				}
 			} else {

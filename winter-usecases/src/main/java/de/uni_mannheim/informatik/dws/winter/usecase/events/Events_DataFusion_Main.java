@@ -176,7 +176,6 @@ public class Events_DataFusion_Main {
 		//		strategy, new RecordGroupFactory<Movie, DefaultSchemaElement>());
 		DataFusionEvaluator<Event, Attribute> evaluator = new DataFusionEvaluator<>(
 				strategy, new RecordGroupFactory<Event, Attribute>());
-		evaluator.setVerbose(true);
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
 
 		logger.info(String.format("Accuracy: %.2f", accuracy));

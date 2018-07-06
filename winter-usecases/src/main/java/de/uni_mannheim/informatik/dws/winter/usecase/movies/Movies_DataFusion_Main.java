@@ -134,11 +134,12 @@ public class Movies_DataFusion_Main {
 		// load the gold standard
 		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
-
+		
+		strategy.writeDebugDataFusionResultsToFile("usecase/movie/output/resultsDatafusion");
+		
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(
 				strategy, new RecordGroupFactory<Movie, Attribute>());
-		evaluator.setVerbose(true);
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
 
 		logger.info(String.format("Accuracy: %.2f", accuracy));

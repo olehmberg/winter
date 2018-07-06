@@ -87,7 +87,8 @@ public class Movies_IdentityResolution_Main {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
-
+		blocker.setMeasureBlockSizes(true);//necessary?
+		
 		// Initialize Matching Engine
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
 
@@ -95,7 +96,7 @@ public class Movies_IdentityResolution_Main {
 		Processable<Correspondence<Movie, Attribute>> correspondences = engine.runIdentityResolution(
 				dataAcademyAwards, dataActors, null, matchingRule,
 				blocker);
-
+		
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
 
@@ -104,6 +105,8 @@ public class Movies_IdentityResolution_Main {
 		gsTest.loadFromCSVFile(new File(
 				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 		
+		//Write debug results to file:
+		blocker.writeDebugMatchingResultsToFile("usecase/movie/output/resultsBlocking");
 		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsMatchingRule");
 		
 		// evaluate your result

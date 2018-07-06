@@ -11,6 +11,11 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
@@ -18,6 +23,11 @@ import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.Table;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
+import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
+import de.uni_mannheim.informatik.dws.winter.webtables.writers.CSVTableWriter;
 
 /**
  * The super class for all blocking strategies. The generation of pairs
@@ -39,6 +49,11 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 {
 
 	private double reductionRatio = 1.0;
+	
+	private Table debugBlockingResults;
+	private String [] headerBlockingResults = {"Frequency", "Blocking Key Value"};
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * Returns the reduction ratio of the last blocking operation. Only
@@ -50,6 +65,18 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 		return reductionRatio;
 	}
 	
+	
+	
+	public Table getDebugBlockingResults() {
+		return debugBlockingResults;
+	}
+
+	public void setDebugBlockingResults(Table debugBlockingResults) {
+		this.debugBlockingResults = debugBlockingResults;
+	}
+
+
+
 	private Processable<Correspondence<BlockedType, CorrespondenceType>> result;
 	/**
 	 * @param result the result to set
@@ -119,5 +146,42 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1,
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2) {
 		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
+	}
+	
+	public void buildResultsTable(){
+		this.debugBlockingResults = new Table();
+		for(int i = 0; i < this.headerBlockingResults.length; i++){
+			this.addColumnToResults(this.headerBlockingResults[i]);
+		}
+	}
+	
+	public void addColumnToResults(String header){
+		if(this.debugBlockingResults != null){
+			TableColumn c = new TableColumn(this.debugBlockingResults.getColumns().size() + 1, this.debugBlockingResults);
+			c.setHeader(header);
+			this.debugBlockingResults.addColumn(c);
+		}
+		else{
+			logger.error("The table for the matching results is not defined!");
+		}
+	}
+	
+	public void appendRowToResults(TableRow r){
+		if(this.debugBlockingResults != null){
+			this.debugBlockingResults.addRow(r);
+		}
+	}
+	
+	public void writeDebugMatchingResultsToFile(String path){
+		if(path != null && this.debugBlockingResults != null){
+			CSVTableWriter csvTableWriter = new CSVTableWriter();
+			try {
+				csvTableWriter.write(this.debugBlockingResults, new File(path));
+				logger.info("Writing debug blocking results to file: " + path + ".csv");
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error("Writing matching results to file is not possible.");
+			}
+		}
 	}
 }
