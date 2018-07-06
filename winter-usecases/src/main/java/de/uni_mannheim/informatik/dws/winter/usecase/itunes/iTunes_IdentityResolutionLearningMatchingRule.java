@@ -41,6 +41,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.I
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.RecordComparatorJaccardWithBrackets;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
+import weka.classifiers.functions.SimpleLogistic;
 
 /**
  * Class containing the standard setup to perform a identity resolution task by using learning matching rules,
@@ -163,10 +164,10 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		learner.learnMatchingRule(dataSong, dataITunes, null, matchingRule, gsTraining);
 
 		// Store Matching Rule
-		matchingRule.storeModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
+		matchingRule.exportModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
 		
 		// Store Training Data
-		matchingRule.storeTrainingData(new File("usecase/itunes/matchingRule/itunesTrainingData.arff"));
+		matchingRule.exportTrainingData(new File("usecase/itunes/matchingRule/itunesTrainingData.arff"));
 
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
@@ -186,6 +187,9 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
+		
+		//evaluate learned classifier
+		System.out.println(matchingRule.getClassifier().toString());
 
 		// print the evaluation result
 		System.out.println("DBPedia Song <-> iTunes");

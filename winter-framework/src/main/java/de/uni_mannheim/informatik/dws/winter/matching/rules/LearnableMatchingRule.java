@@ -44,9 +44,9 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 	
 	Performance learnParameters(FeatureVectorDataSet features);
 	
-	void storeModel(File location);
+	void exportModel(File location);
 	void readModel(File location);
 	
-	void storeTrainingData(File location);
+	void exportTrainingData(File location);
 	
 }

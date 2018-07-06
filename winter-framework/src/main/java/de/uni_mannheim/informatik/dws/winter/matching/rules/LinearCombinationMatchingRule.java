@@ -190,7 +190,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.TrainableMatchingRule#storeModel(java.io.File)
 	 */
 	@Override
-	public void storeModel(File location) {
+	public void exportModel(File location) {
 		
 	}
 
@@ -216,7 +216,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public void storeTrainingData(File location) {
+	public void exportTrainingData(File location) {
 		// TODO Auto-generated method stub
 		
 	}

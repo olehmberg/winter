@@ -441,7 +441,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	@Override
-	public void storeModel(File location) {
+	public void exportModel(File location) {
 		// serialize model
 		ObjectOutputStream oos;
 		try {
@@ -578,7 +578,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	@Override
-	public void storeTrainingData(File location) {
+	public void exportTrainingData(File location) {
 
 		try {
 			FileOutputStream fout = new FileOutputStream(location);

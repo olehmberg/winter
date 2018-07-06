@@ -151,7 +151,7 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		learner.learnMatchingRule(dataFodors, dataZagats, null, matchingRule, gsTraining);
 
 		// Store Matching Rule
-		matchingRule.storeModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
+		matchingRule.exportModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
