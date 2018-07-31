@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -84,9 +83,15 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 	}
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
+	public ComparatorLogger getComparisonLog() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

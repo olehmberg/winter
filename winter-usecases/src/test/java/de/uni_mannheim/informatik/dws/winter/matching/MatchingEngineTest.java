@@ -13,13 +13,13 @@
 package de.uni_mannheim.informatik.dws.winter.matching;
 
 import java.io.File;
-import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -125,10 +125,17 @@ public class MatchingEngineTest extends TestCase {
 			}
 
 			@Override
-			public Map<ComparatorDetails, String> getComparisonResult() {
+			public ComparatorLogger getComparisonLog() {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void setComparisonLog(ComparatorLogger comparatorLog) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		};
 		rule.addComparator(comp, 1.0);
 		

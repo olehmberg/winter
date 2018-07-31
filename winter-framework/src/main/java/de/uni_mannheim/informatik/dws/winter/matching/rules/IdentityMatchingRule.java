@@ -11,9 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
@@ -32,7 +29,6 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 	}
 
 	private static final long serialVersionUID = 1L;
-	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
@@ -40,8 +36,6 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 	@Override
 	public double compare(TypeA record1, TypeA record2, Correspondence<TypeB, Matchable> schemaCorrespondence) {
 		// this method is not used, as the input is returned as output in mapRecord
-		this.comparisonResult.put(ComparatorDetails.comparatorName, IdentityMatchingRule.class.getName());
-		this.comparisonResult.put(ComparatorDetails.similarity, "0");
 		return 0;
 	}
 
@@ -55,8 +49,15 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 	}
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
-		return this.comparisonResult;
+	public ComparatorLogger getComparisonLog() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

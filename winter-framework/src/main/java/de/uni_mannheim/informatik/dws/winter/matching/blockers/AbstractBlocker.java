@@ -13,21 +13,22 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
-import de.uni_mannheim.informatik.dws.winter.webtables.Table;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
-import de.uni_mannheim.informatik.dws.winter.webtables.writers.CSVTableWriter;
 
 /**
  * The super class for all blocking strategies. The generation of pairs
@@ -50,10 +51,9 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 
 	private double reductionRatio = 1.0;
 	
-	private Table debugBlockingResults;
-	private String [] headerBlockingResults = {"Frequency", "Blocking Key Value"};
-	
 	private static final Logger logger = WinterLogManager.getLogger();
+	private String[] blockingResultsHeader = {"Frequency","Blocking Key Value"};
+	private FusibleHashedDataSet<Record, Attribute> debugBlockingResults;
 
 	/**
 	 * Returns the reduction ratio of the last blocking operation. Only
@@ -64,18 +64,6 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	public double getReductionRatio() {
 		return reductionRatio;
 	}
-	
-	
-	
-	public Table getDebugBlockingResults() {
-		return debugBlockingResults;
-	}
-
-	public void setDebugBlockingResults(Table debugBlockingResults) {
-		this.debugBlockingResults = debugBlockingResults;
-	}
-
-
 
 	private Processable<Correspondence<BlockedType, CorrespondenceType>> result;
 	/**
@@ -148,40 +136,37 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 	}
 	
-	public void buildResultsTable(){
-		this.debugBlockingResults = new Table();
-		for(int i = 0; i < this.headerBlockingResults.length; i++){
-			this.addColumnToResults(this.headerBlockingResults[i]);
+	public void initialiseBlockingResults() {
+		FusibleHashedDataSet<Record, Attribute> result = new FusibleHashedDataSet<Record, Attribute>();
+		
+		for(int i = 0; i < this.blockingResultsHeader.length; i++){
+			Attribute att = new Attribute(this.blockingResultsHeader[i]);
+			result.addAttribute(att);
 		}
+	
+		this.debugBlockingResults = result;
 	}
 	
-	public void addColumnToResults(String header){
-		if(this.debugBlockingResults != null){
-			TableColumn c = new TableColumn(this.debugBlockingResults.getColumns().size() + 1, this.debugBlockingResults);
-			c.setHeader(header);
-			this.debugBlockingResults.addColumn(c);
+	public void appendBlockingResult(String[] blockingResult, String id){
+		if(blockingResult.length == this.blockingResultsHeader.length){
+			Iterator<Attribute> schemaIterator = this.debugBlockingResults.getSchema().get().iterator();
+			int counter = 0;
+			Record model = new Record(id);
+			while(schemaIterator.hasNext()){
+				Attribute att = schemaIterator.next();
+				model.setValue(att, blockingResult[counter]);
+				counter += 1;
+			}
+			this.debugBlockingResults.add(model);
 		}
 		else{
-			logger.error("The table for the matching results is not defined!");
+			logger.error("Blocking results row does not fit defined length of schema!");
 		}
 	}
 	
-	public void appendRowToResults(TableRow r){
-		if(this.debugBlockingResults != null){
-			this.debugBlockingResults.addRow(r);
-		}
-	}
-	
-	public void writeDebugMatchingResultsToFile(String path){
-		if(path != null && this.debugBlockingResults != null){
-			CSVTableWriter csvTableWriter = new CSVTableWriter();
-			try {
-				csvTableWriter.write(this.debugBlockingResults, new File(path));
-				logger.info("Writing debug blocking results to file: " + path + ".csv");
-			} catch (IOException e) {
-				e.printStackTrace();
-				logger.error("Writing matching results to file is not possible.");
-			}
-		}
+	public void writeDebugMatchingResultsToFile(String path) throws IOException{
+		new RecordCSVFormatter().writeCSV(
+				new File(path), this.debugBlockingResults);
+		logger.info("Debug results written to file:" + path);
 	}
 }

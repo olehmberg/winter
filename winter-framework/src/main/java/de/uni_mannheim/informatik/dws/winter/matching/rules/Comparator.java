@@ -12,7 +12,6 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -34,13 +33,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.Reco
  * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
  */
 public interface Comparator<RecordType extends Matchable, SchemaElementType extends Matchable> extends Serializable {
-	
-	/**
-	 * Use these keys to construct a summary of the comparator's results
-	 */
-	public enum ComparatorDetails{
-		comparatorName, record1Value, record2Value, record1PreprocessedValue, record2PreprocessedValue, similarity, postproccesedSimilarity
-	}
 	
 	/**
 	 * Compares two records and returns a similarity value
@@ -65,8 +57,13 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	default SchemaElementType getSecondSchemaElement(RecordType record) { return null; }
 	
 	/**
-	 * @return Returns the comparison results
+	 * @return Returns the comparison results based on the ComparatorDetails
 	 */
-	 Map<ComparatorDetails,String> getComparisonResult();
+	ComparatorLogger getComparisonLog();
+	 
+	/**
+	 * Sets a record instance to record the ComparatorDetails
+	 */
+	 void setComparisonLog(ComparatorLogger comparatorLog);
 
 }

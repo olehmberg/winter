@@ -216,10 +216,14 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 				resultCollector.next(new Pair<String, Integer>(record.getFirst(), 1));
 			}
 			, new CountAggregator<>());
-
-			logger.info("50 most-frequent blocking key values:");
-			for(Pair<String, Integer> value : aggregated.sort((v)->v.getSecond(), false).take(50).get()) {
-				logger.info(String.format("\t%d\t%s", value.getSecond(), value.getFirst()));
+			
+			this.initialiseBlockingResults();
+			int result_id = 0;
+			
+			for(Pair<String, Integer> value : aggregated.sort((v)->v.getSecond(), false).get()) {
+				String[] results = {value.getFirst().toString(), value.getSecond().toString()};
+				this.appendBlockingResult(results, Integer.toString(result_id));
+				result_id += 1;
 			}
 	}
 	

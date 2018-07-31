@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
-import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +18,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggre
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -94,9 +94,17 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 			}
 
 			@Override
-			public Map<ComparatorDetails, String> getComparisonResult() {
+			public ComparatorLogger getComparisonLog() {
+				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public void setComparisonLog(ComparatorLogger comparatorLog) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		};
 		
 		

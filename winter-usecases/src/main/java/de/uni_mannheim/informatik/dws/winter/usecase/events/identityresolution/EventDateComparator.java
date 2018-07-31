@@ -2,10 +2,8 @@ package de.uni_mannheim.informatik.dws.winter.usecase.events.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.similarity.date.YearSimilarity;
@@ -24,29 +22,34 @@ public class EventDateComparator implements Comparator<Event, Attribute> {
     private BestListSimilarity bestListSimilarity = new BestListSimilarity();
     private YearSimilarity sim = new YearSimilarity(1);
     
-    private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
+    private ComparatorLogger comparisonLog;
 
     @Override
     public double compare(
             Event record1,
             Event record2,
             Correspondence<Attribute, Matchable> schemaCorrespondences) {
-    	this.comparisonResult.put(ComparatorDetails.comparatorName, EventDateComparator.class.getName());
     	
     	double similarity = bestListSimilarity.getBestDatesSimilarity(sim, record1.getDates(), record2.getDates());
+    	if(this.comparisonLog != null){
+    		this.comparisonLog.setComparatorName(getClass().getName());
     	
-    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDates().toString());
-    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDates().toString());
-    	
-    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
-    	
+    		this.comparisonLog.setRecord1Value(record1.getDates().toString());
+    		this.comparisonLog.setRecord2Value(record2.getDates().toString());
+		
+    		this.comparisonLog.setSimilarity(Double.toString(similarity));
+    	}
         return similarity;
     }
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
-		return this.comparisonResult;
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
 	}
 
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
+	}
 
 }

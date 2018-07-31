@@ -11,11 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -37,7 +34,7 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 	
-	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
+	private ComparatorLogger comparisonLog;
 
 	@Override
 	public double compare(
@@ -45,14 +42,15 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		this.comparisonResult.put(ComparatorDetails.comparatorName, MovieDirectorComparatorLowerCaseJaccard.class.getName());
+		this.comparisonLog.setComparatorName(getClass().getName());
+		
 		
 		// preprocessing
 		String s1 = record1.getDirector();
 		String s2 = record2.getDirector();
 		
-		this.comparisonResult.put(ComparatorDetails.record1Value, s1);
-		this.comparisonResult.put(ComparatorDetails.record2Value, s2);
+		this.comparisonLog.setRecord1Value(s1);
+		this.comparisonLog.setRecord2Value(s2);
 		
 		if (s1 != null) {
 			s1 = s1.toLowerCase();
@@ -66,28 +64,42 @@ public class MovieDirectorComparatorLowerCaseJaccard implements Comparator<Movie
 			s2 = "";
 		}
 		
-		this.comparisonResult.put(ComparatorDetails.record1PreprocessedValue, s1);
-		this.comparisonResult.put(ComparatorDetails.record2PreprocessedValue, s2);
+		this.comparisonLog.setRecord1PreprocessedValue(s1);
+		this.comparisonLog.setRecord2PreprocessedValue(s2);
 
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
-		this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
+		this.comparisonLog.setSimilarity(Double.toString(similarity));
 
 		// postprocessing
+		int postSimilarity = 0;
 		if (similarity <= 0.3) {
-			similarity = 0;
+			postSimilarity = 0;
 		}
 
-		similarity *= similarity;
+		postSimilarity *= similarity;
 		
-		this.comparisonResult.put(ComparatorDetails.postproccesedSimilarity, Double.toString(similarity));
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
 		
-		return similarity;
+			this.comparisonLog.setRecord1Value(s1);
+			this.comparisonLog.setRecord2Value(s2);
+    	
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
+			this.comparisonLog.setPostprocessedSimilarity(Double.toString(postSimilarity));
+		}
+		
+		return postSimilarity;
 	}
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
-		return this.comparisonResult;
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 
 }

@@ -212,8 +212,15 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					, new StringConcatenationAggregator<>(","))
 					.sort((p)->p.getFirst(), false);
 			
-			logger.info("50 most-frequent blocking key values:");
-			for(Pair<Integer, String> value : blockValues.take(50).get()) {
+			this.initialiseBlockingResults();
+			int result_id = 0;
+			
+			logger.info("Blocking key values:");
+			for(Pair<Integer, String> value : blockValues.get()) {
+				String[] results = {value.getFirst().toString(), value.getSecond().toString()};
+				this.appendBlockingResult(results, Integer.toString(result_id));
+				result_id += 1;
+				
 				logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 			}
 

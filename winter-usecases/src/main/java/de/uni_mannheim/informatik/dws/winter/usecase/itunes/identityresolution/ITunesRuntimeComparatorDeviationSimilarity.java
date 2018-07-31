@@ -11,10 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -34,7 +32,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 	private static final long serialVersionUID = 1L;
 	DeviationSimilarity sim = new DeviationSimilarity();
 	
-	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
+	private ComparatorLogger comparisonLog;
 
 	public ITunesRuntimeComparatorDeviationSimilarity(Attribute attributeRecord1, Attribute attributeRecord2) {
 		super(attributeRecord1, attributeRecord2);
@@ -46,8 +44,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 			Record record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		this.comparisonResult.put(ComparatorDetails.comparatorName, ITunesRuntimeComparatorDeviationSimilarity.class.getName());
-    	
+		this.comparisonLog.setComparatorName(getClass().getName());
 		
 		double sim_temp = 0.00;
 		double similarity = 0.00;
@@ -55,12 +52,12 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = convertTimeToSongFormat(record2.getValue(this.getAttributeRecord2()));
 		
-		this.comparisonResult.put(ComparatorDetails.record1Value, s1);
-    	this.comparisonResult.put(ComparatorDetails.record2Value, s2);
+		this.comparisonLog.setRecord1Value(s1);
+		this.comparisonLog.setRecord2Value(s2);
 		
 		
 		if(s1.equals("NULL")){
-			this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
 			return similarity;
 		}
 		else if(s1.contains("{")){
@@ -77,7 +74,7 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 		else{
 			similarity = sim.calculate(Double.parseDouble(s1), Double.parseDouble(s2));
 		}
-		this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
+		this.comparisonLog.setSimilarity(Double.toString(similarity));
 		return similarity;
 	}
 	
@@ -99,9 +96,13 @@ public class ITunesRuntimeComparatorDeviationSimilarity extends RecordComparator
 	}
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
-		// TODO Auto-generated method stub
-		return this.comparisonResult;
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 
 }

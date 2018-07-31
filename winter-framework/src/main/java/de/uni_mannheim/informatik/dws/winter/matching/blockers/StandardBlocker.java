@@ -33,7 +33,6 @@ import de.uni_mannheim.informatik.dws.winter.processing.aggregators.StringConcat
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * Implementation of a standard {@link AbstractBlocker} based on blocking keys. All records for which the same blocking key is generated are returned as pairs.
@@ -53,7 +52,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
-	private boolean measureBlockSizes = false; //@Oli: verbose Flag? --> set logging to trace and remove flag
+	private boolean measureBlockSizes = false;
 	private double blockFilterRatio = 1.0;
 	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
@@ -242,14 +241,14 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 						new StringConcatenationAggregator<>(","))
 						.sort((p)->p.getFirst(), false);
 				
-				this.buildResultsTable();
+				this.initialiseBlockingResults();
+				int result_id = 0;
 				
-				logger.info("50 most-frequent blocking key values:");
-				for(Pair<Integer, String> value : blockValues.take(50).get()) {
-					TableRow resultsRow = new TableRow(this.getDebugBlockingResults().getSize() + 1, this.getDebugBlockingResults());
-					String[] results = {"", value.getFirst().toString(), value.getSecond().toString() };
-					resultsRow.set(results);
-					this.appendRowToResults(resultsRow);
+				logger.info("Blocking key values:");
+				for(Pair<Integer, String> value : blockValues.get()) {
+					String[] results = {value.getFirst().toString(), value.getSecond().toString()};
+					this.appendBlockingResult(results, Integer.toString(result_id));
+					result_id += 1;
 					
 					logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 				}

@@ -29,18 +29,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.Logger;
 
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
@@ -579,9 +582,31 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				);
 	}
 
+	@Override
+	public void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,
+			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
+			throws IOException {
+		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
+		
+		@SuppressWarnings("unchecked")
+		FeatureVectorDataSet features = learner.generateTrainingDataForLearning((DataSet<Record,Attribute>) dataset1, (DataSet<Record,Attribute>) dataset2,
+				goldStandard, (LearnableMatchingRule<Record, Attribute>) this, null);
+		new RecordCSVFormatter().writeCSV(
+				file, features);	
+		
+	}
+
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
+	public ComparatorLogger getComparisonLog() {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		// TODO Auto-generated method stub
+		
 	}
 }

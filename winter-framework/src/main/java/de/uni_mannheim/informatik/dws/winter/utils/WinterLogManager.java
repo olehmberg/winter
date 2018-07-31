@@ -19,6 +19,11 @@ public class WinterLogManager {
 		return getLogger();
 	}
 	
+	public static Logger getRootLogger(){
+		setLogger(LogManager.getRootLogger());
+		return getLogger();
+	}
+	
 	public static void setLogger(Logger logger){
 		WinterLogManager.logger = logger;
 	}

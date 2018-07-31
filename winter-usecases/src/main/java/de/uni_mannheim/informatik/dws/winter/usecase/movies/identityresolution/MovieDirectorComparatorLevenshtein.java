@@ -11,10 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -34,27 +32,38 @@ public class MovieDirectorComparatorLevenshtein implements Comparator<Movie, Att
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity sim = new LevenshteinSimilarity();
 	
-	private HashMap<ComparatorDetails, String> comparisonResult = new HashMap<ComparatorDetails, String>();
+	private ComparatorLogger comparisonLog;
 
 	@Override
 	public double compare(
 			Movie record1,
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
-		this.comparisonResult.put(ComparatorDetails.comparatorName, MovieDirectorComparatorLevenshtein.class.getName());
+		
+		String s1 = record1.getDirector();
+		String s2 = record2.getDirector();
     	
-    	this.comparisonResult.put(ComparatorDetails.record1Value, record1.getDirector());
-    	this.comparisonResult.put(ComparatorDetails.record2Value, record2.getDirector());
+    	double similarity = sim.calculate(s1, s2);
     	
-    	double similarity = sim.calculate(record1.getDirector(), record2.getDirector());
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
+		
+			this.comparisonLog.setRecord1Value(s1);
+			this.comparisonLog.setRecord2Value(s2);
     	
-    	this.comparisonResult.put(ComparatorDetails.similarity, Double.toString(similarity));
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
+		}
 		return similarity;
 	}
 
 	@Override
-	public Map<ComparatorDetails, String> getComparisonResult() {
-		return this.comparisonResult;
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 
 

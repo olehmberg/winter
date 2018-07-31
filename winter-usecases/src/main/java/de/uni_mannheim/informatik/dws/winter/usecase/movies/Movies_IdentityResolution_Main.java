@@ -75,6 +75,7 @@ public class Movies_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		matchingRule.setCollectDebugResults(true);
 		
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
@@ -87,7 +88,7 @@ public class Movies_IdentityResolution_Main {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
-		blocker.setMeasureBlockSizes(true);//necessary?
+		blocker.setMeasureBlockSizes(true);
 		
 		// Initialize Matching Engine
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
@@ -106,9 +107,11 @@ public class Movies_IdentityResolution_Main {
 				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 		
 		//Write debug results to file:
-		blocker.writeDebugMatchingResultsToFile("usecase/movie/output/resultsBlocking");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsMatchingRule");
+		blocker.writeDebugMatchingResultsToFile("usecase/movie/output/resultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsMatchingRule.csv");
 		
+		matchingRule.exportTrainingData(dataAcademyAwards, dataActors,
+				gsTest, new File("usecase/movie/output/trainingData.csv"));
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
@@ -137,6 +140,7 @@ public class Movies_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.0);
+		
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
 		matchingRule.addComparator(new MovieDateComparator10Years(), 0.2);
