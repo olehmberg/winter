@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -34,12 +33,16 @@ import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -82,8 +85,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	public final String trainingSet = "trainingSet";
 	public final String matchSet = "matchSet";
-
-	private Instances trainingData;
 
 	// TODO Discuss finalThreshold --> Can be set via options -C <confidence
 	// factor for pruning>
@@ -158,7 +159,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	@Override
 	public Performance learnParameters(FeatureVectorDataSet features) {
 		// create training
-		this.trainingData = transformToWeka(features, this.trainingSet);
+		Instances trainingData = transformToWeka(features, this.trainingSet);
 
 		try {
 			// apply feature subset selection
@@ -172,7 +173,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 				// Do feature subset selection, but using a 10-fold cross
 				// validation
-				wrapper.buildEvaluator(this.trainingData);
+				wrapper.buildEvaluator(trainingData);
 				wrapper.setClassifier(this.classifier);
 				wrapper.setFolds(10);
 				wrapper.setThreshold(0.01);
@@ -180,23 +181,23 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				this.fs.setEvaluator(wrapper);
 				this.fs.setSearch(search);
 
-				this.fs.SelectAttributes(this.trainingData);
+				this.fs.SelectAttributes(trainingData);
 
-				this.trainingData = fs.reduceDimensionality(this.trainingData);
+				trainingData = fs.reduceDimensionality(trainingData);
 
 			}
 			// perform 10-fold Cross Validation to evaluate classifier
-			Evaluation eval = new Evaluation(this.trainingData);
+			Evaluation eval = new Evaluation(trainingData);
 
 			if (balanceTrainingData) {
 				Resample filter = new Resample();
 				filter.setBiasToUniformClass(1.0);
-				filter.setInputFormat(this.trainingData);
+				filter.setInputFormat(trainingData);
 				filter.setSampleSizePercent(100);
-				eval = new EvaluationWithBalancing(this.trainingData, filter);
+				eval = new EvaluationWithBalancing(trainingData, filter);
 			}
 
-			eval.crossValidateModel(this.classifier, this.trainingData, Math.min(10, this.trainingData.size()),
+			eval.crossValidateModel(this.classifier, trainingData, Math.min(10, trainingData.size()),
 					new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 			System.out.println(eval.toClassDetailsString());
@@ -205,14 +206,14 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			if (balanceTrainingData) {
 				Resample filter = new Resample();
 				filter.setBiasToUniformClass(1.0);
-				filter.setInputFormat(this.trainingData);
+				filter.setInputFormat(trainingData);
 				filter.setSampleSizePercent(100);
-				this.trainingData = Filter.useFilter(this.trainingData, filter);
+				trainingData = Filter.useFilter(trainingData, filter);
 			}
 
-			this.classifier.buildClassifier(this.trainingData);
+			this.classifier.buildClassifier(trainingData);
 
-			int positiveClassIndex = this.trainingData.attribute(this.trainingData.classIndex()).indexOfValue("1");
+			int positiveClassIndex = trainingData.attribute(trainingData.classIndex()).indexOfValue("1");
 
 			int truePositive = (int) eval.numTruePositives(positiveClassIndex);
 			int falsePositive = (int) eval.numFalsePositives(positiveClassIndex);
@@ -578,18 +579,16 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	@Override
-	public void exportTrainingData(File location) {
-
-		try {
-			FileOutputStream fout = new FileOutputStream(location);
-			PrintStream out = new PrintStream(fout);
-			out.print(this.trainingData.toString());
-			out.flush();
-			out.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
+	public void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,
+			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
+			throws IOException {
+		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
+		
+		@SuppressWarnings("unchecked")
+		FeatureVectorDataSet features = learner.generateTrainingDataForLearning((DataSet<Record,Attribute>) dataset1, (DataSet<Record,Attribute>) dataset2,
+				goldStandard, (LearnableMatchingRule<Record, Attribute>) this, null);
+		new RecordCSVFormatter().writeCSV(
+				file, features);	
+		
 	}
 }

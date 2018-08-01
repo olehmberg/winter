@@ -41,7 +41,6 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.I
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.RecordComparatorJaccardWithBrackets;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
-import weka.classifiers.functions.SimpleLogistic;
 
 /**
  * Class containing the standard setup to perform a identity resolution task by using learning matching rules,
@@ -167,7 +166,7 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		matchingRule.exportModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
 		
 		// Store Training Data
-		matchingRule.exportTrainingData(new File("usecase/itunes/matchingRule/itunesTrainingData.arff"));
+		matchingRule.exportTrainingData(dataITunes, dataSong, gsTraining, new File("usecase/itunes/matchingRule/itunesTrainingData.csv"));
 
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
