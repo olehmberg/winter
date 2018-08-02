@@ -17,12 +17,15 @@ import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 
 /**
  * 
- * A matching rule that returns the input correspondences above the specified threshold and specifies that correspondences should be grouped by both elements.
+ * A matching rule that returns the input correspondences above the specified
+ * threshold and specifies that correspondences should be grouped by both
+ * elements.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchable> extends AggregableMatchingRule<TypeA, TypeB> {
+public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchable>
+		extends AggregableMatchingRule<TypeA, TypeB> {
 
 	public IdentityMatchingRule(double finalThreshold) {
 		super(finalThreshold);
@@ -30,34 +33,32 @@ public class IdentityMatchingRule<TypeA extends Matchable, TypeB extends Matchab
 
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.
+	 * uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
 	public double compare(TypeA record1, TypeA record2, Correspondence<TypeB, Matchable> schemaCorrespondence) {
-		// this method is not used, as the input is returned as output in mapRecord
+		// this method is not used, as the input is returned as output in
+		// mapRecord
 		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.processing.RecordMapper#mapRecord(java.lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.uni_mannheim.informatik.wdi.processing.RecordMapper#mapRecord(java.
+	 * lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
 	public void mapRecord(Correspondence<TypeA, TypeB> record,
 			DataIterator<Correspondence<TypeA, TypeB>> resultCollector) {
 		resultCollector.next(record);
-	}
-
-	@Override
-	public ComparatorLogger getComparisonLog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setComparisonLog(ComparatorLogger comparatorLog) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

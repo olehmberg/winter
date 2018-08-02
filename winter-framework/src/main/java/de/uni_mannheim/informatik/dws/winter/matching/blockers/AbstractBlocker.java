@@ -31,28 +31,29 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
- * The super class for all blocking strategies. The generation of pairs
- * based on the {@link AbstractBlocker} can be executed for one dataset, by implementing {@link SymmetricBlocker} or for two
- * datasets, by implementing {@link Blocker}
+ * The super class for all blocking strategies. The generation of pairs based on
+ * the {@link AbstractBlocker} can be executed for one dataset, by implementing
+ * {@link SymmetricBlocker} or for two datasets, by implementing {@link Blocker}
  * resolution.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * @author Robert Meusel (robert@dwslab.de)
  * 
  * @param <RecordType>
- * 			The type of Records in the input dataset(s)
+ *            The type of Records in the input dataset(s)
  * @param <BlockedType>
- * 			The type of Records in the Correspondences (Pairs) that are the result of the blocking
+ *            The type of Records in the Correspondences (Pairs) that are the
+ *            result of the blocking
  * @param <CorrespondenceType>
- * 			The type of Records in the causes of the Correspondences (Pairs) that are the result of the blocking
+ *            The type of Records in the causes of the Correspondences (Pairs)
+ *            that are the result of the blocking
  */
-public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable>
-{
+public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> {
 
 	private double reductionRatio = 1.0;
-	
+
 	private static final Logger logger = WinterLogManager.getLogger();
-	private String[] blockingResultsHeader = {"Frequency","Blocking Key Value"};
+	private String[] blockingResultsHeader = { "Frequency", "Blocking Key Value" };
 	private FusibleHashedDataSet<Record, Attribute> debugBlockingResults;
 
 	/**
@@ -66,13 +67,15 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	}
 
 	private Processable<Correspondence<BlockedType, CorrespondenceType>> result;
+
 	/**
-	 * @param result the result to set
+	 * @param result
+	 *            the result to set
 	 */
 	protected void setResult(Processable<Correspondence<BlockedType, CorrespondenceType>> result) {
 		this.result = result;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -81,7 +84,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	public Processable<Correspondence<BlockedType, CorrespondenceType>> getBlockedPairs() {
 		return result;
 	}
-	
+
 	/**
 	 * Calculates the reduction ratio. Must be called by all sub classes in
 	 * generatePairs(...).
@@ -91,7 +94,8 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	 * @param dataset2
 	 *            the second data set (must not be null)
 	 * @param blocked
-	 *            the list of pairs that resulted from the blocking (must not be null)
+	 *            the list of pairs that resulted from the blocking (must not be
+	 *            null)
 	 */
 	protected void calculatePerformance(Processable<? extends Matchable> dataset1,
 			Processable<? extends Matchable> dataset2,
@@ -100,73 +104,72 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 		long size2 = (long) dataset2.size();
 		long maxPairs = size1 * size2;
 
-		reductionRatio = 1.0 - ((double)blocked.size() / (double)maxPairs);
+		reductionRatio = 1.0 - ((double) blocked.size() / (double) maxPairs);
 	}
-	
-	public 
-	Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> 
-	combineDataWithCorrespondences(
-			Processable<RecordType> dataset1, 
+
+	public Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> combineDataWithCorrespondences(
+			Processable<RecordType> dataset1,
 			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences,
 			RecordKeyValueMapper<Object, Correspondence<CorrespondenceType, Matchable>, Correspondence<CorrespondenceType, Matchable>> correspondenceJoinKey) {
-		
-		if(schemaCorrespondences!=null) {
-			// group the schema correspondences by data source (if no data sources are defined, all schema correspondences are used)
-			Processable<Group<Object, Correspondence<CorrespondenceType, Matchable>>> leftCors = schemaCorrespondences.group(correspondenceJoinKey);
-	
+
+		if (schemaCorrespondences != null) {
+			// group the schema correspondences by data source (if no data
+			// sources are defined, all schema correspondences are used)
+			Processable<Group<Object, Correspondence<CorrespondenceType, Matchable>>> leftCors = schemaCorrespondences
+					.group(correspondenceJoinKey);
+
 			// join the dataset with the correspondences
-			Processable<Pair<RecordType, Group<Object, Correspondence<CorrespondenceType, Matchable>>>> joined = dataset1.leftJoin(leftCors, (r)->r.getDataSourceIdentifier(), (r)->r.getKey());
-			
-			return joined.map((p,c)-> {
-				if(p.getSecond()!=null) {
+			Processable<Pair<RecordType, Group<Object, Correspondence<CorrespondenceType, Matchable>>>> joined = dataset1
+					.leftJoin(leftCors, (r) -> r.getDataSourceIdentifier(), (r) -> r.getKey());
+
+			return joined.map((p, c) -> {
+				if (p.getSecond() != null) {
 					c.next(new Pair<>(p.getFirst(), p.getSecond().getRecords()));
 				} else {
 					c.next(new Pair<>(p.getFirst(), null));
 				}
-				
+
 			});
 		} else {
-			return dataset1.map((r,c)->c.next(new Pair<>(r,null)));
+			return dataset1.map((r, c) -> c.next(new Pair<>(r, null)));
 		}
 	}
-	
+
 	protected Processable<Correspondence<CorrespondenceType, Matchable>> createCausalCorrespondences(
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1,
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2) {
 		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 	}
-	
+
 	public void initialiseBlockingResults() {
 		FusibleHashedDataSet<Record, Attribute> result = new FusibleHashedDataSet<Record, Attribute>();
-		
-		for(int i = 0; i < this.blockingResultsHeader.length; i++){
+
+		for (int i = 0; i < this.blockingResultsHeader.length; i++) {
 			Attribute att = new Attribute(this.blockingResultsHeader[i]);
 			result.addAttribute(att);
 		}
-	
+
 		this.debugBlockingResults = result;
 	}
-	
-	public void appendBlockingResult(String[] blockingResult, String id){
-		if(blockingResult.length == this.blockingResultsHeader.length){
+
+	public void appendBlockingResult(String[] blockingResult, String id) {
+		if (blockingResult.length == this.blockingResultsHeader.length) {
 			Iterator<Attribute> schemaIterator = this.debugBlockingResults.getSchema().get().iterator();
 			int counter = 0;
 			Record model = new Record(id);
-			while(schemaIterator.hasNext()){
+			while (schemaIterator.hasNext()) {
 				Attribute att = schemaIterator.next();
 				model.setValue(att, blockingResult[counter]);
 				counter += 1;
 			}
 			this.debugBlockingResults.add(model);
-		}
-		else{
+		} else {
 			logger.error("Blocking results row does not fit defined length of schema!");
 		}
 	}
-	
-	public void writeDebugMatchingResultsToFile(String path) throws IOException{
-		new RecordCSVFormatter().writeCSV(
-				new File(path), this.debugBlockingResults);
-		logger.info("Debug results written to file:" + path);
+
+	public void writeDebugMatchingResultsToFile(String path) throws IOException {
+		new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, null);
+		logger.info("Debug results written to file: " + path);
 	}
 }

@@ -94,6 +94,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		options[0] = "";
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+		matchingRule.setCollectDebugResults(true);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
@@ -133,6 +134,9 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
+		
+		// DebugResults
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsWekaMatchingRule.csv");
 
 		// print the evaluation result
 		logger.info("Academy Awards <-> Actors");
@@ -165,7 +169,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(dataAcademyAwards, dataActors,
 				gsTraining, matchingRule, null);
 		new RecordCSVFormatter()
-				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 	}
 
 	public static void firstMatching() throws Exception {
@@ -257,7 +261,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(ds1, ds2, gsTraining, rule, null);
 		new RecordCSVFormatter()
-				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();

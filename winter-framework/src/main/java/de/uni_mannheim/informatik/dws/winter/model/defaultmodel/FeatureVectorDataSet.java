@@ -32,5 +32,5 @@ public class FeatureVectorDataSet extends FusibleHashedDataSet<Record, Attribute
 		addAttribute(ATTRIBUTE_FINAL_VALUE);
 		addAttribute(ATTRIBUTE_IS_MATCH);
 	}
-	
+
 }

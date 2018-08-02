@@ -13,7 +13,10 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
@@ -32,24 +35,36 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>	the type of records that are matched with this rule
- * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
+ * @param <RecordType>
+ *            the type of records that are matched with this rule
+ * @param <SchemaElementType>
+ *            the type of schema elements that are used in the schema of
+ *            RecordType
  */
-public abstract class MatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable> 
-	implements Comparator<RecordType,SchemaElementType>,
-	RecordMapper<Correspondence<RecordType, SchemaElementType>, Correspondence<RecordType, SchemaElementType>>
-{
+public abstract class MatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable>
+		implements Comparator<RecordType, SchemaElementType>,
+		RecordMapper<Correspondence<RecordType, SchemaElementType>, Correspondence<RecordType, SchemaElementType>> {
 
 	private static final long serialVersionUID = 1L;
 	private double finalThreshold;
-	
+
 	private int resultSize;
-	
-	private String[] headerComparatorLog = {"MatchingRule", "Record1Identifier", "Record2Identifier", "TotalSimilarity"};
+
 	private FusibleHashedDataSet<Record, Attribute> comparatorLog;
+	private FusibleHashedDataSet<Record, Attribute> comparatorLogShort;
 	private boolean collectDebugResults = false;
+	private HashMap<Attribute, Attribute> comparatorToResultLog;
+	private List<Attribute> headerDebugResults;
+	private List<Attribute> headerDebugResultsShort;
 	
+	private ComparatorLogger comparisonLog;
+
 	private static final Logger logger = WinterLogManager.getLogger();
+
+	public final Attribute MATCHINGRULE = new Attribute("MatchingRule");
+	public final Attribute RECORD1IDENTIFIER = new Attribute("Record1Identifier");
+	public final Attribute RECORD2IDENTIFIER = new Attribute("Record2Identifier");
+	public final Attribute TOTALSIMILARITY = new Attribute("TotalSimilarity");
 
 	public double getFinalThreshold() {
 		return finalThreshold;
@@ -66,80 +81,200 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public void setResultSize(int size) {
 		this.resultSize = size;
 	}
-	
+
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
 
 	public void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
-		if(this.collectDebugResults){
-			initialiseBlockingResults();	
+		if (this.collectDebugResults) {
+			initialiseMatchingResults();
 		}
 	}
-	
-	public FusibleHashedDataSet<Record, Attribute> getComparatorLog() {
-		return comparatorLog;
+
+	public HashMap<Attribute, Attribute> getComparatorToResultLog() {
+		return comparatorToResultLog;
 	}
 
 	public Correspondence<SchemaElementType, Matchable> getCorrespondenceForComparator(
-			Processable<Correspondence<SchemaElementType, Matchable>> correspondences,
-			RecordType record1,
-			RecordType record2,
-			Comparator<RecordType, SchemaElementType> comparator) {
-		if(correspondences!=null) {
+			Processable<Correspondence<SchemaElementType, Matchable>> correspondences, RecordType record1,
+			RecordType record2, Comparator<RecordType, SchemaElementType> comparator) {
+		if (correspondences != null) {
 			Processable<Correspondence<SchemaElementType, Matchable>> matchingSchemaCorrespondences = correspondences
-					// first filter correspondences to make sure we only use correspondences between the data sources of record1 and record2
-				.where((c)->
-					c.getFirstRecord().getDataSourceIdentifier()==record1.getDataSourceIdentifier()
-					&&
-					c.getSecondRecord().getDataSourceIdentifier()==record2.getDataSourceIdentifier()
-					)
-					// then filter the remaining correspondences based on the comparators arguments, if present
-				.where((c)->
-					(comparator.getFirstSchemaElement(record1)==null || comparator.getFirstSchemaElement(record1).equals(c.getFirstRecord()))
-					&&
-					(comparator.getSecondSchemaElement(record2)==null || comparator.getSecondSchemaElement(record2).equals(c.getSecondRecord()))
-					);
-			// after the filtering, there should only be one correspondence left (if not, the mapping is ambiguous)
+					// first filter correspondences to make sure we only use
+					// correspondences between the data sources of record1 and
+					// record2
+					.where((c) -> c.getFirstRecord().getDataSourceIdentifier() == record1.getDataSourceIdentifier()
+							&& c.getSecondRecord().getDataSourceIdentifier() == record2.getDataSourceIdentifier())
+					// then filter the remaining correspondences based on the
+					// comparators arguments, if present
+					.where((c) -> (comparator.getFirstSchemaElement(record1) == null
+							|| comparator.getFirstSchemaElement(record1).equals(c.getFirstRecord()))
+							&& (comparator.getSecondSchemaElement(record2) == null
+									|| comparator.getSecondSchemaElement(record2).equals(c.getSecondRecord())));
+			// after the filtering, there should only be one correspondence left
+			// (if not, the mapping is ambiguous)
 			return matchingSchemaCorrespondences.firstOrNull();
 		} else {
 			return null;
 		}
 	}
-	
-	public void writeDebugMatchingResultsToFile(String path) throws IOException{
-		new RecordCSVFormatter().writeCSV(
-				new File(path), this.comparatorLog);
-		logger.info("Debug Matching Results written to file!");
+
+	public void writeDebugMatchingResultsToFile(String path) throws IOException {
+
+		new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
+		logger.info("Debug results written to file: " + path);
+		new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
+				this.headerDebugResultsShort);
+		logger.info("Debug results written to file: " + path + "_short");
 	}
 
-	public void initialiseBlockingResults() {
-		FusibleHashedDataSet<Record, Attribute> result = new FusibleHashedDataSet<Record, Attribute>();
-		
-		for(int i = 0; i < this.headerComparatorLog.length; i++){
-			Attribute att = new Attribute(this.headerComparatorLog[i]);
-			result.addAttribute(att);
+	public void initialiseMatchingResults() {
+		this.comparatorLog = new FusibleHashedDataSet<Record, Attribute>();
+		this.comparatorLogShort = new FusibleHashedDataSet<Record, Attribute>();
+		this.headerDebugResults = new LinkedList<Attribute>();
+		this.headerDebugResultsShort = new LinkedList<Attribute>();
+
+		this.comparatorLog.addAttribute(this.MATCHINGRULE);
+		this.comparatorLogShort.addAttribute(this.MATCHINGRULE);
+		this.headerDebugResults.add(this.MATCHINGRULE);
+		this.headerDebugResultsShort.add(this.MATCHINGRULE);
+
+		this.comparatorLog.addAttribute(this.RECORD1IDENTIFIER);
+		this.comparatorLogShort.addAttribute(this.RECORD1IDENTIFIER);
+		this.headerDebugResults.add(this.RECORD1IDENTIFIER);
+		this.headerDebugResultsShort.add(this.RECORD1IDENTIFIER);
+
+		this.comparatorLog.addAttribute(this.RECORD2IDENTIFIER);
+		this.comparatorLogShort.addAttribute(this.RECORD2IDENTIFIER);
+		this.headerDebugResults.add(this.RECORD2IDENTIFIER);
+		this.headerDebugResultsShort.add(this.RECORD2IDENTIFIER);
+
+		this.comparatorLog.addAttribute(this.TOTALSIMILARITY);
+		this.headerDebugResults.add(this.TOTALSIMILARITY);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.COMPARATORNAME);
+		this.headerDebugResultsShort.add(ComparatorLogger.COMPARATORNAME);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.RECORD1VALUE);
+		this.headerDebugResultsShort.add(ComparatorLogger.RECORD1VALUE);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.RECORD2VALUE);
+		this.headerDebugResultsShort.add(ComparatorLogger.RECORD2VALUE);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.RECORD1PREPROCESSEDVALUE);
+		this.headerDebugResultsShort.add(ComparatorLogger.RECORD1PREPROCESSEDVALUE);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.RECORD2PREPROCESSEDVALUE);
+		this.headerDebugResultsShort.add(ComparatorLogger.RECORD2PREPROCESSEDVALUE);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.SIMILARITY);
+		this.headerDebugResultsShort.add(ComparatorLogger.SIMILARITY);
+
+		this.comparatorLogShort.addAttribute(ComparatorLogger.POSTPROCESSEDSIMILARITY);
+		this.headerDebugResultsShort.add(ComparatorLogger.POSTPROCESSEDSIMILARITY);
+
+		this.comparatorToResultLog = new HashMap<Attribute, Attribute>();
+
+	}
+
+	public void addComparatorToLog(Comparator<RecordType, SchemaElementType> comparator) {
+
+		// 4 fix attributes as defined in initialiseMatchingResults().
+		int position = (this.comparatorLog.getSchema().size() - 4) / ComparatorLogger.COMPARATORLOG.length;
+
+		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
+			Attribute schemaAttribute = new Attribute(Integer.toString(position) + '-'
+					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier());
+			this.comparatorToResultLog.put(schemaAttribute, att);
+			this.comparatorLog.getSchema().add(schemaAttribute);
+			if (!att.getIdentifier().equals(ComparatorLogger.COMPARATORNAME.getIdentifier())) {
+				this.headerDebugResults.add(schemaAttribute);
+			}
 		}
-	
-		this.comparatorLog = result;
+	}
+
+	public Record initializeDebugRecord(RecordType record1, RecordType record2, int position) {
+
+		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
+		if (position != -1) {
+			identifier = Integer.toString(position) + identifier;
+		}
+		Record debug = new Record(identifier);
+		debug.setValue(this.MATCHINGRULE, getClass().getSimpleName());
+		debug.setValue(this.RECORD1IDENTIFIER, record1.getIdentifier());
+		debug.setValue(this.RECORD2IDENTIFIER, record2.getIdentifier());
+
+		return debug;
+	}
+
+	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comperator, int position) {
+		Iterator<Attribute> schemaIterator = this.comparatorLog.getSchema().get().iterator();
+		ComparatorLogger compLog = comperator.getComparisonLog();
+		while (schemaIterator.hasNext()) {
+			Attribute schemaAtt = schemaIterator.next();
+			if (schemaAtt.getIdentifier()
+					.startsWith(Integer.toString(position) + '-' + comperator.getClass().getSimpleName())) {
+				Attribute compAtt = this.getComparatorToResultLog().get(schemaAtt);
+
+				if (compAtt == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
+					debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
+				} else if (compAtt == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
+					debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
+				} else if (compAtt == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
+					debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
+				} else if (compLog.hasValue(compAtt)) {
+					debug.setValue(schemaAtt, compLog.getValue(compAtt));
+				}
+			}
+		}
+		return debug;
+	}
+
+	public void finalizeDebugRecord(Record debug, Double similarity) {
+		if(similarity != null){
+			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+		}
+		this.comparatorLog.add(debug);
+	}
+
+	public void finalizeDebugRecordShort(RecordType record1, RecordType record2,
+			Comparator<RecordType, SchemaElementType> comperator, int position) {
+		Record debug = initializeDebugRecord(record1, record2, position);
+		Iterator<Attribute> schemaIterator = this.comparatorLogShort.getSchema().get().iterator();
+		ComparatorLogger compLog = comperator.getComparisonLog();
+		while (schemaIterator.hasNext()) {
+			Attribute schemaAtt = schemaIterator.next();
+
+			if (schemaAtt == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
+				debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
+			} else if (schemaAtt == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
+				debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
+			} else if (schemaAtt == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
+				debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
+			} else if (compLog.hasValue(schemaAtt)) {
+				debug.setValue(schemaAtt, compLog.getValue(schemaAtt));
+			}
+		}
+		// logger.info(this.comparatorLogShort.size());
+		// logger.info(debug.getIdentifier());
+		this.comparatorLogShort.add(debug);
 	}
 	
-	public void addComparatorToLog(){
-		
-		int counter = 0;
-		String compIdentifier = counter + ComparatorLogger.COMPARATORNAME.getIdentifier();
-		while(this.comparatorLog.getSchema().getRecord(compIdentifier) != null){
-			counter += 1;
-			compIdentifier = counter + ComparatorLogger.COMPARATORNAME.getIdentifier();
-		}
-		
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.COMPARATORNAME.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.RECORD1VALUE.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.RECORD2VALUE.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.RECORD1PREPROCESSEDVALUE.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.RECORD2PREPROCESSEDVALUE.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.SIMILARITY.getIdentifier()));
-		this.comparatorLog.getSchema().add(new Attribute(counter + ComparatorLogger.POSTPROCESSEDSIMILARITY.getIdentifier()));
+	public void fillSimilarity(RecordType record1, RecordType record2, double similarity){
+		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
+		Record debug = this.comparatorLog.getRecord(identifier);
+		debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+	}
+	
+	@Override
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 }

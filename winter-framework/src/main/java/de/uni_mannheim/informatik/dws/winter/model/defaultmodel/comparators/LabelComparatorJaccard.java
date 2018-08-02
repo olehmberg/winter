@@ -30,23 +30,29 @@ public class LabelComparatorJaccard implements Comparator<Attribute, Attribute> 
 
 	private TokenizingJaccardSimilarity similarity = new TokenizingJaccardSimilarity();
 	private ComparatorLogger comparisonLog;
-	
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.
+	 * uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
-	public double compare(Attribute record1, Attribute record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {		
+	public double compare(Attribute record1, Attribute record2,
+			Correspondence<Attribute, Matchable> schemaCorrespondence) {
 		double sim = similarity.calculate(record1.getName(), record2.getName());
-		
-		if(this.comparisonLog != null){
+
+		if (this.comparisonLog != null) {
 			this.comparisonLog.setComparatorName(getClass().getName());
-		
+
 			this.comparisonLog.setRecord1Value(record1.getName());
 			this.comparisonLog.setRecord2Value(record2.getName());
-    	
+
 			this.comparisonLog.setSimilarity(Double.toString(sim));
 		}
-		
+
 		return sim;
 	}
 

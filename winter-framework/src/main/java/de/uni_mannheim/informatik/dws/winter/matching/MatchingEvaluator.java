@@ -31,16 +31,17 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>	the type of records between which the correspondences exist
- * @param <SchemaElementType>	the type of the causal correspondences
+ * @param <RecordType>
+ *            the type of records between which the correspondences exist
+ * @param <SchemaElementType>
+ *            the type of the causal correspondences
  */
 public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType extends Matchable> {
-	
+
 	private static final Logger logger = WinterLogManager.getLogger();
-	
+
 	public MatchingEvaluator() {
 	}
-
 
 	/**
 	 * Evaluates the given correspondences against the gold standard
@@ -51,68 +52,51 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 	 *            the gold standard
 	 * @return the result of the evaluation
 	 */
-	public Performance evaluateMatching(
-			Collection<Correspondence<RecordType, SchemaElementType>> correspondences,
+	public Performance evaluateMatching(Collection<Correspondence<RecordType, SchemaElementType>> correspondences,
 			MatchingGoldStandard goldStandard) {
 		int correct = 0;
 		int matched = 0;
 		int correct_max = goldStandard.getPositiveExamples().size();
 
 		// keep a list of all unmatched positives for later output
-		List<Pair<String, String>> positives = new ArrayList<>(
-				goldStandard.getPositiveExamples());
+		List<Pair<String, String>> positives = new ArrayList<>(goldStandard.getPositiveExamples());
 
 		for (Correspondence<RecordType, SchemaElementType> correspondence : correspondences) {
-			if (goldStandard.containsPositive(correspondence.getFirstRecord(),
-					correspondence.getSecondRecord())) {
+			if (goldStandard.containsPositive(correspondence.getFirstRecord(), correspondence.getSecondRecord())) {
 				correct++;
 				matched++;
 
-					logger.trace(String
-							.format("[correct] %s,%s,%s", correspondence
-									.getFirstRecord().getIdentifier(),
-									correspondence.getSecondRecord()
-											.getIdentifier(), Double
-											.toString(correspondence
-													.getSimilarityScore())));
+				logger.trace(String.format("[correct] %s,%s,%s", correspondence.getFirstRecord().getIdentifier(),
+						correspondence.getSecondRecord().getIdentifier(),
+						Double.toString(correspondence.getSimilarityScore())));
 
-					// remove pair from positives
-					Iterator<Pair<String, String>> it = positives.iterator();
-					while (it.hasNext()) {
-						Pair<String, String> p = it.next();
-						String id1 = correspondence.getFirstRecord()
-								.getIdentifier();
-						String id2 = correspondence.getSecondRecord()
-								.getIdentifier();
+				// remove pair from positives
+				Iterator<Pair<String, String>> it = positives.iterator();
+				while (it.hasNext()) {
+					Pair<String, String> p = it.next();
+					String id1 = correspondence.getFirstRecord().getIdentifier();
+					String id2 = correspondence.getSecondRecord().getIdentifier();
 
-						if (p.getFirst().equals(id1)
-								&& p.getSecond().equals(id2)
-								|| p.getFirst().equals(id2)
-								&& p.getSecond().equals(id1)) {
-							it.remove();
-						}
+					if (p.getFirst().equals(id1) && p.getSecond().equals(id2)
+							|| p.getFirst().equals(id2) && p.getSecond().equals(id1)) {
+						it.remove();
 					}
-			} else if (goldStandard.isComplete() || goldStandard.containsNegative(
-					correspondence.getFirstRecord(),
+				}
+			} else if (goldStandard.isComplete() || goldStandard.containsNegative(correspondence.getFirstRecord(),
 					correspondence.getSecondRecord())) {
 				matched++;
 
-					logger.trace(String
-							.format("[wrong] %s,%s,%s", correspondence
-									.getFirstRecord().getIdentifier(),
-									correspondence.getSecondRecord()
-											.getIdentifier(), Double
-											.toString(correspondence
-													.getSimilarityScore())));
-				
+				logger.trace(String.format("[wrong] %s,%s,%s", correspondence.getFirstRecord().getIdentifier(),
+						correspondence.getSecondRecord().getIdentifier(),
+						Double.toString(correspondence.getSimilarityScore())));
+
 			}
 		}
 
-			// print all missing positive examples
-			for (Pair<String, String> p : positives) {
-				logger.trace(String.format("[missing] %s,%s",
-						p.getFirst(), p.getSecond()));
-			}
+		// print all missing positive examples
+		for (Pair<String, String> p : positives) {
+			logger.trace(String.format("[missing] %s,%s", p.getFirst(), p.getSecond()));
+		}
 
 		return new Performance(correct, matched, correct_max);
 	}

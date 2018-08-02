@@ -108,7 +108,7 @@ public class Movies_IdentityResolution_Main {
 		
 		//Write debug results to file:
 		blocker.writeDebugMatchingResultsToFile("usecase/movie/output/resultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsMatchingRule.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsWekaMatchingRule.csv");
 		
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors,
 				gsTest, new File("usecase/movie/output/trainingData.csv"));
@@ -151,7 +151,7 @@ public class Movies_IdentityResolution_Main {
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(dataAcademyAwards, dataActors,
 						gsTraining, matchingRule, null);
 		new RecordCSVFormatter().writeCSV(
-				new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 	}
 
 	public static void firstMatching() throws Exception {
@@ -244,7 +244,7 @@ public class Movies_IdentityResolution_Main {
 		// RapidMiner)
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		 FeatureVectorDataSet features = learner.generateTrainingDataForLearning(ds1, ds2, gsTraining, rule, null);
-		new RecordCSVFormatter().writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+		new RecordCSVFormatter().writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();

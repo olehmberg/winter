@@ -11,6 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.usecase.movies.model;
 
+import java.util.List;
+
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVDataSetFormatter;
@@ -25,7 +27,7 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVDataSetFormatter#getHeader(de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
 	@Override
-	public String[] getHeader(DataSet<Movie, Attribute> dataset) {
+	public String[] getHeader(DataSet<Movie, Attribute> dataset, List<Attribute> orderedHeader) {
 		return new String[] { "id", "title", "studio", "genre", "budget", "gross", "director", "date" };
 	}
 
@@ -33,7 +35,7 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVDataSetFormatter#format(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
 	@Override
-	public String[] format(Movie record, DataSet<Movie, Attribute> dataset) {
+	public String[] format(Movie record, DataSet<Movie, Attribute> dataset, List<Attribute> orderedHeader) {
 		return new String[] {
 				record.getIdentifier(),
 				record.getTitle(),

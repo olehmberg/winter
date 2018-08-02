@@ -20,9 +20,8 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
 
 /**
- * {@link Comparator} for {@link Record}s based on the
- * values, and their {@link LevenshteinSimilarity}
- * similarity.
+ * {@link Comparator} for {@link Record}s based on the values, and their
+ * {@link LevenshteinSimilarity} similarity.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
@@ -39,28 +38,28 @@ public class RecordComparatorLevenshtein extends StringComparator {
 
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		
+
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
-		
-		if(this.comparisonLog != null){
+
+		if (this.comparisonLog != null) {
 			this.comparisonLog.setComparatorName(getClass().getName());
-		
+
 			this.comparisonLog.setRecord1Value(s1);
 			this.comparisonLog.setRecord2Value(s2);
 		}
-		
+
 		s1 = preprocess(s1);
 		s2 = preprocess(s2);
-		
-		if(this.comparisonLog != null){
+
+		if (this.comparisonLog != null) {
 			this.comparisonLog.setRecord1PreprocessedValue(s1);
 			this.comparisonLog.setRecord2PreprocessedValue(s2);
 		}
-		
+
 		// calculate similarity
 		double similarity = sim.calculate(s1, s2);
-		if(this.comparisonLog != null){
+		if (this.comparisonLog != null) {
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
 		}
 

@@ -21,14 +21,17 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  *
  */
 public class StandardRecordBlockerWithBlockFiltering<RecordType extends Matchable, SchemaElementType extends Matchable>
-	extends StandardBlockerWithBlockFiltering<RecordType, SchemaElementType, RecordType, SchemaElementType> {
+		extends StandardBlockerWithBlockFiltering<RecordType, SchemaElementType, RecordType, SchemaElementType> {
 
-	public StandardRecordBlockerWithBlockFiltering(BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> blockingFunction, double ratio) {
+	public StandardRecordBlockerWithBlockFiltering(
+			BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> blockingFunction, double ratio) {
 		super(blockingFunction, ratio);
 	}
 
-	public StandardRecordBlockerWithBlockFiltering(BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> blockingFunction, BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> secondBlockingFunction) {
+	public StandardRecordBlockerWithBlockFiltering(
+			BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> blockingFunction,
+			BlockingKeyGenerator<RecordType, SchemaElementType, RecordType> secondBlockingFunction) {
 		super(blockingFunction, secondBlockingFunction);
 	}
-	
+
 }

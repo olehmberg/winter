@@ -31,27 +31,32 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 
 	/**
 	 * creates the record with the respective features
+	 * 
 	 * @param record1
-	 * 			the first record (must not be null)
+	 *            the first record (must not be null)
 	 * @param record2
-	 * 			the second record (must not be null)
-	 * @param schemaCorrespondences 
-	 * 			the schema correspondences between the first and the second records
-	 * @param features feature vector (must not be null)
+	 *            the second record (must not be null)
+	 * @param schemaCorrespondences
+	 *            the schema correspondences between the first and the second
+	 *            records
+	 * @param features
+	 *            feature vector (must not be null)
 	 * @return the record containing the respective features
 	 */
-	Record generateFeatures(RecordType record1,
-			RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, FeatureVectorDataSet features);
-	
+	Record generateFeatures(RecordType record1, RecordType record2,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences,
+			FeatureVectorDataSet features);
+
 	FeatureVectorDataSet initialiseFeatures();
-	
+
 	Performance learnParameters(FeatureVectorDataSet features);
-	
+
 	void storeModel(File location);
+
 	void readModel(File location);
-	
-	void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1, 
-			DataSet<RecordType, SchemaElementType> dataset2,
-			MatchingGoldStandard goldStandard, File file) throws IOException;
-	
+
+	void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,
+			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
+			throws IOException;
+
 }

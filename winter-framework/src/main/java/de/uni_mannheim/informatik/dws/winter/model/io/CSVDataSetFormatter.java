@@ -14,11 +14,13 @@ package de.uni_mannheim.informatik.dws.winter.model.io;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 
 /**
  * Super class for formatting a {@link AbstractRecord} as CSV
@@ -28,33 +30,36 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  */
 public abstract class CSVDataSetFormatter<RecordType extends Matchable, SchemaElementType extends Matchable> {
 
-	public abstract String[] getHeader(DataSet<RecordType, SchemaElementType> dataset);
+	public abstract String[] getHeader(DataSet<RecordType, SchemaElementType> dataset, List<Attribute> orderedHeader);
 
-	public abstract String[] format(RecordType record, DataSet<RecordType, SchemaElementType> dataset);
+	public abstract String[] format(RecordType record, DataSet<RecordType, SchemaElementType> dataset,
+			List<Attribute> orderedHeader);
 
 	/**
 	 * Writes the data set to a CSV file
 	 * 
 	 * @param file
 	 * @param dataset
+	 * @param orderedHeader
 	 * @throws IOException
 	 */
-	public void writeCSV(File file, DataSet<RecordType, SchemaElementType> dataset)
+	public void writeCSV(File file, DataSet<RecordType, SchemaElementType> dataset, List<Attribute> orderedHeader)
 			throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(file));
 
-		String[] headers = getHeader(dataset);
-		if(headers!=null) {
+		String[] headers = getHeader(dataset, orderedHeader);
+
+		if (headers != null) {
 			writer.writeNext(headers);
 		}
 
 		for (RecordType record : dataset.get()) {
-			String[] values = format(record, dataset);
+			String[] values = format(record, dataset, orderedHeader);
 
 			writer.writeNext(values);
 		}
 
 		writer.close();
 	}
-	
+
 }

@@ -1,123 +1,100 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 
-public class ComparatorLogger extends Record implements Serializable{
+public class ComparatorLogger extends Record implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public ComparatorLogger(String identifier) {
 		super(identifier);
 	}
-	
-	private String comparatorName;
-	private String record1Value;
-	private String record2Value;
-	private String record1PreprocessedValue;
-	private String record2PreprocessedValue;
-	private String similarity;
-	private String postprocessedSimilarity;
 
 	public String getComparatorName() {
-		return comparatorName;
+		return this.getValue(COMPARATORNAME);
 	}
+
 	public void setComparatorName(String comparatorName) {
-		this.comparatorName = comparatorName;
+		this.setValue(COMPARATORNAME, comparatorName);
 	}
+
 	public String getRecord1Value() {
-		return record1Value;
+		return this.getValue(RECORD1VALUE);
 	}
+
 	public void setRecord1Value(String record1Value) {
-		this.record1Value = record1Value;
+		this.setValue(RECORD1VALUE, record1Value);
 	}
+
 	public String getRecord2Value() {
-		return record2Value;
+		return this.getValue(RECORD2VALUE);
 	}
+
 	public void setRecord2Value(String record2Value) {
-		this.record2Value = record2Value;
+		this.setValue(RECORD2VALUE, record2Value);
 	}
+
 	public String getRecord1PreprocessedValue() {
-		if(record1PreprocessedValue == null){
+		String Record1PreprocessedValue = this.getValue(RECORD1PREPROCESSEDVALUE);
+		if (Record1PreprocessedValue == null) {
 			return getRecord1Value();
 		}
-		return record1PreprocessedValue;
+		return Record1PreprocessedValue;
 	}
+
 	public void setRecord1PreprocessedValue(String record1PreprocessedValue) {
-		this.record1PreprocessedValue = record1PreprocessedValue;
+		this.setValue(RECORD1PREPROCESSEDVALUE, record1PreprocessedValue);
 	}
+
 	public String getRecord2PreprocessedValue() {
-		if(record2PreprocessedValue == null){
+		String Record2PreprocessedValue = this.getValue(RECORD2PREPROCESSEDVALUE);
+		if (Record2PreprocessedValue == null) {
 			return getRecord2Value();
 		}
-		return record2PreprocessedValue;
+		return Record2PreprocessedValue;
 	}
+
 	public void setRecord2PreprocessedValue(String record2PreprocessedValue) {
-		this.record2PreprocessedValue = record2PreprocessedValue;
+		this.setValue(RECORD2PREPROCESSEDVALUE, record2PreprocessedValue);
 	}
+
 	public String getSimilarity() {
-		return similarity;
+		return this.getValue(SIMILARITY);
 	}
+
 	public void setSimilarity(String similarity) {
-		this.similarity = similarity;
+		this.setValue(SIMILARITY, similarity);
 	}
-	public String getPostproccesedSimilarity() {
-		if(postprocessedSimilarity == null){
+
+	public String getPostprocessedSimilarity() {
+		String postprocessedSimilarity = this.getValue(POSTPROCESSEDSIMILARITY);
+		if (postprocessedSimilarity == null) {
 			return getSimilarity();
 		}
-		return postprocessedSimilarity;
+		return this.getValue(POSTPROCESSEDSIMILARITY);
 	}
+
 	public void setPostprocessedSimilarity(String postprocessedSimilarity) {
-		this.postprocessedSimilarity = postprocessedSimilarity;
-	}
-	
-	private Map<Attribute, Collection<String>> provenance = new HashMap<>();
-	private Collection<String> recordProvenance;
-
-	public void setRecordProvenance(Collection<String> provenance) {
-		recordProvenance = provenance;
+		this.setValue(POSTPROCESSEDSIMILARITY, postprocessedSimilarity);
 	}
 
-	public Collection<String> getRecordProvenance() {
-		return recordProvenance;
-	}
+	public static final Attribute COMPARATORNAME = new Attribute("comparatorName");
+	public static final Attribute RECORD1VALUE = new Attribute("record1Value");
+	public static final Attribute RECORD2VALUE = new Attribute("record2Value");
+	public static final Attribute RECORD1PREPROCESSEDVALUE = new Attribute("record1PreprocessedValue");
+	public static final Attribute RECORD2PREPROCESSEDVALUE = new Attribute("record2PreprocessedValue");
+	public static final Attribute SIMILARITY = new Attribute("similarity");
+	public static final Attribute POSTPROCESSEDSIMILARITY = new Attribute("postproccesedSimilarity");
 
-	public void setAttributeProvenance(Attribute attribute, Collection<String> provenance) {
-		this.provenance.put(attribute, provenance);
-	}
+	public static final Attribute[] COMPARATORLOG = { COMPARATORNAME, RECORD1VALUE, RECORD2VALUE,
+			RECORD1PREPROCESSEDVALUE, RECORD2PREPROCESSEDVALUE, SIMILARITY, POSTPROCESSEDSIMILARITY };
 
-	public Collection<String> getAttributeProvenance(String attribute) {
-		return provenance.get(attribute);
-	}
-
-	public String getMergedAttributeProvenance(Attribute attribute) {
-		Collection<String> prov = provenance.get(attribute);
-
-		if (prov != null) {
-			return StringUtils.join(prov, "+");
-		} else {
-			return "";
-		}
-	}
-
-	public static final Attribute COMPARATORNAME 			= new Attribute("comparatorName");
-	public static final Attribute RECORD1VALUE 				= new Attribute("record1Value");
-	public static final Attribute RECORD2VALUE 				= new Attribute("record2Value");
-	public static final Attribute RECORD1PREPROCESSEDVALUE 	= new Attribute("record1PreprocessedValue");
-	public static final Attribute RECORD2PREPROCESSEDVALUE 	= new Attribute("record2PreprocessedValue");
-	public static final Attribute SIMILARITY 				= new Attribute("similarity");
-	public static final Attribute POSTPROCESSEDSIMILARITY	= new Attribute("postproccesedSimilarity");
-	
 	@Override
 	public boolean hasValue(Attribute attribute) {
 		if (attribute == COMPARATORNAME)
@@ -133,15 +110,15 @@ public class ComparatorLogger extends Record implements Serializable{
 		else if (attribute == SIMILARITY)
 			return getSimilarity() != null && !getSimilarity().isEmpty();
 		else if (attribute == POSTPROCESSEDSIMILARITY)
-			return getPostproccesedSimilarity() != null && !getPostproccesedSimilarity().isEmpty();
+			return getPostprocessedSimilarity() != null && !getPostprocessedSimilarity().isEmpty();
 		else
 			return false;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("[Comparison Log: %s / %s / %s  / %s / %s / %s / %s ]", 
-				getComparatorName(), getRecord1Value(), getRecord1Value(), getRecord1PreprocessedValue(),
-				getRecord2PreprocessedValue(), getSimilarity(), getPostproccesedSimilarity());
+		return String.format("[Comparison Log: %s / %s / %s  / %s / %s / %s / %s ]", getComparatorName(),
+				getRecord1Value(), getRecord1Value(), getRecord1PreprocessedValue(), getRecord2PreprocessedValue(),
+				getSimilarity(), getPostprocessedSimilarity());
 	}
 }

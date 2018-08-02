@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +54,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	private List<Pair<Comparator<RecordType, SchemaElementType>, Double>> comparators;
 	private double offset;
 
-
 	/**
 	 * Initialises the rule. The finalThreshold determines the matching
 	 * decision.
@@ -95,9 +93,9 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight) throws Exception {
 		if (weight > 0.0) {
 			comparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(comparator, weight));
-			if(this.isCollectDebugResults()){
+			if (this.isCollectDebugResults()) {
 				comparator.setComparisonLog(new ComparatorLogger(comparator.getClass().getName()));
-				addComparatorToLog();
+				addComparatorToLog(comparator);
 			}
 		} else {
 			throw new Exception("Weight cannot be 0.0 or smaller");
@@ -121,73 +119,47 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
+	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
 
-//		double similarity = compare(record1, record2, null);
+		// double similarity = compare(record1, record2, null);
 		double sum = 0.0;
-		Record model = null;
-		if(this.isCollectDebugResults()){
-			model = new Record(record1.getIdentifier() + "-" + record2.getIdentifier());
-			model.setValue(this.getComparatorLog().getSchema().getRecord("MatchingRule"), getClass().getName());
-			model.setValue(this.getComparatorLog().getSchema().getRecord("Record1Identifier"), record1.getIdentifier());
-			model.setValue(this.getComparatorLog().getSchema().getRecord("Record2Identifier"), record2.getIdentifier());
+		Record debug = null;
+		if (this.isCollectDebugResults()) {
+			debug = initializeDebugRecord(record1, record2, -1);
 		}
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
 
 			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
- 
-			Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
-			
+
+			Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(
+					schemaCorrespondences, record1, record2, comp);
+
 			double similarity = comp.compare(record1, record2, correspondence);
 			double weight = pair.getSecond();
 			sum += (similarity * weight);
-			
-			if(this.isCollectDebugResults()){
-				Iterator<Attribute> schemaIterator = this.getComparatorLog().getSchema().get().iterator();
-				ComparatorLogger compLog = comp.getComparisonLog();
-				while(schemaIterator.hasNext()){
-					Attribute att = schemaIterator.next();
-					if(att.getIdentifier().equals(i + ComparatorLogger.COMPARATORNAME.getIdentifier())){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.COMPARATORNAME.getIdentifier()), compLog.getComparatorName());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.RECORD1VALUE.getIdentifier() + i)){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.RECORD1VALUE.getIdentifier()), compLog.getRecord1Value());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.RECORD2VALUE.getIdentifier() + i)){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.RECORD2VALUE.getIdentifier()), compLog.getRecord2Value());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.RECORD1PREPROCESSEDVALUE.getIdentifier() + i)){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.RECORD1PREPROCESSEDVALUE.getIdentifier()), compLog.getRecord1PreprocessedValue());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.RECORD2PREPROCESSEDVALUE.getIdentifier() + i)){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.RECORD2PREPROCESSEDVALUE.getIdentifier()), compLog.getRecord2PreprocessedValue());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.SIMILARITY.getIdentifier())){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.SIMILARITY.getIdentifier()), compLog.getSimilarity());
-					}
-					else if(att.getIdentifier().equals(i + ComparatorLogger.POSTPROCESSEDSIMILARITY.getIdentifier())){
-						model.setValue(this.getComparatorLog().getSchema().getRecord(i + ComparatorLogger.POSTPROCESSEDSIMILARITY.getIdentifier()), compLog.getPostproccesedSimilarity());
-					}
-				}
+
+			if (this.isCollectDebugResults()) {
+				debug = fillDebugRecord(debug, comp, i);
+				finalizeDebugRecordShort(record1, record2, comp, i);
 			}
 		}
 
 		// do not normalise the sum of weights
-		// if a normalised score in the range [0,1] is desired, users should call normaliseWeights()
+		// if a normalised score in the range [0,1] is desired, users should
+		// call normaliseWeights()
 		double similarity = offset + sum;
-		if(this.isCollectDebugResults()){
-			model.setValue(this.getComparatorLog().getSchema().getRecord("TotalSimilarity"), Double.toString(similarity));
-			this.getComparatorLog().add(model);
+		if (this.isCollectDebugResults()) {
+			finalizeDebugRecord(debug, similarity);
 		}
-		
 
-//		if (similarity >= getFinalThreshold() && similarity > 0.0) {
-			return new Correspondence<RecordType, SchemaElementType>(record1, record2, similarity, schemaCorrespondences);
-//		} else {
-//			return null;
-//		}
-}
+		// if (similarity >= getFinalThreshold() && similarity > 0.0) {
+		return new Correspondence<RecordType, SchemaElementType>(record1, record2, similarity, schemaCorrespondences);
+		// } else {
+		// return null;
+		// }
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -291,24 +263,13 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
 			throws IOException {
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
-		
+
 		@SuppressWarnings("unchecked")
-		FeatureVectorDataSet features = learner.generateTrainingDataForLearning((DataSet<Record,Attribute>) dataset1, (DataSet<Record,Attribute>) dataset2,
-				goldStandard, (LearnableMatchingRule<Record, Attribute>) this, null);
-		new RecordCSVFormatter().writeCSV(
-				file, features);	
-		
+		FeatureVectorDataSet features = learner.generateTrainingDataForLearning((DataSet<Record, Attribute>) dataset1,
+				(DataSet<Record, Attribute>) dataset2, goldStandard, (LearnableMatchingRule<Record, Attribute>) this,
+				null);
+		new RecordCSVFormatter().writeCSV(file, features, null);
+
 	}
 
-	@Override
-	public ComparatorLogger getComparisonLog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setComparisonLog(ComparatorLogger comparatorLog) {
-		// TODO Auto-generated method stub
-		
-	}
 }
