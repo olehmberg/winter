@@ -113,11 +113,14 @@ public class Movies_DataFusion_Main {
 
 		// define the fusion strategy
 		DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
+		//
+		strategy.setCollectDebugResults(true);
 		// add attribute fusers
 		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());
 		strategy.addAttributeFuser(Movie.DIRECTOR,new DirectorFuserLongestString(), new DirectorEvaluationRule());
 		strategy.addAttributeFuser(Movie.DATE, new DateFuserVoting(),new DateEvaluationRule());
 		strategy.addAttributeFuser(Movie.ACTORS,new ActorsFuserUnion(),new ActorsEvaluationRule());
+		
 		
 		// create the fusion engine
 		DataFusionEngine<Movie, Attribute> engine = new DataFusionEngine<>(strategy);
@@ -135,7 +138,7 @@ public class Movies_DataFusion_Main {
 		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
 		
-		strategy.writeDebugDataFusionResultsToFile("usecase/movie/output/resultsDatafusion");
+		strategy.writeDebugDataFusionResultsToFile("usecase/movie/output/resultsDatafusion.csv");
 		
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(

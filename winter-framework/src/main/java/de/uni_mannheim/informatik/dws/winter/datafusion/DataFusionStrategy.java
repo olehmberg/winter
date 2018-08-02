@@ -15,9 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -28,11 +28,12 @@ import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
-import de.uni_mannheim.informatik.dws.winter.webtables.Table;
-import de.uni_mannheim.informatik.dws.winter.webtables.writers.CSVTableWriter;
 
 /**
  * Defines which fuser should be applied and which evaluation rules should be
@@ -48,7 +49,23 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	private Map<SchemaElementType, EvaluationRule<RecordType, SchemaElementType>> evaluationRules;
 	private FusibleFactory<RecordType, SchemaElementType> factory;
 	
+	private FusibleHashedDataSet<Record, Attribute> debugFusionResults;
+	private boolean collectDebugResults = false;
+	private List<Attribute> headerDebugResults;
+	
+	
 	private static final Logger logger = WinterLogManager.getLogger();
+	
+	public boolean isCollectDebugResults() {
+		return collectDebugResults;
+	}
+
+	public void setCollectDebugResults(boolean collectDebugResults) {
+		this.collectDebugResults = collectDebugResults;
+		if(this.collectDebugResults){
+			initialiseFusionResults();
+		}
+	}
 
 	/**
 	 * @return the evaluationRules
@@ -89,6 +106,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param rule				the {@link EvaluationRule} that performs the evaluation
 	 */
 	public void addAttributeFuser(SchemaElementType schemaElement, AttributeFuser<RecordType, SchemaElementType> fuser, EvaluationRule<RecordType, SchemaElementType> rule) {
+		if(this.collectDebugResults){
+			fuser.setCollectDebugResults(true);
+		}
 		attributeFusers.put(schemaElement, fuser);
 		evaluationRules.put(schemaElement, rule);
 	}
@@ -106,6 +126,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 		for (AttributeFusionTask<RecordType, SchemaElementType> t : getAttributeFusers(group, schemaCorrespondences)) {
 			t.execute(group, fusedRecord);
+			if(this.collectDebugResults){
+				fillFusionLog();
+			}
 		}
 
 		return fusedRecord;
@@ -193,28 +216,34 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		return consistencies;
 	}
 	
-	public void writeDebugDataFusionResultsToFile(String path){
-		if(path != null && this.attributeFusers != null){
-			Table debugFusionResults = null;
-			for (Entry<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> entry : this.attributeFusers.entrySet()){
-				if(debugFusionResults == null){
-					debugFusionResults= entry.getValue().getDebugFusionResults();
-				}
-				else{
-					debugFusionResults.append(entry.getValue().getDebugFusionResults());
-				}
-			}
-			if(debugFusionResults != null){
-				CSVTableWriter csvTableWriter = new CSVTableWriter();
-				try {
-					csvTableWriter.write(debugFusionResults, new File(path));
-					logger.info("Writing debug blocking results to file: " + path + ".csv");
-				} catch (IOException e) {
-					e.printStackTrace();
-					logger.error("Writing matching results to file is not possible.");
-				}
+	public void writeDebugDataFusionResultsToFile(String path) throws IOException{
+		
+		new RecordCSVFormatter().writeCSV(new File(path), this.debugFusionResults, this.headerDebugResults);
+		logger.info("Debug results written to file: " + path);
+	}
+	
+	public void initialiseFusionResults() {
+		this.debugFusionResults = new FusibleHashedDataSet<Record, Attribute>();
+		this.headerDebugResults = new LinkedList<Attribute>();
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUEIDS);
+		this.headerDebugResults.add(AttributeFusionLogger.VALUEIDS);
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUES);
+		this.headerDebugResults.add(AttributeFusionLogger.VALUES);
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.FUSEDVALUE);
+		this.headerDebugResults.add(AttributeFusionLogger.FUSEDVALUE);
+		
+	}
+	
+	public void fillFusionLog(){
+		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
+			if(attFuser.getFusionLog() != null){
+				this.debugFusionResults.add(attFuser.getFusionLog());
 			}
 		}
 	}
+	
 
 }

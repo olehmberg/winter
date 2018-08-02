@@ -48,8 +48,6 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private static final long serialVersionUID = 1L;
 	private double finalThreshold;
 
-	private int resultSize;
-
 	private FusibleHashedDataSet<Record, Attribute> comparatorLog;
 	private FusibleHashedDataSet<Record, Attribute> comparatorLogShort;
 	private boolean collectDebugResults = false;
@@ -76,10 +74,6 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 
 	public MatchingRule(double finalThreshold) {
 		this.finalThreshold = finalThreshold;
-	}
-
-	public void setResultSize(int size) {
-		this.resultSize = size;
 	}
 
 	public boolean isCollectDebugResults() {

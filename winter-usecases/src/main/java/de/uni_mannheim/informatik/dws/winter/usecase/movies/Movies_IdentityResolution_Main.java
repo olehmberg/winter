@@ -83,8 +83,6 @@ public class Movies_IdentityResolution_Main {
 
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
-
-		matchingRule.setResultSize(1000);
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());

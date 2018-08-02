@@ -12,7 +12,6 @@
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -34,7 +33,6 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
-import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 
 /**
  * Abstract super class for all Fusers tailored to specific attributes (hence the ValueType). Ignores schema correspondences.
@@ -154,7 +152,6 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 */
 	public AttributeValueFuser(ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> conflictResolution) {
 		this.conflictResolution = conflictResolution;
-		buildResultsTable();
 	}
 
 	/**
@@ -168,28 +165,34 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 */
 	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
 		List<FusibleValue<ValueType, RecordType, SchemaElementType>> fusableValues = getFusableValues(group, schemaCorrespondences, schemaElement);
+		
 		FusedValue<ValueType, RecordType, SchemaElementType> fusedValueInstance = conflictResolution.resolveConflict(fusableValues);
 		
 		// Collect fusion results for debugging purposes!
-		if(fusableValues.size() != 0 && fusedValueInstance.getValue() != null){
+		if(this.isCollectDebugResults() && fusedValueInstance.getValue() != null){
 			
-			TableRow resultsRow = new TableRow(this.getDebugFusionResults().getSize() + 1, this.getDebugFusionResults());
+			String identifiers =  schemaElement.getIdentifier() + "-";
+			String values = "";
 			
-			String[] identifiersArray = new String[fusableValues.size()];
-			String[] valuesArray = new String[fusableValues.size()];
 			for(int i = 0; i < fusableValues.size(); i++){
-				identifiersArray[i] = fusableValues.get(i).getRecord().getIdentifier().toString();
-				valuesArray[i] = fusableValues.get(i).getValue().toString();
+				if(i == 0){
+					identifiers += fusableValues.get(i).getRecord().getIdentifier().toString();
+					values += fusableValues.get(i).getValue().toString();
+				}
+				else{
+					identifiers = identifiers + "," + fusableValues.get(i).getRecord().getIdentifier().toString();
+					values = values + "," + fusableValues.get(i).getValue().toString();
+				}
 			}
-			
-			String identifiers = Arrays.toString(identifiersArray);
-			String values = Arrays.toString(valuesArray);
 		
 			String fusedValue = fusedValueInstance.getValue().toString();
 			
-			String[] results = {"", identifiers, values, fusedValue};
-			resultsRow.set(results);
-			this.appendRowToResults(resultsRow);
+			AttributeFusionLogger fusionLog = new AttributeFusionLogger(identifiers);
+			fusionLog.setValueIDS(identifiers);
+			fusionLog.setValues(values);
+			fusionLog.setFusedValue(fusedValue);
+			
+			this.setFusionLog(fusionLog);
 		}
 		
 		
