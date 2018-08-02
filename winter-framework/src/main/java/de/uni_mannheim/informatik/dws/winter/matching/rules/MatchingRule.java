@@ -14,7 +14,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.rules;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,7 +50,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private FusibleHashedDataSet<Record, Attribute> comparatorLog;
 	private FusibleHashedDataSet<Record, Attribute> comparatorLogShort;
 	private boolean collectDebugResults = false;
-	private HashMap<Attribute, Attribute> comparatorToResultLog;
+	private HashMap<Attribute, Attribute> resultToComparatorLog;
+	private HashMap<String, Attribute> comparatorToResultLog;
 	private List<Attribute> headerDebugResults;
 	private List<Attribute> headerDebugResultsShort;
 	
@@ -87,8 +87,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		}
 	}
 
-	public HashMap<Attribute, Attribute> getComparatorToResultLog() {
-		return comparatorToResultLog;
+	public HashMap<Attribute, Attribute> getResultToComparatorLog() {
+		return resultToComparatorLog;
 	}
 
 	public Correspondence<SchemaElementType, Matchable> getCorrespondenceForComparator(
@@ -169,7 +169,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		this.comparatorLogShort.addAttribute(ComparatorLogger.POSTPROCESSEDSIMILARITY);
 		this.headerDebugResultsShort.add(ComparatorLogger.POSTPROCESSEDSIMILARITY);
 
-		this.comparatorToResultLog = new HashMap<Attribute, Attribute>();
+		this.resultToComparatorLog = new HashMap<Attribute, Attribute>();
+		this.comparatorToResultLog = new HashMap<String, Attribute>();
 
 	}
 
@@ -179,9 +180,11 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		int position = (this.comparatorLog.getSchema().size() - 4) / ComparatorLogger.COMPARATORLOG.length;
 
 		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
-			Attribute schemaAttribute = new Attribute(Integer.toString(position) + '-'
-					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier());
-			this.comparatorToResultLog.put(schemaAttribute, att);
+			String schemaIdentifier = Integer.toString(position) + '-'
+					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier();
+			Attribute schemaAttribute = new Attribute(schemaIdentifier);
+			this.resultToComparatorLog.put(schemaAttribute, att);
+			this.comparatorToResultLog.put(schemaIdentifier, schemaAttribute);
 			this.comparatorLog.getSchema().add(schemaAttribute);
 			if (!att.getIdentifier().equals(ComparatorLogger.COMPARATORNAME.getIdentifier())) {
 				this.headerDebugResults.add(schemaAttribute);
@@ -203,56 +206,40 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		return debug;
 	}
 
-	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comperator, int position) {
-		Iterator<Attribute> schemaIterator = this.comparatorLog.getSchema().get().iterator();
-		ComparatorLogger compLog = comperator.getComparisonLog();
-		while (schemaIterator.hasNext()) {
-			Attribute schemaAtt = schemaIterator.next();
-			if (schemaAtt.getIdentifier()
-					.startsWith(Integer.toString(position) + '-' + comperator.getClass().getSimpleName())) {
-				Attribute compAtt = this.getComparatorToResultLog().get(schemaAtt);
-
-				if (compAtt == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
-					debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
-				} else if (compAtt == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
-					debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
-				} else if (compAtt == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
-					debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
-				} else if (compLog.hasValue(compAtt)) {
-					debug.setValue(schemaAtt, compLog.getValue(compAtt));
-				}
+	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comparator, int position) {
+		ComparatorLogger compLog = comparator.getComparisonLog();
+		
+		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
+			String identifier = Integer.toString(position) + '-'
+					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier();
+			Attribute schemaAtt = comparatorToResultLog.get(identifier);
+			
+			if (att == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
+				debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
+			} else if (att == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
+				debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
+			} else if (att == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
+				debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
+			} else {
+				debug.setValue(schemaAtt, compLog.getValue(att));
 			}
 		}
 		return debug;
 	}
 
-	public void finalizeDebugRecord(Record debug, Double similarity) {
-		if(similarity != null){
-			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
-		}
-		this.comparatorLog.add(debug);
-	}
-
-	public void finalizeDebugRecordShort(RecordType record1, RecordType record2,
+	public void addDebugRecordShort(RecordType record1, RecordType record2,
 			Comparator<RecordType, SchemaElementType> comperator, int position) {
 		Record debug = initializeDebugRecord(record1, record2, position);
-		Iterator<Attribute> schemaIterator = this.comparatorLogShort.getSchema().get().iterator();
 		ComparatorLogger compLog = comperator.getComparisonLog();
-		while (schemaIterator.hasNext()) {
-			Attribute schemaAtt = schemaIterator.next();
 
-			if (schemaAtt == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
-				debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
-			} else if (schemaAtt == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
-				debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
-			} else if (schemaAtt == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
-				debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
-			} else if (compLog.hasValue(schemaAtt)) {
-				debug.setValue(schemaAtt, compLog.getValue(schemaAtt));
-			}
-		}
-		// logger.info(this.comparatorLogShort.size());
-		// logger.info(debug.getIdentifier());
+		debug.setValue(ComparatorLogger.COMPARATORNAME, compLog.getComparatorName());
+		debug.setValue(ComparatorLogger.RECORD1VALUE, compLog.getRecord1Value());
+		debug.setValue(ComparatorLogger.RECORD2VALUE, compLog.getRecord2Value());
+		debug.setValue(ComparatorLogger.RECORD1PREPROCESSEDVALUE, compLog.getRecord1PreprocessedValue());
+		debug.setValue(ComparatorLogger.RECORD2PREPROCESSEDVALUE, compLog.getRecord2PreprocessedValue());
+		debug.setValue(ComparatorLogger.SIMILARITY, compLog.getPostprocessedSimilarity());
+		debug.setValue(ComparatorLogger.POSTPROCESSEDSIMILARITY, compLog.getPostprocessedSimilarity());
+
 		this.comparatorLogShort.add(debug);
 	}
 	
@@ -260,6 +247,13 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		Record debug = this.comparatorLog.getRecord(identifier);
 		debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+	}
+	
+	public void fillSimilarity(Record debug, Double similarity) {
+		if(similarity != null){
+			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+		}
+		this.comparatorLog.add(debug);
 	}
 	
 	@Override

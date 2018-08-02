@@ -142,7 +142,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 
 			if (this.isCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
-				finalizeDebugRecordShort(record1, record2, comp, i);
+				addDebugRecordShort(record1, record2, comp, i);
 			}
 		}
 
@@ -151,7 +151,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// call normaliseWeights()
 		double similarity = offset + sum;
 		if (this.isCollectDebugResults()) {
-			finalizeDebugRecord(debug, similarity);
+			fillSimilarity(debug, similarity);
 		}
 
 		// if (similarity >= getFinalThreshold() && similarity > 0.0) {

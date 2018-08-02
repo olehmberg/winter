@@ -400,12 +400,12 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 			if (this.isCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
-				finalizeDebugRecordShort(record1, record2, comp, i);
+				addDebugRecordShort(record1, record2, comp, i);
 			}
 		}
 
 		if (this.isCollectDebugResults()) {
-			finalizeDebugRecord(debug, null);
+			fillSimilarity(debug, null);
 		}
 
 		return model;

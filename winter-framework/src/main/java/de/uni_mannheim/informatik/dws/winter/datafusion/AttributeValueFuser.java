@@ -33,6 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 
 /**
  * Abstract super class for all Fusers tailored to specific attributes (hence the ValueType). Ignores schema correspondences.
@@ -171,20 +172,17 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		// Collect fusion results for debugging purposes!
 		if(this.isCollectDebugResults() && fusedValueInstance.getValue() != null){
 			
-			String identifiers =  schemaElement.getIdentifier() + "-";
-			String values = "";
+			List<String> listIdentifiers = new LinkedList<String>();
+			List<String> listValues = new LinkedList<String>();
 			
 			for(int i = 0; i < fusableValues.size(); i++){
-				if(i == 0){
-					identifiers += fusableValues.get(i).getRecord().getIdentifier().toString();
-					values += fusableValues.get(i).getValue().toString();
-				}
-				else{
-					identifiers = identifiers + "," + fusableValues.get(i).getRecord().getIdentifier().toString();
-					values = values + "," + fusableValues.get(i).getValue().toString();
-				}
+				listIdentifiers.add(fusableValues.get(i).getRecord().getIdentifier().toString());
+				listValues.add(fusableValues.get(i).getValue().toString());
 			}
-		
+			
+			String identifiers = schemaElement.getIdentifier() + "-" + ListHandler.formatList(listIdentifiers);
+			String values = ListHandler.formatList(listValues);
+			
 			String fusedValue = fusedValueInstance.getValue().toString();
 			
 			AttributeFusionLogger fusionLog = new AttributeFusionLogger(identifiers);
