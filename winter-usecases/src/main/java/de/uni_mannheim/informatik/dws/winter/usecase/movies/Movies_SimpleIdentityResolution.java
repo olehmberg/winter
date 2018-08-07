@@ -31,6 +31,8 @@ import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceM
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
+ *  Class containing a simple setup to perform a identity resolution task,
+ * reading input data from the movie usecase.
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */

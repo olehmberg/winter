@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.apache.logging.log4j.Logger;
 
@@ -53,8 +52,12 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	private double reductionRatio = 1.0;
 
 	private static final Logger logger = WinterLogManager.getLogger();
-	private String[] blockingResultsHeader = { "Frequency", "Blocking Key Value" };
+	//private String[] blockingResultsHeader = { "Frequency", "Blocking Key Value" };
 	private FusibleHashedDataSet<Record, Attribute> debugBlockingResults;
+	
+	public static final Attribute frequency = new Attribute("Frequency");
+	public static final Attribute blockingKeyValue = new Attribute("Blocking Key Value");
+	
 
 	/**
 	 * Returns the reduction ratio of the last blocking operation. Only
@@ -140,36 +143,32 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p2) {
 		return new ProcessableCollection<>(p1.getSecond()).append(p2.getSecond()).distinct();
 	}
-
-	public void initialiseBlockingResults() {
-		FusibleHashedDataSet<Record, Attribute> result = new FusibleHashedDataSet<Record, Attribute>();
-
-		for (int i = 0; i < this.blockingResultsHeader.length; i++) {
-			Attribute att = new Attribute(this.blockingResultsHeader[i]);
-			result.addAttribute(att);
-		}
-
-		this.debugBlockingResults = result;
+	
+	/**
+	 * Initializes the schema for the debug results of the blocking.
+	 */
+	public void initializeBlockingResults() {
+		this.debugBlockingResults = new FusibleHashedDataSet<Record, Attribute>();
+				
+		this.debugBlockingResults.addAttribute(AbstractBlocker.frequency);
+		this.debugBlockingResults.addAttribute(AbstractBlocker.blockingKeyValue);
+	}
+	
+	/**
+	 * Appends a debug blocking result to the results log
+	 * @param blockingResult	
+	 */
+	public void appendBlockingResult(Record model) {
+		this.debugBlockingResults.add(model);
 	}
 
-	public void appendBlockingResult(String[] blockingResult, String id) {
-		if (blockingResult.length == this.blockingResultsHeader.length) {
-			Iterator<Attribute> schemaIterator = this.debugBlockingResults.getSchema().get().iterator();
-			int counter = 0;
-			Record model = new Record(id);
-			while (schemaIterator.hasNext()) {
-				Attribute att = schemaIterator.next();
-				model.setValue(att, blockingResult[counter]);
-				counter += 1;
-			}
-			this.debugBlockingResults.add(model);
-		} else {
-			logger.error("Blocking results row does not fit defined length of schema!");
+	public void writeDebugBlockingResultsToFile(String path) throws IOException {
+		if(this.debugBlockingResults != null){
+			new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, null);
+			logger.info("Debug results written to file: " + path);
+		}else{
+			logger.error("No debug results for blocking found!");
+			logger.error("Is logging enabled?");
 		}
-	}
-
-	public void writeDebugMatchingResultsToFile(String path) throws IOException {
-		new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, null);
-		logger.info("Debug results written to file: " + path);
 	}
 }

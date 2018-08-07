@@ -63,7 +63,16 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  */
 public class Events_DataFusion_Main {
 	
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 * 		
+	 */
 	private static final Logger logger = WinterLogManager.getLogger();
+	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
 	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
@@ -138,6 +147,9 @@ public class Events_DataFusion_Main {
 		correspondencesSet.printGroupSizeDistribution();
 
 		DataFusionStrategy<Event, Attribute> strategy = new DataFusionStrategy<>(new EventXMLReader());
+		
+		// collect debug results
+		strategy.setCollectDebugResults(true);
 
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword));
 
@@ -169,7 +181,10 @@ public class Events_DataFusion_Main {
 		DataSet<Event, Attribute> gs = new FusibleHashedDataSet<>();
 //		gs.loadFromTSV(new File("../data/fused.tsv"),
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "/events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, false, keyword);
-
+		
+		// write debug results to file
+		strategy.writeDebugDataFusionResultsToFile("usecase/events/output/resultsDatafusion.csv");
+				
 		//gs.splitMultipleValues(separator);
 		// evaluate
 		//DataFusionEvaluator<Movie, DefaultSchemaElement> evaluator = new DataFusionEvaluator<>(

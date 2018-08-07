@@ -102,6 +102,9 @@ public class iTunes_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		// Collect debug results
+		matchingRule.setCollectDebugResults(true);
+		
 		// add comparators
 		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
 		artistLowerCaseLevenshtein.setLowerCase(true);
@@ -116,7 +119,8 @@ public class iTunes_IdentityResolution_Main {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-
+		blocker.setMeasureBlockSizes(true);
+		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
@@ -138,6 +142,10 @@ public class iTunes_IdentityResolution_Main {
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
+		
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/itunes/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsMatchingRule.csv");
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), null);
 

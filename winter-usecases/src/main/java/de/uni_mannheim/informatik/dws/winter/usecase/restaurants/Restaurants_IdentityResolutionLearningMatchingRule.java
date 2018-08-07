@@ -57,7 +57,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class Restaurant_IdentityResolutionLearningMatchingRule {
+public class Restaurants_IdentityResolutionLearningMatchingRule {
 
 	/*
 	 * Trace Options:
@@ -95,7 +95,10 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		options[0] = ""; // unpruned tree
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
-
+		
+		// Collect debug results
+		matchingRule.setCollectDebugResults(true);
+		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.NAME, Restaurant.NAME));
@@ -160,7 +163,9 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 
 					}
 				});
-
+		
+		//Measure Block sizes
+		blocker.setMeasureBlockSizes(true);
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataFodors, dataZagats, null, matchingRule, gsTraining);
@@ -181,7 +186,11 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
-
+		
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
+		
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);

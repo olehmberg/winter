@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-
+/**
+ * Logger for the attribute fusion process.
+ * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
+ *
+ * @param <RecordType>	the type that represents a record
+ */
 public class AttributeFusionLogger extends Record implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public AttributeFusionLogger(String identifier) {
@@ -44,7 +46,9 @@ public class AttributeFusionLogger extends Record implements Serializable {
 	public final static Attribute VALUES = new Attribute("Values");
 	public final static Attribute FUSEDVALUE = new Attribute("FusedValue");
 
-
+	/**
+	 * Check whether a specific attribute exists.
+	 */
 	@Override
 	public boolean hasValue(Attribute attribute) {
 		if (attribute == VALUEIDS)

@@ -23,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -212,14 +213,16 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					, new StringConcatenationAggregator<>(","))
 					.sort((p)->p.getFirst(), false);
 			
-			this.initialiseBlockingResults();
+			this.initializeBlockingResults();
 			int result_id = 0;
 			
 			logger.info("Blocking key values:");
 			for(Pair<Integer, String> value : blockValues.get()) {
-				String[] results = {value.getFirst().toString(), value.getSecond().toString()};
-				this.appendBlockingResult(results, Integer.toString(result_id));
+				Record model = new Record(Integer.toString(result_id));
+				model.setValue(AbstractBlocker.blockingKeyValue, value.getFirst().toString());
+				model.setValue(AbstractBlocker.frequency, value.getFirst().toString());
 				result_id += 1;
+				this.appendBlockingResult(model);
 				
 				logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 			}

@@ -94,6 +94,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		options[0] = "";
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
 
 		// add comparators
@@ -109,7 +110,8 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(
 				new MovieBlockingKeyByDecadeGenerator());
-
+		blocker.setMeasureBlockSizes(true);
+		
 		// learning Matching rule
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataAcademyAwards, dataActors, null, matchingRule, gsTraining);
@@ -135,8 +137,9 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 		
-		// DebugResults
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/resultsWekaMatchingRule.csv");
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
 
 		// print the evaluation result
 		logger.info("Academy Awards <-> Actors");

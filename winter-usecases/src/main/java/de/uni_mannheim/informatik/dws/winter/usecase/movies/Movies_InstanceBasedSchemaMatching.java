@@ -31,6 +31,8 @@ import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceM
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
+ * Class containing the standard setup to perform an instance based schema matching,
+ * reading input data from the movie usecase.
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */

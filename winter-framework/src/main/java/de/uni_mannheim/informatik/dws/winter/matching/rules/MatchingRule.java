@@ -54,7 +54,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private HashMap<String, Attribute> comparatorToResultLog;
 	private List<Attribute> headerDebugResults;
 	private List<Attribute> headerDebugResultsShort;
-	
+
 	private ComparatorLogger comparisonLog;
 
 	private static final Logger logger = WinterLogManager.getLogger();
@@ -75,18 +75,30 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public MatchingRule(double finalThreshold) {
 		this.finalThreshold = finalThreshold;
 	}
-
+	
+	/**
+	 * Switch to collect debug results
+	 * @return
+	 */
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
-
+	
+	/**
+	 * Set switch to collect debug results and initialize corresponding schema.
+	 * @return
+	 */
 	public void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
 		if (this.collectDebugResults) {
-			initialiseMatchingResults();
+			initializeMatchingResults();
 		}
 	}
-
+	
+	/**
+	 * Returns the comparator comparison log
+	 * @return
+	 */
 	public HashMap<Attribute, Attribute> getResultToComparatorLog() {
 		return resultToComparatorLog;
 	}
@@ -114,17 +126,29 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			return null;
 		}
 	}
-
+	
+	/**
+	 * Write data matching debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * @param path 	destination file for debug results
+	 * @throws IOException
+	 */
 	public void writeDebugMatchingResultsToFile(String path) throws IOException {
-
-		new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
-		logger.info("Debug results written to file: " + path);
-		new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
-				this.headerDebugResultsShort);
-		logger.info("Debug results written to file: " + path + "_short");
+		if (this.comparatorLog != null && this.comparatorLogShort != null) {
+			new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
+			logger.info("Debug results written to file: " + path);
+			new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
+					this.headerDebugResultsShort);
+			logger.info("Debug results written to file: " + path + "_short");
+		} else {
+			logger.error("No debug results found!");
+			logger.error("Is logging enabled?");
+		}
 	}
-
-	public void initialiseMatchingResults() {
+	
+	/**
+	 * Initialize Debug Matching Results.
+	 */
+	public void initializeMatchingResults() {
 		this.comparatorLog = new FusibleHashedDataSet<Record, Attribute>();
 		this.comparatorLogShort = new FusibleHashedDataSet<Record, Attribute>();
 		this.headerDebugResults = new LinkedList<Attribute>();
@@ -173,15 +197,19 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		this.comparatorToResultLog = new HashMap<String, Attribute>();
 
 	}
-
+	
+	/**
+	 * Enhances the schema of the comparator logs (long/short) to collect results for each comparator.
+	 * @param comparator The comparator for which the log`s schema shall be enhanced.
+	 */
 	public void addComparatorToLog(Comparator<RecordType, SchemaElementType> comparator) {
 
 		// 4 fix attributes as defined in initialiseMatchingResults().
 		int position = (this.comparatorLog.getSchema().size() - 4) / ComparatorLogger.COMPARATORLOG.length;
 
 		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
-			String schemaIdentifier = Integer.toString(position) + '-'
-					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier();
+			String schemaIdentifier = Integer.toString(position) + '-' + comparator.getClass().getSimpleName() + '-'
+					+ att.getIdentifier();
 			Attribute schemaAttribute = new Attribute(schemaIdentifier);
 			this.resultToComparatorLog.put(schemaAttribute, att);
 			this.comparatorToResultLog.put(schemaIdentifier, schemaAttribute);
@@ -191,7 +219,14 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			}
 		}
 	}
-
+	
+	/**
+	 * Initializes a new record for a debug result based on the input records and the position of the corresponding comparator.
+	 * @param record1	Original data record
+	 * @param record2	Original data record
+	 * @param position	Position of the corresponding comparator when called for a short debug log entry.
+	 * @return New debug results record.
+	 */
 	public Record initializeDebugRecord(RecordType record1, RecordType record2, int position) {
 
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
@@ -205,57 +240,92 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 
 		return debug;
 	}
-
+	
+	/**
+	 * Fills a debug result from the corresponding comparators log.
+	 * @param debug Debug record
+	 * @param comparator Source comparator.
+	 * @param position Comparator's position
+	 * @return Filled debug record.
+	 */
 	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comparator, int position) {
 		ComparatorLogger compLog = comparator.getComparisonLog();
-		
-		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
-			String identifier = Integer.toString(position) + '-'
-					+ comparator.getClass().getSimpleName() + '-' + att.getIdentifier();
-			Attribute schemaAtt = comparatorToResultLog.get(identifier);
-			
-			if (att == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
-				debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
-			} else if (att == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
-				debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
-			} else if (att == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
-				debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
-			} else {
-				debug.setValue(schemaAtt, compLog.getValue(att));
+		if (compLog != null) {
+			for (Attribute att : ComparatorLogger.COMPARATORLOG) {
+				String identifier = Integer.toString(position) + '-' + comparator.getClass().getSimpleName() + '-'
+						+ att.getIdentifier();
+				Attribute schemaAtt = comparatorToResultLog.get(identifier);
+
+				if (att == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
+					debug.setValue(schemaAtt, compLog.getRecord1PreprocessedValue());
+				} else if (att == ComparatorLogger.RECORD2PREPROCESSEDVALUE) {
+					debug.setValue(schemaAtt, compLog.getRecord2PreprocessedValue());
+				} else if (att == ComparatorLogger.POSTPROCESSEDSIMILARITY) {
+					debug.setValue(schemaAtt, compLog.getPostprocessedSimilarity());
+				} else {
+					debug.setValue(schemaAtt, compLog.getValue(att));
+				}
 			}
+		} else {
+			logger.error("A comparator's log is not defined!");
+			logger.error(
+					"Please check whether logging was enabled before the comparators were added to the matching rule!");
 		}
 		return debug;
 	}
 
+	/**
+	 * Adds a new record to the short debug log for a candidate match (record1-record2) based on a comparator and its position.
+	 * @param record1	Original record 1
+	 * @param record2	Original record 2
+	 * @param comparator	Corresponding comparator
+	 * @param position		Position of the corresponding comparator
+	 */
 	public void addDebugRecordShort(RecordType record1, RecordType record2,
-			Comparator<RecordType, SchemaElementType> comperator, int position) {
+			Comparator<RecordType, SchemaElementType> comparator, int position) {
 		Record debug = initializeDebugRecord(record1, record2, position);
-		ComparatorLogger compLog = comperator.getComparisonLog();
+		ComparatorLogger compLog = comparator.getComparisonLog();
+		if (compLog != null) {
+			debug.setValue(ComparatorLogger.COMPARATORNAME, compLog.getComparatorName());
+			debug.setValue(ComparatorLogger.RECORD1VALUE, compLog.getRecord1Value());
+			debug.setValue(ComparatorLogger.RECORD2VALUE, compLog.getRecord2Value());
+			debug.setValue(ComparatorLogger.RECORD1PREPROCESSEDVALUE, compLog.getRecord1PreprocessedValue());
+			debug.setValue(ComparatorLogger.RECORD2PREPROCESSEDVALUE, compLog.getRecord2PreprocessedValue());
+			debug.setValue(ComparatorLogger.SIMILARITY, compLog.getPostprocessedSimilarity());
+			debug.setValue(ComparatorLogger.POSTPROCESSEDSIMILARITY, compLog.getPostprocessedSimilarity());
 
-		debug.setValue(ComparatorLogger.COMPARATORNAME, compLog.getComparatorName());
-		debug.setValue(ComparatorLogger.RECORD1VALUE, compLog.getRecord1Value());
-		debug.setValue(ComparatorLogger.RECORD2VALUE, compLog.getRecord2Value());
-		debug.setValue(ComparatorLogger.RECORD1PREPROCESSEDVALUE, compLog.getRecord1PreprocessedValue());
-		debug.setValue(ComparatorLogger.RECORD2PREPROCESSEDVALUE, compLog.getRecord2PreprocessedValue());
-		debug.setValue(ComparatorLogger.SIMILARITY, compLog.getPostprocessedSimilarity());
-		debug.setValue(ComparatorLogger.POSTPROCESSEDSIMILARITY, compLog.getPostprocessedSimilarity());
-
-		this.comparatorLogShort.add(debug);
+			this.comparatorLogShort.add(debug);
+		} else {
+			logger.error("A comparator's log is not defined!");
+			logger.error(
+					"Please check whether logging was enabled before the comparators were added to the matching rule!");
+		}
 	}
 	
-	public void fillSimilarity(RecordType record1, RecordType record2, double similarity){
+	/**
+	 * Fills the similarity value of a debug record based on its identifier.
+	 * @param record1		Original Record1
+	 * @param record2		Original Record2
+	 * @param similarity	Similarity value
+	 */
+	public void fillSimilarity(RecordType record1, RecordType record2, double similarity) {
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		Record debug = this.comparatorLog.getRecord(identifier);
 		debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 	}
 	
+	/**
+	 * Fills the similarity value of a debug record and adds it to the list of debug results.
+	 * @param debug	Debug record
+	 * @param similarity	Similarity value
+	 */
 	public void fillSimilarity(Record debug, Double similarity) {
-		if(similarity != null){
+		if (similarity != null) {
 			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 		}
 		this.comparatorLog.add(debug);
 	}
-	
+
 	@Override
 	public ComparatorLogger getComparisonLog() {
 		return this.comparisonLog;

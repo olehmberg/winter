@@ -56,14 +56,22 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	
 	private static final Logger logger = WinterLogManager.getLogger();
 	
+	/**
+	 * Check whether debug flag is set.
+	 * @return
+	 */
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
 
+	/**
+	 * Set debug switch and initialize debug results for data fusion.
+	 * @param collectDebugResults debug switch
+	 */
 	public void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
 		if(this.collectDebugResults){
-			initialiseFusionResults();
+			initializeFusionResults();
 		}
 	}
 
@@ -216,13 +224,25 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		return consistencies;
 	}
 	
+	/**
+	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * @param path 	destination file for debug results
+	 * @throws IOException
+	 */
 	public void writeDebugDataFusionResultsToFile(String path) throws IOException{
-		
+		if(this.debugFusionResults != null){
 		new RecordCSVFormatter().writeCSV(new File(path), this.debugFusionResults, this.headerDebugResults);
 		logger.info("Debug results written to file: " + path);
+		} else {
+			logger.error("No debug results found!");
+			logger.error("Is logging enabled?");
+		}
 	}
 	
-	public void initialiseFusionResults() {
+	/**
+	 * Initialize Debug Data Fusion
+	 */
+	public void initializeFusionResults() {
 		this.debugFusionResults = new FusibleHashedDataSet<Record, Attribute>();
 		this.headerDebugResults = new LinkedList<Attribute>();
 		
@@ -237,6 +257,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		
 	}
 	
+	/**
+	 * Add log entry to debug results log.
+	 */
 	public void fillFusionLog(){
 		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
 			if(attFuser.getFusionLog() != null){

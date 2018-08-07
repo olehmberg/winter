@@ -113,6 +113,8 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		options[0] = ""; 
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+		// Collect debug results
+		matchingRule.setCollectDebugResults(true);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
@@ -171,7 +173,8 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-
+		blocker.setMeasureBlockSizes(true);
+		
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataSong, dataITunes, null, matchingRule, gsTraining);
@@ -193,7 +196,11 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/itunes/goldstandard/gs_iTunes_test.csv"));
-
+		
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/itunes/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsWekaMatchingRule.csv");
+		
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);

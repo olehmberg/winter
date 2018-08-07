@@ -25,6 +25,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.DataAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
@@ -245,13 +246,16 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 					resultCollector.next(new Pair<String, Integer>(record.getFirst(), 1));
 				}, new CountAggregator<>());
 
-		this.initialiseBlockingResults();
+		this.initializeBlockingResults();
 		int result_id = 0;
 
 		for (Pair<String, Integer> value : aggregated.sort((v) -> v.getSecond(), false).get()) {
-			String[] results = { value.getFirst().toString(), value.getSecond().toString() };
-			this.appendBlockingResult(results, Integer.toString(result_id));
+			Record model = new Record(Integer.toString(result_id));
+			model.setValue(AbstractBlocker.blockingKeyValue, value.getFirst().toString());
+			model.setValue(AbstractBlocker.frequency, value.getFirst().toString());
 			result_id += 1;
+			
+			this.appendBlockingResult(model);
 		}
 	}
 
