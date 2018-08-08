@@ -12,9 +12,12 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
+import java.io.IOException;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -44,7 +47,11 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 	
 	Performance learnParameters(FeatureVectorDataSet features);
 	
-	void storeModel(File location);
+	void exportModel(File location);
 	void readModel(File location);
+	
+	void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1, 
+			DataSet<RecordType, SchemaElementType> dataset2,
+			MatchingGoldStandard goldStandard, File file) throws IOException;
 	
 }

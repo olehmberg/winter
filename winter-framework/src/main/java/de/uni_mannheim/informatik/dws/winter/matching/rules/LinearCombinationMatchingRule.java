@@ -12,18 +12,23 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
@@ -190,7 +195,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.TrainableMatchingRule#storeModel(java.io.File)
 	 */
 	@Override
-	public void storeModel(File location) {
+	public void exportModel(File location) {
 		
 	}
 
@@ -213,5 +218,19 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				offset,
 				StringUtils.join(Q.project(comparators, (c)->c.getSecond() + " " + c.getFirst().toString()), " + ")
 				);
+	}
+
+	@Override
+	public void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,
+			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
+			throws IOException {
+		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
+		
+		@SuppressWarnings("unchecked")
+		FeatureVectorDataSet features = learner.generateTrainingDataForLearning((DataSet<Record,Attribute>) dataset1, (DataSet<Record,Attribute>) dataset2,
+				goldStandard, (LearnableMatchingRule<Record, Attribute>) this, null);
+		new RecordCSVFormatter().writeCSV(
+				file, features);	
+		
 	}
 }
