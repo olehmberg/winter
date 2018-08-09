@@ -14,13 +14,15 @@ package de.uni_mannheim.informatik.dws.winter.model.io;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 
 /**
  * Super class for formatting a {@link AbstractRecord} as CSV
@@ -30,10 +32,10 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
  */
 public abstract class CSVDataSetFormatter<RecordType extends Matchable, SchemaElementType extends Matchable> {
 
-	public abstract String[] getHeader(DataSet<RecordType, SchemaElementType> dataset, List<Attribute> orderedHeader);
+	public abstract String[] getHeader(List<SchemaElementType> orderedHeader);
 
 	public abstract String[] format(RecordType record, DataSet<RecordType, SchemaElementType> dataset,
-			List<Attribute> orderedHeader);
+			List<SchemaElementType> orderedHeader);
 
 	/**
 	 * Writes the data set to a CSV file
@@ -43,11 +45,18 @@ public abstract class CSVDataSetFormatter<RecordType extends Matchable, SchemaEl
 	 * @param orderedHeader
 	 * @throws IOException
 	 */
-	public void writeCSV(File file, DataSet<RecordType, SchemaElementType> dataset, List<Attribute> orderedHeader)
+	public void writeCSV(File file, DataSet<RecordType, SchemaElementType> dataset, List<SchemaElementType> orderedHeader)
 			throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(file));
-
-		String[] headers = getHeader(dataset, orderedHeader);
+		
+		String[] headers = null;
+		if(orderedHeader != null){
+			headers = getHeader(orderedHeader);
+		}
+		else{
+			headers = getHeader(sortAttributesAlphabetically(dataset));
+		}
+		
 
 		if (headers != null) {
 			writer.writeNext(headers);
@@ -61,5 +70,29 @@ public abstract class CSVDataSetFormatter<RecordType extends Matchable, SchemaEl
 
 		writer.close();
 	}
+	
+	/**
+	 * Sorts the the header attributes of a schema alphabetically.
+	 * 
+	 * @param dataset
+	 * @return
+	 */
+	private List<SchemaElementType> sortAttributesAlphabetically(DataSet<RecordType, SchemaElementType> dataset) {
+		List<SchemaElementType> attributes = new ArrayList<>();
+
+			for (SchemaElementType elem : dataset.getSchema().get()) {
+				attributes.add(elem);
+			}
+
+			Collections.sort(attributes, new Comparator<SchemaElementType>() {
+
+				@Override
+				public int compare(SchemaElementType o1, SchemaElementType o2) {
+					return o1.toString().compareTo(o2.toString());
+				}
+			});
+			
+			return attributes;
+		} 
 
 }

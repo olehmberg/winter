@@ -47,9 +47,19 @@ public class WinterLogManager {
 	 * Return the logger defined in name and sets this one as the current active logger.
 	 * @return  Current active logger.
 	 */
-	public static Logger getLogger(String name) {
-		setLogger(LogManager.getLogger(name));
+	public static Logger activateLogger(String name) {
+		if(name.equals("trace") || name.equals("infoFile") || name.equals("traceFile")){
+			setLogger(LogManager.getLogger(name));
+		}
 		return getLogger();
+	}
+	
+	/**
+	 * Return the logger defined in name.
+	 * @return  explicitly defined logger.
+	 */
+	public static Logger getLogger(String name) {
+		return LogManager.getLogger(name);
 	}
 	
 	/**

@@ -14,6 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
@@ -21,6 +22,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 
@@ -99,6 +101,12 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 
 		};
 		Collections.sort(keyIdentifierList, pairComparator);
+		
+		HashMap<String, Integer> keyCounter = null;
+		if(isMeasureBlockSizes()){
+			keyCounter =new HashMap<String, Integer>();
+		}
+		
 		for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1 = keyIdentifierList.get(i)
 					.getSecond();
@@ -108,6 +116,27 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 
 				result.add(new Correspondence<RecordType, CorrespondenceType>(p1.getFirst(), p2.getFirst(), 1.0,
 						createCausalCorrespondences(p1, p2)));
+			}
+			
+			if(isMeasureBlockSizes()){
+				String key = keyIdentifierList.get(i).getFirst();
+				int count = 0;
+				if(keyCounter.containsKey(key)){
+					count = keyCounter.get(key);
+				}
+				count++;
+				keyCounter.put(key, count);
+			}
+		}
+		
+		if(isMeasureBlockSizes()){
+			for(String key : keyCounter.keySet()){
+				if(keyCounter.containsKey(key)){
+					Record model = new Record(key);
+					model.setValue(AbstractBlocker.blockingKeyValue, key);
+					model.setValue(AbstractBlocker.frequency, Integer.toString(keyCounter.get(key)));
+					this.appendBlockingResult(model);
+				}
 			}
 		}
 
@@ -166,7 +195,12 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 
 		};
 		Collections.sort(keyIdentifierList, pairComparator);
-
+		
+		HashMap<String, Integer> keyCounter = null;
+		if(isMeasureBlockSizes()){
+			keyCounter =new HashMap<String, Integer>();
+		}
+		
 		for (int i = 0; i < keyIdentifierList.size() - 1; i++) {
 			Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>> p1 = keyIdentifierList.get(i)
 					.getSecond();
@@ -188,8 +222,28 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 				}
 
 			}
+			if(isMeasureBlockSizes()){
+				String key = keyIdentifierList.get(i).getFirst();
+				int count = 0;
+				if(keyCounter.containsKey(key)){
+					count = keyCounter.get(key);
+				}
+				count++;
+				keyCounter.put(key, count);
+			}
 		}
-
+		
+		if(isMeasureBlockSizes()){
+			for(String key : keyCounter.keySet()){
+				if(keyCounter.containsKey(key)){
+					Record model = new Record(key);
+					model.setValue(AbstractBlocker.blockingKeyValue, key);
+					model.setValue(AbstractBlocker.frequency, Integer.toString(keyCounter.get(key)));
+					this.appendBlockingResult(model);
+				}
+			}
+		}
+		
 		calculatePerformance(dataset1, dataset2, result);
 		return result;
 	}

@@ -31,11 +31,10 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVDataSetFormatter;
 public class RecordCSVFormatter extends CSVDataSetFormatter<Record, Attribute> {
 
 	@Override
-	public String[] getHeader(DataSet<Record, Attribute> dataset, List<Attribute> orderedHeader) {
-		List<Attribute> attributes = orderAttributes(dataset, orderedHeader);
+	public String[] getHeader(List<Attribute> orderedHeader) {
 		List<String> names = new ArrayList<>();
 
-		for (Attribute att : attributes) {
+		for (Attribute att : orderedHeader) {
 			names.add(att.getIdentifier());
 		}
 

@@ -116,7 +116,6 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
 	private VectorSpaceSimilarity similarityFunction;
-	private boolean measureBlockSizes = false;
 
 	public enum VectorCreationMethod {
 		BinaryTermOccurrences, TermFrequencies, TFIDF
@@ -124,14 +123,6 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 
 	private VectorCreationMethod vectorCreationMethod;
 	private double similarityThreshold;
-
-	/**
-	 * @param measureBlockSizes
-	 *            the measureBlockSizes to set
-	 */
-	public void setMeasureBlockSizes(boolean measureBlockSizes) {
-		this.measureBlockSizes = measureBlockSizes;
-	}
 
 	/**
 	 * @return the similarityFunction
@@ -217,7 +208,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 					}
 				});
 
-		if (measureBlockSizes) {
+		if (this.isMeasureBlockSizes()) {
 			measureBlockSizes(pairs);
 		}
 

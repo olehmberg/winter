@@ -32,7 +32,7 @@ public class ProgressReporter {
 	private LocalDateTime start;
 	private String message;
 	
-	private static final Logger logger = WinterLogManager.getRootLogger();
+	private static final Logger logger = WinterLogManager.getLogger("progress");
 
 	public ProgressReporter(int totalElements, String message) {
 		total = totalElements;

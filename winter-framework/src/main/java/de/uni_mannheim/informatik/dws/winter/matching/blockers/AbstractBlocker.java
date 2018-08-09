@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 
@@ -52,12 +54,31 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	private double reductionRatio = 1.0;
 
 	private static final Logger logger = WinterLogManager.getLogger();
-	//private String[] blockingResultsHeader = { "Frequency", "Blocking Key Value" };
 	private FusibleHashedDataSet<Record, Attribute> debugBlockingResults;
+	private List<Attribute> headerDebugResults;
 	
 	public static final Attribute frequency = new Attribute("Frequency");
 	public static final Attribute blockingKeyValue = new Attribute("Blocking Key Value");
 	
+	private boolean measureBlockSizes = false;
+	
+	/**
+	 * @param measureBlockSizes
+	 *            the measureBlockSizes to set
+	 */
+	public void setMeasureBlockSizes(boolean measureBlockSizes) {
+		this.measureBlockSizes = measureBlockSizes;
+		if(this.measureBlockSizes){
+			this.initializeBlockingResults();
+		}
+	}
+	
+	
+	public boolean isMeasureBlockSizes() {
+		return measureBlockSizes;
+	}
+
+
 
 	/**
 	 * Returns the reduction ratio of the last blocking operation. Only
@@ -149,9 +170,13 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	 */
 	public void initializeBlockingResults() {
 		this.debugBlockingResults = new FusibleHashedDataSet<Record, Attribute>();
-				
-		this.debugBlockingResults.addAttribute(AbstractBlocker.frequency);
+		this.headerDebugResults = new LinkedList<Attribute>();
+		
 		this.debugBlockingResults.addAttribute(AbstractBlocker.blockingKeyValue);
+		this.debugBlockingResults.addAttribute(AbstractBlocker.frequency);
+		
+		this.headerDebugResults.add(AbstractBlocker.blockingKeyValue);
+		this.headerDebugResults.add(AbstractBlocker.frequency);
 	}
 	
 	/**
@@ -164,7 +189,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 
 	public void writeDebugBlockingResultsToFile(String path) throws IOException {
 		if(this.debugBlockingResults != null){
-			new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, null);
+			new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, this.headerDebugResults);
 			logger.info("Debug results written to file: " + path);
 		}else{
 			logger.error("No debug results for blocking found!");

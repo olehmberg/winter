@@ -27,7 +27,7 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVDataSetFormatter#getHeader(de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
 	@Override
-	public String[] getHeader(DataSet<Movie, Attribute> dataset, List<Attribute> orderedHeader) {
+	public String[] getHeader(List<Attribute> orderedHeader) {
 		return new String[] { "id", "title", "studio", "genre", "budget", "gross", "director", "date" };
 	}
 

@@ -54,13 +54,17 @@ public class Events_IdentityResolution_Main {
 	/*
 	 * Trace Options:
 	 * 		default: 	level INFO	- console
-	 * 		trace:		level TRACE - console
+	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
 	 * 		traceFile:	level TRACE	- console/file
-	 * 		
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
 	 */
-	private static final Logger logger = WinterLogManager.getLogger();
-	//private static final Logger logger = WinterLogManager.getLogger("traceFile");
+
+	private static final Logger logger = WinterLogManager.activateLogger("default");
 	
 	public static void main(String[] args) throws Exception {
 		

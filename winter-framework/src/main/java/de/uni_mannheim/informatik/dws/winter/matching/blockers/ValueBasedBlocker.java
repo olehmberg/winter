@@ -74,16 +74,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> secondBlockingFunction;
-
-	private boolean measureBlockSizes = false;
 	private boolean considerDuplicateValues = false;
-	
-	/**
-	 * @param measureBlockSizes the measureBlockSizes to set
-	 */
-	public void setMeasureBlockSizes(boolean measureBlockSizes) {
-		this.measureBlockSizes = measureBlockSizes;
-	}
 	
 	/**
 	 * if set to true, all duplicate blocking key values will count towards the similarity score
@@ -181,7 +172,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		// join the datasets via their blocking keys
 		Processable<Pair<Block,Block>> blockedData = grouped1.join(grouped2, new BlockJoinKeyGenerator());
 		
-		if(measureBlockSizes) {			
+		if(this.isMeasureBlockSizes()) {			
 			// calculate block size distribution
 			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
 				(Pair<Block, Block> record,

@@ -60,21 +60,12 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> secondBlockingFunction;
-	private boolean measureBlockSizes = false;
 	private double blockFilterRatio = 1.0;
 	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
 
 	private static final Logger logger = WinterLogManager.getLogger();
-
-	/**
-	 * @param measureBlockSizes
-	 *            the measureBlockSizes to set
-	 */
-	public void setMeasureBlockSizes(boolean measureBlockSizes) {
-		this.measureBlockSizes = measureBlockSizes;
-	}
-
+	
 	/**
 	 * @param blockFilterRatio
 	 *            the blockFilterRatio to set
@@ -191,7 +182,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 
 						});
 
-		if (measureBlockSizes) {
+		if (this.isMeasureBlockSizes()) {
 			logger.info(String.format("created %d blocking keys for first dataset", grouped1.size()));
 			logger.info(String.format("created %d blocking keys for second dataset", grouped2.size()));
 		}
@@ -200,7 +191,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		Processable<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> blockedData = grouped1
 				.join(grouped2, new PairFirstJoinKeyGenerator<>());
 
-		if (measureBlockSizes) {
+		if (this.isMeasureBlockSizes()) {
 			logger.info(String.format("created %d blocks from blocking keys", blockedData.size()));
 		}
 
@@ -208,7 +199,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			blockedData = blockedData.where((p) -> ((long) p.getFirst().getSecond().getNumElements()
 					* (long) p.getSecond().getSecond().getNumElements()) <= maxBlockPairSize);
 
-			if (measureBlockSizes) {
+			if (this.isMeasureBlockSizes()) {
 				logger.info(String.format("%d blocks after filtering by max block size (<= %d pairs)",
 						blockedData.size(), maxBlockPairSize));
 			}
@@ -223,7 +214,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 							false)
 					.take((int) (blockedData.size() * (1 - blockFilterRatio)));
 
-			if (measureBlockSizes) {
+			if (this.isMeasureBlockSizes()) {
 				for (Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> p : toRemove
 						.get()) {
 					logger.info(String.format("\tRemoving block '%s' (%d pairs)", p.getFirst().getFirst(),
@@ -238,7 +229,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			logger.info(String.format("%d blocks after filtering", blockedData.size()));
 		}
 
-		if (measureBlockSizes) {
+		if (this.isMeasureBlockSizes()) {
 
 			// calculate block size distribution
 			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
@@ -277,15 +268,16 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				int result_id = 0;
 
 				logger.info("Blocking key values:");
+				logger.info(String.format("%s\t%s", "BlockingKeyValue", "Frequency"));
 				for (Pair<Integer, String> value : blockValues.get()) {
 					Record model = new Record(Integer.toString(result_id));
-					model.setValue(AbstractBlocker.blockingKeyValue, value.getFirst().toString());
+					model.setValue(AbstractBlocker.blockingKeyValue, value.getSecond().toString());
 					model.setValue(AbstractBlocker.frequency, value.getFirst().toString());
 					result_id += 1;
 					
 					this.appendBlockingResult(model);
 
-					logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+					logger.info(String.format("%s\t\t\t%d", value.getSecond(), value.getFirst()));
 				}
 			} else {
 				logger.info("No blocks were created!");
