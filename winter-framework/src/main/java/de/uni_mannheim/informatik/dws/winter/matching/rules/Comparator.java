@@ -75,11 +75,15 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	/**
 	 * @return Returns the comparison results based on the ComparatorDetails
 	 */
-	ComparatorLogger getComparisonLog();
+	default ComparatorLogger getComparisonLog() {
+		return null;
+	}
 
 	/**
 	 * Sets a record instance to record the ComparatorDetails
 	 */
-	void setComparisonLog(ComparatorLogger comparatorLog);
+	default void setComparisonLog(ComparatorLogger comparatorLog) 
+	{
+	}
 
 }
