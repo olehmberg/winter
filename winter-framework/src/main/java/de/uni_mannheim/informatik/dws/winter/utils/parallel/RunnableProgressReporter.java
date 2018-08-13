@@ -36,7 +36,7 @@ public class RunnableProgressReporter implements Runnable {
 	private String message;
 	private boolean reportIfStuck = true;
 
-	private static final Logger logger = WinterLogManager.getRootLogger();
+	private static final Logger logger = WinterLogManager.getLogger("progress");
 
 	public Task getUserTask() {
 		return userTask;

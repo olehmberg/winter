@@ -48,7 +48,10 @@ public class WinterLogManager {
 	 * @return  Current active logger.
 	 */
 	public static Logger activateLogger(String name) {
-		if(name.equals("trace") || name.equals("infoFile") || name.equals("traceFile")){
+		if(name.equals("default")){
+			WinterLogManager.setLogger(null);
+		}
+		else{
 			setLogger(LogManager.getLogger(name));
 		}
 		return getLogger();
@@ -60,15 +63,6 @@ public class WinterLogManager {
 	 */
 	public static Logger getLogger(String name) {
 		return LogManager.getLogger(name);
-	}
-	
-	/**
-	 * Return the root (default) logger defined in name and sets this one as the current active logger.
-	 * @return  Current active logger (root logger).
-	 */
-	public static Logger getRootLogger() {
-		setLogger(LogManager.getRootLogger());
-		return getLogger();
 	}
 	
 	/**
