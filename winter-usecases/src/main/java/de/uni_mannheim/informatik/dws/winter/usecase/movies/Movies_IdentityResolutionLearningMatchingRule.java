@@ -144,7 +144,10 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
 		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
-
+		
+		//evaluate learned classifier
+		logger.info(matchingRule.getClassifier().toString());
+				
 		// print the evaluation result
 		logger.info("Academy Awards <-> Actors");
 		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));

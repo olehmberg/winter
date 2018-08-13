@@ -177,7 +177,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		Processable<Pair<BlockedType, BlockingVector>> vectors2 = createBlockingVectors(ds2, secondBlockingFunction);
 
 		// create inverted index
-		logger.info("[BlockingKeyIndexer] Creating inverted index");
+		logger.info("Creating inverted index");
 		Processable<Block> blocks1 = createInvertedIndex(vectors1);
 		Processable<Block> blocks2 = createInvertedIndex(vectors2);
 

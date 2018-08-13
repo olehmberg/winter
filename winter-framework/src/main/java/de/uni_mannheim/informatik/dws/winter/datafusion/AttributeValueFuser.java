@@ -73,6 +73,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	/**
 	 * returns the value that is used by this fuser from the given record. Required for the collection of fusable values.
 	 * @param record	the record to get the value from
+	 * @param correspondence	the necessary correspondence
 	 * @return The value to fuse
 	 */
 	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);

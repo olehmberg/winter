@@ -8,7 +8,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
  * Logger for the attribute fusion process.
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  *
- * @param <RecordType>	the type that represents a record
  */
 public class AttributeFusionLogger extends Record implements Serializable {
 

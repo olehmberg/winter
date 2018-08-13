@@ -252,8 +252,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			if (aggregationResult != null) {
 				Distribution<Integer> dist = aggregationResult.getSecond();
 
-				logger.info("Block size distribution:");
-				logger.info(dist.format());
+				logger.trace("Block size distribution:");
+				logger.trace(dist.format());
 
 				// determine frequent blocking key values
 				Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
@@ -267,8 +267,8 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 				this.initializeBlockingResults();
 				int result_id = 0;
 
-				logger.info("Blocking key values:");
-				logger.info(String.format("%s\t%s", "BlockingKeyValue", "Frequency"));
+				logger.trace("Blocking key values:");
+				logger.trace(String.format("%s\t%s", "BlockingKeyValue", "Frequency"));
 				for (Pair<Integer, String> value : blockValues.get()) {
 					Record model = new Record(Integer.toString(result_id));
 					model.setValue(AbstractBlocker.blockingKeyValue, value.getSecond().toString());
@@ -277,7 +277,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 					
 					this.appendBlockingResult(model);
 
-					logger.info(String.format("%s\t\t\t%d", value.getSecond(), value.getFirst()));
+					logger.trace(String.format("%s\t\t\t%d", value.getSecond(), value.getFirst()));
 				}
 			} else {
 				logger.info("No blocks were created!");

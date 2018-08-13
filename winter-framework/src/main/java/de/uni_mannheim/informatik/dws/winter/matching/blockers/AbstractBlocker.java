@@ -181,7 +181,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	
 	/**
 	 * Appends a debug blocking result to the results log
-	 * @param blockingResult	
+	 * @param model the blocking result record
 	 */
 	public void appendBlockingResult(Record model) {
 		this.debugBlockingResults.add(model);

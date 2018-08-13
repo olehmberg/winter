@@ -58,7 +58,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	
 	/**
 	 * Check whether debug flag is set.
-	 * @return
+	 * @return	true/false for debug flag
 	 */
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
@@ -96,6 +96,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 	/**
 	 * Creates a new instance of a {@link FusibleDataSet} and adds attributes for all known attribute fusers.
+	 * 
+	 * @return the fused data set.
 	 */
 	public FusibleDataSet<RecordType, SchemaElementType> createFusedDataSet() {
 		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
@@ -144,8 +146,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	
 	/**
 	 * returns the fusers specified for this strategy
-	 * @param group
-	 * @param schemaCorrespondences
+	 * @param group 	the group, which shall be fused.
+	 * @param schemaCorrespondences		the needed schemaCorrespondences
 	 * @return a list of fusion tasks
 	 */
 	public List<AttributeFusionTask<RecordType, SchemaElementType>> getAttributeFusers(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
@@ -227,7 +229,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
 	 * @param path 	destination file for debug results
-	 * @throws IOException
+	 * @throws IOException	throws exception if the results cannot be written to a file correctly.
 	 */
 	public void writeDebugDataFusionResultsToFile(String path) throws IOException{
 		if(this.debugFusionResults != null){

@@ -204,6 +204,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				eval = new EvaluationWithBalancing(trainingData, filter);
 			}
 
+
 			eval.crossValidateModel(this.classifier, trainingData, Math.min(10, trainingData.size()), new Random(1));
 
 			for (String line : eval.toSummaryString("\nResults\n\n", false).split("\n")) {
@@ -474,7 +475,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 */
 
 	@Override
-	public void storeModel(File location) {
+	public void exportModel(File location) {
 		// serialize model
 		ObjectOutputStream oos;
 		try {
@@ -601,6 +602,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	public String toString() {
 		return String.format("WekaMatchingRule: p(match|%s)", StringUtils.join(Q.project(comparators, (c) -> c), ", "));
 	}
+
 
 	@Override
 	public void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,

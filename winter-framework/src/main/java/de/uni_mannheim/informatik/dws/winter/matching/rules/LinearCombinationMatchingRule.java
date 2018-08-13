@@ -232,8 +232,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * TrainableMatchingRule#storeModel(java.io.File)
 	 */
 	@Override
-	public void storeModel(File location) {
-
+	public void exportModel(File location) {
 	}
 
 	/*
@@ -271,5 +270,4 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		new RecordCSVFormatter().writeCSV(file, features, null);
 
 	}
-
 }

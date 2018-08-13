@@ -50,13 +50,12 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 	FeatureVectorDataSet initialiseFeatures();
 
 	Performance learnParameters(FeatureVectorDataSet features);
-
-	void storeModel(File location);
-
+	
+	void exportModel(File location);
 	void readModel(File location);
-
-	void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1,
-			DataSet<RecordType, SchemaElementType> dataset2, MatchingGoldStandard goldStandard, File file)
-			throws IOException;
-
+	
+	void exportTrainingData(DataSet<RecordType, SchemaElementType> dataset1, 
+			DataSet<RecordType, SchemaElementType> dataset2,
+			MatchingGoldStandard goldStandard, File file) throws IOException;
+	
 }

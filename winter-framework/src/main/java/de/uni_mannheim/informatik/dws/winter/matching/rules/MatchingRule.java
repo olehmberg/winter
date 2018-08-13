@@ -86,7 +86,6 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	
 	/**
 	 * Set switch to collect debug results and initialize corresponding schema.
-	 * @return
 	 */
 	public void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;

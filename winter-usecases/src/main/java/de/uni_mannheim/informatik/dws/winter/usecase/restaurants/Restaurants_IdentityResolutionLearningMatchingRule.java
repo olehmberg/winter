@@ -175,7 +175,7 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		learner.learnMatchingRule(dataFodors, dataZagats, null, matchingRule, gsTraining);
 
 		// Store Matching Rule
-		matchingRule.storeModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
+		matchingRule.exportModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
@@ -198,6 +198,9 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
+		
+		//evaluate learned classifier
+		logger.info(matchingRule.getClassifier().toString());
 
 		// print the evaluation result
 		logger.info("Fodors <-> Zagats");
