@@ -110,7 +110,7 @@ public class Movies_IdentityResolution_Main {
 		
 		//Write debug results to file:
 		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsMatchingRule.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsMatchingRule.csv", gsTest);
 		
 		// export Training Data
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors,

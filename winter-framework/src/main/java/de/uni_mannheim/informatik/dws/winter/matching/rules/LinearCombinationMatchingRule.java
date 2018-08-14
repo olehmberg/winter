@@ -182,7 +182,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		Record model = new Record(String.format("%s-%s", record1.getIdentifier(), record2.getIdentifier()),
 				this.getClass().getSimpleName());
 
-		double sum = offset;
 
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
@@ -190,9 +189,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
 
 			double similarity = comp.compare(record1, record2, null);
-			double weight = pair.getSecond();
-
-			sum += (similarity * weight);
 
 			String name = String.format("[%d] %s", i, comp.getClass().getSimpleName());
 			Attribute att = null;
@@ -206,9 +202,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			}
 			model.setValue(att, Double.toString(similarity));
 		}
-
-		model.setValue(FeatureVectorDataSet.ATTRIBUTE_FINAL_VALUE, Double.toString(sum));
-		model.setValue(FeatureVectorDataSet.ATTRIBUTE_IS_MATCH, Boolean.toString(sum >= getFinalThreshold()));
 
 		return model;
 	}
@@ -248,7 +241,20 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 
 	@Override
 	public FeatureVectorDataSet initialiseFeatures() {
-		return new FeatureVectorDataSet();
+		FeatureVectorDataSet features = new FeatureVectorDataSet();
+		
+		for (int i = 0; i < comparators.size(); i++) {
+			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
+
+			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
+
+			String name = String.format("[%d] %s", i, comp.getClass().getSimpleName());
+			Attribute att = new Attribute(name);
+
+			features.addAttribute(att);
+		}
+		
+		return features;
 	}
 
 	@Override

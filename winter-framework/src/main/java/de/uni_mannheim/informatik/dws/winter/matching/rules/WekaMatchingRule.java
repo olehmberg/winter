@@ -326,7 +326,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		ArrayList<String> labels = new ArrayList<String>();
 		labels.add("0");
 		labels.add("1");
-		weka.core.Attribute cls = new weka.core.Attribute("class", labels);
+		weka.core.Attribute cls = new weka.core.Attribute(FeatureVectorDataSet.ATTRIBUTE_LABEL.getIdentifier(), labels);
 		attributes.add(cls);
 
 		Instances dataset = new Instances(datasetName, attributes, 0);
@@ -386,7 +386,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				// e.printStackTrace();
 			}
 
-			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
+			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2).trim();
 			Attribute att = null;
 			for (Attribute elem : features.getSchema().get()) {
 				if (elem.toString().equals(name)) {
@@ -460,6 +460,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 					schemaCorrespondences);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(String.format("Classifier Exception for Record '%s': %s",
 					matchRecord == null ? "null" : matchRecord.toString(), e.getMessage()));
 		}
@@ -554,7 +555,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				// e.printStackTrace();
 			}
 
-			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2);
+			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2).trim();
 
 			Attribute att = new Attribute(name);
 			result.addAttribute(att);
@@ -566,7 +567,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	}
 
 	protected String getComparatorName(Comparator<RecordType, SchemaElementType> comp) {
-		return comp.toString();
+		return comp.getClass().getName();
 	}
 
 	public boolean isForwardSelection() {

@@ -22,6 +22,8 @@ import org.apache.logging.log4j.Logger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
@@ -63,6 +65,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public final Attribute RECORD1IDENTIFIER = new Attribute("Record1Identifier");
 	public final Attribute RECORD2IDENTIFIER = new Attribute("Record2Identifier");
 	public final Attribute TOTALSIMILARITY = new Attribute("TotalSimilarity");
+	public final Attribute ATTRIBUTE_IS_MATCH = new Attribute("IsMatch");
 
 	public double getFinalThreshold() {
 		return finalThreshold;
@@ -75,15 +78,16 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public MatchingRule(double finalThreshold) {
 		this.finalThreshold = finalThreshold;
 	}
-	
+
 	/**
 	 * Switch to collect debug results
+	 * 
 	 * @return
 	 */
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
-	
+
 	/**
 	 * Set switch to collect debug results and initialize corresponding schema.
 	 */
@@ -93,9 +97,10 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			initializeMatchingResults();
 		}
 	}
-	
+
 	/**
 	 * Returns the comparator comparison log
+	 * 
 	 * @return
 	 */
 	public HashMap<Attribute, Attribute> getResultToComparatorLog() {
@@ -125,25 +130,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			return null;
 		}
 	}
-	
-	/**
-	 * Write data matching debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
-	 * @param path 	destination file for debug results
-	 * @throws IOException
-	 */
-	public void writeDebugMatchingResultsToFile(String path) throws IOException {
-		if (this.comparatorLog != null && this.comparatorLogShort != null) {
-			new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
-			logger.info("Debug results written to file: " + path);
-			new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
-					this.headerDebugResultsShort);
-			logger.info("Debug results written to file: " + path + "_short");
-		} else {
-			logger.error("No debug results found!");
-			logger.error("Is logging enabled?");
-		}
-	}
-	
+
 	/**
 	 * Initialize Debug Matching Results.
 	 */
@@ -171,6 +158,9 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		this.comparatorLog.addAttribute(this.TOTALSIMILARITY);
 		this.headerDebugResults.add(this.TOTALSIMILARITY);
 
+		this.comparatorLog.addAttribute(this.ATTRIBUTE_IS_MATCH);
+		this.headerDebugResults.add(this.ATTRIBUTE_IS_MATCH);
+
 		this.comparatorLogShort.addAttribute(ComparatorLogger.COMPARATORNAME);
 		this.headerDebugResultsShort.add(ComparatorLogger.COMPARATORNAME);
 
@@ -196,10 +186,13 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		this.comparatorToResultLog = new HashMap<String, Attribute>();
 
 	}
-	
+
 	/**
-	 * Enhances the schema of the comparator logs (long/short) to collect results for each comparator.
-	 * @param comparator The comparator for which the log`s schema shall be enhanced.
+	 * Enhances the schema of the comparator logs (long/short) to collect
+	 * results for each comparator.
+	 * 
+	 * @param comparator
+	 *            The comparator for which the log`s schema shall be enhanced.
 	 */
 	public void addComparatorToLog(Comparator<RecordType, SchemaElementType> comparator) {
 
@@ -218,12 +211,18 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			}
 		}
 	}
-	
+
 	/**
-	 * Initializes a new record for a debug result based on the input records and the position of the corresponding comparator.
-	 * @param record1	Original data record
-	 * @param record2	Original data record
-	 * @param position	Position of the corresponding comparator when called for a short debug log entry.
+	 * Initializes a new record for a debug result based on the input records
+	 * and the position of the corresponding comparator.
+	 * 
+	 * @param record1
+	 *            Original data record
+	 * @param record2
+	 *            Original data record
+	 * @param position
+	 *            Position of the corresponding comparator when called for a
+	 *            short debug log entry.
 	 * @return New debug results record.
 	 */
 	public Record initializeDebugRecord(RecordType record1, RecordType record2, int position) {
@@ -239,12 +238,16 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 
 		return debug;
 	}
-	
+
 	/**
 	 * Fills a debug result from the corresponding comparators log.
-	 * @param debug Debug record
-	 * @param comparator Source comparator.
-	 * @param position Comparator's position
+	 * 
+	 * @param debug
+	 *            Debug record
+	 * @param comparator
+	 *            Source comparator.
+	 * @param position
+	 *            Comparator's position
 	 * @return Filled debug record.
 	 */
 	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comparator, int position) {
@@ -274,11 +277,17 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	}
 
 	/**
-	 * Adds a new record to the short debug log for a candidate match (record1-record2) based on a comparator and its position.
-	 * @param record1	Original record 1
-	 * @param record2	Original record 2
-	 * @param comparator	Corresponding comparator
-	 * @param position		Position of the corresponding comparator
+	 * Adds a new record to the short debug log for a candidate match
+	 * (record1-record2) based on a comparator and its position.
+	 * 
+	 * @param record1
+	 *            Original record 1
+	 * @param record2
+	 *            Original record 2
+	 * @param comparator
+	 *            Corresponding comparator
+	 * @param position
+	 *            Position of the corresponding comparator
 	 */
 	public void addDebugRecordShort(RecordType record1, RecordType record2,
 			Comparator<RecordType, SchemaElementType> comparator, int position) {
@@ -300,29 +309,91 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 					"Please check whether logging was enabled before the comparators were added to the matching rule!");
 		}
 	}
-	
+
 	/**
 	 * Fills the similarity value of a debug record based on its identifier.
-	 * @param record1		Original Record1
-	 * @param record2		Original Record2
-	 * @param similarity	Similarity value
+	 * 
+	 * @param record1
+	 *            Original Record1
+	 * @param record2
+	 *            Original Record2
+	 * @param similarity
+	 *            Similarity value
 	 */
 	public void fillSimilarity(RecordType record1, RecordType record2, double similarity) {
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		Record debug = this.comparatorLog.getRecord(identifier);
 		debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 	}
-	
+
 	/**
-	 * Fills the similarity value of a debug record and adds it to the list of debug results.
-	 * @param debug	Debug record
-	 * @param similarity	Similarity value
+	 * Fills the similarity value of a debug record and adds it to the list of
+	 * debug results.
+	 * 
+	 * @param debug
+	 *            Debug record
+	 * @param similarity
+	 *            Similarity value
 	 */
 	public void fillSimilarity(Record debug, Double similarity) {
 		if (similarity != null) {
 			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 		}
 		this.comparatorLog.add(debug);
+	}
+
+	/**
+	 * Write data matching debug results to file if logging was enabled via
+	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * 
+	 * @param path
+	 *            destination file for debug results
+	 * @throws IOException
+	 */
+	public void writeDebugMatchingResultsToFile(String path) throws IOException {
+		if (this.comparatorLog != null && this.comparatorLogShort != null) {
+			new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
+			logger.info("Debug results written to file: " + path);
+			new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
+					this.headerDebugResultsShort);
+			logger.info("Debug results written to file: " + path + "_short");
+		} else {
+			logger.error("No debug results found!");
+			logger.error("Is logging enabled?");
+		}
+	}
+
+	/**
+	 * Annotate debug results with goldStandard and write data matching debug
+	 * results to file if logging was enabled via
+	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * 
+	 * @param path
+	 *            destination file for debug results.
+	 * @param goldStandard
+	 *            goldStandard, which is used to annotate the debug matching
+	 *            results to easily spot mistakes in the results.
+	 * @throws IOException
+	 */
+	public void writeDebugMatchingResultsToFile(String path, MatchingGoldStandard goldStandard) throws IOException {
+		if (this.comparatorLog != null && this.comparatorLogShort != null && goldStandard != null) {
+			for(Pair<String, String> pair: goldStandard.getPositiveExamples()){
+				String identifier = pair.getFirst()+ "-" + pair.getSecond();
+				Record debug = this.comparatorLog.getRecord(identifier);
+				if(debug != null){
+					debug.setValue(ATTRIBUTE_IS_MATCH, "1");
+				}
+			}
+			
+			for(Pair<String, String> pair: goldStandard.getNegativeExamples()){
+				String identifier = pair.getFirst()+ "-" + pair.getSecond();
+				Record debug = this.comparatorLog.getRecord(identifier);
+				if(debug != null){
+					debug.setValue(ATTRIBUTE_IS_MATCH, "0");
+				}
+			}
+		}
+		writeDebugMatchingResultsToFile(path);
 	}
 
 	@Override
