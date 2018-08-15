@@ -96,7 +96,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// Selection --> Comparators / Standard
 		String options[] = new String[1];
 		options[0] = "";
-		String tree = "J48"; // new instance of tree
+		String tree = "SimpleLogistic"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
@@ -175,11 +175,8 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 
 		// create the data set for learning a matching rule (use this file in
 		// RapidMiner)
-		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
-		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(dataAcademyAwards, dataActors,
-				gsTraining, matchingRule, null);
-		new RecordCSVFormatter()
-				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
+		matchingRule.exportTrainingData(dataAcademyAwards, dataActors, gsTraining, new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"));
+
 	}
 
 	public static void firstMatching() throws Exception {
