@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
@@ -22,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * 
@@ -39,6 +41,8 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	private Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> blocker;
 	private Processable<Correspondence<RecordType, CorrespondenceType>> result;
 	private String taskName = "Matching";
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	/**
 	 * @param dataset1
 	 * 				the first dataset
@@ -100,16 +104,14 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	public void run() {
 		LocalDateTime start = LocalDateTime.now();
 
-		System.out.println(String.format("[%s] Starting %s",
-				start.toString(), getTaskName()));
+		logger.info(String.format("Starting %s", getTaskName()));
 
-		System.out.println(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
+		logger.info(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
 		// use the blocker to generate pairs
 		Processable<Correspondence<RecordType, CorrespondenceType>> allPairs = runBlocking(getDataset1(), getDataset2(), getCorrespondences());
 		
-		System.out
-				.println(String
+		logger.info(String
 						.format("Matching %,d x %,d elements; %,d blocked pairs (reduction ratio: %s)",
 								getDataset1().size(), getDataset2().size(),
 								allPairs.size(), Double.toString(getReductionRatio())));
@@ -120,10 +122,9 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 		// report total matching time
 		LocalDateTime end = LocalDateTime.now();
 		
-		System.out.println(String.format(
-				"[%s] %s finished after %s; found %,d correspondences.",
-				end.toString(), getTaskName(),
-				DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size()));
+		logger.info(String.format(
+				"%s finished after %s; found %,d correspondences.",
+				getTaskName(), DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size()));
 		
 		this.result = result;
 	}

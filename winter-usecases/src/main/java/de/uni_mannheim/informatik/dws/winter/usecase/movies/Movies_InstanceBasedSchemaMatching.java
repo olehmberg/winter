@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.BlockingKeyIndexer.VectorCreationMethod;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -26,13 +28,30 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.DefaultAttributeValuesAsBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceMaximumOfContainmentSimilarity;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
+ * Class containing the standard setup to perform an instance based schema matching,
+ * reading input data from the movie usecase.
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
 public class Movies_InstanceBasedSchemaMatching {
+	
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
 
 	public static void main(String[] args) throws Exception {
 		// load data
@@ -57,12 +76,12 @@ public class Movies_InstanceBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
-			System.out.println(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
+			logger.info(String.format("'%s' <-> '%s' (%.4f)", cor.getFirstRecord().getName(), cor.getSecondRecord().getName(), cor.getSimilarityScore()));
 			if(cor.getCausalCorrespondences()!=null) {
 				for(Correspondence<MatchableValue, Matchable> cause : cor.getCausalCorrespondences().get()) {
-					System.out.print(String.format("%s (%.4f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
+					logger.info(String.format("%s (%.4f), ", cause.getFirstRecord().getValue(), cause.getSimilarityScore()));
 				}
-				System.out.println();
+				logger.info("");
 			}
 		}
 	}

@@ -21,16 +21,21 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.Reco
 /**
  * Interface for all {@link AbstractRecord} comparators.
  * 
- * A Comparator calculates a similarity value for two given records and an optional correspondence. 
- * Implementations can test the values of specific attributes or use the correspondence to determine which values to compare.
+ * A Comparator calculates a similarity value for two given records and an
+ * optional correspondence. Implementations can test the values of specific
+ * attributes or use the correspondence to determine which values to compare.
  * 
- * For an example of a specific attribute comparator, see {@link RecordComparatorJaccard}.
+ * For an example of a specific attribute comparator, see
+ * {@link RecordComparatorJaccard}.
  * 
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>	the type of records that are compared with this comparator
- * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
+ * @param <RecordType>
+ *            the type of records that are compared with this comparator
+ * @param <SchemaElementType>
+ *            the type of schema elements that are used in the schema of
+ *            RecordType
  */
 public interface Comparator<RecordType extends Matchable, SchemaElementType extends Matchable> extends Serializable {
 
@@ -42,18 +47,43 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	 * @param record2
 	 *            the second record (must not be null)
 	 * @param schemaCorrespondence
-	 * 			  A schema correspondence between two record1 and record2 (can be null)  
+	 *            A schema correspondence between two record1 and record2 (can
+	 *            be null)
 	 * @return the similarity of the records
 	 */
-	double compare(RecordType record1, RecordType record2, Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
-	
+	double compare(RecordType record1, RecordType record2,
+			Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
+
 	/**
-	 * @return Returns the schema element which is the first argument to this comparator and determines which value of the first record to compare.
+	 * @return Returns the schema element which is the first argument to this
+	 *         comparator and determines which value of the first record to
+	 *         compare.
 	 */
-	default SchemaElementType getFirstSchemaElement(RecordType record) { return null; }
+	default SchemaElementType getFirstSchemaElement(RecordType record) {
+		return null;
+	}
+
 	/**
-	 * @return Returns the schema element which is the second argument to this comparator and determines which value of the second record to compare.
+	 * @return Returns the schema element which is the second argument to this
+	 *         comparator and determines which value of the second record to
+	 *         compare.
 	 */
-	default SchemaElementType getSecondSchemaElement(RecordType record) { return null; }
+	default SchemaElementType getSecondSchemaElement(RecordType record) {
+		return null;
+	}
+
+	/**
+	 * @return Returns the comparison results based on the ComparatorDetails
+	 */
+	default ComparatorLogger getComparisonLog() {
+		return null;
+	}
+
+	/**
+	 * Sets a record instance to record the ComparatorDetails
+	 */
+	default void setComparisonLog(ComparatorLogger comparatorLog) 
+	{
+	}
 
 }

@@ -15,21 +15,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.logging.log4j.Logger;
 
 import com.beust.jcommander.Parameter;
 
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.specialised.uri.UriParser;
 
@@ -47,6 +47,8 @@ public class GroupTablesByHost extends Executable {
 	
 	@Parameter(names = "-copy")
 	private boolean copy;
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -66,7 +68,7 @@ public class GroupTablesByHost extends Executable {
 		File out = new File(output);
 		
 		if(!in.exists()) {
-			System.err.println(String.format("%s does not exist!", in.getAbsolutePath()));
+			logger.error(String.format("%s does not exist!", in.getAbsolutePath()));
 			return;
 		}
 		
@@ -74,7 +76,7 @@ public class GroupTablesByHost extends Executable {
 			out.mkdirs();
 		}
 		
-		System.out.println(in.getAbsolutePath());
+		logger.info(in.getAbsolutePath());
 		
 		LinkedList<File> files = new LinkedList<>();
 		// LinkedList<File> toList = new LinkedList<>(Arrays.asList(in.listFiles()));
@@ -84,7 +86,7 @@ public class GroupTablesByHost extends Executable {
 		// 	File f = toList.poll();
 			
 		// 	if(f.isDirectory()) {
-		// 		System.out.println(f.getAbsolutePath());
+		// 		logger.info(f.getAbsolutePath());
 		// 		toList.addAll(Arrays.asList(f.listFiles()));
 		// 	} else {
 		// 		files.add(f);
@@ -100,7 +102,7 @@ public class GroupTablesByHost extends Executable {
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 				files.add(file.toFile());
 				if(System.currentTimeMillis()-last>10000) {
-					System.out.println(String.format("Listing files, %d so far ...", files.size()));
+					logger.info(String.format("Listing files, %d so far ...", files.size()));
 					last = System.currentTimeMillis();
 				}
 				return FileVisitResult.CONTINUE;
@@ -152,16 +154,16 @@ public class GroupTablesByHost extends Executable {
 				String ttl = DurationFormatUtils.formatDuration(soFar, "HH:mm:ss.S");
 				String remaining = DurationFormatUtils.formatDuration(left, "HH:mm:ss.S");
 				
-				System.err.println(String.format("%,d of %,d tasks completed after %s. Avg: %.2f items/s, Current: %.2f items/s, %s left.", done, tasks, ttl, itemsPerSecAvg, itemsPerSecNow, remaining));
+				logger.info(String.format("%,d of %,d tasks completed after %s. Avg: %.2f items/s, Current: %.2f items/s, %s left.", done, tasks, ttl, itemsPerSecAvg, itemsPerSecNow, remaining));
 				
 				last = done;
 				lastTime = System.currentTimeMillis();
 			}
 		}
 		
-		System.err.println(String.format("%,d tasks completed after %s.", ttlFiles, DurationFormatUtils.formatDuration(System.currentTimeMillis() - start, "HH:mm:ss.S")));
+		logger.error(String.format("%,d tasks completed after %s.", ttlFiles, DurationFormatUtils.formatDuration(System.currentTimeMillis() - start, "HH:mm:ss.S")));
 		
-		System.out.println("done.");
+		logger.info("done.");
 	}
 	
 	public String getHostName(Table t) throws URISyntaxException {

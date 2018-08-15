@@ -67,7 +67,7 @@ public class StandardBlockerTest extends TestCase {
 		}
 
 		// check if all examples from the gold standard were in the pairs
-		MatchingEvaluator<Movie, Attribute> eval = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Movie, Attribute> eval = new MatchingEvaluator<>();
 
 		Performance perf = eval.evaluateMatching(correspondences, gs);
 

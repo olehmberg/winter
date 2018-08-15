@@ -21,17 +21,20 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 /**
  * A matching rule that combines several other matching rules.
  * 
- *  Each individual matching rule is executed and the result with the highest similarity score is used as result. 
+ * Each individual matching rule is executed and the result with the highest
+ * similarity score is used as result.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable> extends FilteringMatchingRule<RecordType, SchemaElementType> {
+public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable>
+		extends FilteringMatchingRule<RecordType, SchemaElementType> {
 
 	private Collection<FilteringMatchingRule<RecordType, SchemaElementType>> rules;
-	
+
 	/**
-	 * @param finalThreshold	the similariy threshold for this rule
+	 * @param finalThreshold
+	 *            the similariy threshold for this rule
 	 */
 	public MaxScoreMatchingRule(double finalThreshold) {
 		super(finalThreshold);
@@ -41,11 +44,17 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 	public void addMatchingRule(FilteringMatchingRule<RecordType, SchemaElementType> rule) {
 		rules.add(rule);
 	}
-	
+
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator#compare(de.uni_mannheim.informatik.dws.winter.model.Matchable, de.uni_mannheim.informatik.dws.winter.model.Matchable, de.uni_mannheim.informatik.dws.winter.model.Correspondence)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator#compare(
+	 * de.uni_mannheim.informatik.dws.winter.model.Matchable,
+	 * de.uni_mannheim.informatik.dws.winter.model.Matchable,
+	 * de.uni_mannheim.informatik.dws.winter.model.Correspondence)
 	 */
 	@Override
 	public double compare(RecordType record1, RecordType record2,
@@ -54,31 +63,35 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.FilteringMatchingRule#apply(de.uni_mannheim.informatik.dws.winter.model.Matchable, de.uni_mannheim.informatik.dws.winter.model.Matchable, de.uni_mannheim.informatik.dws.winter.processing.Processable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.
+	 * FilteringMatchingRule#apply(de.uni_mannheim.informatik.dws.winter.model.
+	 * Matchable, de.uni_mannheim.informatik.dws.winter.model.Matchable,
+	 * de.uni_mannheim.informatik.dws.winter.processing.Processable)
 	 */
 	@Override
 	public Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2,
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
-		
+
 		Correspondence<RecordType, SchemaElementType> max = null;
 		FilteringMatchingRule<RecordType, SchemaElementType> maxRule = null;
-		
-		for(FilteringMatchingRule<RecordType, SchemaElementType> rule : rules) {
+
+		for (FilteringMatchingRule<RecordType, SchemaElementType> rule : rules) {
 			Correspondence<RecordType, SchemaElementType> cor = rule.apply(record1, record2, schemaCorrespondences);
-			
-			if(
-					cor.getSimilarityScore() >= rule.getFinalThreshold() &&
-					(max==null ||  cor.getSimilarityScore() > max.getSimilarityScore())) {
+
+			if (cor.getSimilarityScore() >= rule.getFinalThreshold()
+					&& (max == null || cor.getSimilarityScore() > max.getSimilarityScore())) {
 				max = cor;
 				maxRule = rule;
 			}
 		}
-		
-		if(max!=null) {
+
+		if (max != null) {
 			max.setProvenance(maxRule);
 		}
-		
+
 		return max;
 	}
 

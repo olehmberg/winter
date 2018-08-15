@@ -23,9 +23,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+//import de.uni_mannheim.informatik.dws.winter.utils.LogUtil;
 
 /**
  * Class representing a gold standard data.
@@ -41,6 +44,7 @@ public class MatchingGoldStandard implements Serializable{
 	private Set<String> canonicalPositiveExamples;
 	private Set<String> canonicalNegativeExamples;
 	private boolean isComplete = false;
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * 
@@ -216,7 +220,7 @@ public class MatchingGoldStandard implements Serializable{
 				}
 
 			} else {
-				System.err.println(String.format("Skipping malformed line: %s",
+				logger.error(String.format("Skipping malformed line: %s",
 						StringUtils.join(values,",")));
 			}
 		}
@@ -266,21 +270,22 @@ public class MatchingGoldStandard implements Serializable{
 		int ttl = numPositive + numNegative;
 		double positivePerCent = (double) numPositive / (double) ttl * 100.0;
 		double negativePerCent = (double) numNegative / (double) ttl * 100.0;
-
-		System.out
-				.println(String
-						.format("The gold standard has %d examples\n\t%d positive examples (%.2f%%)\n\t%d negative examples (%.2f%%)",
-								ttl, numPositive, positivePerCent, numNegative,
-								negativePerCent));
+		
+		logger.info(String
+						.format("The gold standard has %d examples", ttl));
+		logger.info(String
+				.format("\t%d positive examples (%.2f%%)",
+						numPositive, positivePerCent));
+		logger.info(String
+				.format("\t%d negative examples (%.2f%%)", 
+						numNegative, negativePerCent));
 
 		// check for duplicates
 		if (getPositiveExamples().size() != canonicalPositiveExamples.size()) {
-			System.err
-					.println("The gold standard contains duplicate positive examples!");
+			logger.warn("The gold standard contains duplicate positive examples!");
 		}
 		if (getNegativeExamples().size() != canonicalNegativeExamples.size()) {
-			System.err
-					.println("The gold standard contains duplicate negative examples!");
+			logger.warn("The gold standard contains duplicate negative examples!");
 		}
 
 		// check if any example was labeled as positive and negative
@@ -289,8 +294,7 @@ public class MatchingGoldStandard implements Serializable{
 		allExamples.addAll(canonicalNegativeExamples);
 
 		if (allExamples.size() != (canonicalPositiveExamples.size() + canonicalNegativeExamples.size())) {
-			System.err
-					.println("The gold standard contains an example that is both labelled as positive and negative!");
+			logger.warn("The gold standard contains an example that is both labelled as positive and negative!");
 		}
 
 	}
@@ -303,7 +307,7 @@ public class MatchingGoldStandard implements Serializable{
 		double negativePerCent = (double) numNegative / (double) ttl;
 
 		if (Math.abs(positivePerCent - negativePerCent) > 0.2) {
-			System.err.println("The gold standard is imbalanced!");
+			logger.warn("The gold standard is imbalanced!");
 		}
 	}
 

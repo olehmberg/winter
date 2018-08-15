@@ -486,7 +486,6 @@ public class Table implements Serializable {
 		TableKeyIdentification tki = new TableKeyIdentification();
 
 		tki.setKeyUniquenessThreshold(uniquenessThreshold);
-		tki.setVerbose(verbose);
 
 		tki.identifyKeys(this);
 	}

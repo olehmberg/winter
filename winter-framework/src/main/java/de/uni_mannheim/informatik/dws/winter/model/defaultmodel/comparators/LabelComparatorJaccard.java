@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -28,13 +29,41 @@ public class LabelComparatorJaccard implements Comparator<Attribute, Attribute> 
 	private static final long serialVersionUID = 1L;
 
 	private TokenizingJaccardSimilarity similarity = new TokenizingJaccardSimilarity();
-	
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
+	private ComparatorLogger comparisonLog;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.uni_mannheim.informatik.wdi.matching.Comparator#compare(de.
+	 * uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.Matchable,
+	 * de.uni_mannheim.informatik.wdi.model.SimpleCorrespondence)
 	 */
 	@Override
-	public double compare(Attribute record1, Attribute record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		return similarity.calculate(record1.getName(), record2.getName());
+	public double compare(Attribute record1, Attribute record2,
+			Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		double sim = similarity.calculate(record1.getName(), record2.getName());
+
+		if (this.comparisonLog != null) {
+			this.comparisonLog.setComparatorName(getClass().getName());
+
+			this.comparisonLog.setRecord1Value(record1.getName());
+			this.comparisonLog.setRecord2Value(record2.getName());
+
+			this.comparisonLog.setSimilarity(Double.toString(sim));
+		}
+
+		return sim;
+	}
+
+	@Override
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 
 }

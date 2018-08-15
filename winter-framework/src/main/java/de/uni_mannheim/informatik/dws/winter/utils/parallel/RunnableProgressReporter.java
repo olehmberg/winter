@@ -16,6 +16,9 @@ import java.util.Map.Entry;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.logging.log4j.Logger;
+
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * 
@@ -24,9 +27,7 @@ import org.apache.commons.lang.time.DurationFormatUtils;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class RunnableProgressReporter
-	implements Runnable
-{
+public class RunnableProgressReporter implements Runnable {
 
 	private ThreadPoolExecutor pool;
 	private Thread thread;
@@ -34,23 +35,25 @@ public class RunnableProgressReporter
 	private boolean stop;
 	private String message;
 	private boolean reportIfStuck = true;
-	
+
+	private static final Logger logger = WinterLogManager.getLogger("progress");
+
 	public Task getUserTask() {
 		return userTask;
 	}
-	
+
 	public void setUserTask(Task userTask) {
 		this.userTask = userTask;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
-	
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 	public ThreadPoolExecutor getPool() {
 		return pool;
 	}
@@ -58,133 +61,131 @@ public class RunnableProgressReporter
 	public void setPool(ThreadPoolExecutor pool) {
 		this.pool = pool;
 	}
-	
+
 	public void setReportIfStuck(boolean reportIfStuck) {
-        this.reportIfStuck = reportIfStuck;
-    }
-	
+		this.reportIfStuck = reportIfStuck;
+	}
+
 	public boolean getReportIfStuck() {
-        return reportIfStuck;
-    }
-	
+		return reportIfStuck;
+	}
+
 	long start = 0;
 	long tasks = 0;
 	long done = 0;
 	int stuckIterations = 0;;
 	long last = 0;
 	long lastTime = 0;
-	
+
 	public void run() {
-		try
-		{
+		try {
 			initialise();
-			while(!stop)
-			{
+			while (!stop) {
 				Thread.sleep(10000);
-				
-				if(!stop)
-				{
+
+				if (!stop) {
 					print();
 				}
 			}
-		}
-		catch(Exception e)
-		{
-		    e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 	public void initialise() {
 		start = System.currentTimeMillis();
 		tasks = pool.getTaskCount();
 		done = pool.getCompletedTaskCount();
-		stuckIterations = 0;;
+		stuckIterations = 0;
+		;
 		last = 0;
 		lastTime = System.currentTimeMillis();
 	}
-	
+
 	public void print() {
 
-		if(System.currentTimeMillis()-lastTime>=10000) {
-			
+		if (System.currentTimeMillis() - lastTime >= 10000) {
+
 			tasks = pool.getTaskCount();
 			done = pool.getCompletedTaskCount();
-			
+
 			long soFar = System.currentTimeMillis() - start;
 			long pauseTime = System.currentTimeMillis() - lastTime;
 			long left = (long) (((float) soFar / done) * (tasks - done));
-			float itemsPerSecAvg = (float)done / (float)(soFar / 1000.0f);
-			float itemsPerSecNow = (float)(done - last) / (pauseTime / 1000.0f);
-			
-			if((((float) soFar) / done)==Float.POSITIVE_INFINITY)
-			{
+			float itemsPerSecAvg = (float) done / (float) (soFar / 1000.0f);
+			float itemsPerSecNow = (float) (done - last) / (pauseTime / 1000.0f);
+
+			if ((((float) soFar) / done) == Float.POSITIVE_INFINITY) {
 				left = -1;
 			}
 			String ttl = DurationFormatUtils.formatDuration(soFar, "HH:mm:ss.S");
 			String remaining = DurationFormatUtils.formatDuration(left, "HH:mm:ss.S");
-			
-			String usrMsg = message==null ? "" : message + ": ";
-			System.err.println(String.format("%s%,d of %,d tasks completed after %s (%d/%d active threads). Avg: %.2f items/s, Current: %.2f items/s, %s left.", usrMsg, done, tasks, ttl, pool.getActiveCount(), pool.getPoolSize(), itemsPerSecAvg, itemsPerSecNow, remaining));
-	
-			if(userTask!=null)
+
+			String usrMsg = message == null ? "" : message + ": ";
+			logger.error(String.format(
+					"%s%,d of %,d tasks completed after %s (%d/%d active threads). Avg: %.2f items/s, Current: %.2f items/s, %s left.",
+					usrMsg, done, tasks, ttl, pool.getActiveCount(), pool.getPoolSize(), itemsPerSecAvg, itemsPerSecNow,
+					remaining));
+
+			if (userTask != null)
 				userTask.execute();
-			
-			if(done == last) {
-			    stuckIterations++;
+
+			if (done == last) {
+				stuckIterations++;
 			} else {
-			    last = done;
-			    stuckIterations=0;
+				last = done;
+				stuckIterations = 0;
 			}
-			
-			if(stuckIterations>=3 && reportIfStuck) {
-			    System.err.println("ThreadPool seems to be stuck!");
-			    int threadCnt = 0;
-			    int parkedCnt = 0;
-			    Entry<Thread, StackTraceElement[]> main = null;
-			    for(Entry<Thread, StackTraceElement[]> e : Thread.getAllStackTraces().entrySet()) {
-			        if(e.getKey().getName().contains("Parallel")) {
-			            threadCnt++;
-			            
-			            if(e.getValue()[0].toString().startsWith("sun.misc.Unsafe.park")) {
-			            	parkedCnt++;
-			            } else {
-			            	System.err.println(e.getKey().getName());
-			            	for(StackTraceElement elem : e.getValue()) {
-				                System.err.println("\t" + elem.toString());
-				            }
-			            }
-			            
-			        }
-			        
-			        if(e.getKey().getName().equals("main")) {
-			        	main = e;
-			        }
-			    }
-			    
-			    System.err.println(String.format("%s %d Parallel.X threads (%d parked) --- %d total", pool.isTerminated() ? "[pool terminated]" : "", threadCnt, parkedCnt, Thread.getAllStackTraces().size()));
-			    
-			    if(main!=null) {
-			    	System.err.println(main.getKey().getName());
-	            	for(StackTraceElement elem : main.getValue()) {
-		                System.err.println("\t" + elem.toString());
-		            }
-			    }
+
+			if (stuckIterations >= 3 && reportIfStuck) {
+				logger.error("ThreadPool seems to be stuck!");
+				int threadCnt = 0;
+				int parkedCnt = 0;
+				Entry<Thread, StackTraceElement[]> main = null;
+				for (Entry<Thread, StackTraceElement[]> e : Thread.getAllStackTraces().entrySet()) {
+					if (e.getKey().getName().contains("Parallel")) {
+						threadCnt++;
+
+						if (e.getValue()[0].toString().startsWith("sun.misc.Unsafe.park")) {
+							parkedCnt++;
+						} else {
+							logger.error(e.getKey().getName());
+							for (StackTraceElement elem : e.getValue()) {
+								logger.error("\t" + elem.toString());
+							}
+						}
+
+					}
+
+					if (e.getKey().getName().equals("main")) {
+						main = e;
+					}
+				}
+
+				logger.error(String.format("%s %d Parallel.X threads (%d parked) --- %d total",
+						pool.isTerminated() ? "[pool terminated]" : "", threadCnt, parkedCnt,
+						Thread.getAllStackTraces().size()));
+
+				if (main != null) {
+					logger.error(main.getKey().getName());
+					for (StackTraceElement elem : main.getValue()) {
+						logger.error("\t" + elem.toString());
+					}
+				}
 			}
-			
+
 			lastTime = System.currentTimeMillis();
-			
+
 		}
 	}
-	
-	public void start()
-	{
+
+	public void start() {
 		stop = false;
 		thread = new Thread(this);
 		thread.start();
 	}
-	
-	public void stop()
-	{
+
+	public void stop() {
 		stop = true;
 	}
 }

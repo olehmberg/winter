@@ -21,15 +21,18 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class StandardSchemaBlocker<SchemaElementType extends Matchable, CorrespondenceType extends Matchable> extends StandardBlocker<SchemaElementType, SchemaElementType, SchemaElementType, CorrespondenceType> {
+public class StandardSchemaBlocker<SchemaElementType extends Matchable, CorrespondenceType extends Matchable>
+		extends StandardBlocker<SchemaElementType, SchemaElementType, SchemaElementType, CorrespondenceType> {
 
-	public StandardSchemaBlocker(BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> blockingFunction) {
+	public StandardSchemaBlocker(
+			BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> blockingFunction) {
 		super(blockingFunction);
 	}
 
-	public StandardSchemaBlocker(BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> blockingFunction, BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> secondBlockingFunction) {
+	public StandardSchemaBlocker(
+			BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> blockingFunction,
+			BlockingKeyGenerator<SchemaElementType, CorrespondenceType, SchemaElementType> secondBlockingFunction) {
 		super(blockingFunction, secondBlockingFunction);
 	}
-	
 
 }

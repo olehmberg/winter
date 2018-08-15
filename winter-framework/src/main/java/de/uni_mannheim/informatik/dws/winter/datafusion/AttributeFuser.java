@@ -24,6 +24,25 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @param <RecordType>	the type that represents a record
  */
 public abstract class AttributeFuser<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
+	
+	private AttributeFusionLogger fusionLog;
+	private boolean collectDebugResults;
+	
+	public AttributeFusionLogger getFusionLog() {
+		return fusionLog;
+	}
+
+	public void setFusionLog(AttributeFusionLogger fusionLog) {
+		this.fusionLog = fusionLog;
+	}
+	
+	public boolean isCollectDebugResults() {
+		return collectDebugResults;
+	}
+
+	public void setCollectDebugResults(boolean collectDebugResults) {
+		this.collectDebugResults = collectDebugResults;
+	}
 
 	/**
 	 * fuses the group of records and assigns values to the fused Record
@@ -51,5 +70,5 @@ public abstract class AttributeFuser<RecordType extends Matchable & Fusible<Sche
 	 * @return the consistency value if any values are available. NULL if no values are available
 	 */
 	public abstract Double getConsistency(RecordGroup<RecordType, SchemaElementType> group, EvaluationRule<RecordType, SchemaElementType> rule, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement);
-
+	
 }

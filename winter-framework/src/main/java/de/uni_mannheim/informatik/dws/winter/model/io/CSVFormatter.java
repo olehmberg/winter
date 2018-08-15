@@ -37,12 +37,11 @@ public abstract class CSVFormatter<RecordType> {
 	 * @param dataset
 	 * @throws IOException
 	 */
-	public void writeCSV(File file, Processable<RecordType> dataset)
-			throws IOException {
+	public void writeCSV(File file, Processable<RecordType> dataset) throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(file));
 
 		String[] headers = getHeader();
-		if(headers!=null) {
+		if (headers != null) {
 			writer.writeNext(headers);
 		}
 
@@ -54,5 +53,5 @@ public abstract class CSVFormatter<RecordType> {
 
 		writer.close();
 	}
-	
+
 }

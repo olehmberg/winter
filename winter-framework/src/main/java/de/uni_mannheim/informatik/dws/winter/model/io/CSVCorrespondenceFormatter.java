@@ -30,21 +30,19 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 public class CSVCorrespondenceFormatter {
 
 	public <TypeA extends Matchable, TypeB extends Matchable> String[] format(Correspondence<TypeA, TypeB> record) {
-		return new String[] { 
-				record.getFirstRecord().getIdentifier(),
-				record.getSecondRecord().getIdentifier(),
-				Double.toString(record.getSimilarityScore()) 
-				};
+		return new String[] { record.getFirstRecord().getIdentifier(), record.getSecondRecord().getIdentifier(),
+				Double.toString(record.getSimilarityScore()) };
 	}
 
 	/**
 	 * Writes the data set to a CSV file
+	 * 
 	 * @param file
 	 * @param dataset
 	 * @throws IOException
 	 */
-	public <TypeA extends Matchable, TypeB extends Matchable> void writeCSV(File file, Processable<Correspondence<TypeA, TypeB>> dataset)
-			throws IOException {
+	public <TypeA extends Matchable, TypeB extends Matchable> void writeCSV(File file,
+			Processable<Correspondence<TypeA, TypeB>> dataset) throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(file));
 
 		for (Correspondence<TypeA, TypeB> record : dataset.get()) {
@@ -55,5 +53,5 @@ public class CSVCorrespondenceFormatter {
 
 		writer.close();
 	}
-	
+
 }

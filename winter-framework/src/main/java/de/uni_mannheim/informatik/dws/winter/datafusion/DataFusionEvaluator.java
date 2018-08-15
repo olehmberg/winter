@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.util.HashMap;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
@@ -21,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Evaluates a data fusion result based on a given {@link DataFusionStrategy}
@@ -33,25 +36,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 
 	private DataFusionStrategy<RecordType, SchemaElementType> strategy;
 	private RecordGroupFactory<RecordType, SchemaElementType> groupFactory;
-	
-	private boolean verbose = false;
-
-	/**
-	 * 
-	 * @return Returns whether additional information will be written to the console
-	 */
-	public boolean isVerbose() {
-		return verbose;
-	}
-
-	/**
-	 * Sets whether additional information will be written to the console
-	 * 
-	 * @param verbose	whether there should be additional information written to the console
-	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
-	}
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * Creates a new instance with the provided strategy
@@ -109,24 +94,21 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 						correctValues++;
 						attributeCount.put(fusionTask.getSchemaElement(),
 								attributeCount.get(fusionTask.getSchemaElement()) + 1);
-					} else if (verbose) {
-						System.out.println(String.format(
-								"[error] %s: %s <> %s", r.getClass()
-										.getSimpleName(), fused.toString(),
-								record.toString()));
+					} else {
+						logger.trace(String.format(
+								" %s <> %s",
+								fused.toString(), record.toString()));
 					}
 				}
 			}
 		}
-		if (verbose) {
-			System.out.println("Attribute-specific Accuracy:");
+			logger.trace("Attribute-specific Accuracy:");
 			for (AttributeFusionTask<RecordType, SchemaElementType> fusionTask : strategy.getAttributeFusers(null, schemaCorrespondences)) {
 				double acc = (double) attributeCount.get(fusionTask.getSchemaElement())
 						/ (double) goldStandard.size();
-				System.out.println(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
+				logger.trace(String.format("	%s: %.2f", fusionTask.getSchemaElement().getIdentifier(), acc));
 
 			}
-		}
 
 		return (double) correctValues / (double) totalValues;
 	}

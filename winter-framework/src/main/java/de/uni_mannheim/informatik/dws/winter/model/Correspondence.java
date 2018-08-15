@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVReader;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
@@ -28,6 +29,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
@@ -42,6 +44,8 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
  * @param <RecordType>
  */
 public class Correspondence<RecordType extends Matchable, CausalType extends Matchable> implements Serializable  {
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	public static class BySimilarityComparator<RecordType extends Matchable, CausalType extends Matchable> implements Comparator<Correspondence<RecordType, CausalType>> {
 
@@ -402,13 +406,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 				try {
 					similarityScore = Double.parseDouble(sim);
 				} catch(Exception ex) {
-					System.err.println(ex.getMessage());
+					logger.error(ex.getMessage());
 				}
 				
 				Correspondence<RecordId, RecordId> cor = new Correspondence<RecordId, RecordId>(new RecordId(id1), new RecordId(id2), similarityScore, null);
 				correspondences.add(cor);
 			} else {
-				System.err.println(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
+				logger.error(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
 			}
 		}
 		
@@ -438,13 +442,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 				try {
 					similarityScore = Double.parseDouble(sim);
 				} catch(Exception ex) {
-					System.err.println(ex.getMessage());
+					logger.error(ex.getMessage());
 				}
 				
 				Correspondence<RecordType, CorrespondenceType> cor = new Correspondence<RecordType, CorrespondenceType>(leftData.getRecord(id1), rightData.getRecord(id2), similarityScore, null);
 				correspondences.add(cor);
 			} else {
-				System.err.println(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
+				logger.error(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
 			}
 		}
 		

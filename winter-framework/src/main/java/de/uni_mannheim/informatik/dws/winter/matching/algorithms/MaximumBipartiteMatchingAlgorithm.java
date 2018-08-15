@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.Logger;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.interfaces.MatchingAlgorithm.Matching;
 import org.jgrapht.alg.matching.MaximumWeightBipartiteMatching;
@@ -30,27 +31,21 @@ import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
 public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB extends Matchable> implements MatchingAlgorithm<TypeA, TypeB> {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
 	
 	private boolean groupByLeftDataSource = false;
 	private boolean groupByRightDataSource = false;
-	
-	private boolean verbose = false;
-
-	/**
-	 * @param verbose the verbose to set
-	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
-	}
 
 	/**
 	 * 
@@ -153,9 +148,7 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 					sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
 				}
 				
-				if(verbose) {
-					System.out.println(sb.toString());
-				}
+					logger.trace(sb.toString());
 			}
 		});
 

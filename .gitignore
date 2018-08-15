@@ -6,3 +6,5 @@
 target/
 *.model
 .vscode/
+*.log
+*.arff

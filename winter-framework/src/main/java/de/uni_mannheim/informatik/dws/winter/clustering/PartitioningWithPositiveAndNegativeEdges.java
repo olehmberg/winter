@@ -19,11 +19,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils2;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -46,6 +48,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 	private Collection<Triple<T, T, Double>> positiveEdges;
 	private Collection<Triple<T, T, Double>> negativeEdges;
 	private double negativeThreshold;
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	private boolean log = false;
 	public void setLog(boolean log) {
@@ -150,7 +153,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 			}
 			
 			if(log) {
-				System.out.println(String.format("merge {%s} and {%s}", StringUtils.join(bestEdge.getFirst(), ","), StringUtils.join(bestEdge.getSecond(), ",")));
+				logger.info(String.format("merge {%s} and {%s}", StringUtils.join(bestEdge.getFirst(), ","), StringUtils.join(bestEdge.getSecond(), ",")));
 			}
 			
 			// merge the partitions that are connected by the selected edge
@@ -196,14 +199,14 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 	}
 
 	private void printNodes() {
-		System.out.println("[PartitioningWithPositiveAndNegativeEdges] Nodes:");
+		logger.info("Nodes:");
 		for(T node : nodes) {
-			System.out.println(String.format("\t%s", node.toString()));
+			logger.info(String.format("\t%s", node.toString()));
 		}
 	}
 
 	private void printGraph(Map<Set<T>, Map<Set<T>, Pair<Double, Double>>> clusterEdges) {
-		System.out.println("***********************************************");
+		logger.info("***********************************************");
 		for(Set<T> n1 : clusterEdges.keySet()) {
 			
 			Map<Set<T>, Pair<Double, Double>> map2 = clusterEdges.get(n1);
@@ -212,7 +215,7 @@ public class PartitioningWithPositiveAndNegativeEdges<T> extends GraphBasedClust
 				
 				Pair<Double, Double> score = map2.get(n2);
 				
-				System.out.println(String.format("{%s}->{%s}: (%.2f,%.2f)", StringUtils.join(n1, ","), StringUtils.join(n2, ","), score.getFirst(), score.getSecond()));
+				logger.info(String.format("{%s}->{%s}: (%.2f,%.2f)", StringUtils.join(n1, ","), StringUtils.join(n2, ","), score.getFirst(), score.getSecond()));
 				
 			}
 			
