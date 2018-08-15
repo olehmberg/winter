@@ -33,6 +33,37 @@ public class TableDisambiguationExtractor {
 	private final static Pattern bracketsPattern = Pattern.compile(".*\\(([^)]*)\\).*");
 	private final static Pattern bracketsPattern2 = Pattern.compile("\\(([^)]*)\\)");
 	
+	public void removeDisambiguations(Collection<Table> tables) {
+		for(Table t : tables) {
+			
+			// collect all disambiguations
+			for(TableRow r : t.getRows()) {
+				
+				for(TableColumn c : t.getColumns()) {
+					
+					Object value = r.get(c.getColumnIndex());
+					if(value!=null && !value.getClass().isArray()) { // ignore arrays for now
+						
+						String stringValue = value.toString();
+						Matcher m = bracketsPattern.matcher(stringValue);
+						
+						if(m.matches()) {
+							// remove the disambiguation from the cell value
+							stringValue = bracketsPattern2.matcher(stringValue).replaceAll("").trim();
+							if(stringValue.trim().isEmpty()) {
+								stringValue = null;
+							}
+							r.set(c.getColumnIndex(), stringValue);
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+	}
+
 	public Map<Integer, Map<Integer, TableColumn>> extractDisambiguations(Collection<Table> tables
 			) {
 		

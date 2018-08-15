@@ -30,7 +30,37 @@ import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 public class TableNumberingExtractor {
 
 	private static final Pattern numberingPattern = Pattern.compile("(\\d*)\\. (.+)");
-	
+
+	public void removeNumbering(Collection<Table> tables) {
+		for(Table t : tables) {			
+			// collect all numberings
+			for(TableRow r : t.getRows()) {
+				
+				for(TableColumn c : t.getColumns()) {
+					
+					Object value = r.get(c.getColumnIndex());
+					if(value!=null && !value.getClass().isArray()) { // ignore arrays for now
+						
+						String stringValue = value.toString();
+						Matcher m = numberingPattern.matcher(stringValue);
+						
+						if(m.matches()) {
+							
+							String number = m.group(1);
+							String rest = m.group(2).trim();
+
+							// remove the numbering from the cell value
+							r.set(c.getColumnIndex(), rest);
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+	}
+
 	public Map<Integer, Map<Integer, TableColumn>> extractNumbering(Collection<Table> tables
 			) {
 
