@@ -49,7 +49,7 @@
         <parameter key="datamanagement" value="double_array"/>
         <parameter key="data_management" value="auto"/>
       </operator>
-      <operator activated="true" class="linear_regression" compatibility="9.0.001" expanded="true" height="103" name="Linear Regression" width="90" x="313" y="34">
+      <operator activated="true" class="linear_regression" compatibility="9.0.001" expanded="true" height="103" name="Linear Regression" width="90" x="246" y="34">
         <parameter key="feature_selection" value="M5 prime"/>
         <parameter key="alpha" value="0.05"/>
         <parameter key="max_iterations" value="10"/>

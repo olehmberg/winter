@@ -35,37 +35,37 @@
         <parameter key="encoding" value="windows-1252"/>
         <parameter key="read_all_values_as_polynominal" value="false"/>
         <list key="data_set_meta_data_information">
-          <parameter key="0" value="[0] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieTitleComparatorEqual.true.real.attribute"/>
-          <parameter key="1" value="[1] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieDateComparator2Years.true.real.attribute"/>
-          <parameter key="2" value="[2] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieDateComparator10Years.true.real.attribute"/>
-          <parameter key="3" value="[3] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieDirectorComparatorJaccard.true.real.attribute"/>
-          <parameter key="4" value="[4] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieDirectorComparatorLevenshtein.true.real.attribute"/>
-          <parameter key="5" value="[5] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieDirectorComparatorLowerCaseJaccard.true.real.attribute"/>
-          <parameter key="6" value="[6] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieTitleComparatorLevenshtein.true.real.attribute"/>
-          <parameter key="7" value="[7] de\.uni_mannheim\.informatik\.dws\.winter\.usecase\.movies\.identityresolution\.MovieTitleComparatorJaccard.true.real.attribute"/>
+          <parameter key="0" value="[0] MovieTitleComparatorEqual.true.real.attribute"/>
+          <parameter key="1" value="[1] MovieDateComparator2Years.true.real.attribute"/>
+          <parameter key="2" value="[2] MovieDateComparator10Years.true.real.attribute"/>
+          <parameter key="3" value="[3] MovieDirectorComparatorJaccard.true.real.attribute"/>
+          <parameter key="4" value="[4] MovieDirectorComparatorLevenshtein.true.real.attribute"/>
+          <parameter key="5" value="[5] MovieDirectorComparatorLowerCaseJaccard.true.real.attribute"/>
+          <parameter key="6" value="[6] MovieTitleComparatorLevenshtein.true.real.attribute"/>
+          <parameter key="7" value="[7] MovieTitleComparatorJaccard.true.real.attribute"/>
           <parameter key="8" value="label.true.binominal.label"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
         <parameter key="datamanagement" value="double_array"/>
         <parameter key="data_management" value="auto"/>
       </operator>
-      <operator activated="true" class="linear_regression" compatibility="9.0.001" expanded="true" height="103" name="Linear Regression" width="90" x="313" y="34">
-        <parameter key="feature_selection" value="M5 prime"/>
-        <parameter key="alpha" value="0.05"/>
-        <parameter key="max_iterations" value="10"/>
-        <parameter key="forward_alpha" value="0.05"/>
-        <parameter key="backward_alpha" value="0.05"/>
-        <parameter key="eliminate_colinear_features" value="true"/>
-        <parameter key="min_tolerance" value="0.05"/>
-        <parameter key="use_bias" value="true"/>
-        <parameter key="ridge" value="1.0E-8"/>
+      <operator activated="true" class="concurrency:parallel_decision_tree" compatibility="9.0.001" expanded="true" height="103" name="Decision Tree" width="90" x="246" y="34">
+        <parameter key="criterion" value="gain_ratio"/>
+        <parameter key="maximal_depth" value="20"/>
+        <parameter key="apply_pruning" value="true"/>
+        <parameter key="confidence" value="0.25"/>
+        <parameter key="apply_prepruning" value="true"/>
+        <parameter key="minimal_gain" value="0.1"/>
+        <parameter key="minimal_leaf_size" value="2"/>
+        <parameter key="minimal_size_for_split" value="4"/>
+        <parameter key="number_of_prepruning_alternatives" value="3"/>
       </operator>
       <operator activated="true" class="pmml:write_pmml" compatibility="7.3.000" expanded="true" height="68" name="Write PMML" width="90" x="447" y="34">
-        <parameter key="file" value="&lt;/your path to winte.r&gt;/usecase/movie/Rapidminer/models/matchingModel.pmml"/>
+        <parameter key="file" value="C:\Users\Alex\Documents\GitHub\winter\winter-usecases\usecase\movie\Rapidminer\models\matchingModel.pmml"/>
         <parameter key="version" value="4.0"/>
       </operator>
-      <connect from_op="Read CSV" from_port="output" to_op="Linear Regression" to_port="training set"/>
-      <connect from_op="Linear Regression" from_port="model" to_op="Write PMML" to_port="model"/>
+      <connect from_op="Read CSV" from_port="output" to_op="Decision Tree" to_port="training set"/>
+      <connect from_op="Decision Tree" from_port="model" to_op="Write PMML" to_port="model"/>
       <connect from_op="Write PMML" from_port="model output" to_port="result 1"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>

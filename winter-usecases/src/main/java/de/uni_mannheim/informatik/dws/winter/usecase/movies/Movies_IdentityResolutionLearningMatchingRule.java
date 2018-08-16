@@ -97,7 +97,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		String options[] = new String[1];
 		options[0] = "";
 		String tree = "SimpleLogistic"; // new instance of tree
-		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.7, tree, options);
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
 

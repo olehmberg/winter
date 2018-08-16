@@ -599,7 +599,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	}
 
 	protected String getComparatorName(Comparator<RecordType, SchemaElementType> comp) {
-		return comp.getClass().getName();
+		return comp.getClass().getSimpleName();
 	}
 
 	public boolean isForwardSelection() {

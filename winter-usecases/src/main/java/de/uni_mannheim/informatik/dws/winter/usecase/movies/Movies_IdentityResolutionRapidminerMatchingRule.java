@@ -84,7 +84,7 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 
 		// create a matching rule without(!) classifier, options + Feature
 
-		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8);
+		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.5);
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
 
@@ -128,9 +128,12 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 		
+		// Export test data
+		matchingRule.exportTrainingData(dataAcademyAwards, dataActors, gsTest, new File("usecase/movie/Rapidminer/data/academy_awards_2_actors_features_test.csv"));
+		
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv", gsTest);
 		
 		
 		//evaluate learned classifier
