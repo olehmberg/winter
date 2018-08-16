@@ -84,6 +84,8 @@ public class Events_IdentityResolution_Main {
 				0.7);
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
+		// Write debug results to file
+		//matchingRule.writeDebugMatchingResultsToFile("usecase/events/output/debugResultsMatchingRule.csv");
 		
 		// add comparators
 		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);
@@ -109,9 +111,6 @@ public class Events_IdentityResolution_Main {
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromTSVFile(new File(
 				"usecase/events/goldstandard/dbpedia_2_yago_sample.tsv"));
-		
-		// Write debug results to file
-		matchingRule.writeDebugMatchingResultsToFile("usecase/events/output/debugResultsMatchingRule.csv");
 		
 		// evaluate your result
 		MatchingEvaluator<Event, Attribute> evaluator = new MatchingEvaluator<Event, Attribute>();

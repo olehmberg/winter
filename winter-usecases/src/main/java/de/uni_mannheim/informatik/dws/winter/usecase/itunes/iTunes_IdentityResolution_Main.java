@@ -108,6 +108,7 @@ public class iTunes_IdentityResolution_Main {
 				0.7);
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
+		//matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsMatchingRule.csv");
 		
 		// add comparators
 		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
@@ -149,7 +150,6 @@ public class iTunes_IdentityResolution_Main {
 		
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/itunes/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsMatchingRule.csv");
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), null);
 

@@ -99,7 +99,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugResults("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
@@ -143,7 +143,6 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
 		
 		//evaluate learned classifier
 		logger.info(matchingRule.getClassifier().toString());

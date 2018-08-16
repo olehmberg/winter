@@ -75,11 +75,16 @@ public class Movies_IdentityResolution_Main {
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/academy_awards.xml"), "/movies/movie", dataAcademyAwards);
 		HashedDataSet<Movie, Attribute> dataActors = new HashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/actors.xml"), "/movies/movie", dataActors);
-
+		
+		// load the gold standard (test set)
+		MatchingGoldStandard gsTest = new MatchingGoldStandard();
+		gsTest.loadFromCSVFile(new File(
+				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
+		
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugResults("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTest);
 		
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
@@ -91,6 +96,7 @@ public class Movies_IdentityResolution_Main {
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
 		blocker.setMeasureBlockSizes(true);
+
 		
 		// Initialize Matching Engine
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
@@ -102,15 +108,9 @@ public class Movies_IdentityResolution_Main {
 		
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
-
-		// load the gold standard (test set)
-		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 		
 		//Write debug results to file:
 		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsMatchingRule.csv", gsTest);
 		
 		// export Training Data
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors,

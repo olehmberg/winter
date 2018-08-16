@@ -88,6 +88,7 @@ public class Restaurants_IdentityResolution_Main {
 		
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
+		//matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
 		
 		// add comparators
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true),0.4);
@@ -140,7 +141,6 @@ public class Restaurants_IdentityResolution_Main {
 				gsTest);
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), gsTest);
 

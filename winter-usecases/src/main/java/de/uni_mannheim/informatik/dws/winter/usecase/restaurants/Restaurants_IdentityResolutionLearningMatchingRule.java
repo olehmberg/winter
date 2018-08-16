@@ -102,6 +102,7 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		
 		// Collect debug results
 		matchingRule.setCollectDebugResults(true);
+		//matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
@@ -193,7 +194,6 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		
 		// Write Debug Results to file
 		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
 		
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();
