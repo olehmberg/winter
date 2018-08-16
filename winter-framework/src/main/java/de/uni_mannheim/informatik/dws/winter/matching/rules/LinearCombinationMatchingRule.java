@@ -55,7 +55,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	private double offset;
 
 	/**
-	 * Initialises the rule. The finalThreshold determines the matching
+	 * Initializes the rule. The finalThreshold determines the matching
 	 * decision.
 	 * 
 	 * @param finalThreshold
@@ -67,7 +67,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	/**
-	 * Initialises the rule. The offset is added to the weighted sum of
+	 * Initializes the rule. The offset is added to the weighted sum of
 	 * similarities, the finalThreshold determines the matching decision.
 	 * 
 	 * @param offset
@@ -125,7 +125,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// double similarity = compare(record1, record2, null);
 		double sum = 0.0;
 		Record debug = null;
-		if (this.isCollectDebugResults()) {
+		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 			debug = initializeDebugRecord(record1, record2, -1);
 		}
 		for (int i = 0; i < comparators.size(); i++) {
@@ -140,7 +140,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			double weight = pair.getSecond();
 			sum += (similarity * weight);
 
-			if (this.isCollectDebugResults()) {
+			if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
 				addDebugRecordShort(record1, record2, comp, i);
 			}
@@ -150,7 +150,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// if a normalised score in the range [0,1] is desired, users should
 		// call normaliseWeights()
 		double similarity = offset + sum;
-		if (this.isCollectDebugResults()) {
+		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 			fillSimilarity(debug, similarity);
 		}
 

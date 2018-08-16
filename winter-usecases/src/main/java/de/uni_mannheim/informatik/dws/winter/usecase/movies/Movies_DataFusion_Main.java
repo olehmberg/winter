@@ -58,7 +58,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Movies_DataFusion_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file

@@ -159,10 +159,6 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		algorithm.setTaskName("Identity Resolution");
 
 		algorithm.run();
-		
-		if(rule.isCollectDebugResults()){
-			rule.writeDebugMatchingResultsToFile();
-		}
 
 		return algorithm.getResult();
 

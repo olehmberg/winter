@@ -58,7 +58,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private List<Attribute> headerDebugResultsShort;
 	private String filePathDebugResults;
 	private int	maxDebugLogSize;
-	private MatchingGoldStandard goldStandard;
+	private MatchingGoldStandard debugGoldStandard;
 
 	private ComparatorLogger comparisonLog;
 
@@ -90,11 +90,25 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
+	
+	/**
+	 * Continue to collect debug results if result log shorter than maxDebugLogSize
+	 * 
+	 * @return
+	 */
+	public boolean continueCollectDebugResults() {
+		if(this.comparatorLog.size() < this.maxDebugLogSize){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
 	/**
 	 * Set switch to collect debug results and initialize corresponding schema.
 	 */
-	public void setCollectDebugResults(boolean collectDebugResults) {
+	private void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
 		if (this.collectDebugResults) {
 			initializeMatchingResults();
@@ -305,11 +319,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			debug.setValue(ComparatorLogger.SIMILARITY, compLog.getPostprocessedSimilarity());
 			debug.setValue(ComparatorLogger.POSTPROCESSEDSIMILARITY, compLog.getPostprocessedSimilarity());
 			
-			
-			double percentageFilled = this.comparatorLogShort.size() / this.maxDebugLogSize;
-			if(Math.random() >= percentageFilled){
-				this.comparatorLogShort.add(debug);
-			}
+			this.comparatorLogShort.add(debug);
 			
 		} else {
 			logger.error("A comparator's log is not defined!");
@@ -341,14 +351,14 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * 
 	 * @param filePath	describes the filePath to the debug results log.
 	 * @param maxSize	describes the maximum size of the debug results log.
-	 * @param goldstandard	can be used to annotate the debug results log with matching information from a goldstandard
+	 * @param debugGoldstandard	can be used to annotate the debug results log with matching information from a goldstandard
 	 */
-	public void collectDebugResults(String filePath, int maxSize, MatchingGoldStandard goldstandard){
+	public void collectDebugData(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
 		if(filePath != null && maxSize > 0){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.setCollectDebugResults(true);
-			this.goldStandard = goldstandard;
+			this.debugGoldStandard = debugGoldstandard;
 		}
 	}
 	
@@ -358,8 +368,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param filePath	describes the filePath to the debug results log.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
-	public void collectDebugResults(String filePath, int size){
-		this.collectDebugResults(filePath, size, null);
+	public void collectDebugData(String filePath, int size){
+		this.collectDebugData(filePath, size, null);
 	}
 
 	/**
@@ -377,10 +387,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 		}
 		
-		double percentageFilled = this.comparatorLog.size() / this.maxDebugLogSize;
-		if(Math.random() >= percentageFilled){
-			this.comparatorLog.add(debug);
-		}
+		this.comparatorLog.add(debug);
+		
 	}
 
 	/**
@@ -392,7 +400,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @throws IOException
 	 */
 	public void writeDebugMatchingResultsToFile(){
-		if(this.goldStandard != null){
+		if(this.debugGoldStandard != null){
 			addGoldstandardToDebugResults();
 		}
 		if (this.comparatorLog != null && this.comparatorLogShort != null  && this.filePathDebugResults != null) {
@@ -417,9 +425,9 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
 	 * 
 	 */
-	public void addGoldstandardToDebugResults(){
-		if (this.comparatorLog != null && this.comparatorLogShort != null && goldStandard != null) {
-			for(Pair<String, String> pair: this.goldStandard.getPositiveExamples()){
+	protected void addGoldstandardToDebugResults(){
+		if (this.comparatorLog != null && this.comparatorLogShort != null && debugGoldStandard != null) {
+			for(Pair<String, String> pair: this.debugGoldStandard.getPositiveExamples()){
 				String identifier = pair.getFirst()+ "-" + pair.getSecond();
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){
@@ -427,7 +435,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 				}
 			}
 			
-			for(Pair<String, String> pair: this.goldStandard.getNegativeExamples()){
+			for(Pair<String, String> pair: this.debugGoldStandard.getNegativeExamples()){
 				String identifier = pair.getFirst()+ "-" + pair.getSecond();
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){

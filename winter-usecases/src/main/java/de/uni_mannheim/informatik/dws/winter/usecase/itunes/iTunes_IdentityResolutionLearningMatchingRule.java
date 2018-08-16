@@ -56,7 +56,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class iTunes_IdentityResolutionLearningMatchingRule {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -117,9 +117,9 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		options[0] = ""; 
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
-		//matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsWekaMatchingRule.csv");
+		matchingRule.collectDebugData("usecase/itunes/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
@@ -178,7 +178,8 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-		blocker.setMeasureBlockSizes(true);
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/itunes/output/debugResultsBlocking.csv", 100);
 		
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
@@ -204,9 +205,6 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/itunes/goldstandard/gs_iTunes_test.csv"));
-		
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/itunes/output/debugResultsBlocking.csv");
 		
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();

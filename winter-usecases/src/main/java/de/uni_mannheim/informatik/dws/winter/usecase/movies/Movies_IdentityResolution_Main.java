@@ -55,7 +55,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Movies_IdentityResolution_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -84,7 +84,7 @@ public class Movies_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
-		matchingRule.collectDebugResults("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTest);
+		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTest);
 		
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);
@@ -95,7 +95,8 @@ public class Movies_IdentityResolution_Main {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
-		blocker.setMeasureBlockSizes(true);
+		//Write debug results to file:
+		blocker.collectBlockSizeData("usecase/movie/output/debugResultsBlocking.csv", 100);
 
 		
 		// Initialize Matching Engine
@@ -108,9 +109,6 @@ public class Movies_IdentityResolution_Main {
 		
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("usecase/movie/output/academy_awards_2_actors_correspondences.csv"), correspondences);
-		
-		//Write debug results to file:
-		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
 		
 		// export Training Data
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors,

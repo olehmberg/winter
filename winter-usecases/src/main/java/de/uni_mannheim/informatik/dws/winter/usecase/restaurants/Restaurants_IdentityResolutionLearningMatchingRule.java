@@ -60,7 +60,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Restaurants_IdentityResolutionLearningMatchingRule {
 
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -101,8 +101,7 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 		
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
-		//matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
+		matchingRule.collectDebugData("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
@@ -169,8 +168,9 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 					}
 				});
 		
-		//Measure Block sizes
-		blocker.setMeasureBlockSizes(true);
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/restaurant/output/debugResultsBlocking.csv", 100);
+		
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataFodors, dataZagats, null, matchingRule, gsTraining);
@@ -191,9 +191,6 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
-		
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
 		
 		// evaluate your result
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();

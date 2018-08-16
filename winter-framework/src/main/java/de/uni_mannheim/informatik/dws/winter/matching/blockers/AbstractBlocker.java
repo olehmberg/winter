@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -59,6 +60,9 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	
 	public static final Attribute frequency = new Attribute("Frequency");
 	public static final Attribute blockingKeyValue = new Attribute("Blocking Key Value");
+	
+	private String filePathDebugResults;
+	private int maxDebugLogSize;
 	
 	private boolean measureBlockSizes = false;
 	
@@ -184,13 +188,34 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	 * @param model the blocking result record
 	 */
 	public void appendBlockingResult(Record model) {
-		this.debugBlockingResults.add(model);
+		if(this.debugBlockingResults.size() < this.maxDebugLogSize){
+			this.debugBlockingResults.add(model);
+		}
 	}
+	
+	/**
+	 * Activates the collection of debug results
+	 * 
+	 * @param filePath	describes the filePath to the debug results log.
+	 * @param maxSize	describes the maximum size of the debug results log.
+	 */
+	public void collectBlockSizeData(String filePath, int maxSize){
+		if(filePath != null && maxSize > 0){
+			this.filePathDebugResults = filePath;
+			this.maxDebugLogSize = maxSize;
+			this.setMeasureBlockSizes(true);
+		}
+	}
+	
 
-	public void writeDebugBlockingResultsToFile(String path) throws IOException {
+	public void writeDebugBlockingResultsToFile() {
 		if(this.debugBlockingResults != null){
-			new RecordCSVFormatter().writeCSV(new File(path), this.debugBlockingResults, this.headerDebugResults);
-			logger.info("Debug results written to file: " + path);
+			try {
+				new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults), this.debugBlockingResults, this.headerDebugResults);
+			} catch (IOException e) {
+				logger.error("Debug results could not be written to file: " + this.filePathDebugResults);
+			}
+			logger.info("Debug results written to file: " + this.filePathDebugResults);
 		}else{
 			logger.error("No debug results for blocking found!");
 			logger.error("Is logging enabled?");
