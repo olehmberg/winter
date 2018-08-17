@@ -97,7 +97,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @return
 	 */
 	public boolean continueCollectDebugResults() {
-		if(this.comparatorLog.size() < this.maxDebugLogSize){
+		if(this.maxDebugLogSize == -1 || this.comparatorLog.size() < this.maxDebugLogSize){
 			return true;
 		}
 		else{
@@ -354,7 +354,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param debugGoldstandard	can be used to annotate the debug results log with matching information from a goldstandard
 	 */
 	public void collectDebugData(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
-		if(filePath != null && maxSize > 0){
+		if(filePath != null){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.setCollectDebugResults(true);
