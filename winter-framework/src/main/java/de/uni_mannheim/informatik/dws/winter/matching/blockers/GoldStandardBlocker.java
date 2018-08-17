@@ -39,7 +39,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  *            operation
  */
 public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable>
-		extends AbstractBlocker<RecordType, SchemaElementType, CorrespondenceType>
+		extends AbstractBlocker<RecordType, RecordType, CorrespondenceType>
 		implements Blocker<RecordType, SchemaElementType, RecordType, CorrespondenceType> {
 
 	private MatchingGoldStandard goldstandard;
@@ -67,7 +67,7 @@ public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType
 
 		ProcessableCollection<Correspondence<RecordType, CorrespondenceType>> result = new ProcessableCollection<Correspondence<RecordType, CorrespondenceType>>();
 
-		for (Pair<String, String> positivePair : this.goldstandard.getNegativeExamples()) {
+		for (Pair<String, String> positivePair : this.goldstandard.getPositiveExamples()) {
 			RecordType record1 = dataset1.getRecord(positivePair.getFirst());
 			if (record1 != null) {
 				RecordType record2 = dataset2.getRecord(positivePair.getSecond());
@@ -79,7 +79,7 @@ public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType
 				if (record1 != null) {
 					RecordType record2 = dataset2.getRecord(positivePair.getFirst());
 					if (record2 != null) {
-						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 0.0, null));
+						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, null));
 					}
 				}
 			}
@@ -105,16 +105,5 @@ public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType
 		logger.info(String.format("Created %d blocked pairs from the goldstandard!", result.size()));
 		return result;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.uni_mannheim.informatik.wdi.matching.blocking.Blocker#runBlocking(de.
-	 * uni_mannheim.informatik.wdi.model.DataSet, boolean,
-	 * de.uni_mannheim.informatik.wdi.model.ResultSet,
-	 * de.uni_mannheim.informatik.wdi.matching.MatchingEngine)
-	 */
-
 
 }
