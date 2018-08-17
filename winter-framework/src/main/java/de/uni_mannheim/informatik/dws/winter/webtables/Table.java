@@ -652,6 +652,11 @@ public class Table implements Serializable {
 	}
 
 	public Table join(Table otherTable, Collection<Pair<TableColumn,TableColumn>> joinOn, Collection<TableColumn> projection) throws Exception {
+		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
+		return join(otherTable, joinOn, projection, inputColumnToOutputColumn);
+	}
+
+	public Table join(Table otherTable, Collection<Pair<TableColumn,TableColumn>> joinOn, Collection<TableColumn> projection, Map<TableColumn, TableColumn> inputColumnToOutputColumn) throws Exception {
 		
 		// hash the join keys
 		Map<TableColumn, Map<Object, Collection<TableRow>>> index = new HashMap<>();
@@ -672,7 +677,6 @@ public class Table implements Serializable {
 		result.getSchema().setFunctionalDependencies(new HashMap<>());
 		result.getSchema().setCandidateKeys(new HashSet<>());
 		result.clear();
-		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
 		for(Map.Entry<Integer, Integer> translation : projectColumnIndices(Q.intersection(getColumns(), projection)).entrySet()) {
 			inputColumnToOutputColumn.put(getSchema().get(translation.getKey()), result.getSchema().get(translation.getValue()));
 		}
