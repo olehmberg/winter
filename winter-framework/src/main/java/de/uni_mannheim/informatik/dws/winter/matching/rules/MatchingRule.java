@@ -368,8 +368,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param filePath	describes the filePath to the debug results log.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
-	public void collectDebugData(String filePath, int size){
-		this.collectDebugData(filePath, size, null);
+	public void collectDebugData(String filePath, int maxSize){
+		this.collectDebugData(filePath, maxSize, null);
 	}
 
 	/**
@@ -394,10 +394,6 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	/**
 	 * Write data matching debug results to file if logging was enabled via
 	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
-	 * 
-	 * @param path
-	 *            destination file for debug results
-	 * @throws IOException
 	 */
 	public void writeDebugMatchingResultsToFile(){
 		if(this.debugGoldStandard != null){

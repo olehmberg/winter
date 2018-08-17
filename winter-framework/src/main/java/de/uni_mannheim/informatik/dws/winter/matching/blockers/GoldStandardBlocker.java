@@ -37,8 +37,6 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  * @param <CorrespondenceType>
  *            the type of correspondences which are the input for the blocking
  *            operation
- * @param <BlockedType>
- *            the type of record which is actually blocked
  */
 public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType extends Matchable, CorrespondenceType extends Matchable>
 		extends AbstractBlocker<RecordType, SchemaElementType, CorrespondenceType>
