@@ -55,7 +55,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Movies_IdentityResolutionRapidminerMatchingRule {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -86,7 +86,7 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.5);
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
@@ -99,9 +99,9 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 		matchingRule.addComparator(new MovieTitleComparatorJaccard());
 
 		// create a blocker (blocking strategy)
-		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(
-				new MovieBlockingKeyByDecadeGenerator());
-		blocker.setMeasureBlockSizes(true);
+		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
+		//Write debug results to file:
+		blocker.collectBlockSizeData("usecase/movie/output/debugResultsBlocking.csv", 100);
 		
 		// Export training data
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors, gsTraining, new File("usecase/movie/Rapidminer/data/academy_awards_2_actors_features.csv"));
@@ -130,10 +130,6 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 		
 		// Export test data
 		matchingRule.exportTrainingData(dataAcademyAwards, dataActors, gsTest, new File("usecase/movie/Rapidminer/data/academy_awards_2_actors_features_test.csv"));
-		
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv", gsTest);
 		
 		
 		//evaluate learned classifier

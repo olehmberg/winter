@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,6 +34,13 @@ import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.Node;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -351,8 +359,8 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		// Treat the label as a special case, which is always at the last
 		// position of the dataset.
 		ArrayList<String> labels = new ArrayList<String>();
-		labels.add("0");
 		labels.add("1");
+		labels.add("0");
 		weka.core.Attribute cls = new weka.core.Attribute(FeatureVectorDataSet.ATTRIBUTE_LABEL.getIdentifier(), labels);
 		attributes.add(cls);
 
@@ -548,11 +556,58 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				this.setClassifier((Classifier) PMMLFactory.getPMMLModel(location, null));
 
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				if(e1.getMessage().contains("[TargetMetaInfo]")){
+					this.transformPMMLModel(location);
+					readModel(location);
+				}
+				else{
+					e1.printStackTrace();
+				}
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void transformPMMLModel(File location){
+		try {
+	         SAXReader reader = new SAXReader();
+	         Document document = reader.read( location );
+
+	         Element classElement = document.getRootElement();
+	         
+	         logger.info(classElement.getXPathResult(1));
+
+	         @SuppressWarnings("unchecked")
+			List<Node> nodes = document.selectNodes("//*");
+
+	         for (Node node : nodes) {
+	            Element element = (Element)node;
+	            if(element.getQualifiedName().equals("TargetValue")){
+	            	element.addAttribute("priorProbability", "0.50");
+	            }
+
+	            if(element.getQualifiedName().equals("Value") && element.attributeValue("value").equals("MISSING_VALUE")){
+	            	element.detach();
+	            }  
+	         }
+	     
+	         OutputFormat format = OutputFormat.createPrettyPrint();
+	         XMLWriter writer;
+	         FileOutputStream ous = new FileOutputStream(location);
+	         writer = new XMLWriter( ous, format );
+	         writer.write( document );
+	         
+	      } catch (DocumentException e) {
+	         e.printStackTrace();
+	      } 
+		
+		catch (UnsupportedEncodingException e) {         
+	         e.printStackTrace();
+	    } catch (IOException e) {
+	         e.printStackTrace();
+	    }
+	    
 	}
 
 	@Override

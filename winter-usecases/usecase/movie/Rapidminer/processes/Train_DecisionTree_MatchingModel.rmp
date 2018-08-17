@@ -61,7 +61,7 @@
         <parameter key="number_of_prepruning_alternatives" value="3"/>
       </operator>
       <operator activated="true" class="pmml:write_pmml" compatibility="7.3.000" expanded="true" height="68" name="Write PMML" width="90" x="447" y="34">
-        <parameter key="file" value="C:\Users\Alex\Documents\GitHub\winter\winter-usecases\usecase\movie\Rapidminer\models\matchingModel.pmml"/>
+        <parameter key="file" value="&lt;/your path to winte.r&gt;/usecase/movie/Rapidminer/models/matchingModel.pmml"/>
         <parameter key="version" value="4.0"/>
       </operator>
       <connect from_op="Read CSV" from_port="output" to_op="Decision Tree" to_port="training set"/>
