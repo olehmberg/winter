@@ -122,7 +122,7 @@ public class RunnableProgressReporter implements Runnable {
 			String remaining = DurationFormatUtils.formatDuration(left, "HH:mm:ss.S");
 
 			String usrMsg = message == null ? "" : message + ": ";
-			logger.error(String.format(
+			logger.info(String.format(
 					"%s%,d of %,d tasks completed after %s (%d/%d active threads). Avg: %.2f items/s, Current: %.2f items/s, %s left.",
 					usrMsg, done, tasks, ttl, pool.getActiveCount(), pool.getPoolSize(), itemsPerSecAvg, itemsPerSecNow,
 					remaining));
@@ -138,7 +138,7 @@ public class RunnableProgressReporter implements Runnable {
 			}
 
 			if (stuckIterations >= 3 && reportIfStuck) {
-				logger.error("ThreadPool seems to be stuck!");
+				logger.trace("ThreadPool seems to be stuck!");
 				int threadCnt = 0;
 				int parkedCnt = 0;
 				Entry<Thread, StackTraceElement[]> main = null;
@@ -149,9 +149,9 @@ public class RunnableProgressReporter implements Runnable {
 						if (e.getValue()[0].toString().startsWith("sun.misc.Unsafe.park")) {
 							parkedCnt++;
 						} else {
-							logger.error(e.getKey().getName());
+							logger.trace(e.getKey().getName());
 							for (StackTraceElement elem : e.getValue()) {
-								logger.error("\t" + elem.toString());
+								logger.trace("\t" + elem.toString());
 							}
 						}
 
@@ -162,12 +162,12 @@ public class RunnableProgressReporter implements Runnable {
 					}
 				}
 
-				logger.error(String.format("%s %d Parallel.X threads (%d parked) --- %d total",
+				logger.trace(String.format("%s %d Parallel.X threads (%d parked) --- %d total",
 						pool.isTerminated() ? "[pool terminated]" : "", threadCnt, parkedCnt,
 						Thread.getAllStackTraces().size()));
 
 				if (main != null) {
-					logger.error(main.getKey().getName());
+					logger.trace(main.getKey().getName());
 					for (StackTraceElement elem : main.getValue()) {
 						logger.error("\t" + elem.toString());
 					}

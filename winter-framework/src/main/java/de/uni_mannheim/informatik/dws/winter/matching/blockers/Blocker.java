@@ -53,4 +53,8 @@ public interface Blocker<RecordType extends Matchable, SchemaElementType extends
 			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences);
 
 	double getReductionRatio();
+	
+	boolean isMeasureBlockSizes();
+	
+	void writeDebugBlockingResultsToFile();
 }

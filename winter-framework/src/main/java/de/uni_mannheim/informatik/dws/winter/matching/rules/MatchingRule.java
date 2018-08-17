@@ -56,6 +56,9 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	private HashMap<String, Attribute> comparatorToResultLog;
 	private List<Attribute> headerDebugResults;
 	private List<Attribute> headerDebugResultsShort;
+	private String filePathDebugResults;
+	private int	maxDebugLogSize;
+	private MatchingGoldStandard debugGoldStandard;
 
 	private ComparatorLogger comparisonLog;
 
@@ -87,11 +90,25 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public boolean isCollectDebugResults() {
 		return collectDebugResults;
 	}
+	
+	/**
+	 * Continue to collect debug results if result log shorter than maxDebugLogSize
+	 * 
+	 * @return
+	 */
+	public boolean continueCollectDebugResults() {
+		if(this.maxDebugLogSize == -1 || this.comparatorLog.size() < this.maxDebugLogSize){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
 	/**
 	 * Set switch to collect debug results and initialize corresponding schema.
 	 */
-	public void setCollectDebugResults(boolean collectDebugResults) {
+	private void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
 		if (this.collectDebugResults) {
 			initializeMatchingResults();
@@ -301,8 +318,9 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 			debug.setValue(ComparatorLogger.RECORD2PREPROCESSEDVALUE, compLog.getRecord2PreprocessedValue());
 			debug.setValue(ComparatorLogger.SIMILARITY, compLog.getPostprocessedSimilarity());
 			debug.setValue(ComparatorLogger.POSTPROCESSEDSIMILARITY, compLog.getPostprocessedSimilarity());
-
+			
 			this.comparatorLogShort.add(debug);
+			
 		} else {
 			logger.error("A comparator's log is not defined!");
 			logger.error(
@@ -323,12 +341,41 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	public void fillSimilarity(RecordType record1, RecordType record2, double similarity) {
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		Record debug = this.comparatorLog.getRecord(identifier);
-		debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+		if(debug != null){
+			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
+		}
+	}
+	
+	/**
+	 * Activates the collection of debug results
+	 * 
+	 * @param filePath	describes the filePath to the debug results log.
+	 * @param maxSize	describes the maximum size of the debug results log.
+	 * @param debugGoldstandard	can be used to annotate the debug results log with matching information from a goldstandard
+	 */
+	public void collectDebugData(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
+		if(filePath != null){
+			this.filePathDebugResults = filePath;
+			this.maxDebugLogSize = maxSize;
+			this.setCollectDebugResults(true);
+			this.debugGoldStandard = debugGoldstandard;
+		}
+	}
+	
+	/**
+	 * Activates the collection of debug results
+	 * 
+	 * @param filePath	describes the filePath to the debug results log.
+	 * @param maxSize	describes the maximum size of the debug results log.
+	 */
+	public void collectDebugData(String filePath, int maxSize){
+		this.collectDebugData(filePath, maxSize, null);
 	}
 
 	/**
-	 * Fills the similarity value of a debug record and adds it to the list of
-	 * debug results.
+	 * Fills the similarity value of a debug record. This debug record is added to the list of
+	 * debug results if the list's length does not exceed the maximum number of result entries yet.
+	 * Additionally, the filling status is measured in percentage to be more restricted when adding new entry over time.
 	 * 
 	 * @param debug
 	 *            Debug record
@@ -339,24 +386,29 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		if (similarity != null) {
 			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 		}
+		
 		this.comparatorLog.add(debug);
+		
 	}
 
 	/**
 	 * Write data matching debug results to file if logging was enabled via
 	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
-	 * 
-	 * @param path
-	 *            destination file for debug results
-	 * @throws IOException
 	 */
-	public void writeDebugMatchingResultsToFile(String path) throws IOException {
-		if (this.comparatorLog != null && this.comparatorLogShort != null) {
-			new RecordCSVFormatter().writeCSV(new File(path), this.comparatorLog, this.headerDebugResults);
-			logger.info("Debug results written to file: " + path);
-			new RecordCSVFormatter().writeCSV(new File(path + "_short"), this.comparatorLogShort,
+	public void writeDebugMatchingResultsToFile(){
+		if(this.debugGoldStandard != null){
+			addGoldstandardToDebugResults();
+		}
+		if (this.comparatorLog != null && this.comparatorLogShort != null  && this.filePathDebugResults != null) {
+			try {
+				new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults), this.comparatorLog, this.headerDebugResults);
+			logger.info("Debug results written to file: " + this.filePathDebugResults);
+			new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults + "_short"), this.comparatorLogShort,
 					this.headerDebugResultsShort);
-			logger.info("Debug results written to file: " + path + "_short");
+			logger.info("Debug results written to file: " + this.filePathDebugResults + "_short");
+			} catch (IOException e) {
+				logger.error("Debug results could not be written to file: " + this.filePathDebugResults);
+			}
 		} else {
 			logger.error("No debug results found!");
 			logger.error("Is logging enabled?");
@@ -368,16 +420,10 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * results to file if logging was enabled via
 	 * {@link #setCollectDebugResults(boolean) setCollectDebugResults}
 	 * 
-	 * @param path
-	 *            destination file for debug results.
-	 * @param goldStandard
-	 *            goldStandard, which is used to annotate the debug matching
-	 *            results to easily spot mistakes in the results.
-	 * @throws IOException
 	 */
-	public void writeDebugMatchingResultsToFile(String path, MatchingGoldStandard goldStandard) throws IOException {
-		if (this.comparatorLog != null && this.comparatorLogShort != null && goldStandard != null) {
-			for(Pair<String, String> pair: goldStandard.getPositiveExamples()){
+	protected void addGoldstandardToDebugResults(){
+		if (this.comparatorLog != null && this.comparatorLogShort != null && debugGoldStandard != null) {
+			for(Pair<String, String> pair: this.debugGoldStandard.getPositiveExamples()){
 				String identifier = pair.getFirst()+ "-" + pair.getSecond();
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){
@@ -385,7 +431,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 				}
 			}
 			
-			for(Pair<String, String> pair: goldStandard.getNegativeExamples()){
+			for(Pair<String, String> pair: this.debugGoldStandard.getNegativeExamples()){
 				String identifier = pair.getFirst()+ "-" + pair.getSecond();
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){
@@ -393,7 +439,6 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 				}
 			}
 		}
-		writeDebugMatchingResultsToFile(path);
 	}
 
 	@Override

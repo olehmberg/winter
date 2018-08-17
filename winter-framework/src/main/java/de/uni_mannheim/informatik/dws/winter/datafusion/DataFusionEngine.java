@@ -81,6 +81,10 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 				fusedDataSet.addOriginalId(fusedRecord, record.getIdentifier());
 			}
 		}
+		
+		if(strategy.isCollectDebugResults()){
+			strategy.writeDebugDataFusionResultsToFile();
+		}
 
 		return fusedDataSet;
 	}

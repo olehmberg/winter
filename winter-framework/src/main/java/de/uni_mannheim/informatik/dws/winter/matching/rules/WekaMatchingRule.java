@@ -384,7 +384,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				this.getClass().getSimpleName());
 
 		Record debug = null;
-		if (this.isCollectDebugResults()) {
+		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 			debug = initializeDebugRecord(record1, record2, -1);
 		}
 
@@ -426,13 +426,13 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			}
 			model.setValue(att, Double.toString(similarity));
 
-			if (this.isCollectDebugResults()) {
+			if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
 				addDebugRecordShort(record1, record2, comp, i);
 			}
 		}
 
-		if (this.isCollectDebugResults()) {
+		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
 			fillSimilarity(debug, null);
 		}
 

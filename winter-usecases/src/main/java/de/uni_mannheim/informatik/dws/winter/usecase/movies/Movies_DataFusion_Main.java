@@ -58,7 +58,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Movies_DataFusion_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -119,7 +119,7 @@ public class Movies_DataFusion_Main {
 		DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
 		
 		// collect debug results
-		strategy.setCollectDebugResults(true);
+		strategy.collectDebugData("usecase/movie/output/debugResultsDatafusion.csv", 100);
 		
 		// add attribute fusers
 		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());
@@ -143,9 +143,6 @@ public class Movies_DataFusion_Main {
 		// load the gold standard
 		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
-		
-		// write debug results to file
-		strategy.writeDebugDataFusionResultsToFile("usecase/movie/output/debugResultsDatafusion.csv");
 		
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(

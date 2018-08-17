@@ -51,7 +51,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class iTunes_IdentityResolution_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -106,8 +106,9 @@ public class iTunes_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugData("usecase/itunes/output/debugResultsMatchingRule.csv", 1000);
 		
 		// add comparators
 		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
@@ -123,7 +124,8 @@ public class iTunes_IdentityResolution_Main {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-		blocker.setMeasureBlockSizes(true);
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/itunes/output/debugResultsBlocking.csv", 100);
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
@@ -146,10 +148,6 @@ public class iTunes_IdentityResolution_Main {
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
-		
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/itunes/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/itunes/output/debugResultsMatchingRule.csv");
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), null);
 

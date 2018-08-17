@@ -53,6 +53,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	private boolean collectDebugResults = false;
 	private List<Attribute> headerDebugResults;
 	
+	private String filePathDebugResults;
+	private int	maxDebugLogSize;
+	
 	
 	private static final Logger logger = WinterLogManager.getLogger();
 	
@@ -68,12 +71,41 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Set debug switch and initialize debug results for data fusion.
 	 * @param collectDebugResults debug switch
 	 */
-	public void setCollectDebugResults(boolean collectDebugResults) {
+	private void setCollectDebugResults(boolean collectDebugResults) {
 		this.collectDebugResults = collectDebugResults;
 		if(this.collectDebugResults){
 			initializeFusionResults();
 		}
 	}
+	
+	/**
+	 * Continue to collect debug results if result log shorter than maxDebugLogSize
+	 * 
+	 * @return
+	 */
+	public boolean continueCollectDebugResults() {
+		if(this.debugFusionResults.size() < this.maxDebugLogSize){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Activates the collection of debug results
+	 * 
+	 * @param filePath	describes the filePath to the debug results log.
+	 * @param maxSize	describes the maximum size of the debug results log.
+	 */
+	public void collectDebugData(String filePath, int maxSize){
+		if(filePath != null){
+			this.filePathDebugResults = filePath;
+			this.maxDebugLogSize = maxSize;
+			this.setCollectDebugResults(true);
+		}
+	}
+	
 
 	/**
 	 * @return the evaluationRules
@@ -228,13 +260,15 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	
 	/**
 	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
-	 * @param path 	destination file for debug results
-	 * @throws IOException	throws exception if the results cannot be written to a file correctly.
 	 */
-	public void writeDebugDataFusionResultsToFile(String path) throws IOException{
+	public void writeDebugDataFusionResultsToFile(){
 		if(this.debugFusionResults != null){
-		new RecordCSVFormatter().writeCSV(new File(path), this.debugFusionResults, this.headerDebugResults);
-		logger.info("Debug results written to file: " + path);
+		try {
+			new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults), this.debugFusionResults, this.headerDebugResults);
+			logger.info("Debug results written to file: " + this.filePathDebugResults);
+		} catch (IOException e) {
+			logger.error("Debug results could not be written to file: " + this.filePathDebugResults);
+		}
 		} else {
 			logger.error("No debug results found!");
 			logger.error("Is logging enabled?");
@@ -264,7 +298,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 */
 	public void fillFusionLog(){
 		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
-			if(attFuser.getFusionLog() != null){
+			if(attFuser.getFusionLog() != null && (this.maxDebugLogSize == -1 || this.debugFusionResults.size() < this.maxDebugLogSize)){
 				this.debugFusionResults.add(attFuser.getFusionLog());
 			}
 		}

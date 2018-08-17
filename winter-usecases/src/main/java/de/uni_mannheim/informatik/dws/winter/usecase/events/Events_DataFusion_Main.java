@@ -64,7 +64,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Events_DataFusion_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -152,8 +152,8 @@ public class Events_DataFusion_Main {
 
 		DataFusionStrategy<Event, Attribute> strategy = new DataFusionStrategy<>(new EventXMLReader());
 		
-		// collect debug results
-		strategy.setCollectDebugResults(true);
+		// write debug results to file
+		strategy.collectDebugData("usecase/events/output/resultsDatafusion.csv", 1000);
 
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword));
 
@@ -185,9 +185,6 @@ public class Events_DataFusion_Main {
 		DataSet<Event, Attribute> gs = new FusibleHashedDataSet<>();
 //		gs.loadFromTSV(new File("../data/fused.tsv"),
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "/events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, false, keyword);
-		
-		// write debug results to file
-		strategy.writeDebugDataFusionResultsToFile("usecase/events/output/resultsDatafusion.csv");
 				
 		//gs.splitMultipleValues(separator);
 		// evaluate

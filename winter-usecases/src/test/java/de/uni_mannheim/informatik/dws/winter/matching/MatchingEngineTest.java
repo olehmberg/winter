@@ -165,6 +165,16 @@ public class MatchingEngineTest extends TestCase {
 			public double getReductionRatio() {
 				return 0;
 			}
+
+			@Override
+			public boolean isMeasureBlockSizes() {
+				return false;
+			}
+
+			@Override
+			public void writeDebugBlockingResultsToFile() {
+				
+			}
 		};
 		
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
