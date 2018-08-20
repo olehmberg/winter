@@ -1,0 +1,825 @@
+Index,City,City population,Country,Mayor,Metro population,World rank,sameAs
+0,MacAllen,110 thousand,USA,n/k,1.058 thousand,n/r,http://dbpedia.org/resource/McAllen._Texas
+1,Maceio,922 thousand,Brazil,José Cícero Soares de Almeida,1.100 thousand,437,http://dbpedia.org/resource/Macei%C3%B3
+2,Macheng,1.880 thousand,China,n/k,,152,http://dbpedia.org/resource/Macheng
+3,MADRID,3.213 thousand,Spain,Alberto Ruiz-Gallardón,5.300 thousand,73,http://dbpedia.org/resource/Madrid
+4,Madurai,1.130 thousand,India,Thenmozhi Gopinathan,,355,http://dbpedia.org/resource/Madurai
+5,Magdeburg,230 thousand,Germany,Lutz Trümper,,n/r,http://dbpedia.org/resource/Magdeburg
+6,Maiduguri,1.200 thousand,Nigeria,n/k,1.200 thousand,324,http://dbpedia.org/resource/Maiduguri
+7,Makasar,1.113 thousand,Indonesia,Ilham Arief Sirajuddin,,360,http://dbpedia.org/resource/Makassar
+8,Malang,742 thousand,Indonesia,n/k,921 thousand,523,http://dbpedia.org/resource/Malang
+9,Malmo,244 thousand,Sweden,Ilmar Reepalu,1.340 thousand,n/r,http://dbpedia.org/resource/Malm%C3%B6
+10,MANAGUA,1.185 thousand,Nicaragua,Daisy Torres,1.342 thousand,332,http://dbpedia.org/resource/Managua
+11,Manaus,1.739 thousand,Brazil,Amazonino Mendes,1.924 thousand,173,http://dbpedia.org/resource/Manaus
+12,Manchester,464 thousand,UK,Mavis Smitheman,2.240.230,n/r,http://dbpedia.org/resource/Manchester
+13,Mandalay,961 thousand,Myanmar (Burma),Phone Zaw Han,1.300 thousand,425,http://dbpedia.org/resource/Mandalay
+14,MANILA METRO,11.550 thousand,Philippines,Alfredo S Lim,13.503 thousand,7,http://dbpedia.org/resource/Metro_Manila
+15,Mannheim,311 thousand,Germany,Peter Kurz,1.456 thousand,n/r,http://dbpedia.org/resource/Mannheim
+16,MAPUTO,1.244 thousand,Mozambique,David Simango,1.640 thousand,313,http://dbpedia.org/resource/Maputo
+17,Maracaibo,1.799 thousand,Venezuela,Eveling Trejo,1.868 thousand,164,http://dbpedia.org/resource/Maracaibo
+18,Maracay,479 thousand,Venezuela,Humberto Prieto,1.125 thousand,n/r,http://dbpedia.org/resource/Maracay
+19,Marrakech,1.071 thousand,Morocco,n/k,,380,http://dbpedia.org/resource/Marrakesh
+20,Marseille,852 thousand,France,Jean-Claude Gaudin,1.605 thousand,464,http://dbpedia.org/resource/Marseille
+21,Mashhad,2.910 thousand,Iran,Mohammad Pejman,3.000 thousand,81,http://dbpedia.org/resource/Babolsar
+22,Masqat-Matrah,776 thousand,Oman,n/k,776 thousand,511,http://dbpedia.org/resource/Muscat._Oman
+23,Matamoros,370 thousand,Mexico,n/k,780 thousand,n/r,http://dbpedia.org/resource/Matamoros._Tamaulipas
+24,Mataram,330 thousand,Indonesia,n/k,1.081 thousand,n/r,http://dbpedia.org/resource/Mataram_(city)
+25,Mbuji-Mayi,905 thousand,Congo D.R.,n/k,1.054 thousand,444,http://dbpedia.org/resource/Mbuji-Mayi
+26,Mecca,1.700 thousand,Saudi Arabia,Osama Al-Bar,2.500 thousand,177,http://dbpedia.org/resource/Mecca
+27,Medan,1.990 thousand,Indonesia,Rahudman Harahap,2.390 thousand,141,http://dbpedia.org/resource/Medan
+28,Medellin,2.223 thousand,Colombia,Alonso Salazar Jaramillo,3.312 thousand,128,http://dbpedia.org/resource/Medell%C3%ADn
+29,Medina,1.300 thousand,Saudi Arabia,Abdulaziz Bin Majid,1.300 thousand,291,http://dbpedia.org/resource/Medina
+30,Meerut,1.277 thousand,India,n/k,,306,http://dbpedia.org/resource/Meerut
+31,Melbourne,3.635 thousand,Australia,Robert Doyle,3.3635 thousand,61,http://dbpedia.org/resource/Melbourne
+32,Memphis,670 thousand,USA,AC Wharton,1.281 thousand,555,http://dbpedia.org/resource/Memphis._Tennessee
+33,Mendoza,113 thousand,Argentina,Víctor Fayad,849 thousand,n/r,http://dbpedia.org/resource/Mendoza._Argentina
+34,Merida,734 thousand,Mexico,César Bojórquez Zapata,890 thousand,525,http://dbpedia.org/resource/M%C3%A9rida._Yucat%C3%A1n
+35,Mexicali,1.000 thousand,Mexico,n/k,1.000 thousand,411,http://dbpedia.org/resource/Mexicali
+36,MEXICO CITY,8.841 thousand,Mexico,Marcelo Ebrard,21.163 thousand,14,http://dbpedia.org/resource/Mexico_City
+37,Miami,386 thousand,USA,Tomás Regalado,5.413 thousand,n/r,http://dbpedia.org/resource/Miami
+38,Mianyang,1.300 thousand,China,Liu Dong,5.200 thousand,292,http://dbpedia.org/resource/Mianyang
+39,Milan,1.302 thousand,Italy,Letizia Moratti,4.051 thousand,289,http://dbpedia.org/resource/Milan
+40,Milwaukee,604 thousand,USA,Tom Barrett,1.740 thousand,569,http://dbpedia.org/resource/Milwaukee
+41,Minneapolis,392 thousand,USA,R T Rybak,3.503 thousand,n/r,http://dbpedia.org/resource/Minneapolis
+42,MINSK,1.831 thousand,Belarus,Nikolai Ladutko,,155,http://dbpedia.org/resource/Minsk
+43,Mirat,1.095 thousand,India,n/k,1.095 thousand,370,http://dbpedia.org/resource/Meerut
+44,MOGADISHU,1.500 thousand,Somalia,Mohamud Ahmed Tarzan,2.500 thousand,218,http://dbpedia.org/resource/Mogadishu
+45,Mombasa,880 thousand,Kenia,Ahmed Abubakar Mohdhar,,458,http://dbpedia.org/resource/Mombasa
+46,MONROVIA,543 thousand,Liberia,Ophelia Hoff Saytumah,1.010 thousand,594,http://dbpedia.org/resource/Monrovia
+47,Monterrey,2.057 thousand,Mexico,Fernando Larrazabal,3.650 thousand,137,http://dbpedia.org/resource/Monterrey
+48,MONTEVIDEO,1.326 thousand,Uruguay,Ana Olivera,1.723 thousand,285,http://dbpedia.org/resource/Montevideo
+49,Montpellier,252 thousand,France,Hélène Mandroux-Colas,,n/r,http://dbpedia.org/resource/Montpellier
+50,Montreal,1.621 thousand,Canada,Gérald Tremblay,3.636 thousand,189,http://dbpedia.org/resource/Montreal
+51,MOSCOW,10.524 thousand,Russia,Sergei Sobyanin,14.800 thousand,10,http://dbpedia.org/resource/Moscow
+52,Mosul,1.139 thousand,Iraq,n/k,1.139 thousand,348,http://dbpedia.org/resource/Mosul
+53,Mudanjiang,1.014 thousand,China,n/k,2.707 thousand,402,http://dbpedia.org/resource/Mudanjiang
+54,Multan,1.424 thousand,Pakistan,Mian Faisal Mukhtar,1.500 thousand,243,http://dbpedia.org/resource/Multan
+55,Mumbai (Bombay),13.900 thousand,India,Shraddha Jadhav,21.200 thousand,3,http://dbpedia.org/resource/Mumbai
+56,Munich,1.367 thousand,Germany,Christian Ude,2.600 thousand,271,http://dbpedia.org/resource/Munich
+57,Münster,274 thousand,Germany,Markus Lewe,,n/r,http://dbpedia.org/resource/M%C3%BCnster
+58,Mysore,799 thousand,India,Purushotham,,501,http://dbpedia.org/resource/Mysore
+59,Nagoya,2.260 thousand,Japan,Takashi Kawamura,9.250 thousand,125,http://dbpedia.org/resource/Nagoya
+60,Nagpur,2.420 thousand,India,Archana Dehankar,,117,http://dbpedia.org/resource/Nagpur
+61,NAIROBI,3.130 thousand,Kenya,Geoffrey Majiwa,3.300 thousand,74,http://dbpedia.org/resource/Nairobi
+62,Nanan,1.480 thousand,China,Chen Law,,224,http://dbpedia.org/resource/Nan'an._Fujian
+63,Nanchang,1.844 thousand,China,Hu Xian,3.790 thousand,154,http://dbpedia.org/resource/Nanchang
+64,Nanchong,1.950 thousand,China,Liu Hongjian,7.300 thousand,144,http://dbpedia.org/resource/Nanchong
+65,Nanjing,4.150 thousand,China,Ji Jianye,7.600 thousand,51,http://dbpedia.org/resource/Nanjing
+66,Nanning,2.450 thousand,China,Huang Fangfang,6.480 thousand,115,http://dbpedia.org/resource/Nanning
+67,Nantes,283 thousand,France,Jean-Marc Ayrault,804 thousand,n/r,http://dbpedia.org/resource/Nantes
+68,Nanyang,800 thousand,China,Huang Xingwei,10.700 thousand,500,http://dbpedia.org/resource/Nanyang._Henan
+69,Naples,963 thousand,Italy,Rosa Russo Jervolino,3.0000 thousand,423,http://dbpedia.org/resource/Naples._Florida
+70,Nashik,1.620 thousand,India,Nayana Gholap,,190,http://dbpedia.org/resource/Nashik
+71,Nashville,626 thousand,USA,Karl Dean,1.633 thousand,565,http://dbpedia.org/resource/Nashville._Tennessee
+72,Natal,790 thousand,Brazil,n/k,1.100 thousand,503,http://dbpedia.org/resource/Natal._Rio_Grande_do_Norte
+73,Naucalpan,822 thousand,Mexico,Azucena Olivares Villagómez,835 thousand,478,http://dbpedia.org/resource/Naucalpan
+74,Neijiang,1.560 thousand,China,n/k,,201,http://dbpedia.org/resource/Neijiang
+75,New Orleans,488 thousand,USA,Mitch Landrieu,1.350 thousand,n/r,http://dbpedia.org/resource/New_Orleans
+76,New York City,8.364 thousand,USA,Michael Bloomberg,20.090 thousand,17,http://dbpedia.org/resource/New_York_City
+77,Newcastle upon Tyne,234 thousand,UK,n/k,800 thousand,n/r,http://dbpedia.org/resource/Newcastle_upon_Tyne
+78,Nezahualcoyotl,1.141 thousand,Mexico,Edgar Cesáreo Navarro Sánchez,1.150 thousand,346,http://dbpedia.org/resource/Ciudad_Nezahualc%C3%B3yotl
+79,Nice,347 thousand,France,Christian Estrosi,943 thousand,n/r,http://dbpedia.org/resource/Nice
+80,Niigata,812 thousand,Japan,Akira Shinoda,,486,http://dbpedia.org/resource/Niigata._Niigata
+81,Ningbo,2.201 thousand,China,Mao Guanglie,5.600 thousand,130,http://dbpedia.org/resource/Ningbo
+82,Nizhniy Novgorod,1.280 thousand,Russia,Vadim Bulavinov,1.900 thousand,304,http://dbpedia.org/resource/Nizhny_Novgorod
+83,Norfolk,850 thousand,USA,Paul D Fraim,1.616 thousand,466,http://dbpedia.org/resource/Norfolk._Virginia
+84,Nova Iguacu,846 thousand,Brazil,Lindberg Farias,959 thousand,469,http://dbpedia.org/resource/Nova_Igua%C3%A7u
+85,Novosibirsk,1.396 thousand,Russia,Vladimir Gorodetsky,1.429 thousand,258,http://dbpedia.org/resource/Novosibirsk
+86,Nuremberg,504 thousand,Germany,Ulrich Maly,1.008 thousand,n/r,http://dbpedia.org/resource/Nuremberg
+87,Oakland,446.900,USA,Jean Quan,,n/r,http://dbpedia.org/resource/Oakland._California
+88,Oberhausen,216 thousand,Germany,Klaus Wehling,,n/r,http://dbpedia.org/resource/Oberhausen
+89,Odessa,1.080 thousand,Ukraine,Eduard Gurwits,1.200 thousand,377,http://dbpedia.org/resource/Odessa
+90,Ogbomosho,726 thousand,Nigeria,n/k,985 thousand,527,http://dbpedia.org/resource/Ogbomosho
+91,Okayama,700 thousand,Japan,Shigeo Takaya,1.250 thousand,539,http://dbpedia.org/resource/Okayama
+92,Okinawa,129 thousand,Japan,Kita Kurose,,n/r,http://dbpedia.org/resource/Okinawa._Okinawa
+93,Oklahoma City,551 thousand,USA,Mick Cornett,1.276 thousand,588,http://dbpedia.org/resource/Oklahoma_City
+94,Omdurman,2.400 thousand,Sudan,Al-Fatih Az-ddin,,118,http://dbpedia.org/resource/Omdurman
+95,Omsk,1.137 thousand,Russia,Viktor Shreyder,1.145 thousand,350,http://dbpedia.org/resource/Omsk
+96,Onitsha,509 thousand,Nigeria,n/k,1.001 thousand,n/r,http://dbpedia.org/resource/Onitsha
+97,Oran,683 thousand,Algeria,Saddek Benkada,772 thousand,547,http://dbpedia.org/resource/Oran
+98,Orlando,231 thousand,USA,Buddy Dyer,2.055 thousand,n/r,http://dbpedia.org/resource/Orlando._Florida
+99,Osaka,2.647 thousand,Japan,Kunio Hiramatsu,17.590 thousand,95,http://dbpedia.org/resource/Osaka
+100,Osh,230 thousand,Kyrgyztan,Melis Myrzakmatov,,n/r,http://dbpedia.org/resource/Osh
+101,Oshogbo,421 thousand,Nigeria,n/k,1.309 thousand,n/r,http://dbpedia.org/resource/Osogbo
+102,OSLO,584 thousand,Norway,Fabian Stang,876 thousand,575,http://dbpedia.org/resource/Oslo
+103,OTTAWA,815 thousand,Canada,Larry O'Brien,1.131 thousand,483,http://dbpedia.org/resource/Ottawa
+104,OUAGADOUGOU,1.475 thousand,Burkina Faso,Simon Compaoré,1.727 thousand,225,http://dbpedia.org/resource/Ouagadougou
+105,Padang,820 thousand,Indonesia,Fauzi Bahar,900 thousand,481,http://dbpedia.org/resource/Padang
+106,Palembang,1.600 thousand,Indonesia,Eddy Santana Putra,,195,http://dbpedia.org/resource/Palembang
+107,Palermo,684 thousand,Italy,Diego Cammarata,947 thousand,546,http://dbpedia.org/resource/Palermo
+108,PANAMA CITY,850 thousand,Panama,Bosco Vallarino,1.220 thousand,467,http://dbpedia.org/resource/Panama_City
+109,Panzhihua,478 thousand,China,n/k,771 thousand,n/r,http://dbpedia.org/resource/Panzhihua
+110,PARIS,2.113 thousand,France,Bertrand Delanoë,11.769 thousand,133,http://dbpedia.org/resource/Paris
+111,Patna,1.800 thousand,India,GhanShyam Kumar,2.500 thousand,160,http://dbpedia.org/resource/Patna
+112,Perm,1.010 thousand,Russia,Igor Shubin,1.200 thousand,404,http://dbpedia.org/resource/Perm
+113,Perth,1.603 thousand,Australia,Lisa Scaffidi,,193,http://dbpedia.org/resource/Perth
+114,Peshawar,1.100 thousand,Pakistan,Muhammad Umar Khan,3.100 thousand,367,http://dbpedia.org/resource/Peshawar
+115,Philadelphia,1.540 thousand,USA,Michael Nutter,5.345 thousand,205,http://dbpedia.org/resource/Philadelphia
+116,PHNOM PENH,1.242 thousand,Cambodia,Keb Chutema,2.001 thousand,314,http://dbpedia.org/resource/Phnom_Penh
+117,Phoenix,1.568 thousand,USA,Phil Gordon,4.282 thousand,199,http://dbpedia.org/resource/Phoenix._Arizona
+118,Pikine-Guediawaye,1.200 thousand,Senegal,n/k,,325,http://dbpedia.org/resource/Pikine
+119,Pimpri Chinchwad,1.515 thousand,India,Yogesh Behl,,213,http://dbpedia.org/resource/Pimpri-Chinchwad
+120,Pingdingshan,1.230 thousand,China,Deng Yongjian,5.200 thousand,316,http://dbpedia.org/resource/Pingdingshan
+121,Pingdu,1.340 thousand,China,n/k,,281,http://dbpedia.org/resource/Pingdu
+122,Pittsburgh,335 thousand,USA,Luke Ravenstahl,2.411 thousand,n/r,http://dbpedia.org/resource/Pittsburgh
+123,Pointe Noire,527 thousand,Congo Br,n/k,789 thousand,n/r,http://dbpedia.org/resource/Pointe-Noire
+124,Port Elizabeth,833 thousand,South Africa,Nondumiso Maphasi,1.245 thousand,471,http://dbpedia.org/resource/Port_Elizabeth
+125,Port Harcourt,2.667 thousand,Nigeria,Azubuike Nmerukini,3.761 thousand,94,http://dbpedia.org/resource/Port_Harcourt
+126,PORT-AU-PRINCE,1.083 thousand,Haiti,Jean Yves Jason,1.728 thousand,376,http://dbpedia.org/resource/Port-au-Prince
+127,Portland,542 thousand,USA,Sam Adams,2.255 thousand,596,http://dbpedia.org/resource/Portland._Oregon
+128,Porto,263 thousand,Portugal,Rui Rio,1.210 thousand,n/r,http://dbpedia.org/resource/Porto
+129,Porto Alegre,1.355 thousand,Brazil,José Fortunati,3.646 thousand,273,http://dbpedia.org/resource/Porto_Alegre
+130,PRAGUE,1.242 thousand,Czech Republic,Zdenek Tuma,1.900 thousand,315,http://dbpedia.org/resource/Prague
+131,Puebla,1.888 thousand,Mexico,Blanca Alcala Ruiz,2.500 thousand,150,http://dbpedia.org/resource/Puebla._Puebla
+132,Pune,3.337 thousand,India,Mohansingh Rajpal,4.470 thousand,71,http://dbpedia.org/resource/Pune
+133,PYONGYANG,3.255 thousand,North Korea,n/k,3.400 thousand,72,http://dbpedia.org/resource/Pyongyang
+134,Qianjiang,1.190 thousand,China,n/k,,330,http://dbpedia.org/resource/Qianjiang._Hubei
+135,Qidong,1.160 thousand,China,n/k,,342,http://dbpedia.org/resource/Qidong._Jiangsu
+136,Qingdao,2.755 thousand,China,Xia Geng,7.580 thousand,88,http://dbpedia.org/resource/Qingdao
+137,Qiqihaer,1.439 thousand,China,Liu Gang,6.011 thousand,240,http://dbpedia.org/resource/Qiqihar
+138,Qom,1.042 thousand,Iran,n/k,,393,http://dbpedia.org/resource/Qom
+139,Quanzhou,1.490 thousand,China,Zhu Ming,7.790 thousand,220,http://dbpedia.org/resource/Quanzhou
+140,Québec,495 thousand,Canada,Régis Labeaume,717 thousand,n/r,http://dbpedia.org/resource/Quebec_City
+141,Quezon City,2.680 thousand,Philippines,Herbert M Bautis,,92,http://dbpedia.org/resource/Quezon_City
+142,QUITO,1.648 thousand,Ecuador,Augusto Barrera,1.842 thousand,187,http://dbpedia.org/resource/Quito
+143,RABAT,627 thousand,Morocco,Omar El Bahraoui,1.790 thousand,564,http://dbpedia.org/resource/Rabat
+144,Rajkot,1.336 thousand,India,Sandhya Vyas,,283,http://dbpedia.org/resource/Rajkot
+145,Raleigh,393 thousand,USA,Charles Meeker,1.691 thousand,n/r,http://dbpedia.org/resource/Raleigh._North_Carolina
+146,Ranchi,1.290 thousand,India,Rama Khalkho,,298,http://dbpedia.org/resource/Ranchi
+147,Rawalpindi,1.558 thousand,Pakistan,Raja Hamid Nawaz,2.548 thousand,202,http://dbpedia.org/resource/Rawalpindi
+148,Recife,1.561 thousand,Brazil,João da Costa Bezerra Filho,3.769 thousand,200,http://dbpedia.org/resource/Recife
+149,Rennes,206 thousand,France,Daniel Delaveau,,n/r,http://dbpedia.org/resource/Rennes
+150,Ribeirao Preto,547 thousand,Brazil,Dárcy Vera,789 thousand,591,http://dbpedia.org/resource/Ribeir%C3%A3o_Preto
+151,Richmond,200 thousand,USA,Dwight Clinton Jones,1.213 thousand,n/r,http://dbpedia.org/resource/Richmond._Virginia
+152,RIGA,725 thousand,Latvia,Nils Usakovs,878 thousand,528,http://dbpedia.org/resource/Riga
+153,Rio de Janeiro,6.093 thousand,Brazil,Eduardo Paes,14.387 thousand,31,http://dbpedia.org/resource/Rio_de_Janeiro
+154,RIYADH,4.950 thousand,Saudi Arabia,Abdul Aziz ibn 'Ayyaf Al Migrin,5.855 thousand,40,http://dbpedia.org/resource/Riyadh
+155,Rizhao,1.290 thousand,China,Zhao Xiaowei,,299,http://dbpedia.org/resource/Rizhao
+156,Rochester,220 thousand,USA,n/k,1.100 thousand,n/r,http://dbpedia.org/resource/Rochester._New_York
+157,ROME,2.732 thousand,Italy,Gianni Alemanno,3.555 thousand,90,http://dbpedia.org/resource/Rome
+158,Rosario,1.160 thousand,Argentina,Miguel Lifschitz,1.358 thousand,343,http://dbpedia.org/resource/Rosario._Santa_Fe
+159,Rostock,201 thousand,Germany,Roland Methling,,n/r,http://dbpedia.org/resource/Rostock
+160,Rostov on Don,1.068 thousand,Russia,Mikhail Chernyshyov,1.250 thousand,382,http://dbpedia.org/resource/Rostov-on-Don
+161,Rotterdam,590 thousand,Netherlands,Ahmed Aboutaleb,1.187 thousand,572,http://dbpedia.org/resource/Rotterdam
+162,Rugao,1.453 thousand,China,Ding Dawei,,232,http://dbpedia.org/resource/Rugao
+163,Ruian,1.250 thousand,China,n/k,,311,http://dbpedia.org/resource/Rui'an
+164,Guayaquil,2.196 thousand,Ecuador,Jaime Nebot,2.686 thousand,131,http://dbpedia.org/resource/Guayaquil
+165,QUITO,1.648 thousand,Ecuador,Augusto Barrera,1.842 thousand,187,http://dbpedia.org/resource/Quito
+166,CAIRO,7.764 thousand,Egypt,Abdul Azim Wazir,15.546 thousand,21,http://dbpedia.org/resource/Cairo
+167,Alexandria,4.110 thousand,Egypt,Adel Labib,4.350 thousand,52,http://dbpedia.org/resource/Alexandria
+168,Giza,2.225 thousand,Egypt,n/k,2.600 thousand,127,http://dbpedia.org/resource/Giza
+169,Subra al-Haymah,998 thousand,Egypt,n/k,,412,http://dbpedia.org/resource/Shubra_El-Kheima
+170,SAN SALVADOR,520 thousand,El Salvador,Norman Quijano,1.580 thousand,n/r,http://dbpedia.org/resource/San_Salvador
+171,ASMARA,392 thousand,Eritrea,n/k,881 thousand,n/r,http://dbpedia.org/resource/Asmara
+172,TALLINN,407 thousand,Estonia,Edgar Savisaar,,n/r,http://dbpedia.org/resource/Tallinn
+173,ADDIS ABABA,3.385 thousand,Ethiopia,Kuma Demeksa,4.568 thousand,70,http://dbpedia.org/resource/Addis_Ababa
+174,HELSINKI,583 thousand,Finland,Jussi Pajunen,1.311 thousand,577,http://dbpedia.org/resource/Helsinki
+175,PARIS,2.113 thousand,France,Bertrand Delanoë,11.769 thousand,133,http://dbpedia.org/resource/Paris
+176,Marseille,852 thousand,France,Jean-Claude Gaudin,1.605 thousand,464,http://dbpedia.org/resource/Marseille
+177,Lyon,472 thousand,France,Gérard Collomb,1.665 thousand,n/r,http://dbpedia.org/resource/Lyon
+178,Toulouse,438 thousand,France,Pierre Cohen,851 thousand,n/r,http://dbpedia.org/resource/Toulouse
+179,Nice,347 thousand,France,Christian Estrosi,943 thousand,n/r,http://dbpedia.org/resource/Nice
+180,Nantes,283 thousand,France,Jean-Marc Ayrault,804 thousand,n/r,http://dbpedia.org/resource/Nantes
+181,Strasbourg,273 thousand,France,Roland Rie,639 thousand,n/r,http://dbpedia.org/resource/Strasbourg
+182,Montpellier,252 thousand,France,Hélène Mandroux-Colas,,n/r,http://dbpedia.org/resource/Montpellier
+183,Bordeaux,250 thousand,France,Alain Juppé,1.010 thousand,n/r,http://dbpedia.org/resource/Bordeaux
+184,Lille,226 thousand,France,Martine Aubry,1.143 thousand,n/r,http://dbpedia.org/resource/Lille
+185,Rennes,206 thousand,France,Daniel Delaveau,,n/r,http://dbpedia.org/resource/Rennes
+186,TBILISI,1.490 thousand,Georgia,Giorgi Ugulava,1.550 thousand,221,http://dbpedia.org/resource/Tbilisi
+187,BERLIN,3.432 thousand,Germany,Klaus Wowereit,3.943 thousand,68,http://dbpedia.org/resource/Berlin
+188,Hamburg,1.775 thousand,Germany,Olaf Scholz,3.260 thousand,166,http://dbpedia.org/resource/Hamburg
+189,Munich,1.367 thousand,Germany,Christian Ude,2.600 thousand,271,http://dbpedia.org/resource/Munich
+190,Cologne,995 thousand,Germany,Jürgen Roters,11.297 thousand,414,http://dbpedia.org/resource/Cologne
+191,Frankfurt,665 thousand,Germany,Petra Roth,2.717 thousand,557,http://dbpedia.org/resource/Frankfurt
+192,Stuttgart,600 thousand,Germany,Wolfgang Schuster,2.330 thousand,570,http://dbpedia.org/resource/Stuttgart
+193,Dortmund,584 thousand,Germany,Ullrich Sierau,,573,http://dbpedia.org/resource/Dortmund
+194,Essen,580 thousand,Germany,Reinhard Paß,,579,http://dbpedia.org/resource/Essen
+195,Bremen,547 thousand,Germany,Jens Böhrnsen,1.009 thousand,590,http://dbpedia.org/resource/Bremen
+196,Hannover,520 thousand,Germany,Stephan Weil,1.130 thousand,n/r,http://dbpedia.org/resource/Hanover
+197,Leipzig,515 thousand,Germany,Burkhard Jung,1.417 thousand,n/r,http://dbpedia.org/resource/Leipzig
+198,Dresden,512 thousand,Germany,Helma Orosz,1.030 thousand,n/r,http://dbpedia.org/resource/Dresden
+199,Nuremberg,504 thousand,Germany,Ulrich Maly,1.008 thousand,n/r,http://dbpedia.org/resource/Nuremberg
+200,Duisburg,494 thousand,Germany,Adolf Sauerland,,n/r,http://dbpedia.org/resource/Duisburg
+201,Wuppertal,353 thousand,Germany,Peter Jung,,n/r,http://dbpedia.org/resource/Wuppertal
+202,Bielefeld,324 thousand,Germany,Peter Clausen,1.420 thousand,n/r,http://dbpedia.org/resource/Bielefeld
+203,Mannheim,311 thousand,Germany,Peter Kurz,1.456 thousand,n/r,http://dbpedia.org/resource/Mannheim
+204,Karlsruhe,291 thousand,Germany,Heinz Fenrich,,n/r,http://dbpedia.org/resource/Karlsruhe
+205,Wiesbaden,277 thousand,Germany,Helmut Müller,,n/r,http://dbpedia.org/resource/Wiesbaden
+206,Münster,274 thousand,Germany,Markus Lewe,,n/r,http://dbpedia.org/resource/M%C3%BCnster
+207,Augsburg,263 thousand,Germany,Kurt Gribl,,n/r,http://dbpedia.org/resource/Augsburg
+208,Gelsenkirchen,262 thousand,Germany,Frank Baranowski,,n/r,http://dbpedia.org/resource/Gelsenkirchen
+209,Aachen,259 thousand,Germany,Marcel Philipp,1.240 thousand,n/r,http://dbpedia.org/resource/Aachen
+210,Braunschweig,246 thousand,Germany,Gert Hoffmann,,n/r,http://dbpedia.org/resource/Braunschweig
+211,Chemnitz,243 thousand,Germany,Barbara Ludwig,1.082 thousand,n/r,http://dbpedia.org/resource/Chemnitz
+212,Krefeld,236 thousand,Germany,Gregor Kathstede,,n/r,http://dbpedia.org/resource/Krefeld
+213,Halle,233 thousand,Germany,Dagmar Szabados,,n/r,http://dbpedia.org/resource/Halle_(Saale)
+214,Magdeburg,230 thousand,Germany,Lutz Trümper,,n/r,http://dbpedia.org/resource/Magdeburg
+215,Freiburg,220 thousand,Germany,Dieter Salomon,,n/r,http://dbpedia.org/resource/Freiburg_im_Breisgau
+216,Oberhausen,216 thousand,Germany,Klaus Wehling,,n/r,http://dbpedia.org/resource/Oberhausen
+217,Lübeck,211 thousand,Germany,Bernd Saxe,,n/r,http://dbpedia.org/resource/L%C3%BCbeck
+218,Erfurt,203 thousand,Germany,Andreas Bausewein,,n/r,http://dbpedia.org/resource/Erfurt
+219,Rostock,201 thousand,Germany,Roland Methling,,n/r,http://dbpedia.org/resource/Rostock
+220,ACCRA,1.605 thousand,Ghana,Alfred Vanderpuije,2.756 thousand,192,http://dbpedia.org/resource/Accra
+221,Kumasi,1.500 thousand,Ghana,Samuel Sarpong,2.500 thousand,216,http://dbpedia.org/resource/Kumasi
+222,ATHENS,757 thousand,Greece,Giorgos Kaminis,3.216 thousand,518,http://dbpedia.org/resource/Athens
+223,Thessaloniki,407 thousand,Greece,Vasilis Papageorgopoulos,798 thousand,n/r,http://dbpedia.org/resource/Thessaloniki
+224,GUATEMALA CITY,1.090 thousand,Guatemala,Alvaro Arzú,2.564 thousand,372,http://dbpedia.org/resource/Guatemala_City
+225,CONAKRY,1.931 thousand,Guinea,Mamadou Wasco Camara,,145,http://dbpedia.org/resource/Conakry
+226,PORT-AU-PRINCE,1.083 thousand,Haiti,Jean Yves Jason,1.728 thousand,376,http://dbpedia.org/resource/Port-au-Prince
+227,Tegucigalpa,1.200 thousand,Honduras,Ricardo Alvarez,1.324 thousand,326,http://dbpedia.org/resource/Tegucigalpa
+228,BUDAPEST,1.712 thousand,Hungary,István Tarlós,2.503 thousand,175,http://dbpedia.org/resource/Budapest
+229,Mumbai (Bombay),13.900 thousand,India,Shraddha Jadhav,21.200 thousand,3,http://dbpedia.org/resource/Mumbai
+230,DELHI,12.100 thousand,India,Kanwar Sain,16.713 thousand,5,http://dbpedia.org/resource/New_Delhi
+231,Bangalore,5.840 thousand,India,SK Nataraj,6.562 thousand,33,http://dbpedia.org/resource/Bangalore
+232,Surat,5.390 thousand,India,Rajendra Desai,6.347 thousand,34,http://dbpedia.org/resource/Surat
+233,Kolkata,5.100 thousand,India,Bikash Ranjan Bhattacharya,15.420 thousand,36,http://dbpedia.org/resource/Kolkata
+234,Chennai,4.600 thousand,India,M Subramaniam,7.330 thousand,44,http://dbpedia.org/resource/Chennai
+235,Ahmadabad,4.525 thousand,India,Kanaji Thakor,6.168 thousand,45,http://dbpedia.org/resource/Ahmedabad
+236,Hyderabad,3.637 thousand,India,Banda Karthika Reddy,6.290 thousand,60,http://dbpedia.org/resource/Hyderabad._Sindh
+237,Pune,3.337 thousand,India,Mohansingh Rajpal,4.470 thousand,71,http://dbpedia.org/resource/Pune
+238,Kanpur,3.100 thousand,India,Ravindra Patani,4.865 thousand,75,http://dbpedia.org/resource/Kanpur
+239,Jaipur,3.050 thousand,India,Jyoti Khandelwal,5.690 thousand,78,http://dbpedia.org/resource/Jaipur
+240,Durg,2.810 thousand,India,Dr Shiv Kumar Tamer,,85,http://dbpedia.org/resource/Bhilai
+241,Nagpur,2.420 thousand,India,Archana Dehankar,,117,http://dbpedia.org/resource/Nagpur
+242,Lucknow,2.342 thousand,India,Dinesh Sharma,2.686 thousand,121,http://dbpedia.org/resource/Lucknow
+243,Indore,1.912 thousand,India,Krishna Murari Moghe,1.920 thousand,147,http://dbpedia.org/resource/Indore
+244,Patna,1.800 thousand,India,GhanShyam Kumar,2.500 thousand,160,http://dbpedia.org/resource/Patna
+245,Agra,1.650 thousand,India,Anjula Singh Mahaur,1.800 thousand,184,http://dbpedia.org/resource/Agra
+246,Nashik,1.620 thousand,India,Nayana Gholap,,190,http://dbpedia.org/resource/Nashik
+247,Pimpri Chinchwad,1.515 thousand,India,Yogesh Behl,,213,http://dbpedia.org/resource/Pimpri-Chinchwad
+248,Vadodara,1.500 thousand,India,Balakrishna Shukla,3.642 thousand,219,http://dbpedia.org/resource/Vadodara
+249,Bhopal,1.458 thousand,India,Krishna Gaur,1.600 thousand,231,http://dbpedia.org/resource/Bhopal
+250,Ludhiana,1.400 thousand,India,n/k,4.400 thousand,256,http://dbpedia.org/resource/Ludhiana
+251,Thane,1.375 thousand,India,Ashjok Vaity,,268,http://dbpedia.org/resource/Thane
+252,Varanasi,1.375 thousand,India,Kaushalendra Singh,3.150 thousand,269,http://dbpedia.org/resource/Varanasi
+253,Rajkot,1.336 thousand,India,Sandhya Vyas,,283,http://dbpedia.org/resource/Rajkot
+254,Ranchi,1.290 thousand,India,Rama Khalkho,,298,http://dbpedia.org/resource/Ranchi
+255,Meerut,1.277 thousand,India,n/k,,306,http://dbpedia.org/resource/Meerut
+256,Allahabad,1.215 thousand,India,Jitendr Nath Singh,1.250 thousand,320,http://dbpedia.org/resource/Allahabad
+257,Amritsar,1.195 thousand,India,Shawet Malik,1.300 thousand,329,http://dbpedia.org/resource/Amritsar
+258,Aurangabad,1.168 thousand,India,Vijaya Rahatkar,,339,http://dbpedia.org/resource/Aurangabad._Maharashtra
+259,Solapur,1.134 thousand,India,Aruna Vakase,,351,http://dbpedia.org/resource/Solapur
+260,Madurai,1.130 thousand,India,Thenmozhi Gopinathan,,355,http://dbpedia.org/resource/Madurai
+261,Jabalpur,1.117 thousand,India,Prabhat Sahu,1.150 thousand,358,http://dbpedia.org/resource/Jabalpur
+262,Mirat,1.095 thousand,India,n/k,1.095 thousand,370,http://dbpedia.org/resource/Meerut
+263,Dhanbad,1.065 thousand,India,n/k,1.200 thousand,383,http://dbpedia.org/resource/Dhanbad
+264,Faridabad,1.055 thousand,India,n/k,2.193 thousand,387,http://dbpedia.org/resource/Faridabad
+265,Haora,1.008 thousand,India,Sri Gopal Mukherjee,,406,http://dbpedia.org/resource/Howrah
+266,Haora,1.008 thousand,India,Sri Gopal Mukherjee,1.020 thousand,407,http://dbpedia.org/resource/Howrah
+267,Jodhpur,1.007 thousand,India,Om Kumari Gehlot,,408,http://dbpedia.org/resource/Jodhpur
+268,Ghaziabad,970 thousand,India,Damyanti Goel,,420,http://dbpedia.org/resource/Ghaziabad._Uttar_Pradesh
+269,Visakhapatnam,970 thousand,India,B N Vishnu,1.330 thousand,421,http://dbpedia.org/resource/Visakhapatnam
+270,Vijayawada,957 thousand,India,Ratna Bindu,1.150 thousand,428,http://dbpedia.org/resource/Vijayawada
+271,Coimbatore,931 thousand,India,R.Venkatachalam,1.446 thousand,433,http://dbpedia.org/resource/Coimbatore
+272,Srinagar,915 thousand,India,Salman Sagar,1.050 thousand,440,http://dbpedia.org/resource/Srinagar
+273,Chandigarh,901 thousand,India,n/k,,449,http://dbpedia.org/resource/Chandigarh
+274,Sholapur,890 thousand,India,n/k,890 thousand,455,http://dbpedia.org/resource/Solapur
+275,Thiruvananthapuram,810 thousand,India,C Jayan Babu,955 thousand,488,http://dbpedia.org/resource/Thiruvananthapuram
+276,Guwahati,808 thousand,India,Dolly Borah,820 thousand,492,http://dbpedia.org/resource/Guwahati
+277,Hubli,801 thousand,India,n/k,801 thousand,498,http://dbpedia.org/resource/Hubli
+278,Mysore,799 thousand,India,Purushotham,,501,http://dbpedia.org/resource/Mysore
+279,Tiruchchirappalli,760 thousand,India,n/k,863 thousand,517,http://dbpedia.org/resource/Tiruchirappalli
+280,Jalandhar,714 thousand,India,n/k,764 thousand,532,http://dbpedia.org/resource/Jalandhar
+281,Gwalior,690 thousand,India,Sameeksha Gupta,866 thousand,542,http://dbpedia.org/resource/Gwalior
+282,Aligarh,680 thousand,India,n/k,1.116 thousand,549,http://dbpedia.org/resource/Aligarh._Uttar_Pradesh
+283,Amravati,678 thousand,India,n/k,1.031 thousand,552,http://dbpedia.org/resource/Amravati
+284,Bhubaneswar,659 thousand,India,n/k,1.455 thousand,559,http://dbpedia.org/resource/Bhubaneswar
+285,Jamshedpur,630 thousand,India,n/k,1.135 thousand,563,http://dbpedia.org/resource/Jamshedpur
+286,Bhilai,564 thousand,India,n/k,942 thousand,583,http://dbpedia.org/resource/Bhilai
+287,Kozhikode,437 thousand,India,M. Bhaskaran,,n/r,http://dbpedia.org/resource/Kozhikode
+288,JAKARTA,10.100 thousand,Indonesia,Fauzi Bowo,24.100 thousand,11,http://dbpedia.org/resource/Jakarta
+289,Surabaya,3.100 thousand,Indonesia,Bambang D H,3.700 thousand,77,http://dbpedia.org/resource/Surabaya
+290,Bandung,2.510 thousand,Indonesia,Dada Rosada,3.829 thousand,106,http://dbpedia.org/resource/Bandung
+291,Medan,1.990 thousand,Indonesia,Rahudman Harahap,2.390 thousand,141,http://dbpedia.org/resource/Medan
+292,Palembang,1.600 thousand,Indonesia,Eddy Santana Putra,,195,http://dbpedia.org/resource/Palembang
+293,Tangerang,1.545 thousand,Indonesia,Wahidin Halim,,203,http://dbpedia.org/resource/Tangerang
+294,Semarang,1.393 thousand,Indonesia,Soemarmo HS,1.400 thousand,259,http://dbpedia.org/resource/Semarang
+295,Ujung Pandang,1.170 thousand,Indonesia,n/k,1.254 thousand,338,http://dbpedia.org/resource/Makassar
+296,Makasar,1.113 thousand,Indonesia,Ilham Arief Sirajuddin,,360,http://dbpedia.org/resource/Makassar
+297,Bogor,866 thousand,Indonesia,Diani Budiarto,,460,http://dbpedia.org/resource/Bogor
+298,Padang,820 thousand,Indonesia,Fauzi Bahar,900 thousand,481,http://dbpedia.org/resource/Padang
+299,Bandar Lampung,743 thousand,Indonesia,n/k,1.123 thousand,522,http://dbpedia.org/resource/Bandar_Lampung
+300,Malang,742 thousand,Indonesia,n/k,921 thousand,523,http://dbpedia.org/resource/Malang
+301,Surakarta,533 thousand,Indonesia,n/k,857 thousand,600,http://dbpedia.org/resource/Surakarta
+302,Denpasar,491 thousand,Indonesia,n/k,934 thousand,n/r,http://dbpedia.org/resource/Denpasar
+303,Yogyakarta,417 thousand,Indonesia,n/k,840 thousand,n/r,http://dbpedia.org/resource/Yogyakarta
+304,Mataram,330 thousand,Indonesia,n/k,1.081 thousand,n/r,http://dbpedia.org/resource/Mataram_(city)
+305,Cirebon,319 thousand,Indonesia,n/k,926 thousand,n/r,http://dbpedia.org/resource/Cirebon
+306,Tegal,238 thousand,Indonesia,n/k,784 thousand,n/r,http://dbpedia.org/resource/Tegal._Central_Java
+307,TEHRAN,8.430 thousand,Iran,Mohammad Bagher Ghalibaf,13.450 thousand,16,http://dbpedia.org/resource/Tehran
+308,Mashhad,2.910 thousand,Iran,Mohammad Pejman,3.000 thousand,81,http://dbpedia.org/resource/Mashhad
+309,Esfahan,1.584 thousand,Iran,Morteza Saqaeian Nejad,2.600 thousand,197,http://dbpedia.org/resource/Isfahan
+310,Tabriz,1.420 thousand,Iran,Alireza Novin,,248,http://dbpedia.org/resource/Tabriz
+311,Karaj,1.380 thousand,Iran,n/k,,264,http://dbpedia.org/resource/Karaj
+312,Ahwaz,1.338 thousand,Iran,Saeed Mombeini,1.500 thousand,282,http://dbpedia.org/resource/Ahvaz
+313,Shiraz,1.228 thousand,Iran,Mehran E'temad,1.300 thousand,318,http://dbpedia.org/resource/Shiraz
+314,Qom,1.042 thousand,Iran,n/k,,393,http://dbpedia.org/resource/Kahak._Qom
+315,Kermanshah,823 thousand,Iran,n/k,966 thousand,477,http://dbpedia.org/resource/Kermanshah
+316,Baghdad,6.050 thousand,Iraq,Sabir al-Issawi,6.500 thousand,32,http://dbpedia.org/resource/Baghdad
+317,Basrah,1.760 thousand,Iraq,Jabbar Jaber Al-Latif,3.800 thousand,168,http://dbpedia.org/resource/Basra
+318,Irbil,1.294 thousand,Iraq,n/k,1.5000 thousand,295,http://dbpedia.org/resource/Erbil
+319,Mosul,1.139 thousand,Iraq,n/k,1.139 thousand,348,http://dbpedia.org/resource/Mosul
+320,Dublin,506 thousand,Ireland,Emer Costello,1.661 thousand,n/r,http://dbpedia.org/resource/Dublin
+321,Jerusalem,764 thousand,Israel,Nir Barkat Nazareth,1.029 thousand,514,http://dbpedia.org/resource/Jerusalem
+322,TEL AVIV,383 thousand,Israel,Ron Huldai,3.250 thousand,n/r,http://dbpedia.org/resource/Tel_Aviv
+323,Haifa,276 thousand,Israel,Yona Yahav,975 thousand,n/r,http://dbpedia.org/resource/Haifa
+324,ROME,2.732 thousand,Italy,Gianni Alemanno,3.555 thousand,90,http://dbpedia.org/resource/Rome
+325,Milan,1.302 thousand,Italy,Letizia Moratti,4.051 thousand,289,http://dbpedia.org/resource/Milan
+326,Naples,963 thousand,Italy,Rosa Russo Jervolino,3.000 thousand,423,http://dbpedia.org/resource/Naples
+327,Turin,910 thousand,Italy,Sergio Chiamparino,1.617 thousand,442,http://dbpedia.org/resource/Turin
+328,Palermo,684 thousand,Italy,Diego Cammarata,947 thousand,546,http://dbpedia.org/resource/Palermo
+329,Florence,375 thousand,Italy,Matteo Renzi,825 thousand,n/r,http://dbpedia.org/resource/Florence
+330,Catania,337 thousand,Italy,n/k,831 thousand,n/r,http://dbpedia.org/resource/Catania
+331,Abidjan,3.800 thousand,Ivory Coast,Pierre Djédji Amondji,4.000 thousand,56,http://dbpedia.org/resource/Abidjan
+332,Bouakt,531 thousand,Ivory Coast,n/k,775 thousand,n/r,http://dbpedia.org/resource/Bouak%C3%A9
+333,KINGSTON,650 thousand,Jamaica,n/k,925 thousand,562,http://dbpedia.org/resource/Kingston._Jamaica
+334,TOKYO,8.653 thousand,Japan,Shintaro Ishihara,31.036 thousand,15,http://dbpedia.org/resource/Tokyo
+335,Yokohama,3.655 thousand,Japan,Fumiko Hayashi,,59,http://dbpedia.org/resource/Yokohama
+336,Osaka,2.647 thousand,Japan,Kunio Hiramatsu,17.590 thousand,95,http://dbpedia.org/resource/Osaka
+337,Nagoya,2.260 thousand,Japan,Takashi Kawamura,9.250 thousand,125,http://dbpedia.org/resource/Nagoya
+338,Sapporo,1.906 thousand,Japan,Fumio Ueda,2.130 thousand,148,http://dbpedia.org/resource/Sapporo
+339,Kobe,1.534 thousand,Japan,Tatsuo Yada,1.560 thousand,206,http://dbpedia.org/resource/Kobe
+340,Kyoto,1.466 thousand,Japan,Daisaku Kadokawa,1.500 thousand,227,http://dbpedia.org/resource/Kyoto
+341,Fukuoka,1.450 thousand,Japan,Hiroshi Yoshida,2.230 thousand,234,http://dbpedia.org/resource/Fukuoka
+342,Kawasaki,1.390 thousand,Japan,Takao Abe,1.450 thousand,261,http://dbpedia.org/resource/Kawasaki._Kanagawa
+343,Saitama,1.183 thousand,Japan,Hayato Shimizu,,334,http://dbpedia.org/resource/Saitama._Saitama
+344,Hiroshima,1.174 thousand,Japan,Tadatoshi Akiba,1.700 thousand,336,http://dbpedia.org/resource/Hiroshima
+345,Sendai,1.032 thousand,Japan,Emiko Okuyama,1.300 thousand,396,http://dbpedia.org/resource/Sendai
+346,Kitakyushu,985 thousand,Japan,Kenji Kitahashi,1.050 thousand,418,http://dbpedia.org/resource/Kitakyushu
+347,Chiba,962 thousand,Japan,Toshihito Kumagai,970 thousand,424,http://dbpedia.org/resource/Chiba._Chiba
+348,Sakai,836 thousand,Japan,Keisuke Kiharac,,470,http://dbpedia.org/resource/Sakai._Osaka
+349,Hamamatsu,815 thousand,Japan,Yasutomo Suzuki,1.093 thousand,482,http://dbpedia.org/resource/Hamamatsu
+350,Niigata,812 thousand,Japan,Akira Shinoda,,486,http://dbpedia.org/resource/Niigata._Niigata
+351,Shizuoka,718 thousand,Japan,Zenkichi Kojima,1.211 thousand,530,http://dbpedia.org/resource/Shizuoka._Shizuoka
+352,Okayama,700 thousand,Japan,Shigeo Takaya,1.250 thousand,539,http://dbpedia.org/resource/Okayama
+353,Okinawa,129 thousand,Japan,Kita Kurose,,n/r,http://dbpedia.org/resource/Naha._Okinawa
+354,AMMAN,1.919 thousand,Jordan,Omar Maani,2.524 thousand,146,http://dbpedia.org/resource/Amman
+355,ALMATY,1.420 thousand,Kazakhstan,Akhmetzhan Yesimov,1.500 thousand,244,http://dbpedia.org/resource/Almaty
+356,ASTANA,803 thousand,Kazakhstan,Imangali Tasmagambetov,,496,http://dbpedia.org/resource/Astana
+357,Mombasa,880 thousand,Kenia,Ahmed Abubakar Mohdhar,,458,http://dbpedia.org/resource/Mombasa
+358,NAIROBI,3.130 thousand,Kenya,Geoffrey Majiwa,3.300 thousand,74,http://dbpedia.org/resource/Nairobi
+359,KUWAIT CITY,96 thousand,Kuwait,n/k,2.380 thousand,n/r,http://dbpedia.org/resource/Kuwait_City
+360,BISHKEK,765 thousand,Kyrgyzstan,Nariman Tuleyev,800 thousand,513,http://dbpedia.org/resource/Bishkek
+361,Osh,230 thousand,Kyrgyztan,Melis Myrzakmatov,,n/r,http://dbpedia.org/resource/Osh
+362,RIGA,725 thousand,Latvia,Nils Usakovs,878 thousand,528,http://dbpedia.org/resource/Riga
+363,BEIRUT,1.250 thousand,Lebanon,Abdel Mounim Ariss,2.600 thousand,309,http://dbpedia.org/resource/Beirut
+364,MONROVIA,543 thousand,Liberia,Ophelia Hoff Saytumah,1.010 thousand,594,http://dbpedia.org/resource/Monrovia
+365,TRIPOLI,1.683 thousand,Libya,Abdullatif Abdulrahman Aldaali,2.270 thousand,179,http://dbpedia.org/resource/Tripoli
+366,Benghazi,1.471 thousand,Libya,n/k,1.500 thousand,226,http://dbpedia.org/resource/Benghazi
+367,VILNIUS,545 thousand,Lithuania,Vilius Navickas,,593,http://dbpedia.org/resource/Vilnius
+368,KABUL,3.586 thousand,Afghanistan,Mohammad Yunus Noandesh,4.000 thousand,64,http://dbpedia.org/resource/Kabul
+369,ALGIERS,1.520 thousand,Algeria,Tayeb Zitouni,3.354 thousand,211,http://dbpedia.org/resource/Algiers
+370,Oran,683 thousand,Algeria,Saddek Benkada,772 thousand,547,http://dbpedia.org/resource/Oran
+371,LUANDA,4.799 thousand,Angola,José Maria Ferraz dos Santos,5.500 thousand,41,http://dbpedia.org/resource/Luanda
+372,BUENOS AIRES,11.655 thousand,Argentina,Mauricio Macri,12.924 thousand,6,http://dbpedia.org/resource/Buenos_Aires
+373,Cordoba,1.310 thousand,Argentina,Daniel Giacomino,1.528 thousand,288,http://dbpedia.org/resource/C%C3%B3rdoba._Argentina
+374,La Matanza,1.255 thousand,Argentina,n/k,,307,http://dbpedia.org/resource/La_Matanza_Partido
+375,Rosario,1.160 thousand,Argentina,Miguel Lifschitz,1.358 thousand,343,http://dbpedia.org/resource/Rosario._Santa_Fe
+376,La Plata,710 thousand,Argentina,Pablo Bruera,833 thousand,535,http://dbpedia.org/resource/La_Plata
+377,Tucuman,528 thousand,Argentina,Domingo Amaya,830 thousand,n/r,http://dbpedia.org/resource/San_Miguel_de_Tucum%C3%A1n
+378,Mendoza,113 thousand,Argentina,Víctor Fayad,849 thousand,n/r,http://dbpedia.org/resource/Mendoza._Argentina
+379,YEREVAN,1.108 thousand,Armenia,Gagik Beglaryan,1.246 thousand,365,http://dbpedia.org/resource/Yerevan
+380,Sydney,4.400 thousand,Australia,Clover Moore,,48,http://dbpedia.org/resource/Sydney
+381,Melbourne,3.635 thousand,Australia,Robert Doyle,3.3635 thousand,61,http://dbpedia.org/resource/Melbourne
+382,Perth,1.603 thousand,Australia,Lisa Scaffidi,,193,http://dbpedia.org/resource/Perth
+383,Brisbane,1.544 thousand,Australia,Campbell Newman,1.544 thousand,204,http://dbpedia.org/resource/Brisbane
+384,Adelaide,1.290 thousand,Australia,Stephen Yarwood,,296,http://dbpedia.org/resource/Adelaide
+385,VIENNA,1.681 thousand,Austria,Michael Häupl,2.269 thousand,180,http://dbpedia.org/resource/Vienna
+386,BAKU,2.040 thousand,Azerbaijan,Hajibala Abutalybov,2.072 thousand,138,http://dbpedia.org/resource/Baku
+387,DHAKA,7.940 thousand,Bangladesh,Sadeque Hossain Khosa,12.797 thousand,19,http://dbpedia.org/resource/Dhaka
+388,Chittagong,2.580 thousand,Bangladesh,Mohammed Manjur Alam,3.858 thousand,100,http://dbpedia.org/resource/Chittagong
+389,Khulna,856 thousand,Bangladesh,Talukder Abdul Khaleque,1.388 thousand,463,http://dbpedia.org/resource/Khulna
+390,MINSK,1.831 thousand,Belarus,Nikolai Ladutko,,155,http://dbpedia.org/resource/Minsk
+391,BRUSSELS,958 thousand,Belgium,Freddy Thielemans,1.740 thousand,427,http://dbpedia.org/resource/Brussels
+392,Antwerp,444 thousand,Belgium,Patrick Janssens,948 thousand,n/r,http://dbpedia.org/resource/Antwerp
+393,Gent,233 thousand,Belgium,Daniël Termont,,n/r,http://dbpedia.org/resource/Ghent
+394,Bruges,117 thousand,Belgium,Patrick Moenaert,,n/r,http://dbpedia.org/resource/Bruges
+395,Santa Cruz,1.595 thousand,Bolivia,Percy Fernandez,1.863 thousand,196,http://dbpedia.org/resource/Santa_Cruz_de_la_Sierra
+396,LA PAZ,1.517 thousand,Bolivia,Luis Antonio Revilla Herrero,1.551 thousand,212,http://dbpedia.org/resource/La_Paz
+397,Cochabamba,608 thousand,Bolivia,n/k,798 thousand,568,http://dbpedia.org/resource/Cochabamba
+398,Sao Paulo,11.038 thousand,Brazil,Gilberto Kassab,19.890 thousand,9,http://dbpedia.org/resource/S%C3%A3o_Paulo
+399,Rio de Janeiro,6.093 thousand,Brazil,Eduardo Paes,14.387 thousand,31,http://dbpedia.org/resource/Rio_de_Janeiro
+400,Salvador da Bahia,2.998 thousand,Brazil,João Henrique Carneiro,3.173 thousand,79,http://dbpedia.org/resource/Salvador._Bahia
+401,Fortaleza,2.506 thousand,Brazil,Luizianne Lins,3.415 thousand,108,http://dbpedia.org/resource/Fortaleza
+402,Belo Horizonte,2.453 thousand,Brazil,Marcio Lacerda,5.397 thousand,114,http://dbpedia.org/resource/Belo_Horizonte
+403,BRASILIA,2.089 thousand,Brazil,José Roberto Arruda,2.090 thousand,134,http://dbpedia.org/resource/Bras%C3%ADlia
+404,Curitiba,1.851 thousand,Brazil,Carlos Richa,3.261 thousand,153,http://dbpedia.org/resource/Curitiba
+405,Manaus,1.739 thousand,Brazil,Amazonino Mendes,1.924 thousand,173,http://dbpedia.org/resource/Manaus
+406,Recife,1.561 thousand,Brazil,João da Costa Bezerra Filho,3.769 thousand,200,http://dbpedia.org/resource/Recife
+407,Belem,1.409 thousand,Brazil,Duciomar Costa,1.913 thousand,251,http://dbpedia.org/resource/Bel%C3%A9m
+408,Porto Alegre,1.355 thousand,Brazil,José Fortunati,3.646 thousand,273,http://dbpedia.org/resource/Porto_Alegre
+409,Guarulhos,1.283 thousand,Brazil,Sebastião Moreira,1.500 thousand,300,http://dbpedia.org/resource/Guarulhos
+410,Goiania,1.282 thousand,Brazil,Íris Rezende Machado,2.064 thousand,301,http://dbpedia.org/resource/Goi%C3%A2nia
+411,Campinas,1.059 thousand,Brazil,Hélio de Oliveira Santos,3.200 thousand,386,http://dbpedia.org/resource/Campinas
+412,Sao Luis,987 thousand,Brazil,João Castelo,1.228 thousand,417,http://dbpedia.org/resource/S%C3%A3o_Lu%C3%ADs._Maranh%C3%A3o
+413,Sao Goncalo,973 thousand,Brazil,n/k,1.221 thousand,419,http://dbpedia.org/resource/S%C3%A3o_Gon%C3%A7alo._Rio_de_Janeiro
+414,Maceio,922 thousand,Brazil,José Cícero Soares de Almeida,1.100 thousand,437,http://dbpedia.org/resource/Macei%C3%B3
+415,Teresina,893 thousand,Brazil,Silvio Mendes,949 thousand,453,http://dbpedia.org/resource/Teresina
+416,Duque de Caxias,864 thousand,Brazil,José Camilo Zito dos Santos Filho,1.000 thousand,462,http://dbpedia.org/resource/Duque_de_Caxias
+417,Nova Iguacu,846 thousand,Brazil,Lindberg Farias,959 thousand,469,http://dbpedia.org/resource/Nova_Igua%C3%A7u
+418,Natal,790 thousand,Brazil,n/k,1.100 thousand,503,http://dbpedia.org/resource/Natal._Rio_Grande_do_Norte
+419,Sao Bernardo do Campo,783 thousand,Brazil,Luiz Marinho,,507,http://dbpedia.org/resource/S%C3%A3o_Bernardo_do_Campo
+420,Joao Pessoa,702 thousand,Brazil,Ricardo Coutinho,984 thousand,538,http://dbpedia.org/page/João_Pessoa._Paraíba
+421,Sao Jose dos Campos,611 thousand,Brazil,Eduardo Cury,794 thousand,567,http://dbpedia.org/resource/S%C3%A3o_Jos%C3%A9_dos_Campos
+422,Ribeirao Preto,547 thousand,Brazil,Dárcy Vera,789 thousand,591,http://dbpedia.org/resource/Ribeir%C3%A3o_Preto
+423,Santos,418 thousand,Brazil,João Paulo Tavares Papa,1.477 thousand,n/r,http://dbpedia.org/resource/Santos._S%C3%A3o_Paulo
+424,Vitoria,313 thousand,Brazil,João Carlos Coser,1.628 thousand,n/r,http://dbpedia.org/resource/Vit%C3%B3ria._Esp%C3%ADrito_Santo
+425,Colombo,247 thousand,Brazil,José Antonio Camargo,2.160 thousand,n/r,http://dbpedia.org/resource/Colombo
+426,SOFIA,1.403 thousand,Bulgaria,Yordanka Fandukova,1.455 thousand,252,http://dbpedia.org/resource/Sofia
+427,OUAGADOUGOU,1.475 thousand,Burkina Faso,Simon Compaoré,1.727 thousand,225,http://dbpedia.org/resource/Ouagadougou
+428,PHNOM PENH,1.242 thousand,Cambodia,Keb Chutema,2.001 thousand,314,http://dbpedia.org/resource/Phnom_Penh
+429,YAOUNDÉ,1.430 thousand,Cameroon,n/k,1.550 thousand,242,http://dbpedia.org/resource/Yaound%C3%A9
+430,Douala,1.382 thousand,Cameroon,n/k,2.000 thousand,263,http://dbpedia.org/resource/Douala
+431,Toronto,2.571 thousand,Canada,Rob Ford,5.100 thousand,101,http://dbpedia.org/resource/Toronto
+432,Montreal,1.621 thousand,Canada,Gérald Tremblay,3.636 thousand,189,http://dbpedia.org/resource/Montreal
+433,Calgary,988 thousand,Canada,Naheed Nenshi,1.080 thousand,416,http://dbpedia.org/resource/Calgary
+434,OTTAWA,815 thousand,Canada,Larry O'Brien,1.131 thousand,483,http://dbpedia.org/resource/Ottawa
+435,Edmonton,730 thousand,Canada,Stephen Mandel,1.035 thousand,526,http://dbpedia.org/resource/Edmonton
+436,Vancouver,580 thousand,Canada,Gregor Robertson,2.120 thousand,580,http://dbpedia.org/resource/Vancouver
+437,Québec,495 thousand,Canada,Régis Labeaume,717 thousand,n/r,http://dbpedia.org/resource/Quebec
+438,BANGUI,652 thousand,Central African Republic,n/k,789 thousand,560,http://dbpedia.org/resource/Bangui
+439,SANTIAGO,5.278 thousand,Chile,Pablo Zalaquett Said,6.677 thousand,35,http://dbpedia.org/resource/Santiago
+440,Concepción,404 thousand,Chile,Jacqueline van Rysselberghe,978 thousand,n/r,http://dbpedia.org/resource/Concepci%C3%B3n._Chile
+441,Valparaiso,301 thousand,Chile,Aldo Cornej,904 thousand,n/r,http://dbpedia.org/resource/Valpara%C3%ADso
+442,Shanghai,14.900 thousand,China,Han Zheng,19.200 thousand,2,http://dbpedia.org/resource/Shanghai
+443,BEIJING,12.460 thousand,China,Guo Jinlong,17.550 thousand,4,http://dbpedia.org/resource/Beijing
+444,Tianjin,7.500 thousand,China,Huang Xingguo,11.750 thousand,24,http://dbpedia.org/resource/Tianjin
+445,Hong Kong,7.055 thousand,China,Donald Tsang,,27,http://dbpedia.org/resource/Hong_Kong
+446,Guangzhou,6.458 thousand,China,Wan Qingliang,10.182 thousand,28,http://dbpedia.org/resource/Guangzhou
+447,Dongguan,6.446 thousand,China,Li Yuquan,7.650 thousand,29,http://dbpedia.org/resource/Dongguan
+448,Shenyang,5.090 thousand,China,Li Yingjie,7.760 thousand,37,http://dbpedia.org/resource/Shenyang
+449,Chongqing,5.087 thousand,China,Huang Qifan,9.700 thousand,38,http://dbpedia.org/resource/Chongqing
+450,Harbin,4.755 thousand,China,Zhang Xiaolian,9.874 thousand,42,http://dbpedia.org/resource/Harbin
+451,Wuhan,4.500 thousand,China,Ruan Chengfa,6.200 thousand,46,http://dbpedia.org/resource/Wuhan
+452,Chengdu,4.334 thousand,China,Ge Honglin,11.000 thousand,49,http://dbpedia.org/resource/Chengdu
+453,Shenzhen,4.320 thousand,China,Xy Qin,8.616 thousand,50,http://dbpedia.org/resource/Shenzhen
+454,Nanjing,4.150 thousand,China,Ji Jianye,7.600 thousand,51,http://dbpedia.org/resource/Nanjing
+455,Changchun,3.581 thousand,China,Cui Jie,7.460 thousand,65,http://dbpedia.org/resource/Changchun
+456,Guiyang,3.450 thousand,China,Yuan Zhou,,67,http://dbpedia.org/resource/Guiyang
+457,Hangzhou,3.408 thousand,China,Cai Qi,6.776 thousand,69,http://dbpedia.org/resource/Hangzhou
+458,Kunming,3.100 thousand,China,Zhang Zulin,6.800 thousand,76,http://dbpedia.org/resource/Kunming
+459,Zibo,2.850 thousand,China,Liu Huiyan,4.200 thousand,83,http://dbpedia.org/resource/Zibo
+460,Huludao,2.787 thousand,China,Sun Zhaolin,,86,http://dbpedia.org/resource/Huludao
+461,Qingdao,2.755 thousand,China,Xia Geng,7.580 thousand,88,http://dbpedia.org/resource/Qingdao
+462,Changsha,2.744 thousand,China,Zhang Jiangfei,6.140 thousand,89,http://dbpedia.org/resource/Changsha
+463,Fuzhou (Fujian),2.710 thousand,China,Yuan Rongxiang,6.630 thousand,91,http://dbpedia.org/resource/Fuzhou
+464,Xian,2.670 thousand,China,Chen Baogen,4.480 thousand,93,http://dbpedia.org/resource/Xi'an
+465,Shijiazhuang,2.630 thousand,China,Ai Wenli,9.600 thousand,97,http://dbpedia.org/resource/Shijiazhuang
+466,Zhengzhou,2.600 thousand,China,Zhao Jiancai,4.510 thousand,99,http://dbpedia.org/resource/Zhengzhou
+467,Taiyuan,2.550 thousand,China,Zhang Bingsheng,3.400 thousand,103,http://dbpedia.org/resource/Taiyuan
+468,Baoshan,2.500 thousand,China,Xiong Qinghua,,109,http://dbpedia.org/resource/Baoshan._Yunnan
+469,Zhongshan,2.495 thousand,China,n/k,,111,http://dbpedia.org/resource/Zhongshan
+470,Xiamen,2.490 thousand,China,Liu Cigui,,112,http://dbpedia.org/resource/Xiamen
+471,Chaoyang,2.471 thousand,China,Zhang Tiemin,,113,http://dbpedia.org/resource/Chaoyang._Liaoning
+472,Nanning,2.450 thousand,China,Huang Fangfang,6.480 thousand,115,http://dbpedia.org/resource/Nanning
+473,Suzhou,2.383 thousand,China,Yan Li,6.298 thousand,119,http://dbpedia.org/resource/Suzhou
+474,Linyi,2.300 thousand,China,Lian Chengmin,10.080 thousand,123,http://dbpedia.org/resource/Linyi
+475,Dalian,2.270 thousand,China,Li Wancai,3.478 thousand,124,http://dbpedia.org/resource/Dalian
+476,Ningbo,2.201 thousand,China,Mao Guanglie,5.600 thousand,130,http://dbpedia.org/resource/Ningbo
+477,Lanzhou,2.088 thousand,China,Zhang Jinliang,3.300 thousand,135,http://dbpedia.org/resource/Lanzhou
+478,Changzhou,2.086 thousand,China,Wang Weicheng,3.570 thousand,136,http://dbpedia.org/resource/Changzhou
+479,Kowloon,2.020 thousand,China,Wong Kwok-keung,2.200 thousand,139,http://dbpedia.org/resource/Kowloon
+480,Tangshan,1.980 thousand,China,Zhang Guodong,7.100 thousand,142,http://dbpedia.org/resource/Tangshan
+481,Jilin,1.953 thousand,China,Zhang Xiaopei,4.523 thousand,143,http://dbpedia.org/resource/Siping._Jilin
+482,Nanchong,1.950 thousand,China,Liu Hongjian,7.300 thousand,144,http://dbpedia.org/resource/Nanchong
+483,Jinan,1.900 thousand,China,Zhang Jianguo,2.444 thousand,149,http://dbpedia.org/resource/Jinan
+484,Macheng,1.880 thousand,China,n/k,,152,http://dbpedia.org/resource/Macheng
+485,Nanchang,1.844 thousand,China,Hu Xian,3.790 thousand,154,http://dbpedia.org/resource/Nanchang
+486,Xuzhou,1.830 thousand,China,Cao Xinping,9.410 thousand,156,http://dbpedia.org/resource/Xuzhou
+487,Huzhou,1.800 thousand,China,Ma Yi,2.700 thousand,159,http://dbpedia.org/resource/Huzhou
+488,Suzhou Anhui,1.800 thousand,China,Tang Chengpei,5.600 thousand,161,http://dbpedia.org/resource/Suzhou._Anhui
+489,Urumqi,1.800 thousand,China,Jerla Isamudin,2.680 thousand,162,http://dbpedia.org/resource/%C3%9Cr%C3%BCmqi
+490,Yantai,1.800 thousand,China,Zhang Jiangting,6.500 thousand,163,http://dbpedia.org/resource/Yantai
+491,Tianmen,1.790 thousand,China,n/k,,165,http://dbpedia.org/resource/Tianmen
+492,Shantou,1.770 thousand,China,Cai Zong Ze,4.972 thousand,167,http://dbpedia.org/resource/Shantou
+493,Hefei,1.750 thousand,China,Wu Cunrong,4.867 thousand,169,http://dbpedia.org/resource/Hefei
+494,Tengzhou,1.750 thousand,China,Du Yongguang,,170,http://dbpedia.org/resource/Tengzhou
+495,Wuxi,1.750 thousand,China,Mao Xiaoping,2.230 thousand,171,http://dbpedia.org/resource/Wuxi
+496,Fuyang,1.720 thousand,China,Sun Yunfei,,174,http://dbpedia.org/resource/Fuyang
+497,Suizhou,1.680 thousand,China,Li Hongyun,,181,http://dbpedia.org/resource/Suizhou
+498,Gaozhou,1.650 thousand,China,n/k,,185,http://dbpedia.org/resource/Gaozhou
+499,Taian,1.650 thousand,China,Li Hongfeng,5.500 thousand,186,http://dbpedia.org/resource/Tai'an
+500,Tianshui,1.630 thousand,China,Li Wenqing,3.450 thousand,188,http://dbpedia.org/resource/Tianshui
+501,Shangqiu,1.610 thousand,China,Tao Minglun,8.220 thousand,191,http://dbpedia.org/resource/Shangqiu
+502,Neijiang,1.560 thousand,China,n/k,,201,http://dbpedia.org/resource/Neijiang
+503,Hechuan,1.530 thousand,China,n/k,,207,http://dbpedia.org/resource/Hechuan_District
+504,Taizhou,1.528 thousand,China,Wu Weirong,5.741 thousand,210,http://dbpedia.org/resource/Taizhou._Zhejiang
+505,Guigang,1.500 thousand,China,n/k,4.400 thousand,215,http://dbpedia.org/resource/Guigang
+506,Luoyang,1.500 thousand,China,Guo Hongchang,1.499 thousand,217,http://dbpedia.org/resource/Luoyang
+507,Quanzhou,1.490 thousand,China,Zhu Ming,7.790 thousand,220,http://dbpedia.org/resource/Quanzhou
+508,Nanan,1.480 thousand,China,Chen Law,,224,http://dbpedia.org/page/Nan%27an._Fujian
+509,Xintai,1.480 thousand,China,Liu Daqun,,223,http://dbpedia.org/resource/Xintai
+510,Xinyang,1.460 thousand,China,Guo Ruimin,,230,http://dbpedia.org/resource/Xinyang
+511,Rugao,1.453 thousand,China,Ding Dawei,,232,http://dbpedia.org/resource/Rugao
+512,Anyang,1.450 thousand,China,Zhang Xiaodong,3.000 thousand,233,http://dbpedia.org/resource/Anyang
+513,Weifang,1.450 thousand,China,Xu Liquan,8.500 thousand,235,http://dbpedia.org/resource/Weifang
+514,Zhanjiang,1.450 thousand,China,Ruan Risheng,6.900 thousand,236,http://dbpedia.org/resource/Zhanjiang
+515,Fushun,1.445 thousand,China,Wang Yang,2.300 thousand,238,http://dbpedia.org/resource/Fushun
+516,Qiqihaer,1.439 thousand,China,Liu Gang,6.011 thousand,240,http://dbpedia.org/resource/Qiqihar
+517,Jianyang,1.430 thousand,China,n/k,,241,http://dbpedia.org/resource/Jianyang._Fujian
+518,Guiping,1.420 thousand,China,n/k,,245,http://dbpedia.org/resource/Guiping
+519,Huazhou,1.420 thousand,China,n/k,,246,http://dbpedia.org/resource/Huazhou._Guangdong
+520,Changde,1.400 thousand,China,Chen Wenhao,6.000 thousand,254,http://dbpedia.org/resource/Changde
+521,Tongzhou,1.400 thousand,China,Ding Dawei,,257,http://dbpedia.org/resource/Tongzhou_District._Beijing
+522,Handan,1.390 thousand,China,Guo Dajian,8.500 thousand,260,http://dbpedia.org/resource/Handan
+523,Suining,1.385 thousand,China,n/k,3.500 thousand,262,http://dbpedia.org/resource/Suining
+524,Liuyang,1.380 thousand,China,Liang Zhong,,265,http://dbpedia.org/resource/Liuyang
+525,Luzhou,1.380 thousand,China,Liu Guoqiang,4.800 thousand,266,http://dbpedia.org/resource/Hefei
+526,Taixing,1.355 thousand,China,Gao Yazi,,274,http://dbpedia.org/resource/Taixing
+527,Bozhou,1.352 thousand,China,Liu Jian,,275,http://dbpedia.org/resource/Liaocheng
+528,Jinjiang,1.350 thousand,China,Kenneth Li,,277,http://dbpedia.org/resource/Jinjiang._Fujian
+529,Lufeng,1.350 thousand,China,n/k,,278,http://dbpedia.org/resource/Lufeng._Guangdong
+530,Yongcheng,1.347 thousand,China,n/k,,279,http://dbpedia.org/resource/Yongcheng
+531,Guilin,1.340 thousand,China,Li Zhigang,,280,http://dbpedia.org/resource/Guilin
+532,Pingdu,1.340 thousand,China,n/k,,281,http://dbpedia.org/resource/Pingdu
+533,Baotou,1.318 thousand,China,Hu Ercha,1.750 thousand,287,http://dbpedia.org/resource/Baotou
+534,Lianjiang,1.300 thousand,China,Xing Taian,,290,http://dbpedia.org/resource/Lianjiang._Guangdong
+535,Mianyang,1.300 thousand,China,Liu Dong,5.200 thousand,292,http://dbpedia.org/resource/Mianyang
+536,Yiyang,1.300 thousand,China,n/k,4.500 thousand,293,http://dbpedia.org/resource/Yiyang
+537,Anshan,1.290 thousand,China,n/k,2.404 thousand,297,http://dbpedia.org/resource/Anshan
+538,Rizhao,1.290 thousand,China,Zhao Xiaowei,,299,http://dbpedia.org/resource/Rizhao
+539,Heze,1.280 thousand,China,Du Changwen,,303,http://dbpedia.org/resource/Heze
+540,Datong,1.253 thousand,China,n/k,1.377 thousand,308,http://dbpedia.org/resource/Datong
+541,Fengcheng,1.250 thousand,China,n/k,,310,http://dbpedia.org/resource/Fengcheng._Liaoning
+542,Ruian,1.250 thousand,China,n/k,,311,http://dbpedia.org/resource/Rui'an
+543,Laiwu,1.249 thousand,China,Ma Pingchang,,312,http://dbpedia.org/resource/Laiwu
+544,Pingdingshan,1.230 thousand,China,Deng Yongjian,5.200 thousand,316,http://dbpedia.org/resource/Pingdingshan
+545,Yuzhou,1.230 thousand,China,n/k,,317,http://dbpedia.org/resource/Yuzhou._Henan
+546,Cixi,1.220 thousand,China,n/k,,319,http://dbpedia.org/resource/Cixi_City
+547,Huainan,1.201 thousand,China,Cao Yong,,321,http://dbpedia.org/resource/Huainan
+548,Anqiu,1.200 thousand,China,n/k,,322,http://dbpedia.org/resource/Anqiu
+549,Fuqing,1.200 thousand,China,n/k,,323,http://dbpedia.org/resource/Fuqing
+550,Qianjiang,1.190 thousand,China,n/k,,330,http://dbpedia.org/resource/Qianjiang._Hubei
+551,Bazhong,1.186 thousand,China,n/k,,331,http://dbpedia.org/resource/Bazhong
+552,Leqing,1.183 thousand,China,n/k,,333,http://dbpedia.org/resource/Yueqing
+553,Dongtai,1.170 thousand,China,n/k,,337,http://dbpedia.org/resource/Dongtai
+554,Guangyuan,1.160 thousand,China,n/k,3.037 thousand,341,http://dbpedia.org/resource/Guangyuan
+555,Qidong,1.160 thousand,China,n/k,,342,http://dbpedia.org/resource/Qidong._Jiangsu
+556,Bijie,1.130 thousand,China,n/k,7.188 thousand,353,http://dbpedia.org/resource/Bijie
+557,Haicheng,1.130 thousand,China,n/k,,354,http://dbpedia.org/resource/Haicheng._Liaoning
+558,Leshan,1.120 thousand,China,n/k,,357,http://dbpedia.org/resource/Leshan
+559,Jimo,1.112 thousand,China,n/k,,361,http://dbpedia.org/resource/Jimo
+560,Jining,1.110 thousand,China,Zhang Zhen Chuan,,362,http://dbpedia.org/resource/Jining
+561,Wafangdian,1.100 thousand,China,n/k,,368,http://dbpedia.org/resource/Wafangdian
+562,Shouguang,1.090 thousand,China,n/k,,373,http://dbpedia.org/resource/Shouguang
+563,Taishan,1.070 thousand,China,n/k,,381,http://dbpedia.org/resource/Taishan
+564,Ezhou,1.064 thousand,China,n/k,,385,http://dbpedia.org/resource/Ezhou
+565,Jiangdu,1.053 thousand,China,n/k,,388,http://dbpedia.org/resource/Jiangdu_District
+566,Beiliu,1.050 thousand,China,n/k,,390,http://dbpedia.org/resource/Beiliu
+567,Gongzhuling,1.050 thousand,China,n/k,,391,http://dbpedia.org/resource/Gongzhuling
+568,Changshu,1.048 thousand,China,Wang Xiang,,392,http://dbpedia.org/resource/Changshu
+569,Fuzhou (Jiangxi),1.020 thousand,China,Xìe Yìs®•,3.700 thousand,399,http://dbpedia.org/resource/Fuzhou._Jiangxi
+570,Yichun,1.020 thousand,China,Gong Jianhua,958 thousand,400,http://dbpedia.org/resource/Yichun._Jiangxi
+571,Mudanjiang,1.014 thousand,China,n/k,2.707 thousand,402,http://dbpedia.org/resource/Mudanjiang
+572,Baoding,997 thousand,China,n/k,,413,http://dbpedia.org/resource/Baoding
+573,Hezhou,990 thousand,China,n/k,2.090 thousand,415,http://dbpedia.org/resource/Linxia_City
+574,Wujiang,970 thousand,China,n/k,1.500 thousand,422,http://dbpedia.org/resource/Wujiang_District._Suzhou
+575,Feicheng,960 thousand,China,n/k,,426,http://dbpedia.org/resource/Feicheng
+576,Haimen,950 thousand,China,n/k,,429,http://dbpedia.org/resource/Haimen
+577,Weinan,925 thousand,China,n/k,,435,http://dbpedia.org/resource/Weinan
+578,Songzi,905 thousand,China,n/k,,445,http://dbpedia.org/resource/Songzi
+579,Laizhou,902 thousand,China,n/k,,448,http://dbpedia.org/resource/Laizhou
+580,Danyang,890 thousand,China,n/k,,454,http://dbpedia.org/resource/Danyang._Jiangsu
+581,Hengyang,880 thousand,China,n/k,7.000 thousand,456,http://dbpedia.org/resource/Hengyang
+582,Honghu,880 thousand,China,n/k,,457,http://dbpedia.org/resource/Honghu
+583,Daye,874 thousand,China,n/k,,459,http://dbpedia.org/resource/Huangshi
+584,Benxi,830 thousand,China,Gang Rui,1.567 thousand,473,http://dbpedia.org/resource/Benxi
+585,Haikou,830 thousand,China,n/k,,474,http://dbpedia.org/resource/Haikou
+586,Hohhot,820 thousand,China,n/k,1.041 thousand,480,http://dbpedia.org/resource/Hohhot
+587,Liuzhou,810 thousand,China,n/k,990 thousand,487,http://dbpedia.org/resource/Liuzhou
+588,Bengbu,809 thousand,China,Chen Qitao,3.470 thousand,490,http://dbpedia.org/resource/Bengbu
+589,Daqing,800 thousand,China,n/k,2.770 thousand,499,http://dbpedia.org/resource/Daqing
+590,Nanyang,800 thousand,China,Huang Xingwei,10.700 thousand,500,http://dbpedia.org/resource/Nanyang._Henan
+591,Jixi,760 thousand,China,Zhu. Deyi,1.960 thousand,516,http://dbpedia.org/resource/Jixi
+592,Ankang,743 thousand,China,n/k,,521,http://dbpedia.org/resource/Ankang
+593,Xining,713 thousand,China,n/k,894 thousand,533,http://dbpedia.org/resource/Xining
+594,Fuxin,690 thousand,China,n/k,969 thousand,541,http://dbpedia.org/resource/Fuxin
+595,Jinzhou,690 thousand,China,n/k,902 thousand,543,http://dbpedia.org/resource/Jinzhou
+596,Zhangjiakou,680 thousand,China,n/k,882 thousand,551,http://dbpedia.org/resource/Zhangjiakou
+597,Kaifeng,584 thousand,China,n/k,855 thousand,574,http://dbpedia.org/resource/Kaifeng
+598,Hengyang,561 thousand,China,n/k,799 thousand,584,http://dbpedia.org/resource/Hengyang
+599,Panzhihua,478 thousand,China,n/k,771 thousand,n/r,http://dbpedia.org/resource/Panzhihua
+600,Liuan,320 thousand,China,Tang Linxiang,1.600 thousand,n/r,http://dbpedia.org/resource/Lu'an
+601,Dongying,294 thousand,China,n/k,804 thousand,n/r,http://dbpedia.org/resource/Dongying
+602,BOGOTA,7.320 thousand,Colombia,Samuel Moreno Rojas,8.361 thousand,25,http://dbpedia.org/resource/Bogot%C3%A1
+603,Cali,2.525 thousand,Colombia,Jorge Ivan Ospina,2.801 thousand,104,http://dbpedia.org/resource/Cali
+604,Medellin,2.223 thousand,Colombia,Alonso Salazar Jaramillo,3.312 thousand,128,http://dbpedia.org/resource/Medell%C3%ADn
+605,Barranquilla,1.298 thousand,Colombia,Alejandro Char Chaljub,1.871 thousand,294,http://dbpedia.org/resource/Barranquilla
+606,Cartagena,893 thousand,Colombia,Judith Pinedo,1.240 thousand,452,http://dbpedia.org/resource/Cartagena._Colombia
+607,Bucaramanga,542 thousand,Colombia,n/k,956 thousand,595,http://dbpedia.org/resource/Bucaramanga
+608,BRAZZAVILLE,1.133 thousand,Congo Br,n/k,1.134 thousand,352,http://dbpedia.org/resource/Brazzaville
+609,Pointe Noire,527 thousand,Congo Br,n/k,789 thousand,n/r,http://dbpedia.org/resource/Pointe-Noire
+610,KINSHASA,8.200 thousand,Congo D.R.,André Kimbuta Yango,10.100 thousand,18,http://dbpedia.org/resource/Kinshasa
+611,Lubumbashi,1.140 thousand,Congo D.R.,Moise Katumbi,1.250 thousand,347,http://dbpedia.org/resource/Lubumbashi
+612,Mbuji-Mayi,905 thousand,Congo D.R.,n/k,1.054 thousand,444,http://dbpedia.org/resource/Mbuji-Mayi
+613,Kolwezi,803 thousand,Congo D.R.,n/k,803 thousand,497,http://dbpedia.org/resource/Kolwezi
+614,Kisangani,510 thousand,Congo D.R.,n/k,818 thousand,n/r,http://dbpedia.org/resource/Kisangani
+615,SAN JOSE,357 thousand,Costa Rica,Johnny Araya,1.370 thousand,n/r,http://dbpedia.org/resource/San_Jos%C3%A9._Costa_Rica
+616,ZAGREB,804 thousand,Croatia,Milan Bandic,1.288 thousand,495,http://dbpedia.org/resource/Zagreb
+617,HAVANA,2.430 thousand,Cuba,Juan Contino Aslán,3.700 thousand,116,http://dbpedia.org/resource/Havana
+618,PRAGUE,1.242 thousand,Czech Republic,Zdenek Tuma,1.900 thousand,315,http://dbpedia.org/resource/Prague
+619,COPENHAGEN,1.096 thousand,Denmark,Frank Jensen,1.096 thousand,369,http://dbpedia.org/resource/Copenhagen
+620,SANTO DOMINGO,2.989 thousand,Dominican Republic,Roberto Salcedo,3.813 thousand,80,http://dbpedia.org/resource/Santo_Domingo
+621,Santiago de los Caballeros,1.329 thousand,Dominican Republic,Gilberto Serulle,1.937.000,284,http://dbpedia.org/resource/Santiago_de_los_Caballeros
+622,Ecatepec,1.688 thousand,Mexico,Eruviel Ávila Villegas,1.690 thousand,178,http://dbpedia.org/resource/Ecatepec_de_Morelos
+623,Edmonton,730 thousand,Canada,Stephen Mandel,1.035 thousand,526,http://dbpedia.org/resource/Edmonton
+624,Einhoven,212 thousand,Netherlands,R van Gijzel,440 thousand,n/r,http://dbpedia.org/resource/Eindhoven
+625,Ekaterinburg,1.323 thousand,Russia,Eugene Porunov,1.389 thousand,286,http://dbpedia.org/resource/Yekaterinburg
+626,Erfurt,203 thousand,Germany,Andreas Bausewein,,n/r,http://dbpedia.org/resource/Erfurt
+627,Esfahan,1.584 thousand,Iran,Morteza Saqaeian Nejad,2.600 thousand,197,http://dbpedia.org/resource/Isfahan
+628,Essen,580 thousand,Germany,Reinhard Paß,,579,http://dbpedia.org/resource/Essen
+629,Ezhou,1.064 thousand,China,n/k,,385,http://dbpedia.org/resource/Ezhou
+630,Faisalabad,2.510 thousand,Pakistan,Rana Zahid Tauseef,5.081 thousand,107,http://dbpedia.org/resource/Faisalabad
+631,Faridabad,1.055 thousand,India,n/k,2.193 thousand,387,http://dbpedia.org/resource/Faridabad
+632,Feicheng,960 thousand,China,n/k,,426,http://dbpedia.org/resource/Feicheng
+633,Fengcheng,1.250 thousand,China,n/k,,310,http://dbpedia.org/resource/Fengcheng._Liaoning
+634,Fes,1.009 thousand,Morocco,n/k,,405,http://dbpedia.org/resource/Fes
+635,Fez,921 thousand,Morocco,n/k,921 thousand,438,http://dbpedia.org/resource/Fes
+636,Florence,375 thousand,Italy,Matteo Renzi,825 thousand,n/r,http://dbpedia.org/resource/Florence
+637,Fortaleza,2.506 thousand,Brazil,Luizianne Lins,3.415 thousand,108,http://dbpedia.org/resource/Fortaleza
+638,Frankfurt,665 thousand,Germany,Petra Roth,2.717 thousand,557,http://dbpedia.org/resource/Frankfurt
+639,FREETOWN,1.032 thousand,Sierra Leone,Herbert-George Williams,1.032 thousand,395,http://dbpedia.org/resource/Freetown
+640,Freiburg,220 thousand,Germany,Dieter Salomon,,n/r,http://dbpedia.org/resource/Freiburg_im_Breisgau
+641,Fresno,500 thousand,USA,Ashley Swearengin,1.000 thousand,n/r,http://dbpedia.org/resource/Fresno._California
+642,Fukuoka,1.450 thousand,Japan,Hiroshi Yoshida,2.230 thousand,234,http://dbpedia.org/resource/Fukuoka
+643,Fuqing,1.200 thousand,China,n/k,,323,http://dbpedia.org/resource/Fuqing
+644,Fushun,1.445 thousand,China,Wang Yang,2.300 thousand,238,http://dbpedia.org/resource/Fushun
+645,Fuxin,690 thousand,China,n/k,969 thousand,541,http://dbpedia.org/resource/Fuxin
+646,Fuyang,1.720 thousand,China,Sun Yunfei,,174,http://dbpedia.org/resource/Fuyang
+647,Fuzhou (Fujian),2.710 thousand,China,Yuan Rongxiang,6.630 thousand,91,http://dbpedia.org/resource/Fuzhou
+648,Fuzhou (Jiangxi),1.020 thousand,China,Xìe Yìs®•,3.700 thousand,399,http://dbpedia.org/resource/Fuzhou._Jiangxi
+649,Gaozhou,1.650 thousand,China,n/k,,185,http://dbpedia.org/resource/Gaozhou
+650,Gaza,410 thousand,Palestine,n/k,1.000 thousand,n/r,http://dbpedia.org/resource/Gaza
+651,Gaziantep,927 thousand,Turkey,n/k,1.912 thousand,434,http://dbpedia.org/resource/Gaziantep
+652,Gdansk,457 thousand,Poland,Pawel Adamowicz,866 thousand,n/r,http://dbpedia.org/resource/Gda%C5%84sk
+653,Gelsenkirchen,262 thousand,Germany,Frank Baranowski,,n/r,http://dbpedia.org/resource/Gelsenkirchen
+654,Gent,233 thousand,Belgium,Daniël Termont,,n/r,http://dbpedia.org/resource/Ghent
+655,Ghaziabad,970 thousand,India,Damyanti Goel,,420,http://dbpedia.org/resource/Ghaziabad._Uttar_Pradesh
+656,Giza,2.225 thousand,Egypt,n/k,2.600 thousand,127,http://dbpedia.org/resource/Giza
+657,Glasgow,581 thousand,UK,n/k,1.200 thousand,578,http://dbpedia.org/resource/Glasgow
+658,Goiania,1.282 thousand,Brazil,Íris Rezende Machado,2.064 thousand,301,http://dbpedia.org/resource/Goi%C3%A2nia
+659,Gongzhuling,1.050 thousand,China,n/k,,391,http://dbpedia.org/resource/Gongzhuling
+660,Gothenburg,506 thousand,Sweden,Anneli Hulthén,916 thousand,n/r,http://dbpedia.org/resource/Gothenburg
+661,Goyang,1.073 thousand,South Korea,n/k,,378,http://dbpedia.org/resource/Goyang
+662,Grand Rapids,193 thousand,USA,George Heartwell,777 thousand,n/r,http://dbpedia.org/resource/Grand_Rapids._Michigan
+663,Greensboro,256 thousand,USA,Bill Knight,710 thousand,n/r,http://dbpedia.org/resource/Greensboro._North_Carolina
+664,Guadalajara,1.580 thousand,Mexico,Jorge Aristoteles Sandoval,3.600 thousand,198,http://dbpedia.org/resource/Guadalajara
+665,Guangyuan,1.160 thousand,China,n/k,3.037 thousand,341,http://dbpedia.org/resource/Guangyuan
+666,Guangzhou,6.458 thousand,China,Wan Qingliang,10.182 thousand,28,http://dbpedia.org/resource/Guangzhou
+667,Guarulhos,1.283 thousand,Brazil,Sebastião Moreira,1.500 thousand,300,http://dbpedia.org/resource/Guarulhos
+668,GUATEMALA CITY,1.090 thousand,Guatemala,Alvaro Arzú,2.564 thousand,372,http://dbpedia.org/resource/Guatemala_City
+669,Guayaquil,2.196 thousand,Ecuador,Jaime Nebot,2.686 thousand,131,http://dbpedia.org/resource/Guayaquil
+670,Guigang,1.500 thousand,China,n/k,4.400 thousand,215,http://dbpedia.org/resource/Guigang
+671,Guilin,1.340 thousand,China,Li Zhigang,,280,http://dbpedia.org/resource/Guilin
+672,Guiping,1.420 thousand,China,n/k,,245,http://dbpedia.org/resource/Guiping
+673,Guiyang,3.450 thousand,China,Yuan Zhou,,67,http://dbpedia.org/resource/Guiyang
+674,Gujranwala,1.416 thousand,Pakistan,Fayyaz Ahmad Chattha,1.900 thousand,249,http://dbpedia.org/resource/Gujranwala
+675,Guwahati,808 thousand,India,Dolly Borah,820 thousand,492,http://dbpedia.org/resource/Guwahati
+676,Gwalior,690 thousand,India,Sameeksha Gupta,866 thousand,542,http://dbpedia.org/resource/Gwalior
+677,Gwangju,1.415 thousand,South Korea,Kang Un-tae,1.500 thousand,250,http://dbpedia.org/resource/Gwangju
+678,Haicheng,1.130 thousand,China,n/k,,354,http://dbpedia.org/resource/Haicheng._Liaoning
+679,Haifa,276 thousand,Israel,Yona Yahav,975 thousand,n/r,http://dbpedia.org/resource/Haifa
+680,Haikou,830 thousand,China,n/k,,474,http://dbpedia.org/resource/Haikou
+681,Haimen,950 thousand,China,n/k,,429,http://dbpedia.org/resource/Haimen
+682,Haiphong,1.885 thousand,Vietnam,Trinh Quang Su,1.885 thousand,151,http://dbpedia.org/resource/Haiphong
+683,Halle,233 thousand,Germany,Dagmar Szabados,,n/r,http://dbpedia.org/resource/Halle_(Saale)
+684,Hama,325 thousand,Syria,Abdul Razzaq al-Qutainy,1.500 thousand,n/r,http://dbpedia.org/resource/Hama
+685,Hamamatsu,815 thousand,Japan,Yasutomo Suzuki,1.093 thousand,482,http://dbpedia.org/resource/Hamamatsu
+686,Hamburg,1.775 thousand,Germany,Olaf Scholz,3.260 thousand,166,http://dbpedia.org/resource/Hamburg
+687,Hamhung,821 thousand,North Korea,n/k,821 thousand,479,http://dbpedia.org/resource/Hamhung
+688,Handan,1.390 thousand,China,Guo Dajian,8.500 thousand,260,http://dbpedia.org/resource/Handan
+689,Hangzhou,3.408 thousand,China,Cai Qi,6.776 thousand,69,http://dbpedia.org/resource/Hangzhou
+690,Hannover,520 thousand,Germany,Stephan Weil,1.130 thousand,n/r,http://dbpedia.org/resource/Hanover
+691,HANOI,1.372 thousand,Vietnam,Nguyen The Thao,6.500 thousand,270,http://dbpedia.org/resource/Hanoi
+692,Haora,1.008 thousand,India,Sri Gopal Mukherjee,,406,http://dbpedia.org/resource/Howrah
+693,Haora,1.008 thousand,India,Sri Gopal Mukherjee,1.020 thousand,407,http://dbpedia.org/resource/Howrah
+694,HARARE,1.600 thousand,Zimbabwe,Muchadeyi Masunda,2.800 thousand,194,http://dbpedia.org/resource/Harare
+695,Harbin,4.755 thousand,China,Zhang Xiaolian,9.874 thousand,42,http://dbpedia.org/resource/Harbin
+696,HAVANA,2.430 thousand,Cuba,Juan Contino Aslán,3.700 thousand,116,http://dbpedia.org/resource/Havana
+697,Hechuan,1.530 thousand,China,n/k,,207,http://dbpedia.org/resource/Hechuan_District
+698,Hefei,1.750 thousand,China,Wu Cunrong,4.867 thousand,169,http://dbpedia.org/resource/Hefei
+699,HELSINKI,583 thousand,Finland,Jussi Pajunen,1.311 thousand,577,http://dbpedia.org/resource/Helsinki
+700,Hengyang,880 thousand,China,n/k,7.000 thousand,456,http://dbpedia.org/resource/Hengyang
+701,Hengyang,561 thousand,China,n/k,799 thousand,584,http://dbpedia.org/resource/Hengyang
+702,Heze,1.280 thousand,China,Du Changwen,,303,http://dbpedia.org/resource/Heze
+703,Hezhou,990 thousand,China,n/k,2.090 thousand,415,http://dbpedia.org/resource/Linxia_City
+704,Hims,823 thousand,Syria,Nadia Kseibi,,476,http://dbpedia.org/resource/Homs
+705,Hiroshima,1.174 thousand,Japan,Tadatoshi Akiba,1.700 thousand,336,http://dbpedia.org/resource/Hiroshima
+706,Ho Chi Minh City,7.100 thousand,Vietnam,Pham Phuong Thao,,26,http://dbpedia.org/resource/Ho_Chi_Minh_City
+707,Hohhot,820 thousand,China,n/k,1.041 thousand,480,http://dbpedia.org/resource/Hohhot
+708,Hong Kong,7.055 thousand,China,Donald Tsang,,27,http://dbpedia.org/resource/Hong_Kong
+709,Honghu,880 thousand,China,n/k,,457,http://dbpedia.org/resource/Honghu
+710,Honolulu,370 thousand,USA,Peter Carlisle,894 thousand,n/r,http://dbpedia.org/resource/Honolulu_County._Hawaii
+711,Houston,2.242 thousand,USA,Annise Parker,5.728 thousand,126,http://dbpedia.org/resource/Houston
+712,Huainan,1.201 thousand,China,Cao Yong,,321,http://dbpedia.org/resource/Huainan
+713,Huazhou,1.420 thousand,China,n/k,,246,http://dbpedia.org/resource/Huazhou._Guangdong
+714,Hubli,801 thousand,India,n/k,801 thousand,498,http://dbpedia.org/resource/Hubli
+715,Huludao,2.787 thousand,China,Sun Zhaolin,,86,http://dbpedia.org/resource/Huludao
+716,Huzhou,1.800 thousand,China,Ma Yi,2.700 thousand,159,http://dbpedia.org/resource/Huzhou
+717,Hyderabad,3.637 thousand,India,Banda Karthika Reddy,6.290 thousand,60,http://dbpedia.org/resource/Hyderabad._Sindh
+718,Hyderabad,1.447 thousand,Pakistan,Kanwar Naveed Jamil,1.500 thousand,237,http://dbpedia.org/resource/Hyderabad._Sindh
+719,Ibadan,2.550 thousand,Nigeria,Adebayo Alao-Akala,3.000 thousand,102,http://dbpedia.org/resource/Ibadan
+720,Incheon,2.630 thousand,South Korea,Song Young-gil,2.630 thousand,96,http://dbpedia.org/resource/Incheon
+721,Indianapolis,798 thousand,USA,Gregory A. Ballard,1.715 thousand,502,http://dbpedia.org/resource/Indianapolis
+722,Indore,1.912 thousand,India,Krishna Murari Moghe,1.920 thousand,147,http://dbpedia.org/resource/Indore
+723,Irbil,1.294 thousand,Iraq,n/k,1.5000 thousand,295,http://dbpedia.org/resource/Erbil
+724,Istanbul,9.560 thousand,Turkey,Kadir Topbas,12.600 thousand,12,http://dbpedia.org/resource/Istanbul
+725,Izmir,2.330 thousand,Turkey,Aziz Kocaoglu,3.200 thousand,122,http://dbpedia.org/resource/%C4%B0zmir
+726,Jabalpur,1.117 thousand,India,Prabhat Sahu,1.150 thousand,358,http://dbpedia.org/resource/Jabalpur
+727,Jacksonville,808 thousand,USA,John Peyton,1.300 thousand,493,http://dbpedia.org/resource/Jacksonville._Florida
+728,Jaipur,3.050 thousand,India,Jyoti Khandelwal,5.690 thousand,78,http://dbpedia.org/resource/Jaipur
+729,JAKARTA,10.100 thousand,Indonesia,Fauzi Bowo,24.100 thousand,11,http://dbpedia.org/resource/Jakarta
+730,Jalandhar,714 thousand,India,n/k,764 thousand,532,http://dbpedia.org/resource/Jalandhar
+731,Jamshedpur,630 thousand,India,n/k,1.135 thousand,563,http://dbpedia.org/resource/Jamshedpur
+732,Jeddah,3.856 thousand,Saudi Arabia,Adil Faqeeh,4.500 thousand,54,http://dbpedia.org/resource/Jeddah
+733,Jerusalem,764 thousand,Israel,Nir Barkat Nazareth,1.029 thousand,514,http://dbpedia.org/resource/Jerusalem
+734,Jiangdu,1.053 thousand,China,n/k,,388,http://dbpedia.org/resource/Jiangdu_District
+735,Jianyang,1.430 thousand,China,n/k,,241,http://dbpedia.org/resource/Jianyang._Fujian
+736,Jilin,1.953 thousand,China,Zhang Xiaopei,4.523 thousand,143,http://dbpedia.org/resource/Siping._Jilin
+737,Jimo,1.112 thousand,China,n/k,,361,http://dbpedia.org/resource/Jupiter_Icy_Moons_Orbiter
+738,Jinan,1.900 thousand,China,Zhang Jianguo,2.444 thousand,149,http://dbpedia.org/resource/Jinan
+739,Jining,1.110 thousand,China,Zhang Zhen Chuan,,362,http://dbpedia.org/resource/Jining
+740,Jinjiang,1.350 thousand,China,Kenneth Li,,277,http://dbpedia.org/resource/Jinjiang._Fujian
+741,Jinzhou,690 thousand,China,n/k,902 thousand,543,http://dbpedia.org/resource/Jinzhou
+742,Jixi,760 thousand,China,Zhu. Deyi,1.960 thousand,516,http://dbpedia.org/resource/Jixi
+743,Joao Pessoa,702 thousand,Brazil,Ricardo Coutinho,984 thousand,538,http://dbpedia.org/resource/Jo%C3%A3o_Pessoa._Para%C3%ADba
+744,Jodhpur,1.007 thousand,India,Om Kumari Gehlot,,408,http://dbpedia.org/resource/Jodhpur
+745,Johannesburg,3.888 thousand,South Africa,Amos Masondo,10.268 thousand,53,http://dbpedia.org/resource/Johannesburg
+746,KABUL,3.586 thousand,Afghanistan,Mohammad Yunus Noandesh,4.000 thousand,64,http://dbpedia.org/resource/Kabul
+747,Kaduna,1.460 thousand,Nigeria,Mohammed Namadi Sambo,1.500 thousand,229,http://dbpedia.org/resource/Kaduna
+748,Kaifeng,584 thousand,China,n/k,855 thousand,574,http://dbpedia.org/resource/Kaifeng
+749,KAMPALA,1.420 thousand,Uganda,Nasser Sebaggala,1.600 thousand,247,http://dbpedia.org/resource/Kampala
+750,Kano,3.626 thousand,Nigeria,Ibrahim Shekarau,3.900 thousand,62,http://dbpedia.org/resource/Kano
+751,Kanpur,3.100 thousand,India,Ravindra Patani,4.865 thousand,75,http://dbpedia.org/resource/Kanpur
+752,Kansas City,480 thousand,USA,Mark Funkhouser,2.050 thousand,n/r,http://dbpedia.org/resource/Kansas_City._Missouri
+753,Kaohsiung,1.530 thousand,Taiwan,Chen Chu,2.960 thousand,208,http://dbpedia.org/resource/Kaohsiung
+754,Karachi,15.500 thousand,Pakistan,Fazlur Rehman,18.000 thousand,1,http://dbpedia.org/resource/Karachi
+755,Karaj,1.380 thousand,Iran,n/k,,264,http://dbpedia.org/resource/Karaj
+756,Karlsruhe,291 thousand,Germany,Heinz Fenrich,,n/r,http://dbpedia.org/resource/Karlsruhe
+757,KATHMANDU,949 thousand,Nepal,n/k,1.700 thousand,430,http://dbpedia.org/resource/Kathmandu
+758,Katowice,340 thousand,Poland,Piotr Uszok,2.746 thousand,n/r,http://dbpedia.org/resource/Katowice
+759,Kawasaki,1.390 thousand,Japan,Takao Abe,1.450 thousand,261,http://dbpedia.org/resource/Kawasaki._Kanagawa
+760,Kazan,1.115 thousand,Russia,lsur Metshin,1.300 thousand,359,http://dbpedia.org/resource/Kazan
+761,Kermanshah,823 thousand,Iran,n/k,966 thousand,477,http://dbpedia.org/resource/Kermanshah
+762,Kharkiv,1.461 thousand,Ukraine,Mykhailo Dobkin,1.674 thousand,228,http://dbpedia.org/resource/Kharkiv
+763,KHARTOUM,2.208 thousand,Sudan,Abdul Rahman Alkheder,7.500 thousand,129,http://dbpedia.org/resource/Khartoum_North
+764,Khulna,856 thousand,Bangladesh,Talukder Abdul Khaleque,1.388 thousand,463,http://dbpedia.org/resource/Khulna
+765,KIEV,2.820 thousand,Ukraine,Alexander Popov,3.300 thousand,84,http://dbpedia.org/resource/Kiev
+766,KINGSTON,650 thousand,Jamaica,n/k,925 thousand,562,http://dbpedia.org/resource/Kingston._Jamaica
+767,KINSHASA,8.200 thousand,Congo D.R.,André Kimbuta Yango,10.100 thousand,18,http://dbpedia.org/resource/Kinshasa
+768,Kisangani,510 thousand,Congo D.R.,n/k,818 thousand,n/r,http://dbpedia.org/resource/Kisangani
+769,Kitakyushu,985 thousand,Japan,Kenji Kitahashi,1.050 thousand,418,http://dbpedia.org/resource/Kitakyushu
+770,Kitwe,548 thousand,Zambia,n/k,786 thousand,589,http://dbpedia.org/resource/Kitwe
+771,Kobe,1.534 thousand,Japan,Tatsuo Yada,1.560 thousand,206,http://dbpedia.org/resource/Kobe
+772,Kolkata,5.100 thousand,India,Bikash Ranjan Bhattacharya,15.420 thousand,36,http://dbpedia.org/resource/Kolkata
+773,Kolwezi,803 thousand,Congo D.R.,n/k,803 thousand,497,http://dbpedia.org/resource/Kolwezi
+774,Kowloon,2.020 thousand,China,Wong Kwok-keung,2.200 thousand,139,http://dbpedia.org/resource/Kowloon
+775,Kozhikode,437 thousand,India,M. Bhaskaran,,n/r,http://dbpedia.org/resource/Kozhikode
+776,Krakow,755 thousand,Poland,Jacek Majchrowski,1.250 thousand,519,http://dbpedia.org/resource/Krak%C3%B3w
+777,Krasnodar,710 thousand,Russia,Vladimir Yevlanov,780 thousand,534,http://dbpedia.org/resource/Krasnodar
+778,Krasnoyarsk,920 thousand,Russia,Pyotr Pimashkov,950 thousand,439,http://dbpedia.org/resource/Krasnoyarsk
+779,Krefeld,236 thousand,Germany,Gregor Kathstede,,n/r,http://dbpedia.org/resource/Krefeld
+780,KUALA LUMPUR,1.810 thousand,Malaysia,Dato Ahmed Fuad Ismail,5.470 thousand,157,http://dbpedia.org/resource/Kuala_Lumpur
+781,Kumasi,1.500 thousand,Ghana,Samuel Sarpong,2.500 thousand,216,http://dbpedia.org/resource/Kumasi
+782,Kunming,3.100 thousand,China,Zhang Zulin,6.800 thousand,76,http://dbpedia.org/resource/Kunming
+783,KUWAIT CITY,96 thousand,Kuwait,n/k,2.380 thousand,n/r,http://dbpedia.org/resource/Kuwait_City
+784,Kyoto,1.466 thousand,Japan,Daisaku Kadokawa,1.500 thousand,227,http://dbpedia.org/resource/Kyoto
+785,La Matanza,1.255 thousand,Argentina,n/k,,307,http://dbpedia.org/resource/La_Matanza_Partido
+786,LA PAZ,1.517 thousand,Bolivia,Luis Antonio Revilla Herrero,1.551 thousand,212,http://dbpedia.org/resource/La_Paz
+787,La Plata,710 thousand,Argentina,Pablo Bruera,833 thousand,535,http://dbpedia.org/resource/La_Plata
+788,Lagos,7.938 thousand,Nigeria,n/k,9.123 thousand,20,http://dbpedia.org/resource/Lagos
+789,Lahore,6.100 thousand,Pakistan,Mian Amir Mahmood,8.600 thousand,30,http://dbpedia.org/resource/Lahore
+790,Laiwu,1.249 thousand,China,Ma Pingchang,,312,http://dbpedia.org/resource/Laiwu
+791,Laizhou,902 thousand,China,n/k,,448,http://dbpedia.org/resource/Laizhou
+792,Lanzhou,2.088 thousand,China,Zhang Jinliang,3.300 thousand,135,http://dbpedia.org/resource/Lanzhou
+793,Las Vegas,558 thousand,USA,Oscar B Goodman,1.866 thousand,586,http://dbpedia.org/resource/Las_Vegas
+794,Leeds,778 thousand,UK,Paul Rogerson,1.500 thousand,510,http://dbpedia.org/resource/Leeds
+795,Leipzig,515 thousand,Germany,Burkhard Jung,1.417 thousand,n/r,http://dbpedia.org/resource/Leipzig
+796,Leon,1.138 thousand,Mexico,Ricardo Sheffield,1.635 thousand,349,http://dbpedia.org/resource/Le%C3%B3n._Guanajuato
+797,Leqing,1.183 thousand,China,n/k,,333,http://dbpedia.org/resource/Yueqing
+798,Leshan,1.120 thousand,China,n/k,,357,http://dbpedia.org/resource/Leshan
+799,Lianjiang,1.300 thousand,China,Xing Taian,,290,http://dbpedia.org/resource/Lianjiang._Guangdong
+800,Lille,226 thousand,France,Martine Aubry,1.143 thousand,n/r,http://dbpedia.org/resource/Lille
+801,LILONGWE,866 thousand,Malawi,n/k,,461,http://dbpedia.org/resource/Lilongwe
+802,LIMA,7.606 thousand,Peru,Susana Villaran,8.473 thousand,22,http://dbpedia.org/resource/Lima
+803,Linyi,2.300 thousand,China,Lian Chengmin,10.080 thousand,123,http://dbpedia.org/resource/Linyi
+804,LISBON,558 thousand,Portugal,António Costa,2.612 thousand,587,http://dbpedia.org/resource/Lisbon
+805,Liuan,320 thousand,China,Tang Linxiang,1.600 thousand,n/r,http://dbpedia.org/resource/Lu'an
+806,Liuyang,1.380 thousand,China,Liang Zhong,,265,http://dbpedia.org/resource/Liuyang
+807,Liuzhou,810 thousand,China,n/k,990 thousand,487,http://dbpedia.org/resource/Liuzhou
+808,Liverpool,435 thousand,UK,n/k,817 thousand,n/r,http://dbpedia.org/resource/Liverpool
+809,Lodz,783 thousand,Poland,Jerzy Kropiwickni,1.429 thousand,506,http://dbpedia.org/resource/%C5%81%C3%B3d%C5%BA
+810,LONDON,7.557 thousand,UK,Boris Johnson,12.200 thousand,23,http://dbpedia.org/resource/London
+811,Los Angeles,3.834 thousand,USA,Antonio Villaraigosa,12.890 thousand,55,http://dbpedia.org/resource/Los_Angeles
+812,Louisville,260 thousand,USA,Jerry Abramson,1.040 thousand,n/r,http://dbpedia.org/resource/Louisville._Kentucky
+813,LUANDA,4.799 thousand,Angola,José Maria Ferraz dos Santos,5.500 thousand,41,http://dbpedia.org/resource/Luanda
+814,Lübeck,211 thousand,Germany,Bernd Saxe,,n/r,http://dbpedia.org/resource/L%C3%BCbeck
+815,Lubumbashi,1.140 thousand,Congo D.R.,Moise Katumbi,1.250 thousand,347,http://dbpedia.org/resource/Lubumbashi
+816,Lucknow,2.342 thousand,India,Dinesh Sharma,2.686 thousand,121,http://dbpedia.org/resource/Lucknow
+817,Ludhiana,1.400 thousand,India,n/k,4.400 thousand,256,http://dbpedia.org/resource/Ludhiana
+818,Lufeng,1.350 thousand,China,n/k,,278,http://dbpedia.org/resource/Lufeng._Guangdong
+819,Luoyang,1.500 thousand,China,Guo Hongchang,1.499 thousand,217,http://dbpedia.org/resource/Luoyang
+820,LUSAKA,1.110 thousand,Zambia,Robert Chikwelete,3.120 thousand,363,http://dbpedia.org/resource/Lusaka
+821,Luzhou,1.380 thousand,China,Liu Guoqiang,4.800 thousand,266,http://dbpedia.org/resource/Luzhou
+822,Lviv,740 thousand,Ukraine,Andriy Sadovyi,1.040 thousand,524,http://dbpedia.org/resource/Lviv
+823,Lyon,472 thousand,France,Gérard Collomb,1.665 thousand,n/r,http://dbpedia.org/resource/Lyon

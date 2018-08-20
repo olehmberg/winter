@@ -10,13 +10,13 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConvert
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 
-public class DatasetNormalizer<RecordType extends Record> {
+public class DataSetNormalizer<RecordType extends Record> {
 	
 	private static final Logger logger = WinterLogManager.getLogger();
 	
 	private TypeDetector typeDetector;
 	
-	public DatasetNormalizer(TypeDetector typeDetector){
+	public DataSetNormalizer(TypeDetector typeDetector){
 		this.typeDetector = typeDetector;
 	}
 	
@@ -29,15 +29,15 @@ public class DatasetNormalizer<RecordType extends Record> {
 	}
 
 	
-	public void guessColumnTypesAndNormalizeDataset(DataSet<RecordType, Attribute> dataSet){
+	public void detectColumnTypesAndNormalizeDataset(DataSet<RecordType, Attribute> dataSet){
 		for(Attribute att: dataSet.getSchema().get()){
-			ColumnType columnType = this.guessColumnType(dataSet, att);
+			ColumnType columnType = this.detectColumnType(dataSet, att);
 			this.normalizeColumn(columnType, dataSet, att);
 		}
 		logger.info("Type guessing and normalization done!");
 	}
 	
-	public ColumnType guessColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att){
+	public ColumnType detectColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att){
 		
 			String [] values = new String[dataSet.size()];
 			int index = 0;
@@ -58,7 +58,11 @@ public class DatasetNormalizer<RecordType extends Record> {
 	public void normalizeColumn(ColumnType columntype, DataSet<RecordType, Attribute> dataSet, Attribute att){
 		TypeConverter tc = new TypeConverter();
 		for(RecordType record: dataSet.get()){
-			record.setValue(att,(String) tc.typeValue(record.getValue(att), columntype.getType(), columntype.getUnit())); 
+			Object value = tc.typeValue(record.getValue(att), columntype.getType(), columntype.getUnit());
+			if(value != null){
+				record.setValue(att, value.toString()); 
+			}
+			
 		}
 		
 	}
