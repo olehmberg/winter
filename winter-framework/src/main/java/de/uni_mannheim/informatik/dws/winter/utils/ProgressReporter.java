@@ -57,12 +57,19 @@ public class ProgressReporter {
 		// report status every second
 		LocalDateTime now = LocalDateTime.now();
 		long durationSoFar = Duration.between(start, now).toMillis();
-		if ((Duration.between(start, lastTime).toMillis()) > 1000) {
-			logger.info(String.format(
+		if ((Duration.between(lastTime, now).toMillis()) > 1000) {
+			if(total>0) {
+				logger.info(String.format(
 					"%s: %,d / %,d elements completed (%.2f%%) after %s",
 					message, done, total,
 					(double) done / (double) total * 100,
 					DurationFormatUtils.formatDurationHMS(durationSoFar)));
+			} else {
+				logger.info(String.format(
+					"%s: %,d elements completed after %s",
+					message, done,
+					DurationFormatUtils.formatDurationHMS(durationSoFar)));
+			}
 			lastTime = now;
 		}
 	}
