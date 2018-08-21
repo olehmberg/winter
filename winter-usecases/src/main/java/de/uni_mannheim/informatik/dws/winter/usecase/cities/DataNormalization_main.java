@@ -15,7 +15,9 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatt
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing.DataSetNormalizer;
 import de.uni_mannheim.informatik.dws.winter.usecase.cities.model.City;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.detectors.PatternbasedTypeDetector;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeGuesser;
+import de.uni_mannheim.informatik.dws.winter.webtables.detectors.tabletypeclassifier.TypeClassifier;
 
 public class DataNormalization_main {
 	
@@ -40,13 +42,14 @@ public class DataNormalization_main {
 		// loading data
 		Map<String, Attribute> columnMappingCity = new HashMap<>();
 		columnMappingCity.put("Index", City.ID);
-		columnMappingCity.put("City", City.NAME);
-		columnMappingCity.put("City population", City.POPULATION);
-		columnMappingCity.put("Country", City.COUNTRY);
-		columnMappingCity.put("Mayor", City.MAYOR);
-		columnMappingCity.put("Metro population", City.METROPOPULATION);
-		columnMappingCity.put("World rank", City.RANK);
-		columnMappingCity.put("sameAs", City.SAMEAS);
+		columnMappingCity.put("label", City.NAME);
+		columnMappingCity.put("population", City.POPULATION);
+		columnMappingCity.put("country", City.COUNTRY);
+		columnMappingCity.put("countryCode", City.COUNTRYCODE);
+		columnMappingCity.put("lat", City.LATITUDE);
+		columnMappingCity.put("long", City.LONGITUDE);
+		columnMappingCity.put("officialName", City.OFFICIALNAME);
+		
 		
 		
 		// load data
@@ -54,7 +57,7 @@ public class DataNormalization_main {
 		new CSVRecordReader(0, columnMappingCity).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
 		
 		// normalize dataset
-		new DataSetNormalizer<Record>(new TypeGuesser()).detectColumnTypesAndNormalizeDataset(dataCity);
+		new DataSetNormalizer<Record>(new PatternbasedTypeDetector()).detectColumnTypesAndNormalizeDataset(dataCity);
 		
 		// export data
 		 new RecordCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);

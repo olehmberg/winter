@@ -6,6 +6,7 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
@@ -46,7 +47,7 @@ public class DataSetNormalizer<RecordType extends Record> {
 				index++;
 			}
 			if(this.typeDetector != null){
-				 return this.typeDetector.detectTypeForColumn(values, att.getIdentifier());
+				return this.typeDetector.detectTypeForColumn(values, att.getIdentifier());
 			}
 			else{
 				logger.error("No type detector defined!");

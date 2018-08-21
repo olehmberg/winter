@@ -82,10 +82,10 @@ public class City extends Record implements Serializable {
 	public static final Attribute NAME = new Attribute("name");
 	public static final Attribute POPULATION = new Attribute("population");
 	public static final Attribute COUNTRY = new Attribute("country");
-	public static final Attribute MAYOR = new Attribute("mayor");
-	public static final Attribute METROPOPULATION = new Attribute("metroPopulation");
-	public static final Attribute RANK = new Attribute("rank");
-	public static final Attribute SAMEAS = new Attribute("sameAs");
+	public static final Attribute COUNTRYCODE = new Attribute("countryCode");
+	public static final Attribute LATITUDE = new Attribute("latitude");
+	public static final Attribute LONGITUDE = new Attribute("longitude");
+	public static final Attribute OFFICIALNAME = new Attribute("officialName");
 
 	@Override
 	public boolean hasValue(Attribute attribute) {
@@ -95,7 +95,7 @@ public class City extends Record implements Serializable {
 	@Override
 	public String toString() {
 		return String.format("[City: %s / %s / %s  / %s / %s / %s / %s / %s ]", getValue(ID), getValue(NAME), getValue(POPULATION),
-				getValue(COUNTRY), getValue(MAYOR), getValue(METROPOPULATION), getValue(RANK), getValue(SAMEAS));
+				getValue(COUNTRY), getValue(COUNTRYCODE), getValue(LATITUDE), getValue(LONGITUDE), getValue(OFFICIALNAME));
 	}
 
 	@Override
