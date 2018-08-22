@@ -31,15 +31,6 @@ public class CityCSVFormatter extends CSVDataSetFormatter<City, Attribute> {
 		return new String[] { "id", "name", "population", "country", "countryCode", "latitude", "longitude", "officialName" };
 	}
 	
-	public static final Attribute ID = new Attribute("id");
-	public static final Attribute NAME = new Attribute("name");
-	public static final Attribute POPULATION = new Attribute("population");
-	public static final Attribute COUNTRY = new Attribute("country");
-	public static final Attribute COUNTRYCODE = new Attribute("countryCode");
-	public static final Attribute LATITUDE = new Attribute("latitude");
-	public static final Attribute LONGITUDE = new Attribute("longitude");
-	public static final Attribute OFFICIALNAME = new Attribute("officialName");
-	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.model.io.CSVDataSetFormatter#format(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.DataSet)
 	 */
