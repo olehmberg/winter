@@ -16,10 +16,9 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing.Da
 import de.uni_mannheim.informatik.dws.winter.usecase.cities.model.City;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.PatternbasedTypeDetector;
-import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeGuesser;
-import de.uni_mannheim.informatik.dws.winter.webtables.detectors.tabletypeclassifier.TypeClassifier;
 
-public class DataNormalization_main {
+
+public class DataNormalization_DefaultModel {
 	
 	/*
 	 * Trace Options:
