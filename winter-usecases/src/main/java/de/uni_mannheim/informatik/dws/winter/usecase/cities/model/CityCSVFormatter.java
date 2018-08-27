@@ -39,7 +39,7 @@ public class CityCSVFormatter extends CSVDataSetFormatter<City, Attribute> {
 		return new String[] {
 				record.getIdentifier(),
 				record.getName(),
-				record.getPopulation(),
+				Double.toString(record.getPopulation()),
 				record.getCountry(), 
 				record.getCountryCode(),
 				Double.toString(record.getLatitude()), 

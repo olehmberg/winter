@@ -31,29 +31,30 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 
 	private boolean normalizeValues = false;
 	private TypeConverter tc;
-	
+
 	/**
 	 * 
 	 * 
 	 * @param normalizeValues
-	 * 			  A flag that triggers the value normalization.
+	 *            A flag that triggers the value normalization.
 	 */
 	public CSVCityReader(boolean normalizeValues) {
 		this.normalizeValues = normalizeValues;
-		if(this.normalizeValues){
+		if (this.normalizeValues) {
 			this.tc = new TypeConverter();
 		}
 	}
-	
+
 	protected void initialiseDataset(DataSet<City, Attribute> dataset) {
-		// the schema is defined in the Movie class and not interpreted from the file, so we have to set the attributes manually
+		// the schema is defined in the Movie class and not interpreted from the
+		// file, so we have to set the attributes manually
 		dataset.addAttribute(City.COUNTRYCODE);
 		dataset.addAttribute(City.NAME);
 		dataset.addAttribute(City.LATITUDE);
 		dataset.addAttribute(City.LONGITUDE);
 		dataset.addAttribute(City.LONGITUDE);
 		dataset.addAttribute(City.OFFICIALNAME);
-		
+
 	}
 
 	/*
@@ -72,48 +73,48 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 		} else {
 			// generate new record of type city
 			City r = new City(values[0], file.getAbsolutePath());
-			
+
 			// set values of record
 			r.setCountryCode(values[1]);
 			r.setName(values[2]);
-			
-			if(values[3] != null && this.normalizeValues){
-				Object value = tc.typeValue(values[3], DataType.coordinate , null);
-				if(value != null){
+
+			if (this.normalizeValues) {
+				Object value = tc.typeValue(values[3], DataType.coordinate, null);
+				if (value != null) {
 					r.setLatitude(Double.parseDouble(value.toString()));
 				}
-			}
-			else{
+			} else {
 				r.setLatitude(Double.parseDouble(values[3]));
 			}
-			
-			if(values[4] != null && this.normalizeValues){
-				Object value = tc.typeValue(values[4], DataType.coordinate , null);
-				if(value != null){
+
+			if (this.normalizeValues) {
+				Object value = tc.typeValue(values[4], DataType.coordinate, null);
+				if (value != null) {
 					r.setLongitude(Double.parseDouble(value.toString()));
 				}
-			}
-			else{
+			} else {
 				r.setLongitude(Double.parseDouble(values[4]));
 			}
-			
+
 			r.setOfficialName(values[5]);
 			r.setCountry(values[6]);
-			
-			if(values[7] != null && this.normalizeValues){
-				Object value = tc.typeValue(values[7], DataType.numeric , UnitParser.getUnit("thousand"));
-				if(value != null){
-					r.setPopulation(value.toString());
+
+			if (this.normalizeValues) {
+				Object value = tc.typeValue(values[7], DataType.numeric, UnitParser.checkUnit(values[7]));
+				if (value != null) {
+					r.setPopulation((Double) value);
+				}
+			} else {
+				String population = values[7].replaceAll("[^0-9\\,\\.\\-Ee\\+]", "");
+				if (population != null && ! population.isEmpty()) {
+					r.setPopulation(Double.parseDouble(population));
 				}
 			}
-			else{
-				r.setPopulation(values[7]);
-			}
-
+			
 			dataset.add(r);
 
 		}
 
 	}
-	
+
 }

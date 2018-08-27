@@ -43,7 +43,7 @@ public class City extends AbstractRecord<Attribute> implements Serializable {
 	}
 		
 	private String name;
-	private String population;
+	private double population;
 	private String country;
 	private String countryCode;
 	private double latitude;
@@ -58,11 +58,11 @@ public class City extends AbstractRecord<Attribute> implements Serializable {
 		this.name = name;
 	}
 
-	public String getPopulation() {
+	public double getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(String population) {
+	public void setPopulation(double population) {
 		this.population = population;
 	}
 
@@ -149,7 +149,7 @@ public class City extends AbstractRecord<Attribute> implements Serializable {
 		if(attribute==NAME)
 			return getName() != null && !getName().isEmpty();
 		else if(attribute==POPULATION)
-			return getPopulation() != null && !getPopulation().isEmpty();
+			return getPopulation() != 0.00;
 		else if(attribute==COUNTRY)
 			return getCountry() != null && !getCountry().isEmpty();
 		else if(attribute==COUNTRYCODE)
