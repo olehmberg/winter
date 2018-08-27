@@ -34,11 +34,11 @@ public class DataNormalization_CityModel {
 		
 		// load data
 		DataSet<City, Attribute> dataCity = new HashedDataSet<>();
-		new CSVCityReader(0, true).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
+		new CSVCityReader(true).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
 		
 		// export data
 		 new CityCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);
-		 logger.info("DataSet City written to file!");
+		 logger.info("Data Set City written to file!");
 	}
 
 }

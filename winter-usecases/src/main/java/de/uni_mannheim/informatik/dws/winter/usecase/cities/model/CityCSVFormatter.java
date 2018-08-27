@@ -28,7 +28,7 @@ public class CityCSVFormatter extends CSVDataSetFormatter<City, Attribute> {
 	 */
 	@Override
 	public String[] getHeader(List<Attribute> orderedHeader) {
-		return new String[] { "id", "name", "population", "country", "countryCode", "latitude", "longitude", "officialName" };
+		return new String[] { "id", "name","population", "country", "countryCode", "latitude", "longitude", "officialName" };
 	}
 	
 	/* (non-Javadoc)
@@ -38,13 +38,14 @@ public class CityCSVFormatter extends CSVDataSetFormatter<City, Attribute> {
 	public String[] format(City record, DataSet<City, Attribute> dataset, List<Attribute> orderedHeader) {
 		return new String[] {
 				record.getIdentifier(),
-				record.getValue(City.NAME),
-				record.getValue(City.POPULATION),
-				record.getValue(City.COUNTRY),
-				record.getValue(City.COUNTRYCODE),
-				record.getValue(City.LATITUDE),
-				record.getValue(City.LONGITUDE),
-				record.getValue(City.OFFICIALNAME)
+				record.getName(),
+				record.getPopulation(),
+				record.getCountry(), 
+				record.getCountryCode(),
+				Double.toString(record.getLatitude()), 
+				Double.toString(record.getLongitude()),
+				record.getOfficialName()
+				
 		};
 	}
 

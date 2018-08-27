@@ -20,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 
 /**
  * A {@link AbstractRecord} representing a City.
@@ -28,7 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de
  * 
  */
-public class City extends Record implements Serializable {
+public class City extends AbstractRecord<Attribute> implements Serializable {
 
 	/*
 	 * example entry <city> <index>0</index> <city>MacAllen</city> <population>	 
@@ -42,11 +41,70 @@ public class City extends Record implements Serializable {
 	public City(String identifier, String provenance) {
 		super(identifier, provenance);
 	}
-	
-	public City(String identifier) {
-		super(identifier);
+		
+	private String name;
+	private String population;
+	private String country;
+	private String countryCode;
+	private double latitude;
+	private double longitude;
+	private String officialName;
+
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(String population) {
+		this.population = population;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getOfficialName() {
+		return officialName;
+	}
+
+	public void setOfficialName(String officialName) {
+		this.officialName = officialName;
+	}
 
 	private Map<Attribute, Collection<String>> provenance = new HashMap<>();
 	private Collection<String> recordProvenance;
@@ -77,8 +135,7 @@ public class City extends Record implements Serializable {
 		}
 	}
 	
-	
-	public static final Attribute ID = new Attribute("id");
+	public static final Attribute ID = new Attribute("Index");
 	public static final Attribute NAME = new Attribute("name");
 	public static final Attribute POPULATION = new Attribute("population");
 	public static final Attribute COUNTRY = new Attribute("country");
@@ -86,16 +143,32 @@ public class City extends Record implements Serializable {
 	public static final Attribute LATITUDE = new Attribute("latitude");
 	public static final Attribute LONGITUDE = new Attribute("longitude");
 	public static final Attribute OFFICIALNAME = new Attribute("officialName");
-
+	
 	@Override
 	public boolean hasValue(Attribute attribute) {
-		return this.getValue(attribute) != null && this.getValue(attribute).isEmpty();
+		if(attribute==NAME)
+			return getName() != null && !getName().isEmpty();
+		else if(attribute==POPULATION)
+			return getPopulation() != null && !getPopulation().isEmpty();
+		else if(attribute==COUNTRY)
+			return getCountry() != null && !getCountry().isEmpty();
+		else if(attribute==COUNTRYCODE)
+			return getCountryCode() != null && !getCountryCode().isEmpty();
+		else if(attribute==LATITUDE)
+			return getLatitude() != 0.00;
+		else if(attribute==LONGITUDE)
+			return getLongitude() != 0.00;
+		else if(attribute==OFFICIALNAME)
+			return getOfficialName() != null && !getOfficialName().isEmpty();
+		else
+			return false;
 	}
+	
 
 	@Override
 	public String toString() {
-		return String.format("[City: %s / %s / %s  / %s / %s / %s / %s / %s ]", getValue(ID), getValue(NAME), getValue(POPULATION),
-				getValue(COUNTRY), getValue(COUNTRYCODE), getValue(LATITUDE), getValue(LONGITUDE), getValue(OFFICIALNAME));
+		return String.format("[City: %s / %s / %s  / %s / %s / %s / %s / %s ]", getIdentifier(), getName(), getPopulation(),
+				getCountry(), getCountryCode(), getLatitude(), getLongitude(), getOfficialName());
 	}
 
 	@Override
