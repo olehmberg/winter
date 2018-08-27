@@ -46,7 +46,7 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 	}
 
 	protected void initialiseDataset(DataSet<City, Attribute> dataset) {
-		// the schema is defined in the Movie class and not interpreted from the
+		// the schema is defined in the City class and not interpreted from the
 		// file, so we have to set the attributes manually
 		dataset.addAttribute(City.COUNTRYCODE);
 		dataset.addAttribute(City.NAME);
@@ -100,11 +100,13 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 			r.setCountry(values[6]);
 
 			if (this.normalizeValues) {
+				// Set data type, parse unit and convert value
 				Object value = tc.typeValue(values[7], DataType.numeric, UnitParser.checkUnit(values[7]));
 				if (value != null) {
 					r.setPopulation((Double) value);
 				}
 			} else {
+				// Use regex to retrieve double
 				String population = values[7].replaceAll("[^0-9\\,\\.\\-Ee\\+]", "");
 				if (population != null && ! population.isEmpty()) {
 					r.setPopulation(Double.parseDouble(population));
