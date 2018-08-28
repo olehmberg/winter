@@ -16,12 +16,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -89,11 +91,18 @@ public class Graph<TNode, TEdge> {
 				Node<TNode> n1 = ordered.get(0);
 				Node<TNode> n2 = ordered.get(1);
 				
-				w.write(String.format("%d %d %s l \"%s\"\n", n1.getId(), n2.getId(), Double.toString(e.getWeight()), e.getData().toString()));
+				w.write(String.format("%d %d %s l \"%s\"\n", n1.getId(), n2.getId(), Double.toString(e.getWeight()), e.getData()==null ? "" : e.getData().toString()));
 			}
 		}
 		
 		w.close();
 	}
-	
+
+	public static <TNode> Graph<TNode,Object> fromTriples(Collection<Triple<TNode,TNode,Double>> edges) {
+		Graph<TNode,Object> g = new Graph<>();
+		for(Triple<TNode,TNode,Double> edge : edges) {
+			g.addEdge(edge.getFirst(), edge.getSecond(), null, edge.getThird());
+		}
+		return g;
+	}
 }

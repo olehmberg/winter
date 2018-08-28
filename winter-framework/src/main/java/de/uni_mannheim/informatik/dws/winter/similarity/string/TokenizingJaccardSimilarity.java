@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.similarity.string;
 
 import com.wcohen.ss.Jaccard;
 import com.wcohen.ss.tokens.SimpleTokenizer;
+import org.apache.commons.lang3.StringUtils;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -37,7 +38,7 @@ public class TokenizingJaccardSimilarity extends SimilarityMeasure<String> {
 	 */
 	@Override
 	public double calculate(String first, String second) {
-		if(first==null || second==null) {
+		if(StringUtils.isEmpty(first) || StringUtils.isEmpty(second)) {
 			return 0.0;
 		} else {
 			Jaccard j = new Jaccard(new SimpleTokenizer(true, true));

@@ -101,11 +101,12 @@ public class LodCsvTableWriter implements TableWriter {
             	if(value!=null) {
             		
             		if(ListHandler.isArray(value)) {
-            			//TODO format list
             			
             			List<String> stringValues = new LinkedList<>();
             			for(Object v : (Object[])value) {
-            				stringValues.add(formatValue(v, c));
+            				if(v!=null) {
+            					stringValues.add(formatValue(v, c));
+            				}
             			}
             			
             			values.add(ListHandler.formatList(stringValues));

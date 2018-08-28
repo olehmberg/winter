@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.uni_mannheim.informatik.dws.winter.processing.Function;
+
 /**
  * A pair of two objects.
  * 
@@ -90,6 +92,20 @@ public class Pair<T, U> implements Serializable {
 		return result;
 	}
 	
+	public static <T,U> Map<T, U> mergeToMap(Collection<Pair<T, U>> pairs, Function<U,Pair<U,U>> merge) {
+		Map<T, U> result = new HashMap<>();
+		
+		for(Pair<T, U> p : pairs) {
+			if(result.containsKey(p.getFirst())) {
+				result.put(p.getFirst(), merge.execute(new Pair<>(result.get(p.getFirst()), p.getSecond())));
+			} else {
+				result.put(p.getFirst(), p.getSecond());
+			}
+		}
+		
+		return result;
+	}
+
 	public static <T,U> Collection<Pair<T,U>> fromMap(Map<T,U> map) {
 		Collection<Pair<T,U>> result = new ArrayList<>();
 		
@@ -98,5 +114,10 @@ public class Pair<T, U> implements Serializable {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("(%s,%s)", first, second);
 	}
 }

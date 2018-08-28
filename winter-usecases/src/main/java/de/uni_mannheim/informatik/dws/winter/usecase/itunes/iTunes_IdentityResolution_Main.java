@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
@@ -36,6 +38,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.ITunesBlockingKeyByArtistTitleGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
 /**
@@ -46,7 +49,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
  * 
  */
 public class iTunes_IdentityResolution_Main {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 		// loading data
 		Map<String, Attribute> columnMappingITunes = new HashMap<>();
@@ -88,6 +106,10 @@ public class iTunes_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		
+		// Collect debug results
+		matchingRule.collectDebugData("usecase/itunes/output/debugResultsMatchingRule.csv", 1000);
+		
 		// add comparators
 		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);
 		artistLowerCaseLevenshtein.setLowerCase(true);
@@ -98,10 +120,13 @@ public class iTunes_IdentityResolution_Main {
 		RecordComparatorJaccard labelNoBrackets = new RecordComparatorJaccard(Song.RDFSCHEMA, iTunesSong.NAME, 0.3, true);
 		labelNoBrackets.setRemoveBrackets(true);
 		matchingRule.addComparator(labelNoBrackets, 0.2);
+		matchingRule.normalizeWeights();
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/itunes/output/debugResultsBlocking.csv", 100);
+		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
@@ -120,19 +145,20 @@ public class iTunes_IdentityResolution_Main {
 				"usecase/itunes/goldstandard/gs_iTunes_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), null);
 
 		// print the evaluation result
-		System.out.println("DBPedia Song <-> iTunes");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		logger.info("DBPedia Song <-> iTunes");
+		logger.info(String.format(
+				"Precision: %.4f",perfTest.getPrecision()));
+		logger.info(String.format(
+				"Recall: %.4f",	perfTest.getRecall()));
+		logger.info(String.format(
+				"F1: %.4f",perfTest.getF1()));
 						
 	}
 	
@@ -160,7 +186,7 @@ public class iTunes_IdentityResolution_Main {
 		// print the correspondences
 		for (Correspondence<Record, Attribute> missingCorrespondence : missingCorrespondences) {
 
-				System.out.println(String
+				logger.info(String
 						.format("%s,%s",
 								missingCorrespondence.getFirstRecord().getIdentifier(),
 								missingCorrespondence.getSecondRecord().getIdentifier()));

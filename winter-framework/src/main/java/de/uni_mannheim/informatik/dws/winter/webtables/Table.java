@@ -13,6 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.webtables;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,10 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Consumer;
 import de.uni_mannheim.informatik.dws.winter.utils.parallel.Parallel;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
@@ -133,6 +136,10 @@ public class Table implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+
+		// changing the path will change the identifiers of all rows and columns of this table
+		// so we have to update all HashMaps which contain rows or columns
+		getSchema().updateIdentifiers();
 	}
 
 	public Collection<TableColumn> getColumns() {
@@ -249,8 +256,21 @@ public class Table implements Serializable {
 			subjectColumnIndex++;
 		}
 
-		getSchema().insertColumn(index, c);
+		// update column mapping
+		if(getMapping().getMappedProperties()!=null) {
+			Pair<String,Double>[] columnMapping = Arrays.copyOf(getMapping().getMappedProperties(), getMapping().getMappedProperties().length);
+			for(int i = 0; i < getColumns().size(); i++) {
+				if(i>=index && columnMapping.length>i) {
+					getMapping().setMappedProperty(i+1, columnMapping[i]);
+				}
+			}
+			getMapping().setMappedProperty(index, null);
+		}
 
+		// insert the new column
+		getSchema().insertColumn(index, c);
+		
+		// update row values
 		for (TableRow r : getRows()) {
 			Object[] oldValues = r.getValueArray();
 			Object[] newValues = new Object[oldValues.length + 1];
@@ -435,6 +455,15 @@ public class Table implements Serializable {
 	}
 
 	/**
+	 * Adds the current data types of all columns to this tables mapping
+	 */
+	public void addDataTypesToMapping() {
+		for(TableColumn c : getColumns()) {
+			getMapping().setDataType(c.getColumnIndex(), c.getDataType());
+		}
+	}
+
+	/**
 	 * Detects and sets the key column for this table
 	 */
 	public void identifySubjectColumn() {
@@ -457,7 +486,6 @@ public class Table implements Serializable {
 		TableKeyIdentification tki = new TableKeyIdentification();
 
 		tki.setKeyUniquenessThreshold(uniquenessThreshold);
-		tki.setVerbose(verbose);
 
 		tki.identifyKeys(this);
 	}
@@ -501,6 +529,48 @@ public class Table implements Serializable {
 		}
 	}
 
+	/**
+	 * Projects the table and returns a map that translates the column indices to the projected column indices
+	 * @param projectedColumns	the columns to project
+	 * @return	a map that translates the column indices to the projected column indices
+	 */
+	public Map<Integer, Integer> projectColumnIndices(Collection<TableColumn> projectedColumns) {
+		Map<Integer, Integer> columnIndexProjection = new HashMap<>();
+
+		// project the table schema
+		int idx = 0;
+		for (int i = 0; i < getColumns().size(); i++) {
+			TableColumn c = getSchema().get(i);
+
+			if (projectedColumns.contains(c)) {
+				columnIndexProjection.put(i, idx++);
+			}
+		}
+		
+		return columnIndexProjection;
+	}
+	
+	/**
+	 * Returns the functional dependencies which will still exist if the table is projected using the specified columns.
+	 * The result uses the columns of this Table instance and does not create new column instances.
+	 */
+	public Map<Set<TableColumn>,Set<TableColumn>> projectFunctionalDependencies(Collection<TableColumn> projectedColumns) throws Exception {
+		Map<Set<TableColumn>,Set<TableColumn>> result = new HashMap<>();
+
+		// copy functional dependencies
+		for(Pair<Set<TableColumn>,Set<TableColumn>> fd : Pair.fromMap(getSchema().getFunctionalDependencies())) {
+			Set<TableColumn> det = fd.getFirst();
+
+			Set<TableColumn> dep = fd.getSecond();
+			Set<TableColumn> depIntersection = Q.intersection(projectedColumns,dep);
+			if (projectedColumns.containsAll(det) && depIntersection.size()>0) {
+				result.put(det, depIntersection);
+			}
+		}
+
+		return result;
+	}
+
 	public Table project(Collection<TableColumn> projectedColumns) throws Exception {
 		return project(projectedColumns, true);
 	}
@@ -528,18 +598,20 @@ public class Table implements Serializable {
 		result.setPath(getPath());
 
 		// copy functional dependencies
-		for (Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+		for(Pair<Set<TableColumn>,Set<TableColumn>> fd : Pair.fromMap(getSchema().getFunctionalDependencies())) {
+			Set<TableColumn> det = fd.getFirst();
 
-			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
-			if (projectedColumns.containsAll(det) && projectedColumns.containsAll(dep)) {
-				Collection<TableColumn> newDet = new ArrayList<>(det.size());
+			Set<TableColumn> dep = fd.getSecond();
+			Set<TableColumn> depIntersection = Q.intersection(projectedColumns,dep);
+			if (projectedColumns.containsAll(det) && depIntersection.size()>0) {
+				Set<TableColumn> newDet = new HashSet<>();
 
 				for (TableColumn c : det) {
 					newDet.add(result.getSchema().get(columnIndexProjection.get(c.getColumnIndex())));
 				}
 
-				Collection<TableColumn> newDep = new ArrayList<>(dep.size());
-				for (TableColumn c : dep) {
+				Set<TableColumn> newDep = new HashSet<>();
+				for (TableColumn c : depIntersection) {
 					newDep.add(result.getSchema().get(columnIndexProjection.get(c.getColumnIndex())));
 				}
 
@@ -563,9 +635,11 @@ public class Table implements Serializable {
 			Object[] oldValues = r.getValueArray();
 			Object[] newValues = new Object[projectedColumns.size()];
 
-			for (int i = 0; i < oldValues.length; i++) {
-				if (columnIndexProjection.containsKey(i)) {
-					newValues[columnIndexProjection.get(i)] = oldValues[i];
+			if(oldValues!=null) {
+				for (int i = 0; i < oldValues.length; i++) {
+					if (columnIndexProjection.containsKey(i)) {
+						newValues[columnIndexProjection.get(i)] = oldValues[i];
+					}
 				}
 			}
 
@@ -577,6 +651,130 @@ public class Table implements Serializable {
 		return result;
 	}
 
+	public Table join(Table otherTable, Collection<Pair<TableColumn,TableColumn>> joinOn, Collection<TableColumn> projection) throws Exception {
+		
+		// hash the join keys
+		Map<TableColumn, Map<Object, Collection<TableRow>>> index = new HashMap<>();
+		for(TableRow r : otherTable.getRows()) {
+			for(Pair<TableColumn, TableColumn> p : joinOn) {
+				TableColumn joinKey = p.getSecond();
+				Object value = r.get(joinKey.getColumnIndex());
+				if(value!=null) {
+					Map<Object, Collection<TableRow>> columnValues = MapUtils.getFast(index, joinKey, (c)->new HashMap<Object,Collection<TableRow>>());
+					Collection<TableRow> rowsWithValue = MapUtils.getFast(columnValues, value, (o)->new LinkedList<TableRow>());
+					rowsWithValue.add(r);
+				}
+			}
+		}
+		
+		// create the result table
+		Table result = project(Q.intersection(getColumns(), projection));
+		result.getSchema().setFunctionalDependencies(new HashMap<>());
+		result.getSchema().setCandidateKeys(new HashSet<>());
+		result.clear();
+		Map<TableColumn, TableColumn> inputColumnToOutputColumn = new HashMap<>();
+		for(Map.Entry<Integer, Integer> translation : projectColumnIndices(Q.intersection(getColumns(), projection)).entrySet()) {
+			inputColumnToOutputColumn.put(getSchema().get(translation.getKey()), result.getSchema().get(translation.getValue()));
+		}
+		Collection<TableColumn> otherColumns = Q.without(projection, getColumns());
+		for(TableColumn c : otherColumns) {
+			TableColumn out = new TableColumn(result.getColumns().size(), result);
+			out.setDataType(c.getDataType());
+			out.setHeader(c.getHeader());
+			result.addColumn(out);
+			inputColumnToOutputColumn.put(c, out);
+		}
+		
+		// set the table mapping - class
+		Pair<String, Double> thisClass = getMapping().getMappedClass();
+		Pair<String, Double> otherClass = otherTable.getMapping().getMappedClass();
+		if(Q.equals(thisClass, otherClass, false) || (thisClass==null ^ otherClass==null)) {
+			if(thisClass==null) {
+				thisClass = otherClass;
+			}
+			result.getMapping().setMappedClass(thisClass);
+		}
+
+		// set the table mapping - properties
+		for(TableColumn projectedColumn : projection) {
+			Pair<String, Double> colMapping = null;
+			
+			if(getColumns().contains(projectedColumn)) {
+				colMapping = getMapping().getMappedProperty(projectedColumn.getColumnIndex());
+			} else {
+				colMapping = otherTable.getMapping().getMappedProperty(projectedColumn.getColumnIndex());
+			}
+			if(colMapping!=null) {
+				result.getMapping().setMappedProperty(inputColumnToOutputColumn.get(projectedColumn).getColumnIndex(), colMapping);
+			}			
+		}
+		
+		// create the join
+		for(TableRow r : getRows()) {
+			
+			// find all rows statisfying the join condition
+			Collection<TableRow> matchingRows = null;
+			for(Pair<TableColumn, TableColumn> p : joinOn) {
+				Object leftValue = r.get(p.getFirst().getColumnIndex());
+				
+				Collection<TableRow> otherRows = index.get(p.getSecond()).get(leftValue);
+				
+				if(otherRows==null) {
+					matchingRows = null;
+					break;
+				}
+				
+				if(matchingRows==null) {
+					matchingRows = otherRows;
+				} else {
+					matchingRows = Q.intersection(matchingRows, otherRows);
+				}
+			}
+			
+			// iterate over the matching rows
+			if(matchingRows!=null && matchingRows.size()>0) {
+				for(TableRow r2 : matchingRows) {
+					
+					// create a result row
+					TableRow out = new TableRow(result.getRows().size(), result);
+					Object[] values = new Object[inputColumnToOutputColumn.size()];
+					out.set(values);
+					result.addRow(out);
+					
+					// copy all values from the left table
+					for(TableColumn c : getColumns()) {
+						TableColumn c2 = inputColumnToOutputColumn.get(c);
+						if(c2!=null) {
+							values[c2.getColumnIndex()] = r.get(c.getColumnIndex());
+						}
+					}
+					
+					// copy all values from the right table
+					for(TableColumn c : otherTable.getColumns()) {
+						TableColumn c2 = inputColumnToOutputColumn.get(c);
+						if(c2!=null) {
+							values[c2.getColumnIndex()] = r2.get(c.getColumnIndex());
+						}
+					}
+					
+					// set the table mapping - instances
+					Pair<String, Double> thisRowMapping = getMapping().getMappedInstance(r.getRowNumber());
+					Pair<String, Double> otherRowMapping = otherTable.getMapping().getMappedInstance(r2.getRowNumber());
+					if(Q.equals(thisRowMapping, otherRowMapping, false) || (thisRowMapping==null ^ otherRowMapping==null)) {
+						if(thisRowMapping==null) {
+							thisRowMapping = otherClass;
+						}
+						result.getMapping().setMappedInstance(out.getRowNumber(), thisRowMapping);
+					}
+					
+				}
+				
+			}
+		}
+		
+		return result;
+	}
+	
 	public Table copySchema() {
 		Table result = new Table();
 
@@ -592,15 +790,15 @@ public class Table implements Serializable {
 		result.setPath(getPath());
 
 		// copy functional dependencies
-		for (Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
-			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
-			Collection<TableColumn> newDet = new ArrayList<>(det.size());
+		for (Set<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+			Set<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			Set<TableColumn> newDet = new HashSet<>(det.size());
 
 			for (TableColumn c : det) {
 				newDet.add(result.getSchema().get(c.getColumnIndex()));
 			}
 
-			Collection<TableColumn> newDep = new ArrayList<>(dep.size());
+			Set<TableColumn> newDep = new HashSet<>(dep.size());
 			for (TableColumn c : dep) {
 				newDep.add(result.getSchema().get(c.getColumnIndex()));
 			}
@@ -617,7 +815,7 @@ public class Table implements Serializable {
 	}
 
 	public static enum ConflictHandling {
-		KeepFirst, KeepBoth, ReplaceNULLs
+		KeepFirst, KeepBoth, ReplaceNULLs, CreateList, CreateSet, ReturnConflicts
 	}
 
 	/**
@@ -628,8 +826,8 @@ public class Table implements Serializable {
 	 * 
 	 * @param key
 	 */
-	public void deduplicate(Collection<TableColumn> key) {
-		deduplicate(key, ConflictHandling.KeepFirst);
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key) {
+		return deduplicate(key, ConflictHandling.KeepFirst);
 	}
 
 	/**
@@ -646,18 +844,42 @@ public class Table implements Serializable {
 	 * @param key
 	 * @param conflictHandling
 	 */
-	public void deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling) {
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling) {
+		return deduplicate(key, conflictHandling, true);
+	}
+
+	/**
+	 * 
+	 * Removes duplicates from the table. The provided key is used to find the
+	 * duplicates. If duplicates are found, the remaining values are checked for
+	 * conflicts and the ConflictHandling is applied:
+	 * ConflictHandling.KeepFirst: The first record is kept, all others are
+	 * removed ConflictHandling.KeepBoth: All conflicting records are kept
+	 * ConflictHandling.ReplaceNULLs: Like KeepBoth, but if conflicts are only between a value and a NULL, the NULLs are replaced such that only one record needs to be kept
+	 * ConflictHandling.ReturnConflicts: Like KeepBoth, but returns the conflicts instead of the duplicates
+	 * 
+	 * @param key
+	 * @param conflictHandling
+	 * @param reorganiseRowNumbers specifies if reorganiseRowNumbers() should be called after deduplication
+	 */
+	public Collection<Pair<TableRow, TableRow>> deduplicate(Collection<TableColumn> key, ConflictHandling conflictHandling, boolean reorganiseRowNumbers) {
 		/***********************************************
 		 * De-Duplication
 		 ***********************************************/
-
+		Collection<Pair<TableRow, TableRow>> duplicates = new LinkedList<>();
+		
 		// use the provided key to perform duplicate detection
 		// keep a map of (key values)->(first row with these values) for the
 		// chosen key
 		HashMap<List<Object>, TableRow> seenKeyValues = new HashMap<>();
 
+		// use a linked list during de-duplication, which has O(1) cost for removing entries
+		// LinkedList<TableRow> linkedRows = new LinkedList<>(getRows());
+		ArrayList<TableRow> deduplicatedRows = new ArrayList<>(getRows().size());
+
 		// iterate the table row by row
 		Iterator<TableRow> rowIt = getRows().iterator();
+		// Iterator<TableRow> rowIt = linkedRows.iterator();
 		while (rowIt.hasNext()) {
 			TableRow r = rowIt.next();
 
@@ -667,11 +889,17 @@ public class Table implements Serializable {
 				keyValues.add(r.get(c.getColumnIndex()));
 			}
 
+			boolean keepRow = true;
+
 			// check if the key values have been seen before
 			if (seenKeyValues.containsKey(keyValues)) {
 
 				TableRow existing = seenKeyValues.get(keyValues);
 
+				if(conflictHandling != ConflictHandling.ReturnConflicts) {
+					duplicates.add(new Pair<>(existing, r));
+				}
+				
 				if (conflictHandling != ConflictHandling.KeepFirst) {
 
 					// check the remaining attributes for equality
@@ -682,15 +910,15 @@ public class Table implements Serializable {
 						Object existingValue = existing.get(c.getColumnIndex());
 						Object duplicateValue = r.get(c.getColumnIndex());
 
-						if (existingValue != null && existingValue.equals(duplicateValue)) {
+						// if (existingValue != null && existingValue.equals(duplicateValue)) {
+						if(Q.equals(existingValue, duplicateValue, true)) {				// both values equal or both NULL
 							// equal values
-						}
-						if (existingValue == null && duplicateValue != null
-								|| existingValue != null && duplicateValue == null) {
+						} else if (existingValue == null && duplicateValue != null
+								|| existingValue != null && duplicateValue == null) {	// one value NULL
 							// conflict with a NULL value
 							equal = false;
 							nullIndices.add(c.getColumnIndex());
-						} else {
+						} else {														// different values
 							equal = false;
 							conflictingNullsOnly = false;
 						}
@@ -704,7 +932,50 @@ public class Table implements Serializable {
 							// if handling is set to replace nulls, but there is
 							// a conflict between non-null values, we don't
 							// merge
-							continue;
+							// continue;
+							keepRow = true;
+						} else if(conflictHandling == ConflictHandling.ReturnConflicts) {
+							duplicates.add(new Pair<>(existing, r));
+							keepRow = true;
+					 	} else if(conflictHandling == ConflictHandling.CreateList || conflictHandling == ConflictHandling.CreateSet) {
+							// if handling is set to create list or create set, we merge all values and  assign them to the first record
+							
+							for (TableColumn c : Q.without(getColumns(), key)) {
+								
+								Object existingValue = existing.get(c.getColumnIndex());
+								Object conflictingValue = r.get(c.getColumnIndex());
+								Collection<Object> values = null;
+								if(conflictHandling==ConflictHandling.CreateSet) {
+									values = new HashSet<>();
+								} else {
+									values = new LinkedList<>();
+								}
+
+								if(existingValue!=null) {
+									if(existingValue.getClass().isArray()) {
+										values.addAll(Q.toList((Object[])existingValue));
+									} else {
+										values.add(existingValue);
+									}
+								}
+
+								if(conflictingValue!=null) {
+									if(conflictingValue.getClass().isArray()) {
+										values.addAll(Q.toList((Object[])conflictingValue));
+									} else {
+										values.add(conflictingValue);
+									}
+								}
+								
+								if(values.size()<=1) {
+									// if the result has only one element, don't treat it as multi-valued
+									existing.set(c.getColumnIndex(), Q.firstOrDefault(values));
+								} else {
+									existing.set(c.getColumnIndex(), values.toArray());
+								}
+							}
+
+							keepRow = false;
 						} else {
 							// if handling is set to replace nulls, and there
 							// are only conflicts between values and nulls, we
@@ -715,15 +986,24 @@ public class Table implements Serializable {
 									existing.set(idx, r.get(idx));
 								}
 							}
+
+							keepRow = false;
 						}
+					} else {
+						keepRow = false;
 					}
+				} else {
+					keepRow = false;
 				}
 
-				// remove the duplicate row
-				rowIt.remove();
-				// and add the table name of the duplicate row to the existing
-				// row
-				existing.addProvenanceForRow(r);
+				if(!keepRow) {
+					// remove the duplicate row
+					// rowIt.remove();
+					
+					// and add the table name of the duplicate row to the existing
+					// row
+					existing.addProvenanceForRow(r);
+				}
 			} else {
 				// if not, add the current key values to the list of seen values
 				seenKeyValues.put(keyValues, r);
@@ -732,9 +1012,59 @@ public class Table implements Serializable {
 				// source information if later rows are merged with this one)
 				// r.addProvenanceForRow(r);
 			}
+
+			if(keepRow) {
+				// add the row to the output
+				deduplicatedRows.add(r);
+			}
 		}
 
-		reorganiseRowNumbers();
+		// re-create the array list
+		// setRows(new ArrayList<>(linkedRows));
+		setRows(deduplicatedRows);
+		rows.trimToSize();
+
+		if(reorganiseRowNumbers) {
+			reorganiseRowNumbers();
+		}
+		
+		return duplicates;
+	}
+
+	/**
+	 * checks for duplicate values of the provided column combination and returns all rows which contain duplicate values.
+	 */
+	public Set<TableRow> findUniquenessViolations(Collection<TableColumn> uniqueColumnCombination) {
+		// use the provided key to perform duplicate detection
+		// keep a map of (key values)->(first row with these values) for the
+		// chosen key
+		HashMap<List<Object>, TableRow> seenKeyValues = new HashMap<>();
+		Set<TableRow> conflicts = new HashSet<>();
+		
+		// iterate the table row by row
+		Iterator<TableRow> rowIt = getRows().iterator();
+		while (rowIt.hasNext()) {
+			TableRow r = rowIt.next();
+
+			// get the values of the key for the current row
+			ArrayList<Object> keyValues = new ArrayList<>(uniqueColumnCombination.size());
+			for (TableColumn c : uniqueColumnCombination) {
+				keyValues.add(r.get(c.getColumnIndex()));
+			}
+
+			// check if the key values have been seen before
+			if (seenKeyValues.containsKey(keyValues)) {
+
+				TableRow existing = seenKeyValues.get(keyValues);
+
+				conflicts.add(existing);
+				conflicts.add(r);
+			} else {
+				seenKeyValues.put(keyValues, r);
+			}
+		}
+
+		return conflicts;
 	}
 	
 	public Map<TableColumn, Double> getColumnDensities() {
@@ -768,6 +1098,23 @@ public class Table implements Serializable {
 		return densities;
 	}
 	
+	public Map<TableColumn, Integer> getNumberOfValuesPerColumn() {
+		Map<TableColumn, Integer> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					MapUtils.increment(valuesByColumn, c);
+				}
+				
+			}
+			
+		}
+
+		return valuesByColumn;
+	}
 	public Map<TableColumn, Double> getColumnUniqueness() {
 
 		Map<TableColumn, Double> uniqueness = new HashMap<>();
@@ -802,5 +1149,64 @@ public class Table implements Serializable {
 		}
 		
 		return uniqueness;
+	}
+	
+	public Map<TableColumn, Set<Object>> getColumnDomains() {
+
+		Map<TableColumn, Set<Object>> valuesByColumn = new HashMap<>();
+		
+		for(TableRow r : getRows()) {
+			
+			for(TableColumn c : getColumns()) {
+				
+				if(r.get(c.getColumnIndex())!=null) {
+					Set<Object> domain = valuesByColumn.get(c);
+					if(domain==null) {
+						domain = new HashSet<>();
+						valuesByColumn.put(c, domain);
+					}
+					domain.add(r.get(c.getColumnIndex()));
+				}
+				
+			}
+			
+		}
+		
+		return valuesByColumn;
+	}
+
+	public Set<String> getProvenance() {
+		
+		Set<String> tbls = new HashSet<>();
+		
+		for(TableColumn c : getColumns()) {
+			for(String prov : c.getProvenance()) {
+				
+				tbls.add(prov.split("~")[0]);
+				
+			}
+		}
+		
+		return tbls;
+	}
+
+	public String formatFunctionalDependencies() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("Table #%d %s: {%s}\n", getTableId(), getPath(), StringUtils.join(Q.project(getColumns(), (c)->c.getHeader()), ",")));
+		sb.append("*** Functional Dependencies\n");
+		for(Collection<TableColumn> det : getSchema().getFunctionalDependencies().keySet()) {
+			Collection<TableColumn> dep = getSchema().getFunctionalDependencies().get(det);
+			sb.append(String.format("\t{%s} -> {%s}\n", 
+					StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
+					StringUtils.join(Q.project(dep, new TableColumn.ColumnHeaderProjection()), ",")
+					));
+		}
+		sb.append("*** Candidate Keys\n");
+		for(Collection<TableColumn> key : getSchema().getCandidateKeys()) {
+			sb.append(String.format("\t{%s}\n", 
+					StringUtils.join(Q.project(key, new TableColumn.ColumnHeaderProjection()), ",")
+					));
+		}
+		return sb.toString();
 	}
 }

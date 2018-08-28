@@ -31,11 +31,17 @@ import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcess
 public interface Processable<RecordType> extends Serializable {
 
 	/**
-	 * Adds an entry to this collection.
+	 * Adds an entry to this processable.
 	 * 
 	 * @param element	the element that should be added
 	 */
 	void add(RecordType element);
+	
+	/**
+	 * Adds all elements in the collection to this processable.
+	 * @param elements	the elements that should be added
+	 */
+	void addAll(Collection<RecordType> elements);
 
 	/**
 	 * @return Returns a collection with all entries of this data set.
@@ -98,6 +104,13 @@ public interface Processable<RecordType> extends Serializable {
 	 * @return A {@link Processable} with the result of the operation
 	 */
 	<OutputRecordType> Processable<OutputRecordType> map(RecordMapper<RecordType, OutputRecordType> transformation);
+
+	/**
+	 * Iterates over all elements and produces a result
+	 * @param transformation	the transformation that should be applied
+	 * @return A {@link Processable} with the result of the operation
+	 */
+	<OutputRecordType> Processable<OutputRecordType> map(Function<OutputRecordType, RecordType> transformation);
 
 	/**
 	 * Joins the data to itself via the provided joinKeyGenerator (inner join). Assumes that the join is symmetric, i.e., a result a/b is equal to b/a and hence only a/b is created.

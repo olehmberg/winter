@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -30,6 +31,8 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 
 	private static final long serialVersionUID = 1L;
 	TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
+	
+	private ComparatorLogger comparisonLog;
 
 	public RecordComparatorJaccardWithBrackets(Attribute attributeRecord1, Attribute attributeRecord2, double threshold,
 			boolean squared) {
@@ -43,19 +46,39 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 
 	@Override
 	public double compare(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
-		// preprocessing
+		this.comparisonLog.setComparatorName(getClass().getName());
+		
 		String s1 = record1.getValue(this.getAttributeRecord1());
 		String s2 = record2.getValue(this.getAttributeRecord2());
-
+		
+		this.comparisonLog.setRecord1Value(s1);
+		this.comparisonLog.setRecord2Value(s2);
+		
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
+		
+			this.comparisonLog.setRecord1Value(s1);
+			this.comparisonLog.setRecord2Value(s2);
+		}
+		
+		// preprocessing
 		if (s1.contains("(") || s2.contains("(")) {
 			// Remove everything in brackets
 			String s1_temp = s1.replaceAll("\\(.*\\)", "");
 			String s2_temp = s2.replaceAll("\\(.*\\)", "");
-
+			
+			if(this.comparisonLog != null){
+			
+				this.comparisonLog.setRecord1PreprocessedValue(s1);
+				this.comparisonLog.setRecord2PreprocessedValue(s2);
+			}
+			
 			// calculate similarity
 			if (!s1_temp.equals(s1) || !s2_temp.equals(s2)) {
 				double similarity = sim.calculate(s1_temp, s2_temp);
-
+				if(this.comparisonLog != null){
+					this.comparisonLog.setSimilarity(Double.toString(similarity));
+				}
 				// postprocessing
 				if (similarity <= this.threshold) {
 					similarity = 0;
@@ -63,12 +86,27 @@ public class RecordComparatorJaccardWithBrackets extends RecordComparator {
 
 				if (squared)
 					similarity *= similarity;
-
+				
+				if(this.comparisonLog != null){
+					this.comparisonLog.setPostprocessedSimilarity(Double.toString(similarity));
+				}
 				return similarity;
 			}
 		}
-
+		if(this.comparisonLog != null){
+			this.comparisonLog.setSimilarity("0");
+		}
 		return 0;
+	}
+
+	@Override
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
 	}
 
 }

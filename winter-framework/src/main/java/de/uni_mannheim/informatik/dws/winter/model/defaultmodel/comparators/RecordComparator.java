@@ -16,16 +16,16 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 
 /**
- * {@link Comparator} for {@link Record}s based on the
- * {@link Attribute} values.
+ * {@link Comparator} for {@link Record}s based on the {@link Attribute} values.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
 public abstract class RecordComparator implements Comparator<Record, Attribute> {
-	
+
 	/**
-	 * When a ReordComparator is created. The two to be compared attributes need to be handed over.
+	 * When a ReordComparator is created. The two to be compared attributes need
+	 * to be handed over.
 	 */
 	private static final long serialVersionUID = 1L;
 	private Attribute attributeRecord1;
@@ -36,7 +36,7 @@ public abstract class RecordComparator implements Comparator<Record, Attribute> 
 		this.setAttributeRecord1(attributeRecord1);
 		this.setAttributeRecord2(attributeRecord2);
 	}
-	
+
 	public Attribute getAttributeRecord1() {
 		return attributeRecord1;
 	}

@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 //import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;
@@ -50,6 +51,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.Ev
 import de.uni_mannheim.informatik.dws.winter.usecase.events.datafusion.fusers.EventURIFuserAll;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.Event;
 import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a data fusion task, reading
@@ -60,7 +62,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventXMLReader
  * 
  */
 public class Events_DataFusion_Main {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			TransformerException {
@@ -101,11 +118,11 @@ public class Events_DataFusion_Main {
 																		   boolean filterTo, LocalDate toDate, boolean applyKeywordSearch, String keyword) throws IOException {
 
 		//FusableDataSet<Event, DefaultSchemaElement> fusableDataSetD = (FusableDataSet<Event, DefaultSchemaElement>) dataSetD;
-		System.out.println("DBpedia Data Set Density Report:");
+		logger.info("DBpedia Data Set Density Report:");
 		fusableDataSetD.printDataSetDensityReport();
 
 		//FusableDataSet<Event, DefaultSchemaElement> fusableDataSetY = (FusableDataSet<Event, DefaultSchemaElement>) dataSetY;
-		System.out.println("YAGO Data Set Density Report:");
+		logger.info("YAGO Data Set Density Report:");
 		fusableDataSetY.printDataSetDensityReport();
 
 		// Maintain Provenance
@@ -134,6 +151,9 @@ public class Events_DataFusion_Main {
 		correspondencesSet.printGroupSizeDistribution();
 
 		DataFusionStrategy<Event, Attribute> strategy = new DataFusionStrategy<>(new EventXMLReader());
+		
+		// write debug results to file
+		strategy.collectDebugData("usecase/events/output/resultsDatafusion.csv", 1000);
 
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword));
 
@@ -165,17 +185,16 @@ public class Events_DataFusion_Main {
 		DataSet<Event, Attribute> gs = new FusibleHashedDataSet<>();
 //		gs.loadFromTSV(new File("../data/fused.tsv"),
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword), "/events/event", separator, dateTimeFormatter, false, fromDate, false, toDate, false, keyword);
-
+				
 		//gs.splitMultipleValues(separator);
 		// evaluate
 		//DataFusionEvaluator<Movie, DefaultSchemaElement> evaluator = new DataFusionEvaluator<>(
 		//		strategy, new RecordGroupFactory<Movie, DefaultSchemaElement>());
 		DataFusionEvaluator<Event, Attribute> evaluator = new DataFusionEvaluator<>(
 				strategy, new RecordGroupFactory<Event, Attribute>());
-		evaluator.setVerbose(true);
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
 
-		System.out.println(String.format("Accuracy: %.2f", accuracy));
+		logger.info(String.format("Accuracy: %.2f", accuracy));
 
 		return fusedDataSet;
 	}

@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
@@ -45,6 +46,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.Ti
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLFormatter;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a data fusion task, reading
@@ -54,7 +56,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  */
 public class Movies_DataFusion_Main {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			TransformerException {
@@ -100,11 +117,16 @@ public class Movies_DataFusion_Main {
 
 		// define the fusion strategy
 		DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
+		
+		// collect debug results
+		strategy.collectDebugData("usecase/movie/output/debugResultsDatafusion.csv", 100);
+		
 		// add attribute fusers
 		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());
 		strategy.addAttributeFuser(Movie.DIRECTOR,new DirectorFuserLongestString(), new DirectorEvaluationRule());
 		strategy.addAttributeFuser(Movie.DATE, new DateFuserVoting(),new DateEvaluationRule());
 		strategy.addAttributeFuser(Movie.ACTORS,new ActorsFuserUnion(),new ActorsEvaluationRule());
+		
 		
 		// create the fusion engine
 		DataFusionEngine<Movie, Attribute> engine = new DataFusionEngine<>(strategy);
@@ -113,6 +135,7 @@ public class Movies_DataFusion_Main {
 		
 		// run the fusion
 		FusibleDataSet<Movie, Attribute> fusedDataSet = engine.run(correspondences, null);
+		fusedDataSet.printDataSetDensityReport();
 
 		// write the result
 		new MovieXMLFormatter().writeXML(new File("usecase/movie/output/fused.xml"), fusedDataSet);
@@ -120,14 +143,13 @@ public class Movies_DataFusion_Main {
 		// load the gold standard
 		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
-
+		
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(
 				strategy, new RecordGroupFactory<Movie, Attribute>());
-		evaluator.setVerbose(true);
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
 
-		System.out.println(String.format("Accuracy: %.2f", accuracy));
+		logger.info(String.format("Accuracy: %.2f", accuracy));
 
 	}
 

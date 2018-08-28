@@ -21,9 +21,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
 
 /**
@@ -34,6 +37,8 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
  * @param <T>	the type of the matrix' dimensions
  */
 public abstract class SimilarityMatrix<T> {
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
     /**
      * 
@@ -105,7 +110,7 @@ public abstract class SimilarityMatrix<T> {
      * @param normalizingFactor	the factor to normalise with
      */
     public void normalize(double normalizingFactor) {
-        //System.out.println("norm: " + normalizingFactor);
+        //logger.info("norm: " + normalizingFactor);
         for (T value : getFirstDimension()) {
             for (T secondValue : getMatches(value)) {
                 double d = get(value, secondValue) / normalizingFactor;
@@ -770,7 +775,7 @@ public abstract class SimilarityMatrix<T> {
         double percent = (double) getNumberOfNonZeroElements()
                 / (double) getNumberOfElements();
 
-        System.out.println(String.format("%s -> %d / %d non-zero (%.2f %%)",
+        logger.info(String.format("%s -> %d / %d non-zero (%.2f %%)",
                 label, getNumberOfNonZeroElements(), getNumberOfElements(),
                 percent * 100));
     }

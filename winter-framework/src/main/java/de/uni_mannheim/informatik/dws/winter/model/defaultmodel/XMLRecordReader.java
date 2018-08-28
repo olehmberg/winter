@@ -18,6 +18,7 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
 
 /**
@@ -35,6 +36,17 @@ public class XMLRecordReader extends XMLMatchableReader<Record, Attribute> {
 	public XMLRecordReader(String idAttributeName, Map<String, Attribute> attributeMapping) {
 		this.idAttributeName = idAttributeName;
 		this.attributeMapping = attributeMapping;
+	}
+
+	@Override
+	protected void initialiseDataset(DataSet<Record, Attribute> dataset) {
+		super.initialiseDataset(dataset);
+
+		if(dataset.getSchema()==null || dataset.getSchema().size()==0) {
+			for(Attribute a : attributeMapping.values()) {
+				dataset.addAttribute(a);
+			}
+		}
 	}
 
 	@Override

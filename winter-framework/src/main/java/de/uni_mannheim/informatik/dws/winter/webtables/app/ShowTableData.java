@@ -19,19 +19,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import com.beust.jcommander.Parameter;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import de.uni_mannheim.informatik.dws.winter.utils.Executable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Func;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableContext;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
+import de.uni_mannheim.informatik.dws.winter.webtables.parsers.CsvTableParser;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableParser;
+import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableDisambiguationExtractor;
+import de.uni_mannheim.informatik.dws.winter.webtables.preprocessing.TableNumberingExtractor;
 import de.uni_mannheim.informatik.dws.winter.webtables.writers.JsonTableWriter;
 
 /**
@@ -73,6 +78,14 @@ public class ShowTableData extends Executable {
 	@Parameter(names = "-dep")
 	private boolean showDependencyInfo = false;
 	
+	@Parameter(names = "-prov")
+	private boolean showProvenanceInfo = false;
+	
+	@Parameter(names = "-pre")
+	private boolean applyPreprocessing = false;
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	public static void main(String[] args) throws IOException {
 		ShowTableData s = new ShowTableData();
 		
@@ -86,7 +99,10 @@ public class ShowTableData extends Executable {
 		
 		JsonTableParser p = new JsonTableParser();
 		JsonTableWriter w = new JsonTableWriter();
-		p.setConvertValues(convertValues | detectKey);
+		// p.setConvertValues(convertValues | detectKey);
+
+		CsvTableParser csvP = new CsvTableParser();
+		// csvP.setConvertValues(convertValues | detectKey);
 		
 		String[] files = getParams().toArray(new String[getParams().size()]);
 		
@@ -116,15 +132,31 @@ public class ShowTableData extends Executable {
 				f = new File(dir,s);
 			}
 			
-			t = p.parseTable(f);
+			if(s.endsWith("json")) {
+				t = p.parseTable(f);
+			} else if(s.endsWith("csv")) {
+				t = csvP.parseTable(f);
+			} else {
+				logger.error(String.format("Unknown table format '%s' (must be .json or .csv)", f.getName()));
+				continue;
+			}
 			
+			if(applyPreprocessing) {
+				new TableDisambiguationExtractor().extractDisambiguations(Q.toList(t));
+				new TableNumberingExtractor().extractNumbering(Q.toList(t));
+			}
+			
+			if(convertValues) {
+				t.convertValues();
+			}
+
 			// update the table if requested
 			if(detectKey) {
 				t.identifySubjectColumn(0.3,true);
-				System.err.println(String.format("* Detected Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
+				logger.error(String.format("* Detected Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
 			}
 			if(keyColumnIndex!=null) {
-				System.err.println(String.format("* Setting Entity-Label Column: %s", t.getSchema().get(keyColumnIndex)));
+				logger.error(String.format("* Setting Entity-Label Column: %s", t.getSchema().get(keyColumnIndex)));
 				t.setSubjectColumnIndex(keyColumnIndex);
 			}
 			if(update) {
@@ -147,9 +179,9 @@ public class ShowTableData extends Executable {
 				// list the columns in the table
 				for(TableColumn c : t.getColumns()) {
 					if(!showHeader) {
-						System.out.println(c.getIdentifier());
+						logger.info(c.getIdentifier());
 					} else {
-						System.out.println(c.toString());
+						logger.info(c.toString());
 					}
 				}
 			} else {
@@ -157,22 +189,38 @@ public class ShowTableData extends Executable {
 
 				TableContext ctx = t.getContext();
 				
-				System.out.println(String.format("*** Table %s ***", s));
-				System.out.println(String.format("* URL: %s", ctx.getUrl()));
-				System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
-				System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
-				System.out.println(String.format("* # Columns: %d", t.getColumns().size()));
-				System.out.println(String.format("* # Rows: %d", t.getRows().size()));
-				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
-				System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
+				logger.info(String.format("*** Table %s ***", s));
+				if(ctx!=null) {
+					logger.info(String.format("* URL: %s", ctx.getUrl()));
+					logger.info(String.format("* Title: %s", ctx.getPageTitle()));
+					logger.info(String.format("* Heading: %s", ctx.getTableTitle()));
+				}
+				logger.info(String.format("* # Columns: %d", t.getColumns().size()));
+				logger.info(String.format("* # Rows: %d", t.getRows().size()));
+				logger.info(String.format("* Created from %d original tables", getOriginalTables(t).size()));
+				logger.info(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
 
+				if(showProvenanceInfo) {
+					// collect all provenance data
+					Set<String> provenance = getOriginalTables(t);
+					
+					if(provenance.size()>0) {
+						logger.info("Provenance:");
+						logger.info(String.format("\t%s", 
+								StringUtils.join(Q.sort(provenance), ",")
+								));
+					} else {
+						logger.info("Table has no provenance data attached.");
+					}
+				}
+				
 				if(showDependencyInfo) {
 					
 					if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
-						System.out.println("*** Functional Dependencies ***");
+						logger.info("*** Functional Dependencies ***");
 						for(Collection<TableColumn> det : t.getSchema().getFunctionalDependencies().keySet()) {
 							Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
-							System.out.println(
+							logger.info(
 									String.format(
 											"{%s}->{%s}", 
 											StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
@@ -180,17 +228,17 @@ public class ShowTableData extends Executable {
 						}
 					}
 					if(t.getSchema().getCandidateKeys()!=null && t.getSchema().getCandidateKeys().size()>0) {
-						System.out.println("*** Candidate Keys ***");
+						logger.info("*** Candidate Keys ***");
 						for(Collection<TableColumn> candidateKey : t.getSchema().getCandidateKeys()) {
-							System.out.println(
+							logger.info(
 									String.format("{%s}", StringUtils.join(Q.project(candidateKey, new TableColumn.ColumnHeaderProjection()), ",")));
 						}
 					}
 				}
 
 				if(showData) {
-					System.out.println(t.getSchema().format(columnWidth));
-					System.out.println(t.getSchema().formatDataTypes(columnWidth));
+					logger.info(t.getSchema().format(columnWidth));
+					logger.info(t.getSchema().formatDataTypes(columnWidth));
 					
 					int maxRows = Math.min(numRows, t.getRows().size());
 					
@@ -200,10 +248,13 @@ public class ShowTableData extends Executable {
 					
 					for(int i = 0; i < maxRows; i++) {
 						TableRow r = t.getRows().get(i);
-						System.out.println(r.format(columnWidth));
+						if(showProvenanceInfo) {
+							logger.info(StringUtils.join(r.getProvenance(), " / "));
+						}
+						logger.info(r.format(columnWidth));
 					}
 				} else {
-					System.out.println(StringUtils.join(Q.project(t.getColumns(), 
+					logger.info(StringUtils.join(Q.project(t.getColumns(), 
 							new Func<String, TableColumn>() {
 	
 								@Override
@@ -231,7 +282,7 @@ public class ShowTableData extends Executable {
 		for(TableColumn c : t.getColumns()) {
 			for(String prov : c.getProvenance()) {
 				
-				tbls.add(prov.split(";")[0]);
+				tbls.add(prov.split("~")[0]);
 				
 			}
 		}

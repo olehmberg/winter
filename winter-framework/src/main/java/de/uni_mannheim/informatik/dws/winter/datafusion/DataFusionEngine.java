@@ -14,14 +14,16 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Executer class to run the data fusion based on a selected
@@ -34,6 +36,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
 public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> {
 
 	private DataFusionStrategy<RecordType, SchemaElementType> strategy;
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * @return the strategy
@@ -62,7 +65,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	public FusibleDataSet<RecordType, SchemaElementType> run(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
-		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
+		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = strategy.createFusedDataSet();
 
 		// iterate over all correspondence groups (all records mapped to the same target)
 		for (RecordGroup<RecordType, SchemaElementType> clu : correspondences.getRecordGroups()) {
@@ -77,6 +80,10 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 			for (RecordType record : clu.getRecords()) {
 				fusedDataSet.addOriginalId(fusedRecord, record.getIdentifier());
 			}
+		}
+		
+		if(strategy.isCollectDebugResults()){
+			strategy.writeDebugDataFusionResultsToFile();
 		}
 
 		return fusedDataSet;
@@ -155,10 +162,10 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 	public void printClusterConsistencyReport(
 			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
-		System.out.println("Attribute Consistencies:");
+		logger.info("Attribute Consistencies:");
 		Map<String, Double> consistencies = getAttributeConsistencies(correspondences, schemaCorrespondences);
 		for (String att : consistencies.keySet()) {
-			System.out.println(String.format("\t%s: %.2f", att,
+			logger.info(String.format("\t%s: %.2f", att,
 					consistencies.get(att)));
 		}
 	}

@@ -11,6 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKCorrespondencesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -19,9 +21,12 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import junit.framework.TestCase;
 
 public class TopKTest extends TestCase {
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public void testTopK() {
 		
@@ -42,7 +47,7 @@ public class TopKTest extends TestCase {
 		{
 			for(Correspondence<Record, Attribute> cor : p.getSecond().get()) {
 				
-				System.out.println(String.format("%s<->%s", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier()));
+				logger.info(String.format("%s<->%s", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier()));
 				
 				c.next(cor);
 			}
@@ -73,7 +78,7 @@ public class TopKTest extends TestCase {
 		{
 			for(Correspondence<Record, Attribute> cor : p.getSecond().get()) {
 				
-				System.out.println(String.format("%s<->%s", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier()));
+				logger.info(String.format("%s<->%s", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier()));
 				
 				c.next(cor);
 			}

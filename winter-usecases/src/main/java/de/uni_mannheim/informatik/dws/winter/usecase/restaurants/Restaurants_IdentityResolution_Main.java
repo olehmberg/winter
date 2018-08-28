@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
@@ -39,6 +41,7 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
 /**
@@ -49,6 +52,21 @@ import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restauran
  * 
  */
 public class Restaurants_IdentityResolution_Main {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
+
+	private static final Logger logger = WinterLogManager.activateLogger("default");
 
 	public static void main(String[] args) throws Exception {
 		// loading data
@@ -67,10 +85,15 @@ public class Restaurants_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Record, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
+		
+		// Collect debug results
+		matchingRule.collectDebugData("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000);
+		
 		// add comparators
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true),0.4);
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.ADDRESS, Restaurant.ADDRESS), 0.4);
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.STYLE, Restaurant.STYLE, 0.3, true), 0.2);
+		
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new RecordBlockingKeyGenerator<Record, Attribute>(){
@@ -91,7 +114,10 @@ public class Restaurants_IdentityResolution_Main {
 				
 			}
 		});
-
+		
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/restaurant/output/debugResultsBlocking.csv", 100);
+		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
 
@@ -109,19 +135,17 @@ public class Restaurants_IdentityResolution_Main {
 				"usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
 		
-		printCorrespondences(new ArrayList<>(correspondences.get()), gsTest);
+		//printCorrespondences(new ArrayList<>(correspondences.get()), gsTest);
 
 		// print the evaluation result
-		System.out.println("Fodors <-> Zagats");
-		System.out
-				.println(String.format(
-						"Precision: %.4f\nRecall: %.4f\nF1: %.4f",
-						perfTest.getPrecision(), perfTest.getRecall(),
-						perfTest.getF1()));
+		logger.info("Fodors <-> Zagats");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 	}
 	
 	/**
@@ -129,6 +153,7 @@ public class Restaurants_IdentityResolution_Main {
 	 * @param correspondences
 	 * @param goldStandard
 	 */
+	@SuppressWarnings("unused")
 	private static void printCorrespondences(
 			 List<Correspondence<Record, Attribute>> correspondences, MatchingGoldStandard goldStandard) {
 		// sort the correspondences
@@ -142,7 +167,7 @@ public class Restaurants_IdentityResolution_Main {
 		}
 		// print the correspondences
 		for (Correspondence<Record, Attribute> missingCorrespondence : missingCorrespondences) {
-			System.out.println(String
+			logger.info(String
 					.format("%s,%s,false",
 							missingCorrespondence.getFirstRecord().getIdentifier(),
 							missingCorrespondence.getSecondRecord().getIdentifier()));

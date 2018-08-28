@@ -25,6 +25,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -32,6 +33,7 @@ import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Super class for reading records from XML
@@ -41,7 +43,9 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * @param <RecordType>
  */
 public abstract class XMLMatchableReader<RecordType extends Matchable, SchemaElementType extends Matchable> {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	/**
 	 * creates a RecordType record from an XML node
 	 * 
@@ -224,11 +228,11 @@ public abstract class XMLMatchableReader<RecordType extends Matchable, SchemaEle
 		NodeList list = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
 
 		if (list.getLength() == 0) {
-			System.out.println("ERROR: no elements matching the XPath ("
+			logger.error("No elements matching the XPath ("
 					+ recordPath + ") found in the input file "
 					+ dataSource.getAbsolutePath());
 		} else {
-			System.out.println(String.format("Loading %d elements from %s",
+			logger.info(String.format("Loading %d elements from %s",
 					list.getLength(), dataSource.getName()));
 
 			// create entries from all nodes matching the XPath
@@ -242,7 +246,7 @@ public abstract class XMLMatchableReader<RecordType extends Matchable, SchemaEle
 					// add it to the data set
 					dataset.add(record);
 				} else {
-					System.out.println(String.format(
+					logger.info(String.format(
 							"Could not generate entry for ", list.item(i)
 									.getTextContent()));
 				}

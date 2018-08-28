@@ -24,6 +24,14 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
  */
 public interface DataAggregator<KeyType, RecordType, ResultType> extends Serializable{
 
+	/**
+	 * 
+	 * Creates an initial value for the aggregation of keyValue.
+	 * Must NOT return null. Use stateless(null) or state(null, state) to return an empty initialisation.
+	 * 
+	 * @param keyValue	the key for which to create the initial value
+	 * @return		the initial value for the given key
+	 */
 	Pair<ResultType,Object> initialise(KeyType keyValue);
 	
 	Pair<ResultType,Object> aggregate(ResultType previousResult, RecordType record, Object state);

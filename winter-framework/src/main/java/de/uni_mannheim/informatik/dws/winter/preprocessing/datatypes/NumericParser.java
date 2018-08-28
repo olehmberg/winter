@@ -42,7 +42,8 @@ public class NumericParser {
             // edition, section 3.10.2.
 
             // Digits ._opt Digits_opt ExponentPart_opt FloatTypeSuffix_opt
-            "(((" + Digits + "(\\.)?(" + Digits + "?)(" + Exp + ")?)|" +
+            // "(((" + Digits + "(\\.)?(" + Digits + "?)(" + Exp + ")?)|" +
+            "(((" + Digits + "(\\.)?(" + Digits + "?)(" + Exp + ")?%?)|" +
 
             // . Digits ExponentPart_opt FloatTypeSuffix_opt
             "(\\.(" + Digits + ")(" + Exp + ")?)|" +

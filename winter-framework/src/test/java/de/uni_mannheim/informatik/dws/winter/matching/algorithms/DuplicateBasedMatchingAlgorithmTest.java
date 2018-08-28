@@ -11,10 +11,14 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.algorithms;
 
+
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -24,6 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import junit.framework.TestCase;
 
 /**
@@ -31,7 +36,9 @@ import junit.framework.TestCase;
  *
  */
 public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm#run()}.
 	 */
@@ -81,10 +88,23 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 				
 				double d = sim.calculate(v1, v2);
 				
-				System.out.println(String.format("Vote: %s<->%s %f: %s<->%s", record1, record2, d, v1, v2));
+				logger.info(String.format("Vote: %s<->%s %f: %s<->%s", record1, record2, d, v1, v2));
 				
 				return d;
 			}
+
+			@Override
+			public ComparatorLogger getComparisonLog() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void setComparisonLog(ComparatorLogger comparatorLog) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		};
 		
 		
@@ -103,10 +123,10 @@ public class DuplicateBasedMatchingAlgorithmTest extends TestCase {
 		Processable<Correspondence<Attribute, Record>> result = algo.getResult();
 		
 		for(Correspondence<Attribute, Record> cor : result.get()) {
-			System.out.println(String.format("%s<->%s %f", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
+			logger.info(String.format("%s<->%s %f", cor.getFirstRecord().getIdentifier(), cor.getSecondRecord().getIdentifier(), cor.getSimilarityScore()));
 			
 			for(Correspondence<Record, Matchable> cause : cor.getCausalCorrespondences().get()) {
-				System.out.println(String.format("\t%s<->%s %f", cause.getFirstRecord().getValue(cor.getFirstRecord()), cause.getSecondRecord().getValue(cor.getSecondRecord()), cause.getSimilarityScore()));
+				logger.info(String.format("\t%s<->%s %f", cause.getFirstRecord().getValue(cor.getFirstRecord()), cause.getSecondRecord().getValue(cor.getSecondRecord()), cause.getSimilarityScore()));
 			}
 		}
 	}

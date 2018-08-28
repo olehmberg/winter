@@ -51,6 +51,13 @@ public class UnitParser {
 
     public static List<Unit> units = new ArrayList<>();
     
+    /**
+     * @return the units
+     */
+    public static List<Unit> getUnits() {
+        return units;
+    }
+
     public static Double parseUnit(String value, String unitInformation) {
         for (Unit unit : units) {
             if (!unitInformation.isEmpty()) {
@@ -96,6 +103,7 @@ public class UnitParser {
 //                }
 //            }
             String nonNumberPart = value.replaceAll("[0-9\\,\\.\\-Ee\\+]", "");
+            nonNumberPart = nonNumberPart.trim();
             if (nonNumberPart.toLowerCase().equals(unit.getName())
                     || unit.getAbbreviations().contains(nonNumberPart.toLowerCase())) {
                 return unit;
