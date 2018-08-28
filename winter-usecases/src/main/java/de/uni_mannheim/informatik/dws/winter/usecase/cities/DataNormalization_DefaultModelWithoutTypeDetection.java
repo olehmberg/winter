@@ -68,7 +68,7 @@ public class DataNormalization_DefaultModelWithoutTypeDetection {
 		columnTypeMapping.put(City.OFFICIALNAME, new ColumnType(DataType.string, null));
 		
 		// normalize dataset
-		new DataSetNormalizer<Record>().normalizeDatasetUsingMapping(dataCity, columnTypeMapping);
+		new DataSetNormalizer<Record>().normalizeDataset(dataCity, columnTypeMapping);
 		
 		// export data
 		 new RecordCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);

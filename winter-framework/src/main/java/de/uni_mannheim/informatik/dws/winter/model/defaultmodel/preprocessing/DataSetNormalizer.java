@@ -15,35 +15,17 @@ import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 public class DataSetNormalizer<RecordType extends Record> {
 	
 	private static final Logger logger = WinterLogManager.getLogger();
-	
-	private TypeDetector typeDetector;
-	
-	public DataSetNormalizer(TypeDetector typeDetector){
-		this.typeDetector = typeDetector;
-	}
-	
-	public DataSetNormalizer(){
-		
-	}
-	
-	public TypeDetector getTypeDetector() {
-		return typeDetector;
-	}
-
-	public void setTypeDetector(TypeDetector typeDetector) {
-		this.typeDetector = typeDetector;
-	}
 
 	
-	public void detectColumnTypesAndNormalizeDataset(DataSet<RecordType, Attribute> dataSet){
+	public void normalizeDataset(DataSet<RecordType, Attribute> dataSet, TypeDetector typeDetector){
 		for(Attribute att: dataSet.getSchema().get()){
-			ColumnType columnType = this.detectColumnType(dataSet, att);
+			ColumnType columnType = this.detectColumnType(dataSet, att, typeDetector);
 			this.normalizeColumn(columnType, dataSet, att);
 		}
 		logger.info("Type guessing and normalization done!");
 	}
 	
-	public ColumnType detectColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att){
+	public ColumnType detectColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att, TypeDetector typeDetector){
 		
 			String [] values = new String[dataSet.size()];
 			int index = 0;
@@ -51,8 +33,8 @@ public class DataSetNormalizer<RecordType extends Record> {
 				values[index] = record.getValue(att);
 				index++;
 			}
-			if(this.typeDetector != null){
-				return this.typeDetector.detectTypeForColumn(values, att.getIdentifier());
+			if(typeDetector != null){
+				return typeDetector.detectTypeForColumn(values, att.getIdentifier());
 			}
 			else{
 				logger.error("No type detector defined!");
@@ -73,7 +55,7 @@ public class DataSetNormalizer<RecordType extends Record> {
 		
 	}
 
-	public void normalizeDatasetUsingMapping(DataSet<RecordType, Attribute> dataSet, Map<Attribute, ColumnType> columnTypeMapping) {
+	public void normalizeDataset(DataSet<RecordType, Attribute> dataSet, Map<Attribute, ColumnType> columnTypeMapping) {
 		for(Attribute att: dataSet.getSchema().get()){
 			ColumnType columnType = columnTypeMapping.get(att);
 			this.normalizeColumn(columnType, dataSet, att);

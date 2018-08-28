@@ -56,7 +56,7 @@ public class DataNormalization_DefaultModel {
 		new CSVRecordReader(0, columnMappingCity).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
 		
 		// normalize dataset
-		new DataSetNormalizer<Record>(new PatternbasedTypeDetector()).detectColumnTypesAndNormalizeDataset(dataCity);
+		new DataSetNormalizer<Record>().normalizeDataset(dataCity, new PatternbasedTypeDetector());
 		
 		// export data
 		 new RecordCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);
