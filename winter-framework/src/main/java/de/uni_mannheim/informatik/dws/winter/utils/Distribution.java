@@ -44,7 +44,7 @@ public class Distribution<T> {
 	}
 	
 	public void add(T element, int frequency) {
-Integer cnt = getNonNull(element);
+		Integer cnt = getNonNull(element);
 		
 		counts.put(element, cnt+frequency);
 		
@@ -138,6 +138,30 @@ Integer cnt = getNonNull(element);
 		}
 
 		return sb.toString();
+	}
+	
+	public String formatCompact() {
+		int len = 0;
+		for(T elem : counts.keySet()) {
+			len = Math.max(len, elem.toString().length());
+		}
+
+		List<T> sortedElements = Q.sort(counts.keySet(), new Comparator<T>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public int compare(T o1, T o2) {
+				int c = -Integer.compare(getFrequency(o1), getFrequency(o2));
+				
+				if(c==0 && o1 instanceof Comparable<?>) {
+					c = ((Comparable<T>)o1).compareTo(o2);
+				}
+				
+				return c;
+			}
+		});
+
+		return StringUtils.join(Q.project(sortedElements, (elem)->String.format("%s: %d (%.2f%%)", elem, getFrequency(elem), getRelativeFrequency(elem)*100)), "; ");
 	}
 	
 	public static <T> Distribution<T> fromCollection(Collection<T> data) {

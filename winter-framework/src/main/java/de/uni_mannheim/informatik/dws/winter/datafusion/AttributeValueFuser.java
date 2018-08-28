@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.ConflictResolutionFunction;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -30,6 +32,8 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 
 /**
  * Abstract super class for all Fusers tailored to specific attributes (hence the ValueType). Ignores schema correspondences.
@@ -39,6 +43,8 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @param <RecordType>	the type that represents a record
  */
 public abstract class AttributeValueFuser<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends AttributeFuser<RecordType, SchemaElementType> {
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * Collects all fusable values from the group of records
@@ -67,6 +73,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	/**
 	 * returns the value that is used by this fuser from the given record. Required for the collection of fusable values.
 	 * @param record	the record to get the value from
+	 * @param correspondence	the necessary correspondence
 	 * @return The value to fuse
 	 */
 	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
@@ -100,16 +107,20 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		for(int i=0; i<records.size();i++) {
 			RecordType r1 = records.get(i);
 			Correspondence<SchemaElementType, Matchable> cor1 = group.getSchemaCorrespondenceForRecord(r1, schemaCorrespondences, schemaElement);
-			if(cor1!=null) {
+			// if(cor1!=null) {
 				for(int j=i+1; j<records.size(); j++) {
 					RecordType r2 = records.get(j);
 					Correspondence<SchemaElementType, Matchable> cor2 = group.getSchemaCorrespondenceForRecord(r2, schemaCorrespondences, schemaElement);
 				
-					if(cor2!=null && !con.isEdgeAlreadyInCluster(r1, r2)) {
+					// if(cor2!=null && !con.isEdgeAlreadyInCluster(r1, r2)) {
+					if(!con.isEdgeAlreadyInCluster(r1, r2)) {
 
-						// assumption: in fusion we have a target schema, so all schema correspondences refer to the target schema 
-						// this means that we can simply combine both schema correspondences to get a schema correspondence between the two records
-						Correspondence<SchemaElementType, Matchable> cor = Correspondence.<SchemaElementType, Matchable>combine(cor1, cor2);
+						Correspondence<SchemaElementType, Matchable> cor = null;
+						if(cor1!=null && cor2!=null) {
+							// assumption: in fusion we have a target schema, so all schema correspondences refer to the target schema 
+							// this means that we can simply combine both schema correspondences to get a schema correspondence between the two records
+							cor = Correspondence.<SchemaElementType, Matchable>combine(cor1, cor2);
+						}
 						
 						if(rule.isEqual(r1, r2, cor)) {
 							con.addEdge(new Triple<>(r1, r2, 1.0));
@@ -117,7 +128,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 					
 					}
 				}
-			}
+			// }
 		}
 		
 		Map<Collection<RecordType>, RecordType> clusters = con.createResult();
@@ -129,7 +140,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 		}
 		
 		if(largestClusterSize>group.getSize()) {
-			System.out.println("Wrong cluster!");
+			logger.error("Wrong cluster!");
 		}
 		
 		return (double)largestClusterSize / (double)records.size();
@@ -155,6 +166,36 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @return	returns the fused value for a given schema element
 	 */
 	protected FusedValue<ValueType, RecordType, SchemaElementType> getFusedValue(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, SchemaElementType schemaElement) {
-		return conflictResolution.resolveConflict(getFusableValues(group, schemaCorrespondences, schemaElement));
+		List<FusibleValue<ValueType, RecordType, SchemaElementType>> fusableValues = getFusableValues(group, schemaCorrespondences, schemaElement);
+		
+		FusedValue<ValueType, RecordType, SchemaElementType> fusedValueInstance = conflictResolution.resolveConflict(fusableValues);
+		
+		// Collect fusion results for debugging purposes!
+		if(this.isCollectDebugResults() && fusedValueInstance.getValue() != null){
+			
+			List<String> listIdentifiers = new LinkedList<String>();
+			List<String> listValues = new LinkedList<String>();
+			
+			for(int i = 0; i < fusableValues.size(); i++){
+				listIdentifiers.add(fusableValues.get(i).getRecord().getIdentifier().toString());
+				listValues.add(fusableValues.get(i).getValue().toString());
+			}
+			
+			String identifiers = schemaElement.getIdentifier() + "-" + ListHandler.formatList(listIdentifiers);
+			String values = ListHandler.formatList(listValues);
+			
+			String fusedValue = fusedValueInstance.getValue().toString();
+			
+			AttributeFusionLogger fusionLog = new AttributeFusionLogger(identifiers);
+			fusionLog.setValueIDS(identifiers);
+			fusionLog.setValues(values);
+			fusionLog.setFusedValue(fusedValue);
+			
+			this.setFusionLog(fusionLog);
+		}
+		
+		
+		return fusedValueInstance;
 	}
+	
 }

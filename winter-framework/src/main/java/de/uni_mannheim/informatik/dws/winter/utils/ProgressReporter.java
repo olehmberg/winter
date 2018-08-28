@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class can be used to log and observe the progress of a method.
@@ -30,6 +31,8 @@ public class ProgressReporter {
 	private int total = 0;
 	private LocalDateTime start;
 	private String message;
+	
+	private static final Logger logger = WinterLogManager.getLogger("progress");
 
 	public ProgressReporter(int totalElements, String message) {
 		total = totalElements;
@@ -55,9 +58,9 @@ public class ProgressReporter {
 		LocalDateTime now = LocalDateTime.now();
 		long durationSoFar = Duration.between(start, now).toMillis();
 		if ((Duration.between(start, lastTime).toMillis()) > 1000) {
-			System.err.println(String.format(
-					"[%s] %s: %,d / %,d elements completed (%.2f%%) after %s",
-					LocalDateTime.now().toString(), message, done, total,
+			logger.info(String.format(
+					"%s: %,d / %,d elements completed (%.2f%%) after %s",
+					message, done, total,
 					(double) done / (double) total * 100,
 					DurationFormatUtils.formatDurationHMS(durationSoFar)));
 			lastTime = now;

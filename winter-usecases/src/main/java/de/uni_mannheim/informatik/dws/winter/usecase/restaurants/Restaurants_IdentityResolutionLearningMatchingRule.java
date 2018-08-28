@@ -21,6 +21,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -45,6 +47,8 @@ import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restaurant;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+
 
 /**
  * Class containing the standard setup to perform a identity resolution task by using learning matching rules,
@@ -53,8 +57,23 @@ import de.uni_mannheim.informatik.dws.winter.usecase.restaurants.model.Restauran
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class Restaurant_IdentityResolutionLearningMatchingRule {
+public class Restaurants_IdentityResolutionLearningMatchingRule {
 
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
+
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 		// loading data
 		Map<String, Attribute> nodeMapping = new HashMap<>();
@@ -80,7 +99,10 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		options[0] = ""; // unpruned tree
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
-
+		
+		// Collect debug results
+		matchingRule.setCollectDebugResults(true);
+		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));
 		matchingRule.addComparator(new RecordComparatorEqual(Restaurant.NAME, Restaurant.NAME));
@@ -145,17 +167,18 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 
 					}
 				});
-
+		
+		//Measure Block sizes
+		blocker.setMeasureBlockSizes(true);
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataFodors, dataZagats, null, matchingRule, gsTraining);
 
 		// Store Matching Rule
-		matchingRule.storeModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
+		matchingRule.exportModel(new File("usecase/restaurant/matchingRule/restaurantMatchingModel.model"));
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
-
 		// Execute the matching
 		Processable<Correspondence<Record, Attribute>> correspondences = engine.runIdentityResolution(dataFodors,
 				dataZagats, null, matchingRule, blocker);
@@ -167,14 +190,23 @@ public class Restaurant_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/restaurant/goldstandard/gs_restaurant_test.csv"));
-
+		
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
+		
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<Record, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
+		
+		//evaluate learned classifier
+		logger.info(matchingRule.getClassifier().toString());
 
 		// print the evaluation result
-		System.out.println("Fodors <-> Zagats");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("Fodors <-> Zagats");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
+
 	}
 }

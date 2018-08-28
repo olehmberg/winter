@@ -5,3 +5,6 @@
 .idea/
 target/
 *.model
+.vscode/
+*.log
+*.arff

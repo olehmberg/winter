@@ -13,6 +13,9 @@ package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
 
 import java.io.File;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import junit.framework.TestCase;
@@ -22,7 +25,9 @@ import junit.framework.TestCase;
  *
  */
 public class RdfTableParserTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.parsers.RdfTableParser#parseTable(java.io.File)}.
 	 */
@@ -42,12 +47,12 @@ public class RdfTableParserTest extends TestCase {
 				+ "}");
 		Table t = p.parseTable(new File("testdata/rdf/restaurant1.rdf"));
 		
-		System.out.println(t.getSchema().format(20));
-		System.out.println(t.getSchema().formatDataTypes(20));
+		logger.info(t.getSchema().format(20));
+		logger.info(t.getSchema().formatDataTypes(20));
 		
 		for(int i = 0; i < t.getRows().size(); i++) {
 			TableRow r = t.getRows().get(i);
-			System.out.println(r.format(20));
+			logger.info(r.format(20));
 		}
 		
 	}

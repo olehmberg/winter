@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.Logger;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.interfaces.MatchingAlgorithm.Matching;
 import org.jgrapht.alg.matching.MaximumWeightBipartiteMatching;
@@ -30,19 +31,22 @@ import de.uni_mannheim.informatik.dws.winter.processing.Group;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
 public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB extends Matchable> implements MatchingAlgorithm<TypeA, TypeB> {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	private Processable<Correspondence<TypeA, TypeB>> correspondences;
 	private Processable<Correspondence<TypeA, TypeB>> result;
 	
 	private boolean groupByLeftDataSource = false;
 	private boolean groupByRightDataSource = false;
-	
+
 	/**
 	 * 
 	 * Specifies if correspondences should first be grouped by the data source ID of the left-hand side of the correspondences.
@@ -120,10 +124,14 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 					graph.addVertex(cor.getFirstRecord());
 					graph.addVertex(cor.getSecondRecord());
 					DefaultWeightedEdge edge = graph.addEdge(cor.getFirstRecord(), cor.getSecondRecord());
-					graph.setEdgeWeight(edge,(int)( cor.getSimilarityScore() * 1000000)); // MaximumWeightBipartiteMatching only accepts integer weights ...
-					edgeToCorrespondence.put(edge, cor);
+					if(edge!=null) {
+						graph.setEdgeWeight(edge,(int)( cor.getSimilarityScore() * 1000000)); // MaximumWeightBipartiteMatching only accepts integer weights ...
+						edgeToCorrespondence.put(edge, cor);
+						sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
+					} else {
+						sb.append(String.format("\t%.6f\t%s <-> %s (skipped)\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
+					}
 					
-					sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
 				}
 				
 				// run the bipartite matching
@@ -140,7 +148,7 @@ public class MaximumBipartiteMatchingAlgorithm<TypeA extends Matchable, TypeB ex
 					sb.append(String.format("\t%.6f\t%s <-> %s\n", cor.getSimilarityScore(), cor.getFirstRecord(), cor.getSecondRecord()));
 				}
 				
-//				System.out.println(sb.toString());
+					logger.trace(sb.toString());
 			}
 		});
 

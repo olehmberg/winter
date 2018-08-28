@@ -23,14 +23,10 @@ import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 public class FeatureVectorDataSet extends FusibleHashedDataSet<Record, Attribute> {
 
 	private static final long serialVersionUID = 1L;
-	public static final Attribute ATTRIBUTE_FINAL_VALUE = new Attribute("finalValue");
-	public static final Attribute ATTRIBUTE_IS_MATCH = new Attribute("isMatch");
 	public static final Attribute ATTRIBUTE_LABEL = new Attribute("label");
 
 	public FeatureVectorDataSet() {
 		super();
-		addAttribute(ATTRIBUTE_FINAL_VALUE);
-		addAttribute(ATTRIBUTE_IS_MATCH);
 	}
-	
+
 }

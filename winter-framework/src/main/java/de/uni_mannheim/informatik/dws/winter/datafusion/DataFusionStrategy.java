@@ -11,18 +11,29 @@
  */
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Defines which fuser should be applied and which evaluation rules should be
@@ -37,6 +48,32 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	private Map<SchemaElementType, AttributeFuser<RecordType, SchemaElementType>> attributeFusers;
 	private Map<SchemaElementType, EvaluationRule<RecordType, SchemaElementType>> evaluationRules;
 	private FusibleFactory<RecordType, SchemaElementType> factory;
+	
+	private FusibleHashedDataSet<Record, Attribute> debugFusionResults;
+	private boolean collectDebugResults = false;
+	private List<Attribute> headerDebugResults;
+	
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
+	/**
+	 * Check whether debug flag is set.
+	 * @return	true/false for debug flag
+	 */
+	public boolean isCollectDebugResults() {
+		return collectDebugResults;
+	}
+
+	/**
+	 * Set debug switch and initialize debug results for data fusion.
+	 * @param collectDebugResults debug switch
+	 */
+	public void setCollectDebugResults(boolean collectDebugResults) {
+		this.collectDebugResults = collectDebugResults;
+		if(this.collectDebugResults){
+			initializeFusionResults();
+		}
+	}
 
 	/**
 	 * @return the evaluationRules
@@ -58,6 +95,19 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	}
 
 	/**
+	 * Creates a new instance of a {@link FusibleDataSet} and adds attributes for all known attribute fusers.
+	 * 
+	 * @return the fused data set.
+	 */
+	public FusibleDataSet<RecordType, SchemaElementType> createFusedDataSet() {
+		FusibleDataSet<RecordType, SchemaElementType> fusedDataSet = new FusibleHashedDataSet<>();
+		for(SchemaElementType attribute : attributeFusers.keySet()) {
+			fusedDataSet.addAttribute(attribute);
+		}
+		return fusedDataSet;
+	}
+
+	/**
 	 * Adds a combination of fuser and evaluation rule. The evaluation rule will
 	 * be used to evaluate the result of the fuser for the given schema element from the target schema
 	 * 
@@ -66,6 +116,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param rule				the {@link EvaluationRule} that performs the evaluation
 	 */
 	public void addAttributeFuser(SchemaElementType schemaElement, AttributeFuser<RecordType, SchemaElementType> fuser, EvaluationRule<RecordType, SchemaElementType> rule) {
+		if(this.collectDebugResults){
+			fuser.setCollectDebugResults(true);
+		}
 		attributeFusers.put(schemaElement, fuser);
 		evaluationRules.put(schemaElement, rule);
 	}
@@ -83,6 +136,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 		for (AttributeFusionTask<RecordType, SchemaElementType> t : getAttributeFusers(group, schemaCorrespondences)) {
 			t.execute(group, fusedRecord);
+			if(this.collectDebugResults){
+				fillFusionLog();
+			}
 		}
 
 		return fusedRecord;
@@ -90,8 +146,8 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	
 	/**
 	 * returns the fusers specified for this strategy
-	 * @param group
-	 * @param schemaCorrespondences
+	 * @param group 	the group, which shall be fused.
+	 * @param schemaCorrespondences		the needed schemaCorrespondences
 	 * @return a list of fusion tasks
 	 */
 	public List<AttributeFusionTask<RecordType, SchemaElementType>> getAttributeFusers(RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
@@ -169,5 +225,50 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 		return consistencies;
 	}
+	
+	/**
+	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * @param path 	destination file for debug results
+	 * @throws IOException	throws exception if the results cannot be written to a file correctly.
+	 */
+	public void writeDebugDataFusionResultsToFile(String path) throws IOException{
+		if(this.debugFusionResults != null){
+		new RecordCSVFormatter().writeCSV(new File(path), this.debugFusionResults, this.headerDebugResults);
+		logger.info("Debug results written to file: " + path);
+		} else {
+			logger.error("No debug results found!");
+			logger.error("Is logging enabled?");
+		}
+	}
+	
+	/**
+	 * Initialize Debug Data Fusion
+	 */
+	public void initializeFusionResults() {
+		this.debugFusionResults = new FusibleHashedDataSet<Record, Attribute>();
+		this.headerDebugResults = new LinkedList<Attribute>();
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUEIDS);
+		this.headerDebugResults.add(AttributeFusionLogger.VALUEIDS);
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUES);
+		this.headerDebugResults.add(AttributeFusionLogger.VALUES);
+		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.FUSEDVALUE);
+		this.headerDebugResults.add(AttributeFusionLogger.FUSEDVALUE);
+		
+	}
+	
+	/**
+	 * Add log entry to debug results log.
+	 */
+	public void fillFusionLog(){
+		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
+			if(attFuser.getFusionLog() != null){
+				this.debugFusionResults.add(attFuser.getFusionLog());
+			}
+		}
+	}
+	
 
 }

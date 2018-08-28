@@ -54,7 +54,7 @@ public class TypeConverter {
 		                    typedValue = UnitParser.transformUnit(value, unit);
 		
 		                } else {
-		                    value = value.replaceAll("[^0-9\\,\\.\\-Ee\\+]", "");
+		                    value = normaliseNumeric(value);
 		                    NumberFormat format = NumberFormat.getInstance(Locale.US);
 		                    Number number = format.parse(value);
 		                    typedValue = number.doubleValue();
@@ -80,5 +80,8 @@ public class TypeConverter {
         
         return typedValue;
     }
-	
+
+	public static String normaliseNumeric(String value) {
+		return value.replaceAll("[^0-9\\,\\.\\-Ee\\+]", "");
+	}
 }

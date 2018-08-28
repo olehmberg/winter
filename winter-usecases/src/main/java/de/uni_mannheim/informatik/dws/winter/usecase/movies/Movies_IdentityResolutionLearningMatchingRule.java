@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -51,6 +53,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a identity resolution task by
@@ -60,7 +63,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  */
 public class Movies_IdentityResolutionLearningMatchingRule {
+	
+	/*
+	 * Trace Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 		// loading data
 		HashedDataSet<Movie, Attribute> dataAcademyAwards = new HashedDataSet<>();
@@ -80,6 +98,8 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		options[0] = "";
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+		// Collect debug results
+		matchingRule.setCollectDebugResults(true);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
@@ -94,7 +114,8 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(
 				new MovieBlockingKeyByDecadeGenerator());
-
+		blocker.setMeasureBlockSizes(true);
+		
 		// learning Matching rule
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataAcademyAwards, dataActors, null, matchingRule, gsTraining);
@@ -117,13 +138,21 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
-
+		
+		// Write Debug Results to file
+		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
+		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
+		
+		//evaluate learned classifier
+		logger.info(matchingRule.getClassifier().toString());
+				
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 	}
 
 	public static void createDatasetToTrain() throws Exception {
@@ -150,7 +179,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(dataAcademyAwards, dataActors,
 				gsTraining, matchingRule, null);
 		new RecordCSVFormatter()
-				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 	}
 
 	public static void firstMatching() throws Exception {
@@ -190,13 +219,14 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 
 		// evaluate your result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 	}
 
 	public static void runWhole() throws Exception {
@@ -241,7 +271,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
 		FeatureVectorDataSet features = learner.generateTrainingDataForLearning(ds1, ds2, gsTraining, rule, null);
 		new RecordCSVFormatter()
-				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features);
+				.writeCSV(new File("usecase/movie/output/optimisation/academy_awards_2_actors_features.csv"), features, null);
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
@@ -250,18 +280,20 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		gs2.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_actors_2_golden_globes.csv"));
 
 		// evaluate the result
-		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
 		Performance perf2 = evaluator.evaluateMatching(correspondences2.get(), gs2);
 
 		// print the evaluation result
-		System.out.println("Academy Awards <-> Actors");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("Academy Awards <-> Actors");
+		logger.info(String.format("Precision: %.4f", perfTest.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perfTest.getRecall()));
+		logger.info(String.format("F1: %.4f", perfTest.getF1()));
 
-		System.out.println("Actors <-> Golden Globes");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perf2.getPrecision(),
-				perf2.getRecall(), perf2.getF1()));
+		logger.info("Actors <-> Golden Globes");
+		logger.info(String.format("Precision: %.4f", perf2.getPrecision()));
+		logger.info(String.format("Recall: %.4f", perf2.getRecall()));
+		logger.info(String.format("F1: %.4f", perf2.getF1()));
 	}
 
 	private static void printCorrespondences(List<Correspondence<Movie, Attribute>> correspondences) {
@@ -284,7 +316,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 
 		// print the correspondences
 		for (Correspondence<Movie, Attribute> correspondence : correspondences) {
-			System.out.println(String.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
+			logger.info(String.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
 					correspondence.getFirstRecord().getIdentifier(), correspondence.getSecondRecord().getIdentifier(),
 					correspondence.getSimilarityScore(), correspondence.getFirstRecord().getIdentifier(),
 					correspondence.getFirstRecord().getTitle(),
