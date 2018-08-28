@@ -34,7 +34,7 @@ public class DataNormalization_CityModel {
 		
 		// load data
 		DataSet<City, Attribute> dataCity = new HashedDataSet<>();
-		new CSVCityReader(true).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
+		new CSVCityReader().loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
 		
 		// export data
 		 new CityCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);

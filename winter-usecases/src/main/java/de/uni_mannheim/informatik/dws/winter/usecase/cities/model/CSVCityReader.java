@@ -29,7 +29,6 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
  */
 public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 
-	private boolean normalizeValues = false;
 	private TypeConverter tc;
 
 	/**
@@ -38,11 +37,8 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 	 * @param normalizeValues
 	 *            A flag that triggers the value normalization.
 	 */
-	public CSVCityReader(boolean normalizeValues) {
-		this.normalizeValues = normalizeValues;
-		if (this.normalizeValues) {
-			this.tc = new TypeConverter();
-		}
+	public CSVCityReader() {
+		this.tc = new TypeConverter();
 	}
 
 	protected void initialiseDataset(DataSet<City, Attribute> dataset) {
@@ -77,42 +73,28 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 			// set values of record
 			r.setCountryCode(values[1]);
 			r.setName(values[2]);
-
-			if (this.normalizeValues) {
-				Object value = tc.typeValue(values[3], DataType.coordinate, null);
-				if (value != null) {
-					r.setLatitude(Double.parseDouble(value.toString()));
-				}
-			} else {
-				r.setLatitude(Double.parseDouble(values[3]));
+			
+			// Set data type and convert value
+			Object latitude = tc.typeValue(values[3], DataType.numeric, null);
+			if (latitude != null) {
+				r.setLatitude((Double) latitude);
 			}
-
-			if (this.normalizeValues) {
-				Object value = tc.typeValue(values[4], DataType.coordinate, null);
-				if (value != null) {
-					r.setLongitude(Double.parseDouble(value.toString()));
-				}
-			} else {
-				r.setLongitude(Double.parseDouble(values[4]));
+			
+			// Set data type and convert value
+			Object longitude = tc.typeValue(values[4], DataType.numeric, null);
+			if (longitude != null) {
+				r.setLongitude(Double.parseDouble(longitude.toString()));
 			}
 
 			r.setOfficialName(values[5]);
 			r.setCountry(values[6]);
 
-			if (this.normalizeValues) {
-				// Set data type, parse unit and convert value
-				Object value = tc.typeValue(values[7], DataType.numeric, UnitParser.checkUnit(values[7]));
-				if (value != null) {
-					r.setPopulation((Double) value);
-				}
-			} else {
-				// Use regex to retrieve double
-				String population = values[7].replaceAll("[^0-9\\,\\.\\-Ee\\+]", "");
-				if (population != null && ! population.isEmpty()) {
-					r.setPopulation(Double.parseDouble(population));
-				}
+			// Set data type, parse unit and convert value
+			Object population = tc.typeValue(values[7], DataType.numeric, UnitParser.checkUnit(values[7]));
+			if (population != null) {
+				r.setPopulation((Double) population);
 			}
-			
+
 			dataset.add(r);
 
 		}

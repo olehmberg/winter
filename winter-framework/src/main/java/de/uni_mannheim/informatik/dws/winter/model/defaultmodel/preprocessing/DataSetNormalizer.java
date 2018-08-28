@@ -1,12 +1,13 @@
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing;
 
+import java.util.Map;
+
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
@@ -19,6 +20,10 @@ public class DataSetNormalizer<RecordType extends Record> {
 	
 	public DataSetNormalizer(TypeDetector typeDetector){
 		this.typeDetector = typeDetector;
+	}
+	
+	public DataSetNormalizer(){
+		
 	}
 	
 	public TypeDetector getTypeDetector() {
@@ -66,6 +71,14 @@ public class DataSetNormalizer<RecordType extends Record> {
 			
 		}
 		
+	}
+
+	public void normalizeDatasetUsingMapping(DataSet<RecordType, Attribute> dataSet, Map<Attribute, ColumnType> columnTypeMapping) {
+		for(Attribute att: dataSet.getSchema().get()){
+			ColumnType columnType = columnTypeMapping.get(att);
+			this.normalizeColumn(columnType, dataSet, att);
+		}
+		logger.info("Normalization done!");
 	}
 
 }
