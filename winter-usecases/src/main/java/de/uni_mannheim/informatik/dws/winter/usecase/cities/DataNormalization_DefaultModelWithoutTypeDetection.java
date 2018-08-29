@@ -58,14 +58,14 @@ public class DataNormalization_DefaultModelWithoutTypeDetection {
 		// Create column type mapping
 		Map<Attribute, ColumnType> columnTypeMapping = new HashMap<>();
 		
-		columnTypeMapping.put(City.ID, new ColumnType(DataType.string, null));
-		columnTypeMapping.put(City.NAME, new ColumnType(DataType.string, null));
-		columnTypeMapping.put(City.POPULATION, new ColumnType(DataType.numeric, UnitParser.getUnit("thousand")));
-		columnTypeMapping.put(City.COUNTRY, new ColumnType(DataType.string, null));
-		columnTypeMapping.put(City.COUNTRYCODE, new ColumnType(DataType.string, null));
-		columnTypeMapping.put(City.LATITUDE, new ColumnType(DataType.numeric, null));
-		columnTypeMapping.put(City.LONGITUDE, new ColumnType(DataType.numeric, null));
-		columnTypeMapping.put(City.OFFICIALNAME, new ColumnType(DataType.string, null));
+		columnTypeMapping.put(City.ID, new ColumnType(DataType.string, null, null, null));
+		columnTypeMapping.put(City.NAME, new ColumnType(DataType.string, null, null, null));
+		columnTypeMapping.put(City.POPULATION, new ColumnType(DataType.numeric, UnitParser.getUnit("thousand"), null, null));
+		columnTypeMapping.put(City.COUNTRY, new ColumnType(DataType.string, null, null, null));
+		columnTypeMapping.put(City.COUNTRYCODE, new ColumnType(DataType.string, null, null, null));
+		columnTypeMapping.put(City.LATITUDE, new ColumnType(DataType.numeric, null, null, null));
+		columnTypeMapping.put(City.LONGITUDE, new ColumnType(DataType.numeric, null, null, null));
+		columnTypeMapping.put(City.OFFICIALNAME, new ColumnType(DataType.string, null, null, null));
 		
 		// normalize dataset
 		new DataSetNormalizer<Record>().normalizeDataset(dataCity, columnTypeMapping);

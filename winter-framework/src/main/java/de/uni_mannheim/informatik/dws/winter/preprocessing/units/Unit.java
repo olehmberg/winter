@@ -27,6 +27,7 @@ public class Unit {
     private String name;
     private Collection<String> abbreviations;
     private double factor;
+    private UnitCategory unitCategory;
 
     /**
      * @return the name
@@ -69,5 +70,21 @@ public class Unit {
     public void setFactor(double factor) {
         this.factor = factor;
     }
+    
+    /**
+     * 
+     * @return the unit's category
+     */
+	public UnitCategory getUnitCategory() {
+		return unitCategory;
+	}
+	
+	/**
+	 * 
+	 * @param unitCategory a unit's category
+	 */
+	public void setUnitCategory(UnitCategory unitCategory) {
+		this.unitCategory = unitCategory;
+	}
     
 }

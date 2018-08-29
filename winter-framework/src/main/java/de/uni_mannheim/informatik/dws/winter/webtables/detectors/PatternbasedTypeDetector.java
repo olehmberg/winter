@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
@@ -28,9 +30,12 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DateJavaTim
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.GeoCoordinateParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.NumericParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.URLParser;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantifier;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategory;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategoryParser;
 import de.uni_mannheim.informatik.dws.winter.utils.MapUtils;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -40,7 +45,8 @@ import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 public class PatternbasedTypeDetector implements TypeDetector {
 
 	private static Pattern listCharactersPattern = Pattern.compile("\\{|\\}");
-
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	/**
 	 * use for rough type guesssing
 	 *
@@ -103,7 +109,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 					finalUnit = type;
 				}
 			}
-			return new ColumnType(finalType, finalUnit);
+			return new ColumnType(finalType, finalUnit, null, null);
 		} else {
 			return guessTypeForSingleValue(columnValue, headerUnit);
 		}
@@ -127,19 +133,19 @@ public class PatternbasedTypeDetector implements TypeDetector {
 				validLenght = false;
 			}
 			if (validLenght && Boolean.parseBoolean(columnValue)) {
-				return new ColumnType(DataType.bool, null);
+				return new ColumnType(DataType.bool, null, null, null);
 			}
 			if (URLParser.parseURL(columnValue)) {
-				return new ColumnType(DataType.link, null);
+				return new ColumnType(DataType.link, null, null, null);
 			}
 			if (validLenght && GeoCoordinateParser.parseGeoCoordinate(columnValue)) {
-				return new ColumnType(DataType.coordinate, null);
+				return new ColumnType(DataType.coordinate, null, null, null);
 			}
 			if (validLenght) {
 				try {
 					LocalDateTime dateTime = DateJavaTime.parse(columnValue);
 					if (dateTime != null) {
-						return new ColumnType(DataType.date, null);
+						return new ColumnType(DataType.date, null, null, null);
 					}
 				} catch (ParseException e1) {
 				}
@@ -147,18 +153,31 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			}
 			
 			Unit unit = headerUnit;
+			Quantifier quantifier = null;
+			UnitCategory unitCategory = null;
 			if (headerUnit == null && columnValue != null) {
-				unit = UnitParser.checkUnit(columnValue);
+				quantifier = UnitCategoryParser.checkQuantifier(columnValue);
+				unit = UnitCategoryParser.checkUnit(columnValue, unitCategory);
+				
 				if(unit != null){
-					columnValue = columnValue.replace(unit.getName(), "");
+					unitCategory = unit.getUnitCategory();
 				}
+				
+				try {
+					columnValue = UnitCategoryParser.transform(columnValue, unit, quantifier).toString();
+				} catch(ParseException e) {
+					logger.trace("ParseException for value: " + columnValue);
+	        		//e.printStackTrace();
+				}
+				
+
 			}
 			
 			if (validLenght && NumericParser.parseNumeric(columnValue)) {
-				return new ColumnType(DataType.numeric, unit);
+				return new ColumnType(DataType.numeric, unit, unitCategory, quantifier);
 			}
 		}
-		return new ColumnType(DataType.string, null);
+		return new ColumnType(DataType.string, null, null, null);
 	}
 
 	@Override
@@ -166,7 +185,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 
 		HashMap<Object, Integer> typeCount = new HashMap<>();
 		HashMap<Object, Integer> unitCount = new HashMap<>();
-		Unit unit = UnitParser.parseUnitFromHeader(attributeLabel);
+		Unit unit = UnitCategoryParser.parseUnitFromHeader(attributeLabel);
 		// detect types and units per value
 		int rowCounter = 0; // Skip first line --> header
 		for (Object attribute : attributeValues) {
@@ -207,7 +226,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			unit = (Unit) MapUtils.max(unitCount);
 		}
 
-		ColumnType resColumnType = new ColumnType((DataType) type, unit);
+		ColumnType resColumnType = new ColumnType((DataType) type, unit, null, null);
 		return resColumnType;
 	}
 }

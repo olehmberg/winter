@@ -191,7 +191,7 @@ public class TypeClassifier implements TypeDetector {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ColumnType resColumnType = new ColumnType(type, null);
+		ColumnType resColumnType = new ColumnType(type, null, null, null);
 		return resColumnType;
 	}
 

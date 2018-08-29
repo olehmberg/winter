@@ -1,0 +1,7 @@
+"normalized number"|""
+"hundred"|"hundred"|100.0
+"thousand"|"thousand"|1000.0
+"million"|"million","mio","mln"|1000000.0
+"billion"|"bln","billion"|1000000000.0
+"trillion"|"trillion"|1000000000000.0
+"quadrillion"|"quadrillion"|1000000000000000.0
