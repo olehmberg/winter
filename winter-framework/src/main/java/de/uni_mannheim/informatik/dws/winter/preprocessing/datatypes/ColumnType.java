@@ -12,9 +12,7 @@
 
 package de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes;
 
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantifier;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategory;
 
 /*
  * To change this template, choose Tools | Templates
@@ -30,14 +28,10 @@ public class ColumnType {
     
     private DataType type;
     private Unit unit;
-    private UnitCategory category;
-    private Quantifier quantifier;
     
-    public ColumnType(DataType type, Unit unit, UnitCategory category, Quantifier quantifier) {
+    public ColumnType(DataType type, Unit unit) {
         this.type = type;
         this.unit = unit;
-        this.category = category;
-        this.quantifier = quantifier;
     }
 
     /**
@@ -52,20 +46,6 @@ public class ColumnType {
      */
     public Unit getUnit() {
         return unit;
-    }
-    
-    /**
-     * @return the unit category
-     */
-    public UnitCategory getUnitCategory() {
-        return category;
-    }
-    
-    /**
-     * @return the unit category
-     */
-    public Quantifier getQuantifier() {
-        return quantifier;
     }
     
 }

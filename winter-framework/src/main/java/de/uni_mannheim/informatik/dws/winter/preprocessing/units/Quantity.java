@@ -22,7 +22,7 @@ import java.util.Collection;
  *
  * @author domi
  */
-public class Quantifier {
+public class Quantity {
     
     private String name;
     private Collection<String> abbreviations;

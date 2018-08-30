@@ -103,7 +103,7 @@ public class TypeGuesser implements TypeDetector {
 					finalUnit = type;
 				}
 			}
-			return new ColumnType(finalType, finalUnit, null, null);
+			return new ColumnType(finalType, finalUnit);
 		} else {
 			return guessTypeForSingleValue(columnValue, headerUnit);
 		}
@@ -127,19 +127,19 @@ public class TypeGuesser implements TypeDetector {
 				validLenght = false;
 			}
 			if (validLenght && Boolean.parseBoolean(columnValue)) {
-				return new ColumnType(DataType.bool, null, null, null);
+				return new ColumnType(DataType.bool, null);
 			}
 			if (URLParser.parseURL(columnValue)) {
-				return new ColumnType(DataType.link, null, null, null);
+				return new ColumnType(DataType.link, null);
 			}
 			if (validLenght && GeoCoordinateParser.parseGeoCoordinate(columnValue)) {
-				return new ColumnType(DataType.coordinate, null, null, null);
+				return new ColumnType(DataType.coordinate, null);
 			}
 			if (validLenght) {
 				try {
 					LocalDateTime dateTime = DateJavaTime.parse(columnValue);
 					if (dateTime != null) {
-						return new ColumnType(DataType.date, null, null, null);
+						return new ColumnType(DataType.date, null);
 					}
 				} catch (ParseException e1) {
 				}
@@ -150,10 +150,10 @@ public class TypeGuesser implements TypeDetector {
 				if (headerUnit == null) {
 					unit = UnitParser.checkUnit(columnValue);
 				}
-				return new ColumnType(DataType.unit, unit, null, null);
+				return new ColumnType(DataType.unit, unit);
 			}
 		}
-		return new ColumnType(DataType.string, null, null, null);
+		return new ColumnType(DataType.string, null);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class TypeGuesser implements TypeDetector {
 			unit = (Unit) MapUtils.max(unitCount);
 		}
 
-		ColumnType resColumnType = new ColumnType((DataType) type, unit, null, null);
+		ColumnType resColumnType = new ColumnType((DataType) type, unit);
 		return resColumnType;
 	}
 }

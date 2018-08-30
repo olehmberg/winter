@@ -16,7 +16,7 @@ import java.text.ParseException;
 
 import org.apache.logging.log4j.Logger;
 
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantifier;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantity;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategory;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategoryParser;
@@ -48,7 +48,7 @@ public class ValueNormalizer {
 		            case numeric:
 		                //TODO: how to handle numbers with commas (German style)
 		      
-		            	Quantifier quantifier = UnitCategoryParser.checkQuantifier(value);
+		            	Quantity quantifier = UnitCategoryParser.checkQuantity(value);
 		                Unit unit = UnitCategoryParser.checkUnit(value, unitcategory);
 		                
 		                normalizedValue = UnitCategoryParser.transform(value, unit, quantifier); 

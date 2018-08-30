@@ -24,13 +24,14 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnDetectionType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DateJavaTime;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.GeoCoordinateParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.NumericParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.URLParser;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantifier;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantity;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategory;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategoryParser;
@@ -109,7 +110,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 					finalUnit = type;
 				}
 			}
-			return new ColumnType(finalType, finalUnit, null, null);
+			return new ColumnDetectionType(finalType, finalUnit, null, null);
 		} else {
 			return guessTypeForSingleValue(columnValue, headerUnit);
 		}
@@ -133,19 +134,19 @@ public class PatternbasedTypeDetector implements TypeDetector {
 				validLenght = false;
 			}
 			if (validLenght && Boolean.parseBoolean(columnValue)) {
-				return new ColumnType(DataType.bool, null, null, null);
+				return new ColumnDetectionType(DataType.bool, null, null, null);
 			}
 			if (URLParser.parseURL(columnValue)) {
-				return new ColumnType(DataType.link, null, null, null);
+				return new ColumnDetectionType(DataType.link, null, null, null);
 			}
 			if (validLenght && GeoCoordinateParser.parseGeoCoordinate(columnValue)) {
-				return new ColumnType(DataType.coordinate, null, null, null);
+				return new ColumnDetectionType(DataType.coordinate, null, null, null);
 			}
 			if (validLenght) {
 				try {
 					LocalDateTime dateTime = DateJavaTime.parse(columnValue);
 					if (dateTime != null) {
-						return new ColumnType(DataType.date, null, null, null);
+						return new ColumnDetectionType(DataType.date, null, null, null);
 					}
 				} catch (ParseException e1) {
 				}
@@ -153,10 +154,10 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			}
 			
 			Unit unit = headerUnit;
-			Quantifier quantifier = null;
+			Quantity quantity = null;
 			UnitCategory unitCategory = null;
 			if (headerUnit == null && columnValue != null) {
-				quantifier = UnitCategoryParser.checkQuantifier(columnValue);
+				quantity = UnitCategoryParser.checkQuantity(columnValue);
 				unit = UnitCategoryParser.checkUnit(columnValue, unitCategory);
 				
 				if(unit != null){
@@ -164,7 +165,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 				}
 				
 				try {
-					columnValue = UnitCategoryParser.transform(columnValue, unit, quantifier).toString();
+					columnValue = UnitCategoryParser.transform(columnValue, unit, quantity).toString();
 				} catch(ParseException e) {
 					logger.trace("ParseException for value: " + columnValue);
 	        		//e.printStackTrace();
@@ -174,10 +175,10 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			}
 			
 			if (validLenght && NumericParser.parseNumeric(columnValue)) {
-				return new ColumnType(DataType.numeric, unit, unitCategory, quantifier);
+				return new ColumnDetectionType(DataType.numeric, unit, unitCategory, quantity);
 			}
 		}
-		return new ColumnType(DataType.string, null, null, null);
+		return new ColumnDetectionType(DataType.string, null, null, null);
 	}
 
 	@Override
@@ -226,7 +227,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			unit = (Unit) MapUtils.max(unitCount);
 		}
 
-		ColumnType resColumnType = new ColumnType((DataType) type, unit, null, null);
+		ColumnType resColumnType = new ColumnDetectionType((DataType) type, unit, null, null);
 		return resColumnType;
 	}
 }

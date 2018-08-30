@@ -398,10 +398,10 @@ public class Table implements Serializable {
 							columnType = td.detectTypeForColumn(column, attributeLabel);
 
 							if (columnType == null || columnType.getType() == null)
-								columnType = new ColumnType(DataType.string, null, null, null);
+								columnType = new ColumnType(DataType.string, null);
 	
 						} else {
-							columnType = new ColumnType(DataType.string, null, null, null);
+							columnType = new ColumnType(DataType.string, null);
 						}
 						
 						if (columnType.getType() == DataType.unit) {
