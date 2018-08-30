@@ -29,12 +29,17 @@ public class ValueNormalizerTest extends TestCase {
 
         String value = "1.5 million";
         assertEquals(1500000.0,valueNormalizer.normalize(value, DataType.numeric, UnitCategoryParser.checkUnitCategory(value)));
+        assertEquals(1500000.0,valueNormalizer.normalize(value, DataType.numeric, null));
         
         String value2 = "1.5 km";
         assertEquals(1500.0,valueNormalizer.normalize(value2, DataType.numeric, UnitCategoryParser.checkUnitCategory(value2)));
+        assertEquals(1500.0,valueNormalizer.normalize(value2, DataType.numeric, UnitCategoryParser.getUnitCategory("Length")));
+        assertNotSame(1500.0,valueNormalizer.normalize(value2, DataType.numeric, null));
+        assertEquals(1.5,valueNormalizer.normalize(value2, DataType.numeric, null));
         
         String value3 = "1.5 thousand km";
         assertEquals(1500000.0,valueNormalizer.normalize(value3, DataType.numeric, UnitCategoryParser.checkUnitCategory(value3)));
+        assertEquals(1500000.0,valueNormalizer.normalize(value3, DataType.numeric, UnitCategoryParser.getUnitCategory("Length")));
         
         String value4 = "asd thousand km";
         assertEquals(null,valueNormalizer.normalize(value4, DataType.numeric, UnitCategoryParser.checkUnitCategory(value4)));

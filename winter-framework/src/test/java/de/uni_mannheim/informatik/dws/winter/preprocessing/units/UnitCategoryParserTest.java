@@ -22,6 +22,7 @@ public class UnitCategoryParserTest extends TestCase {
     	
     	//check Unit 
         assertNull(UnitCategoryParser.checkUnit("100 km", null));
+        assertNotNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("All")));
         assertNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("Area")));
         assertNotNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("Length")));
         

@@ -48,10 +48,10 @@ public class ValueNormalizer {
 		            case numeric:
 		                //TODO: how to handle numbers with commas (German style)
 		      
-		            	Quantity quantifier = UnitCategoryParser.checkQuantity(value);
+		            	Quantity quantity = UnitCategoryParser.checkQuantity(value);
 		                Unit unit = UnitCategoryParser.checkUnit(value, unitcategory);
 		                
-		                normalizedValue = UnitCategoryParser.transform(value, unit, quantifier); 
+		                normalizedValue = UnitCategoryParser.transform(value, unit, quantity); 
 		                
 		                break;
 		            case bool:

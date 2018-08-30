@@ -116,7 +116,7 @@ public class UnitCategoryParser {
 				try {
 					value = transformQuantity(value, quantity);
 				} catch (ParseException e) {
-					logger.error("Could not transform " + value + "!");
+					logger.trace("Could not transform " + value + "!");
 					return null;
 				}
 			}
@@ -219,14 +219,17 @@ public class UnitCategoryParser {
 	}
 
 	static {
-		initialiseUnits();
+		initialiseUnitCategories();
 	}
 
-	private static void initialiseUnits() {
+	private static void initialiseUnitCategories() {
 		synchronized (categories) {
 			if (categories.isEmpty()) {
 				try {
-
+					
+					UnitCategory all = new UnitCategory("All");
+					categories.add(all);
+					
 					URI uri = UnitCategoryParser.class.getResource("Units/Convertible").toURI();
 					Path myPath;
 					if (uri.getScheme().equals("jar")) {
@@ -249,7 +252,7 @@ public class UnitCategoryParser {
 							// System.out.println(file.toFile().getName());
 
 							UnitCategory unitCategory = initialiseUnitCategory(file);
-							if (unitCategory.getName().equals("Quantities")) {
+							if (unitCategory.getName().equals("Quantity")) {
 								quantities.addAll(readQuantity(file.toFile()));
 							} else {
 								categories.add(unitCategory);
@@ -282,6 +285,9 @@ public class UnitCategoryParser {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(unitPath), "UTF8"));
 			String fileLine = in.readLine();
+			
+			UnitCategory all = categories.get(0);
+			
 			while (fileLine != null) {
 				Unit currentUnit = new Unit();
 				String[] parts = fileLine.split("\\|");
@@ -302,6 +308,7 @@ public class UnitCategoryParser {
 				}
 				unitsOfFile.add(currentUnit);
 				unitCategory.addUnit(currentUnit);
+				all.addUnit(currentUnit);
 				fileLine = in.readLine();
 			}
 			in.close();
