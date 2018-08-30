@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueDetectionType;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueNormalizer;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.TypeDetector;
 
@@ -19,13 +19,13 @@ public class DataSetNormalizer<RecordType extends Record> {
 	
 	public void normalizeDataset(DataSet<RecordType, Attribute> dataSet, TypeDetector typeDetector){
 		for(Attribute att: dataSet.getSchema().get()){
-			ColumnType columnType = this.detectColumnType(dataSet, att, typeDetector);
+			ValueDetectionType columnType = this.detectColumnType(dataSet, att, typeDetector);
 			this.normalizeColumn(columnType, dataSet, att);
 		}
-		logger.info("Type guessing and normalization done!");
+		logger.info("Type detection and normalization are done!");
 	}
 	
-	public ColumnType detectColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att, TypeDetector typeDetector){
+	public ValueDetectionType detectColumnType(DataSet<RecordType, Attribute> dataSet, Attribute att, TypeDetector typeDetector){
 		
 			String [] values = new String[dataSet.size()];
 			int index = 0;
@@ -34,7 +34,7 @@ public class DataSetNormalizer<RecordType extends Record> {
 				index++;
 			}
 			if(typeDetector != null){
-				return typeDetector.detectTypeForColumn(values, att.getIdentifier());
+				return (ValueDetectionType) typeDetector.detectTypeForColumn(values, att.getIdentifier());
 			}
 			else{
 				logger.error("No type detector defined!");
@@ -43,10 +43,12 @@ public class DataSetNormalizer<RecordType extends Record> {
 		
 	}
 	
-	public void normalizeColumn(ColumnType columntype, DataSet<RecordType, Attribute> dataSet, Attribute att){
-		TypeConverter tc = new TypeConverter();
+	public void normalizeColumn(ValueDetectionType columntype, DataSet<RecordType, Attribute> dataSet, Attribute att){
+		ValueNormalizer valueNormalizer = new ValueNormalizer();
 		for(RecordType record: dataSet.get()){
-			Object value = tc.typeValue(record.getValue(att), columntype.getType(), columntype.getUnit());
+			
+			Object value = valueNormalizer.normalize(record.getValue(att), columntype.getType(), columntype.getUnitCategory());
+			
 			if(value != null){
 				record.setValue(att, value.toString()); 
 			}
@@ -55,9 +57,9 @@ public class DataSetNormalizer<RecordType extends Record> {
 		
 	}
 
-	public void normalizeDataset(DataSet<RecordType, Attribute> dataSet, Map<Attribute, ColumnType> columnTypeMapping) {
+	public void normalizeDataset(DataSet<RecordType, Attribute> dataSet, Map<Attribute, ValueDetectionType> columnTypeMapping) {
 		for(Attribute att: dataSet.getSchema().get()){
-			ColumnType columnType = columnTypeMapping.get(att);
+			ValueDetectionType columnType = columnTypeMapping.get(att);
 			this.normalizeColumn(columnType, dataSet, att);
 		}
 		logger.info("Normalization done!");

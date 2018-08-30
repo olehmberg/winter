@@ -22,30 +22,35 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategory;
  * 
  * 
  */
-public class ColumnDetectionType extends ColumnType {
+public class ValueDetectionType extends ColumnType {
     
-    private UnitCategory category;
     private Quantity quantity;
+    private UnitCategory unitCategory;
     
-    public ColumnDetectionType(DataType type, Unit unit, UnitCategory category, Quantity quantity) {
+    public ValueDetectionType(DataType type, Quantity quantity, Unit unit, UnitCategory unitCategory) {
         super(type, unit);
-        this.category = category;
         this.quantity = quantity;
+        this.unitCategory = unitCategory;   
     }
+    
+    public ValueDetectionType(DataType type, UnitCategory unitCategory) {
+        super(type, null);
+        this.unitCategory = unitCategory;   
+    }
+    
 
+    /**
+     * @return the quantity
+     */
+    public Quantity getQuantity() {
+        return quantity;
+    }
     
     /**
      * @return the unit category
      */
     public UnitCategory getUnitCategory() {
-        return category;
-    }
-    
-    /**
-     * @return the unit category
-     */
-    public Quantity getQuantity() {
-        return quantity;
+        return unitCategory;
     }
     
 }

@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnDetectionType;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueDetectionType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DateJavaTime;
@@ -40,7 +40,10 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
- * @author petar
+ * 
+ * Type Detector to detect data type, unit and quantity of a data value based on different regex expressions.
+ * 
+ * @author Petar and Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  *
  */
 public class PatternbasedTypeDetector implements TypeDetector {
@@ -49,14 +52,14 @@ public class PatternbasedTypeDetector implements TypeDetector {
 	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
-	 * use for rough type guesssing
+	 * use for rough type detection
 	 *
 	 * @param columnValue
 	 *            is the value of the column
 	 * @param headerUnit
 	 * @return the data type
 	 */
-	public ColumnType guessTypeForValue(String columnValue, Unit headerUnit) {
+	public ValueDetectionType detectTypeForValue(String columnValue, Unit headerUnit) {
 		if (checkIfList(columnValue)) {
 			List<String> columnValues;
 			// columnValue = columnValue.replace("{", "");
@@ -66,32 +69,32 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			Map<DataType, Integer> countTypes = new HashMap<>();
 			Map<Unit, Integer> countUnits = new HashMap<>();
 			for (String singleValue : columnValues) {
-				ColumnType guessedSingleType = guessTypeForSingleValue(singleValue, headerUnit);
+				ColumnType detectedSingleType = detectTypeForSingleValue(singleValue, headerUnit);
 
-				Integer cnt = countTypes.get(guessedSingleType.getType());
+				Integer cnt = countTypes.get(detectedSingleType.getType());
 				if (cnt == null) {
 					cnt = 0;
 				}
-				countTypes.put(guessedSingleType.getType(), cnt + 1);
-				// if(countTypes.containsKey(guessedSingleType.getType())) {
-				// countTypes.put(guessedSingleType.getType(),
-				// countTypes.get(guessedSingleType.getType())+1);
+				countTypes.put(detectedSingleType.getType(), cnt + 1);
+				// if(countTypes.containsKey(detectedSingleType.getType())) {
+				// countTypes.put(detectedSingleType.getType(),
+				// countTypes.get(detectedSingleType.getType())+1);
 				// }
 				// else {
-				// countTypes.put(guessedSingleType.getType(), 1);
+				// countTypes.put(detectedSingleType.getType(), 1);
 				// }
 
-				cnt = countUnits.get(guessedSingleType.getUnit());
+				cnt = countUnits.get(detectedSingleType.getUnit());
 				if (cnt == null) {
 					cnt = 0;
 				}
-				countUnits.put(guessedSingleType.getUnit(), cnt + 1);
-				// if(countUnits.containsKey(guessedSingleType.getUnit())) {
-				// countUnits.put(guessedSingleType.getUnit(),
-				// countUnits.get(guessedSingleType.getUnit())+1);
+				countUnits.put(detectedSingleType.getUnit(), cnt + 1);
+				// if(countUnits.containsKey(detectedSingleType.getUnit())) {
+				// countUnits.put(detectedSingleType.getUnit(),
+				// countUnits.get(detectedSingleType.getUnit())+1);
 				// }
 				// else {
-				// countUnits.put(guessedSingleType.getUnit(), 1);
+				// countUnits.put(detectedSingleType.getUnit(), 1);
 				// }
 			}
 			int max = 0;
@@ -104,15 +107,17 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			}
 			max = 0;
 			Unit finalUnit = null;
+			UnitCategory unitCategory = null;
 			for (Unit type : countUnits.keySet()) {
 				if (countUnits.get(type) > max) {
 					max = countUnits.get(type);
 					finalUnit = type;
+					unitCategory = finalUnit.getUnitCategory();
 				}
 			}
-			return new ColumnDetectionType(finalType, finalUnit, null, null);
+			return new ValueDetectionType(finalType,null, finalUnit, unitCategory);
 		} else {
-			return guessTypeForSingleValue(columnValue, headerUnit);
+			return detectTypeForSingleValue(columnValue, headerUnit);
 		}
 	}
 
@@ -125,8 +130,12 @@ public class PatternbasedTypeDetector implements TypeDetector {
 		}
 		return false;
 	}
-
-	private ColumnType guessTypeForSingleValue(String columnValue, Unit headerUnit) {
+	
+	public ValueDetectionType detectTypeForSingleValue(String columnValue) {
+		return detectTypeForSingleValue(columnValue, null);
+	}
+	
+	private ValueDetectionType detectTypeForSingleValue(String columnValue, Unit headerUnit) {
 		if (columnValue != null) {
 			// check the length
 			boolean validLenght = true;
@@ -134,19 +143,19 @@ public class PatternbasedTypeDetector implements TypeDetector {
 				validLenght = false;
 			}
 			if (validLenght && Boolean.parseBoolean(columnValue)) {
-				return new ColumnDetectionType(DataType.bool, null, null, null);
+				return new ValueDetectionType(DataType.bool, null, null, null);
 			}
 			if (URLParser.parseURL(columnValue)) {
-				return new ColumnDetectionType(DataType.link, null, null, null);
+				return new ValueDetectionType(DataType.link, null, null, null);
 			}
 			if (validLenght && GeoCoordinateParser.parseGeoCoordinate(columnValue)) {
-				return new ColumnDetectionType(DataType.coordinate, null, null, null);
+				return new ValueDetectionType(DataType.coordinate, null, null, null);
 			}
 			if (validLenght) {
 				try {
 					LocalDateTime dateTime = DateJavaTime.parse(columnValue);
 					if (dateTime != null) {
-						return new ColumnDetectionType(DataType.date, null, null, null);
+						return new ValueDetectionType(DataType.date, null, null, null);
 					}
 				} catch (ParseException e1) {
 				}
@@ -158,7 +167,7 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			UnitCategory unitCategory = null;
 			if (headerUnit == null && columnValue != null) {
 				quantity = UnitCategoryParser.checkQuantity(columnValue);
-				unit = UnitCategoryParser.checkUnit(columnValue, unitCategory);
+				unit = UnitCategoryParser.checkUnit(columnValue, UnitCategoryParser.getUnitCategory("All"));
 				
 				if(unit != null){
 					unitCategory = unit.getUnitCategory();
@@ -175,10 +184,10 @@ public class PatternbasedTypeDetector implements TypeDetector {
 			}
 			
 			if (validLenght && NumericParser.parseNumeric(columnValue)) {
-				return new ColumnDetectionType(DataType.numeric, unit, unitCategory, quantity);
+				return new ValueDetectionType(DataType.numeric, quantity, unit, unitCategory);
 			}
 		}
-		return new ColumnDetectionType(DataType.string, null, null, null);
+		return new ValueDetectionType(DataType.string, null, null, null);
 	}
 
 	@Override
@@ -186,21 +195,25 @@ public class PatternbasedTypeDetector implements TypeDetector {
 
 		HashMap<Object, Integer> typeCount = new HashMap<>();
 		HashMap<Object, Integer> unitCount = new HashMap<>();
+		HashMap<Object, Integer> quantityCount = new HashMap<>();
 		Unit unit = UnitCategoryParser.parseUnitFromHeader(attributeLabel);
-		// detect types and units per value
+		Quantity quantity = null;
+		UnitCategory unitCategory = null;
+		// detect types and units per value 
 		int rowCounter = 0; // Skip first line --> header
 		for (Object attribute : attributeValues) {
 			if (rowCounter != 0) {
 				String value = (String) attribute;
-				ColumnType cdt = null;
+				ValueDetectionType cdt = null;
 
 				if (value != null) {
-					cdt = guessTypeForValue(value, unit);
+					cdt = detectTypeForValue(value, unit);
 				}
 
 				if (cdt != null) {
 					MapUtils.increment(typeCount, cdt.getType());
 					MapUtils.increment(unitCount, cdt.getUnit());
+					MapUtils.increment(quantityCount, cdt.getQuantity());
 				}
 			}
 			rowCounter++;
@@ -221,13 +234,21 @@ public class PatternbasedTypeDetector implements TypeDetector {
 		if (type == null) {
 			type = DataType.string;
 		}
-
+		
+		// majority vote for quantity
+		quantity = (Quantity) MapUtils.max(quantityCount);
+		
 		// majority vote for Unit - if header unit empty
 		if (unit == null) {
 			unit = (Unit) MapUtils.max(unitCount);
 		}
+		
+		if(unit != null){
+			unitCategory = unit.getUnitCategory();
+		}
+		
 
-		ColumnType resColumnType = new ColumnDetectionType((DataType) type, unit, null, null);
+		ColumnType resColumnType = new ValueDetectionType((DataType) type, quantity, unit, unitCategory);
 		return resColumnType;
 	}
 }

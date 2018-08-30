@@ -13,10 +13,9 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing.DataSetNormalizer;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnDetectionType;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ColumnType;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueDetectionType;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategoryParser;
 import de.uni_mannheim.informatik.dws.winter.usecase.cities.model.City;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
@@ -57,16 +56,16 @@ public class DataNormalization_DefaultModelWithoutTypeDetection {
 		new CSVRecordReader(0, columnMappingCity).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
 		
 		// Create column type mapping
-		Map<Attribute, ColumnType> columnTypeMapping = new HashMap<>();
+		Map<Attribute, ValueDetectionType> columnTypeMapping = new HashMap<>();
 		
-		columnTypeMapping.put(City.ID, new ColumnDetectionType(DataType.string, null, null, null));
-		columnTypeMapping.put(City.NAME, new ColumnDetectionType(DataType.string, null, null, null));
-		columnTypeMapping.put(City.POPULATION, new ColumnDetectionType(DataType.numeric, UnitParser.getUnit("thousand"), null, null));
-		columnTypeMapping.put(City.COUNTRY, new ColumnDetectionType(DataType.string, null, null, null));
-		columnTypeMapping.put(City.COUNTRYCODE, new ColumnDetectionType(DataType.string, null, null, null));
-		columnTypeMapping.put(City.LATITUDE, new ColumnDetectionType(DataType.numeric, null, null, null));
-		columnTypeMapping.put(City.LONGITUDE, new ColumnDetectionType(DataType.numeric, null, null, null));
-		columnTypeMapping.put(City.OFFICIALNAME, new ColumnDetectionType(DataType.string, null, null, null));
+		columnTypeMapping.put(City.ID, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(City.NAME, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(City.POPULATION, new ValueDetectionType(DataType.numeric, null));
+		columnTypeMapping.put(City.COUNTRY, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(City.COUNTRYCODE, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(City.LATITUDE, new ValueDetectionType(DataType.numeric, null));
+		columnTypeMapping.put(City.LONGITUDE, new ValueDetectionType(DataType.numeric, null));
+		columnTypeMapping.put(City.OFFICIALNAME, new ValueDetectionType(DataType.string, null));
 		
 		// normalize dataset
 		new DataSetNormalizer<Record>().normalizeDataset(dataCity, columnTypeMapping);

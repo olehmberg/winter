@@ -17,8 +17,7 @@ import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVMatchableReader;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.TypeConverter;
-import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueNormalizer;
 
 /**
  * 
@@ -29,7 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitParser;
  */
 public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 
-	private TypeConverter tc;
+	private ValueNormalizer valueNormalizer;
 
 	/**
 	 * 
@@ -38,7 +37,7 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 	 *            A flag that triggers the value normalization.
 	 */
 	public CSVCityReader() {
-		this.tc = new TypeConverter();
+		this.valueNormalizer = new ValueNormalizer();
 	}
 
 	protected void initialiseDataset(DataSet<City, Attribute> dataset) {
@@ -75,13 +74,13 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 			r.setName(values[2]);
 			
 			// Set data type and convert value
-			Object latitude = tc.typeValue(values[3], DataType.numeric, null);
+			Object latitude = valueNormalizer.normalize(values[3], DataType.numeric, null);
 			if (latitude != null) {
 				r.setLatitude((Double) latitude);
 			}
 			
 			// Set data type and convert value
-			Object longitude = tc.typeValue(values[4], DataType.numeric, null);
+			Object longitude = valueNormalizer.normalize(values[4], DataType.numeric, null);
 			if (longitude != null) {
 				r.setLongitude(Double.parseDouble(longitude.toString()));
 			}
@@ -90,7 +89,7 @@ public class CSVCityReader extends CSVMatchableReader<City, Attribute> {
 			r.setCountry(values[6]);
 
 			// Set data type, parse unit and convert value
-			Object population = tc.typeValue(values[7], DataType.numeric, UnitParser.checkUnit(values[7]));
+			Object population = valueNormalizer.normalize(values[7], DataType.numeric, null);
 			if (population != null) {
 				r.setPopulation((Double) population);
 			}
