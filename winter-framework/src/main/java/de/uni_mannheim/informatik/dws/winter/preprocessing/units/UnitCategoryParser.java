@@ -95,7 +95,24 @@ public class UnitCategoryParser {
 
 	public static Double transform(String value, Unit unit, Quantity quantity) throws ParseException {
 
-		Double normalizedValue = normalizeNumeric(value);
+		String reducedValue = value;
+		// Remove quantity description
+		if (quantity != null) {
+			reducedValue = value.replace(quantity.getName(), "");
+			for (String abbr : quantity.getAbbreviations()) {
+				reducedValue = reducedValue.replace(abbr, "");
+			}
+		}
+
+		// Remove unit description
+		if (unit != null) {
+			reducedValue = value.replace(unit.getName(), "");
+			for (String abbr : unit.getAbbreviations()) {
+				reducedValue = reducedValue.replace(abbr, "");
+			}
+		}
+
+		Double normalizedValue = normalizeNumeric(reducedValue);
 
 		if (quantity != null) {
 			normalizedValue *= quantity.getFactor();
@@ -127,6 +144,13 @@ public class UnitCategoryParser {
 				if (nonNumberPart.toLowerCase().equals(unit.getName())
 						|| unit.getAbbreviations().contains(nonNumberPart.toLowerCase())) {
 					return unit;
+				}
+
+				for (String part : value.split("\\s+")) {
+					if (part.toLowerCase().equals(unit.getName())
+							|| unit.getAbbreviations().contains(part.toLowerCase())) {
+						return unit;
+					}
 				}
 			}
 		}
@@ -226,10 +250,10 @@ public class UnitCategoryParser {
 		synchronized (categories) {
 			if (categories.isEmpty()) {
 				try {
-					
+
 					UnitCategory all = new UnitCategory("All");
 					categories.add(all);
-					
+
 					URI uri = UnitCategoryParser.class.getResource("Units/Convertible").toURI();
 					Path myPath;
 					if (uri.getScheme().equals("jar")) {
@@ -285,9 +309,9 @@ public class UnitCategoryParser {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(unitPath), "UTF8"));
 			String fileLine = in.readLine();
-			
+
 			UnitCategory all = categories.get(0);
-			
+
 			while (fileLine != null) {
 				Unit currentUnit = new Unit();
 				String[] parts = fileLine.split("\\|");

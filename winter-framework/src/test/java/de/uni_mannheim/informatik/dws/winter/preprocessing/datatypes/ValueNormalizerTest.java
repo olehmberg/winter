@@ -33,17 +33,26 @@ public class ValueNormalizerTest extends TestCase {
         
         String value2 = "1.5 km";
         assertEquals(1500.0,valueNormalizer.normalize(value2, DataType.numeric, UnitCategoryParser.checkUnitCategory(value2)));
-        assertEquals(1500.0,valueNormalizer.normalize(value2, DataType.numeric, UnitCategoryParser.getUnitCategory("Length")));
+        assertEquals(1500.0,valueNormalizer.normalize(value2, DataType.numeric, UnitCategoryParser.getUnitCategory("Distance")));
         assertNotSame(1500.0,valueNormalizer.normalize(value2, DataType.numeric, null));
         assertEquals(1.5,valueNormalizer.normalize(value2, DataType.numeric, null));
         
         String value3 = "1.5 thousand km";
         assertEquals(1500000.0,valueNormalizer.normalize(value3, DataType.numeric, UnitCategoryParser.checkUnitCategory(value3)));
-        assertEquals(1500000.0,valueNormalizer.normalize(value3, DataType.numeric, UnitCategoryParser.getUnitCategory("Length")));
+        assertEquals(1500000.0,valueNormalizer.normalize(value3, DataType.numeric, UnitCategoryParser.getUnitCategory("Distance")));
         
         String value4 = "asd thousand km";
         assertEquals(null,valueNormalizer.normalize(value4, DataType.numeric, UnitCategoryParser.checkUnitCategory(value4)));
-
+        
+        String value5 = "85 mph";
+        assertEquals(136.7939,valueNormalizer.normalize(value5, DataType.numeric, UnitCategoryParser.checkUnitCategory(value5)));
+        assertEquals(136.7939,valueNormalizer.normalize(value5, DataType.numeric, UnitCategoryParser.getUnitCategory("Speed")));
+        
+        String value6 = "357386 km2";
+        assertEquals(357386000000.0,valueNormalizer.normalize(value6, DataType.numeric, UnitCategoryParser.checkUnitCategory(value6)));
+        assertEquals(357386000000.0,valueNormalizer.normalize(value6, DataType.numeric, UnitCategoryParser.getUnitCategory("Area")));
+        
+        
     }
 
 }

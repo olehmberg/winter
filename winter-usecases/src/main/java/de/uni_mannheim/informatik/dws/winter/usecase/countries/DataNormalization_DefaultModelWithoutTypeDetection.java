@@ -1,4 +1,4 @@
-package de.uni_mannheim.informatik.dws.winter.usecase.cities;
+package de.uni_mannheim.informatik.dws.winter.usecase.countries;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,8 +14,9 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing.DataSetNormalizer;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.ValueDetectionType;
+import de.uni_mannheim.informatik.dws.winter.preprocessing.units.UnitCategoryParser;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes.DataType;
-import de.uni_mannheim.informatik.dws.winter.usecase.cities.model.City;
+import de.uni_mannheim.informatik.dws.winter.usecase.countries.model.Country;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 
@@ -37,40 +38,35 @@ public class DataNormalization_DefaultModelWithoutTypeDetection {
 	private static final Logger logger = WinterLogManager.activateLogger("default");
 	
 	public static void main(String[] args) throws Exception {
-		
 
 		// Create column mapping
-		Map<String, Attribute> columnMappingCity = new HashMap<>();
-		columnMappingCity.put("Index", City.ID);
-		columnMappingCity.put("label", City.NAME);
-		columnMappingCity.put("population", City.POPULATION);
-		columnMappingCity.put("country", City.COUNTRY);
-		columnMappingCity.put("countryCode", City.COUNTRYCODE);
-		columnMappingCity.put("lat", City.LATITUDE);
-		columnMappingCity.put("long", City.LONGITUDE);
-		columnMappingCity.put("officialName", City.OFFICIALNAME);
+		Map<String, Attribute> columnMappingCountry = new HashMap<>();
+		columnMappingCountry.put("﻿Index", Country.ID);
+		columnMappingCountry.put("Name", Country.NAME);
+		columnMappingCountry.put("Population", Country.POPULATION);
+		columnMappingCountry.put("Area", Country.AREA);
+		columnMappingCountry.put("Speed Limit", Country.SPEEDLIMIT);
+		columnMappingCountry.put("Date Latest Constitution", Country.LATESTCONSTITUTION);
 		
 		// load data
-		DataSet<Record, Attribute> dataCity = new HashedDataSet<>();
-		new CSVRecordReader(0, columnMappingCity).loadFromCSV(new File("usecase/city/input/city.csv"), dataCity);
+		DataSet<Record, Attribute> dataCountry = new HashedDataSet<>();
+		new CSVRecordReader(0, columnMappingCountry).loadFromCSV(new File("usecase/country/input/countries.csv"), dataCountry);
 		
 		// Create column type mapping
 		Map<Attribute, ValueDetectionType> columnTypeMapping = new HashMap<>();
 		
-		columnTypeMapping.put(City.ID, new ValueDetectionType(DataType.string, null));
-		columnTypeMapping.put(City.NAME, new ValueDetectionType(DataType.string, null));
-		columnTypeMapping.put(City.POPULATION, new ValueDetectionType(DataType.numeric, null));
-		columnTypeMapping.put(City.COUNTRY, new ValueDetectionType(DataType.string, null));
-		columnTypeMapping.put(City.COUNTRYCODE, new ValueDetectionType(DataType.string, null));
-		columnTypeMapping.put(City.LATITUDE, new ValueDetectionType(DataType.numeric, null));
-		columnTypeMapping.put(City.LONGITUDE, new ValueDetectionType(DataType.numeric, null));
-		columnTypeMapping.put(City.OFFICIALNAME, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(Country.ID, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(Country.NAME, new ValueDetectionType(DataType.string, null));
+		columnTypeMapping.put(Country.POPULATION, new ValueDetectionType(DataType.numeric, null));
+		columnTypeMapping.put(Country.AREA, new ValueDetectionType(DataType.numeric, UnitCategoryParser.getUnitCategory("Area")));
+		columnTypeMapping.put(Country.SPEEDLIMIT, new ValueDetectionType(DataType.numeric, UnitCategoryParser.getUnitCategory("Speed")));
+		columnTypeMapping.put(Country.LATESTCONSTITUTION, new ValueDetectionType(DataType.date, null));
 		
-		// normalize dataset
-		new DataSetNormalizer<Record>().normalizeDataset(dataCity, columnTypeMapping);
+		// normalize data set
+		new DataSetNormalizer<Record>().normalizeDataset(dataCountry, columnTypeMapping);
 		
 		// export data
-		 new RecordCSVFormatter().writeCSV(new File("usecase/city/output/city.csv"), dataCity, null);
+		 new RecordCSVFormatter().writeCSV(new File("usecase/country/output/countries.csv"), dataCountry, null);
 		 logger.info("DataSet City written to file!");
 	}
 
