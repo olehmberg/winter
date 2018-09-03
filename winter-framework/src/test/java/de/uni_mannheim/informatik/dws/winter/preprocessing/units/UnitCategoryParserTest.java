@@ -24,7 +24,7 @@ public class UnitCategoryParserTest extends TestCase {
         assertNull(UnitCategoryParser.checkUnit("100 km", null));
         assertNotNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("All")));
         assertNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("Area")));
-        assertNotNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("Length")));
+        assertNotNull(UnitCategoryParser.checkUnit("100 km", UnitCategoryParser.getUnitCategory("Distance")));
         
         // check Quantifier
         assertNull(UnitCategoryParser.checkQuantity("100 km"));
@@ -33,7 +33,7 @@ public class UnitCategoryParserTest extends TestCase {
         assertEquals(UnitCategoryParser.getQuantity("million"),UnitCategoryParser.checkQuantity("100 million km"));
         
      // check Unit
-        assertEquals("kilometre",UnitCategoryParser.checkUnit("100 million km", UnitCategoryParser.getUnitCategory("Length")).getName());
+        assertEquals("kilometre",UnitCategoryParser.checkUnit("100 million km", UnitCategoryParser.getUnitCategory("Distance")).getName());
         assertEquals(UnitCategoryParser.checkQuantity("million"), UnitCategoryParser.checkQuantity("100 million km"));
     }
 

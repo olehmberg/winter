@@ -139,19 +139,20 @@ public class UnitCategoryParser {
 			}
 
 			for (Unit unit : unitCategory.getUnits()) {
-				String nonNumberPart = value.replaceAll("[0-9\\,\\.\\-Ee\\+]", "");
+				String nonNumberPart = value.replaceAll("^[0-9\\,\\.\\-Ee\\+]*", "");
 				nonNumberPart = nonNumberPart.trim();
 				if (nonNumberPart.toLowerCase().equals(unit.getName())
 						|| unit.getAbbreviations().contains(nonNumberPart.toLowerCase())) {
 					return unit;
 				}
-
+/*
 				for (String part : value.split("\\s+")) {
 					if (part.toLowerCase().equals(unit.getName())
 							|| unit.getAbbreviations().contains(part.toLowerCase())) {
 						return unit;
 					}
 				}
+				*/
 			}
 		}
 		return null;
@@ -166,7 +167,7 @@ public class UnitCategoryParser {
 		value = value.replaceAll(quantity.getName(), "");
 		value = value.replaceAll(reducedValue, "");
 
-		value += transformedValue;
+		value = transformedValue + value;
 
 		return value;
 	}
