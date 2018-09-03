@@ -35,6 +35,10 @@ public class UnitCategoryParserTest extends TestCase {
      // check Unit
         assertEquals("kilometre",UnitCategoryParser.checkUnit("100 million km", UnitCategoryParser.getUnitCategory("Distance")).getName());
         assertEquals(UnitCategoryParser.checkQuantity("million"), UnitCategoryParser.checkQuantity("100 million km"));
+        
+     // check Unit
+        assertNull(UnitCategoryParser.checkUnit("$ 50", null));
+        assertNull(UnitCategoryParser.checkUnit("$ 50 million", null));
     }
 
 }

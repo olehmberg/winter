@@ -52,6 +52,9 @@ public class ValueNormalizerTest extends TestCase {
         assertEquals(357386000000.0,valueNormalizer.normalize(value6, DataType.numeric, UnitCategoryParser.checkUnitCategory(value6)));
         assertEquals(357386000000.0,valueNormalizer.normalize(value6, DataType.numeric, UnitCategoryParser.getUnitCategory("Area")));
         
+        String value7 = "$ 50 thousand";
+        assertEquals(valueNormalizer.normalize(value7, DataType.numeric, null),50000.0);
+        
         
     }
 

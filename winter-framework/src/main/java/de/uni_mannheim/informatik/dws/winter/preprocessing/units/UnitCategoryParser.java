@@ -145,14 +145,6 @@ public class UnitCategoryParser {
 						|| unit.getAbbreviations().contains(nonNumberPart.toLowerCase())) {
 					return unit;
 				}
-/*
-				for (String part : value.split("\\s+")) {
-					if (part.toLowerCase().equals(unit.getName())
-							|| unit.getAbbreviations().contains(part.toLowerCase())) {
-						return unit;
-					}
-				}
-				*/
 			}
 		}
 		return null;
