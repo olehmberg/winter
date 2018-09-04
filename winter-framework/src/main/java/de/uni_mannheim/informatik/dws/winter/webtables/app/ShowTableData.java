@@ -179,9 +179,9 @@ public class ShowTableData extends Executable {
 				// list the columns in the table
 				for(TableColumn c : t.getColumns()) {
 					if(!showHeader) {
-						logger.info(c.getIdentifier());
+						System.out.println(c.getIdentifier());
 					} else {
-						logger.info(c.toString());
+						System.out.println(c.toString());
 					}
 				}
 			} else {
@@ -189,38 +189,38 @@ public class ShowTableData extends Executable {
 
 				TableContext ctx = t.getContext();
 				
-				logger.info(String.format("*** Table %s ***", s));
+				System.out.println(String.format("*** Table %s ***", s));
 				if(ctx!=null) {
-					logger.info(String.format("* URL: %s", ctx.getUrl()));
-					logger.info(String.format("* Title: %s", ctx.getPageTitle()));
-					logger.info(String.format("* Heading: %s", ctx.getTableTitle()));
+					System.out.println(String.format("* URL: %s", ctx.getUrl()));
+					System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
+					System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
 				}
-				logger.info(String.format("* # Columns: %d", t.getColumns().size()));
-				logger.info(String.format("* # Rows: %d", t.getRows().size()));
-				logger.info(String.format("* Created from %d original tables", getOriginalTables(t).size()));
-				logger.info(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
+				System.out.println(String.format("* # Columns: %d", t.getColumns().size()));
+				System.out.println(String.format("* # Rows: %d", t.getRows().size()));
+				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
+				System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
 
 				if(showProvenanceInfo) {
 					// collect all provenance data
 					Set<String> provenance = getOriginalTables(t);
 					
 					if(provenance.size()>0) {
-						logger.info("Provenance:");
-						logger.info(String.format("\t%s", 
+						System.out.println("Provenance:");
+						System.out.println(String.format("\t%s", 
 								StringUtils.join(Q.sort(provenance), ",")
 								));
 					} else {
-						logger.info("Table has no provenance data attached.");
+						System.out.println("Table has no provenance data attached.");
 					}
 				}
 				
 				if(showDependencyInfo) {
 					
 					if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
-						logger.info("*** Functional Dependencies ***");
+						System.out.println("*** Functional Dependencies ***");
 						for(Collection<TableColumn> det : t.getSchema().getFunctionalDependencies().keySet()) {
 							Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
-							logger.info(
+							System.out.println(
 									String.format(
 											"{%s}->{%s}", 
 											StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
@@ -228,17 +228,17 @@ public class ShowTableData extends Executable {
 						}
 					}
 					if(t.getSchema().getCandidateKeys()!=null && t.getSchema().getCandidateKeys().size()>0) {
-						logger.info("*** Candidate Keys ***");
+						System.out.println("*** Candidate Keys ***");
 						for(Collection<TableColumn> candidateKey : t.getSchema().getCandidateKeys()) {
-							logger.info(
+							System.out.println(
 									String.format("{%s}", StringUtils.join(Q.project(candidateKey, new TableColumn.ColumnHeaderProjection()), ",")));
 						}
 					}
 				}
 
 				if(showData) {
-					logger.info(t.getSchema().format(columnWidth));
-					logger.info(t.getSchema().formatDataTypes(columnWidth));
+					System.out.println(t.getSchema().format(columnWidth));
+					System.out.println(t.getSchema().formatDataTypes(columnWidth));
 					
 					int maxRows = Math.min(numRows, t.getRows().size());
 					
@@ -249,12 +249,12 @@ public class ShowTableData extends Executable {
 					for(int i = 0; i < maxRows; i++) {
 						TableRow r = t.getRows().get(i);
 						if(showProvenanceInfo) {
-							logger.info(StringUtils.join(r.getProvenance(), " / "));
+							System.out.println(StringUtils.join(r.getProvenance(), " / "));
 						}
-						logger.info(r.format(columnWidth));
+						System.out.println(r.format(columnWidth));
 					}
 				} else {
-					logger.info(StringUtils.join(Q.project(t.getColumns(), 
+					System.out.println(StringUtils.join(Q.project(t.getColumns(), 
 							new Func<String, TableColumn>() {
 	
 								@Override
