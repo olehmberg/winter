@@ -37,20 +37,9 @@ public class DataNormalization_DefaultModel {
 	
 	public static void main(String[] args) throws Exception {
 		
-
-		// loading data
-		Map<String, Attribute> columnMappingCountry = new HashMap<>();
-		columnMappingCountry.put("﻿Index", Country.ID);
-		columnMappingCountry.put("Name", Country.NAME);
-		columnMappingCountry.put("Population", Country.POPULATION);
-		columnMappingCountry.put("Area", Country.AREA);
-		columnMappingCountry.put("Speed Limit", Country.SPEEDLIMIT);
-		columnMappingCountry.put("Date Latest Constitution", Country.LATESTCONSTITUTION);
-
-		
 		// load data
 		DataSet<Record, Attribute> dataCountry = new HashedDataSet<>();
-		new CSVRecordReader(0, columnMappingCountry).loadFromCSV(new File("usecase/country/input/countries.csv"), dataCountry);
+		new CSVRecordReader(0).loadFromCSV(new File("usecase/country/input/countries.csv"), dataCountry);
 		
 		// normalize dataset
 		new DataSetNormalizer<Record>().normalizeDataset(dataCountry, new PatternbasedTypeDetector());
