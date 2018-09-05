@@ -1,0 +1,24 @@
+"metre"|"m","meter","metres","metre","μ","μέτρα","μέτρο" 
+"nanometre"|"nm","nanometre","νανόμετρο"|1.0E-9
+"micrometre"|"µm","micrometre","μικρόμετρο"|1.0E-6
+"millimetre"|"mm","millimetre","χιλιοστόμετρο"|0.001
+"centimetre"|"cm","centimetre","εκ","εκατοστά","εκατοστόμετρο"|0.01
+"decimetre"|"dm","decimetre","δεκατόμετρο"|0.1
+"decametre"|"dam","decametre"|10.0
+"hectometre"|"hm","hectometre"|100.0
+"kilometre"|"km","kilometre","χιλ","χιλιόμετρα"|1000.0
+"megametre"|"Mm","megametre"|1000000.0
+"gigametre"|"Gm","gigametre"|1000000000.0
+"inch"|"in","inch","''","\""|0.0254
+"hand"|"hand"|0.1016
+"foot"|"ft","feet","foot", "'","πόδια"|0.3048
+"yard"|"yd","yard"|0.9144
+"fathom"|"fathom"|1.8288
+"rod"|"rd","perch","pole","rod"|5.0292
+"chain"|"chain"|20.1168
+"furlong"|"furlong"|201.168
+"mile"|"mi","miles","mile","μίλι","μίλια"|1609.344
+"nautialMile"|"nmi","nautial mile"|1852.01
+"astronomicalUnit"|"AU","astronomical unit"|149597870700.0
+"lightYear"|"ly","light-year"|9460730472580800.0
+"kilolightYear"|"kly","kilolight-year"|9.4607304725808E+18

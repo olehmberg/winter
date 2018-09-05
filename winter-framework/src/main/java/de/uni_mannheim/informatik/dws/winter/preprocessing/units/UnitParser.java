@@ -57,6 +57,19 @@ public class UnitParser {
     public static List<Unit> getUnits() {
         return units;
     }
+    
+    /**
+     * @param	name	the name of the requested unit.
+     * @return 	the unit
+     */
+    public static Unit getUnit(String name) {
+    	for(Unit unit: units){
+    		if(unit.getName().equals(name)){
+    			return unit;
+    		}
+    	}
+        return null;
+    }
 
     public static Double parseUnit(String value, String unitInformation) {
         for (Unit unit : units) {
