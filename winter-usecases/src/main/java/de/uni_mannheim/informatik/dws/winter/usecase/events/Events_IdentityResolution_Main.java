@@ -52,7 +52,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Events_IdentityResolution_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -83,8 +83,7 @@ public class Events_IdentityResolution_Main {
 		LinearCombinationMatchingRule<Event, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
-		
+		matchingRule.collectDebugData("usecase/events/output/debugResultsMatchingRule.csv", 1000);
 		// add comparators
 		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);
 
@@ -109,9 +108,6 @@ public class Events_IdentityResolution_Main {
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromTSVFile(new File(
 				"usecase/events/goldstandard/dbpedia_2_yago_sample.tsv"));
-		
-		// Write debug results to file
-		matchingRule.writeDebugMatchingResultsToFile("usecase/events/output/debugResultsMatchingRule.csv");
 		
 		// evaluate your result
 		MatchingEvaluator<Event, Attribute> evaluator = new MatchingEvaluator<Event, Attribute>();

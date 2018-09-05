@@ -25,9 +25,6 @@ import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.XMLRecordReader;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieCSVFormatter;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
 
 /**
  * Converts the XML datasets to CSV.

@@ -65,7 +65,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Movies_IdentityResolutionLearningMatchingRule {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -99,7 +99,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());
@@ -112,9 +112,9 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		matchingRule.addComparator(new MovieTitleComparatorJaccard());
 
 		// create a blocker (blocking strategy)
-		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(
-				new MovieBlockingKeyByDecadeGenerator());
-		blocker.setMeasureBlockSizes(true);
+		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
+		//Write debug results to file:
+		blocker.collectBlockSizeData("usecase/movie/output/debugResultsBlocking.csv", 100);
 		
 		// learning Matching rule
 		RuleLearner<Movie, Attribute> learner = new RuleLearner<>();
@@ -140,10 +140,6 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
-		
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/movie/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/movie/output/debugResultsWekaMatchingRule.csv");
 		
 		//evaluate learned classifier
 		logger.info(matchingRule.getClassifier().toString());

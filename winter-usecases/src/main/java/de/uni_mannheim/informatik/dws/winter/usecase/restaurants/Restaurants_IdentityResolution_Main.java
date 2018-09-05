@@ -54,7 +54,7 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 public class Restaurants_IdentityResolution_Main {
 	
 	/*
-	 * Trace Options:
+	 * Logging Options:
 	 * 		default: 	level INFO	- console
 	 * 		trace:		level TRACE     - console
 	 * 		infoFile:	level INFO	- console/file
@@ -87,7 +87,7 @@ public class Restaurants_IdentityResolution_Main {
 				0.7);
 		
 		// Collect debug results
-		matchingRule.setCollectDebugResults(true);
+		matchingRule.collectDebugData("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000);
 		
 		// add comparators
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true),0.4);
@@ -115,8 +115,8 @@ public class Restaurants_IdentityResolution_Main {
 			}
 		});
 		
-		//Measure Block sizes
-		blocker.setMeasureBlockSizes(true);
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/restaurant/output/debugResultsBlocking.csv", 100);
 		
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
@@ -138,9 +138,6 @@ public class Restaurants_IdentityResolution_Main {
 		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(),
 				gsTest);
-		// Write Debug Results to file
-		blocker.writeDebugBlockingResultsToFile("usecase/restaurant/output/debugResultsBlocking.csv");
-		matchingRule.writeDebugMatchingResultsToFile("usecase/restaurant/output/debugResultsWekaMatchingRule.csv");
 		
 		//printCorrespondences(new ArrayList<>(correspondences.get()), gsTest);
 
