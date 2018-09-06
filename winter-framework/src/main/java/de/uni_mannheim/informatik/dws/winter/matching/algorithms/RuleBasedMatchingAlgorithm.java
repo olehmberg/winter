@@ -94,7 +94,14 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	}
 	
 	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences) {
-		return blocker.runBlocking(getDataset1(), getDataset2(), getCorrespondences());
+		Processable<Correspondence<RecordType, CorrespondenceType>> pairs = blocker.runBlocking(getDataset1(),
+				getDataset2(), getCorrespondences());
+
+		if(blocker.isMeasureBlockSizes()){
+			blocker.writeDebugBlockingResultsToFile();
+		}
+
+		return pairs;
 	}
 	
 	public double getReductionRatio() {
@@ -115,10 +122,6 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 						.format("Matching %,d x %,d elements; %,d blocked pairs (reduction ratio: %s)",
 								getDataset1().size(), getDataset2().size(),
 								allPairs.size(), Double.toString(getReductionRatio())));
-		
-		if(blocker.isMeasureBlockSizes()){
-			blocker.writeDebugBlockingResultsToFile();
-		}
 		
 		// compare the pairs using the matching rule
 		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.map(rule);
