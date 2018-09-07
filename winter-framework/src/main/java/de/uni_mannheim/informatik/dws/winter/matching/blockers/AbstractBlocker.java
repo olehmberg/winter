@@ -21,7 +21,6 @@ import org.apache.logging.log4j.Logger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
@@ -188,7 +187,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	 * @param model the blocking result record
 	 */
 	public void appendBlockingResult(Record model) {
-		if(this.debugBlockingResults.size() < this.maxDebugLogSize){
+		if(this.maxDebugLogSize == -1 || this.debugBlockingResults.size() < this.maxDebugLogSize){
 			this.debugBlockingResults.add(model);
 		}
 	}
@@ -200,7 +199,7 @@ public abstract class AbstractBlocker<RecordType extends Matchable, BlockedType 
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
 	public void collectBlockSizeData(String filePath, int maxSize){
-		if(filePath != null && maxSize > 0){
+		if(filePath != null){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.setMeasureBlockSizes(true);

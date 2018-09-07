@@ -99,7 +99,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
 	public void collectDebugData(String filePath, int maxSize){
-		if(filePath != null && maxSize > 0){
+		if(filePath != null){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.setCollectDebugResults(true);
@@ -298,7 +298,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 */
 	public void fillFusionLog(){
 		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
-			if(attFuser.getFusionLog() != null && this.debugFusionResults.size() < this.maxDebugLogSize){
+			if(attFuser.getFusionLog() != null && (this.maxDebugLogSize == -1 || this.debugFusionResults.size() < this.maxDebugLogSize)){
 				this.debugFusionResults.add(attFuser.getFusionLog());
 			}
 		}

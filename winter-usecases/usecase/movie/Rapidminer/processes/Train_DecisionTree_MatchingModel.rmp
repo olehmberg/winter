@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.0.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.0.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_csv" compatibility="9.0.001" expanded="true" height="68" name="Read CSV" width="90" x="45" y="34">
+        <parameter key="csv_file" value="&lt;/your path to winte.r&gt;/usecase/movie/Rapidminer/data/optimisation/academy_awards_2_actors_features.csv"/>
+        <parameter key="column_separators" value=","/>
+        <parameter key="trim_lines" value="false"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
+        <parameter key="escape_character" value="\"/>
+        <parameter key="skip_comments" value="true"/>
+        <parameter key="comment_characters" value="#"/>
+        <parameter key="starting_row" value="1"/>
+        <parameter key="parse_numbers" value="true"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="infinity_representation" value=""/>
+        <parameter key="date_format" value="MMM d, yyyy h:mm:ss a z"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="encoding" value="windows-1252"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="[0] MovieTitleComparatorEqual.true.real.attribute"/>
+          <parameter key="1" value="[1] MovieDateComparator2Years.true.real.attribute"/>
+          <parameter key="2" value="[2] MovieDateComparator10Years.true.real.attribute"/>
+          <parameter key="3" value="[3] MovieDirectorComparatorJaccard.true.real.attribute"/>
+          <parameter key="4" value="[4] MovieDirectorComparatorLevenshtein.true.real.attribute"/>
+          <parameter key="5" value="[5] MovieDirectorComparatorLowerCaseJaccard.true.real.attribute"/>
+          <parameter key="6" value="[6] MovieTitleComparatorLevenshtein.true.real.attribute"/>
+          <parameter key="7" value="[7] MovieTitleComparatorJaccard.true.real.attribute"/>
+          <parameter key="8" value="label.true.binominal.label"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+        <parameter key="datamanagement" value="double_array"/>
+        <parameter key="data_management" value="auto"/>
+      </operator>
+      <operator activated="true" class="concurrency:parallel_decision_tree" compatibility="9.0.001" expanded="true" height="103" name="Decision Tree" width="90" x="246" y="34">
+        <parameter key="criterion" value="gain_ratio"/>
+        <parameter key="maximal_depth" value="20"/>
+        <parameter key="apply_pruning" value="true"/>
+        <parameter key="confidence" value="0.25"/>
+        <parameter key="apply_prepruning" value="true"/>
+        <parameter key="minimal_gain" value="0.1"/>
+        <parameter key="minimal_leaf_size" value="2"/>
+        <parameter key="minimal_size_for_split" value="4"/>
+        <parameter key="number_of_prepruning_alternatives" value="3"/>
+      </operator>
+      <operator activated="true" class="pmml:write_pmml" compatibility="7.3.000" expanded="true" height="68" name="Write PMML" width="90" x="447" y="34">
+        <parameter key="file" value="&lt;/your path to winte.r&gt;/usecase/movie/Rapidminer/models/matchingModel.pmml"/>
+        <parameter key="version" value="4.0"/>
+      </operator>
+      <connect from_op="Read CSV" from_port="output" to_op="Decision Tree" to_port="training set"/>
+      <connect from_op="Decision Tree" from_port="model" to_op="Write PMML" to_port="model"/>
+      <connect from_op="Write PMML" from_port="model output" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
