@@ -23,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.Performance;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
@@ -41,6 +42,20 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 	private static final Logger logger = WinterLogManager.getLogger();
 
 	public MatchingEvaluator() {
+	}
+
+	/**
+	 * Evaluates the given correspondences against the gold standard
+	 * 
+	 * @param correspondences
+	 *            the correspondences to evaluate
+	 * @param goldStandard
+	 *            the gold standard
+	 * @return the result of the evaluation
+	 */
+	public Performance evaluateMatching(Processable<Correspondence<RecordType, SchemaElementType>> correspondences,
+			MatchingGoldStandard goldStandard) {
+		return evaluateMatching(correspondences.get(), goldStandard);
 	}
 
 	/**
