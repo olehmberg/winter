@@ -84,7 +84,7 @@ public class Movies_IdentityResolution_Main {
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
-		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTest);
+		matchingRule.activateDebugReport("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTest);
 		
 		// add comparators
 //		matchingRule.addComparator((m1,  m2, c) -> new TokenizingJaccardSimilarity().calculate(m1.getTitle(), m2.getTitle()) , 0.8);

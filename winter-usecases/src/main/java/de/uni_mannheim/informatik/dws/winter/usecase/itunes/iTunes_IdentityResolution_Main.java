@@ -108,7 +108,7 @@ public class iTunes_IdentityResolution_Main {
 				0.7);
 		
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/itunes/output/debugResultsMatchingRule.csv", 1000);
+		matchingRule.activateDebugReport("usecase/itunes/output/debugResultsMatchingRule.csv", 1000);
 		
 		// add comparators
 		RecordComparatorLevenshtein artistLowerCaseLevenshtein = new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST);

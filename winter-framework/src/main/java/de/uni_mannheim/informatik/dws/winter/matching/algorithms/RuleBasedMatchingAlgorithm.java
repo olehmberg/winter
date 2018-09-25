@@ -133,7 +133,7 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 				"%s finished after %s; found %,d correspondences.",
 				getTaskName(), DurationFormatUtils.formatDurationHMS(Duration.between(start, end).toMillis()), result.size()));
 		
-		if(rule.isCollectDebugResults()){
+		if(rule.isDebugReportActive()){
 			rule.writeDebugMatchingResultsToFile();
 		}
 		

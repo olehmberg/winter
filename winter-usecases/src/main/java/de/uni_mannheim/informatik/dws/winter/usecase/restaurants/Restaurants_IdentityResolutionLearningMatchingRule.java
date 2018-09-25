@@ -101,7 +101,7 @@ public class Restaurants_IdentityResolutionLearningMatchingRule {
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 		
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
+		matchingRule.activateDebugReport("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Restaurant.NAME, Restaurant.NAME));

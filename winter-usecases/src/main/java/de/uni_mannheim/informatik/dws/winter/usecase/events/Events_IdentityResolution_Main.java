@@ -83,7 +83,7 @@ public class Events_IdentityResolution_Main {
 		LinearCombinationMatchingRule<Event, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
 				0.7);
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/events/output/debugResultsMatchingRule.csv", 1000);
+		matchingRule.activateDebugReport("usecase/events/output/debugResultsMatchingRule.csv", 1000);
 		// add comparators
 		matchingRule.addComparator(new EventLabelComparatorLevenshtein(), 1);
 

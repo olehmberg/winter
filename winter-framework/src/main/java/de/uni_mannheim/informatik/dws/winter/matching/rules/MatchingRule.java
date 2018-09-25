@@ -87,7 +87,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * 
 	 * @return
 	 */
-	public boolean isCollectDebugResults() {
+	public boolean isDebugReportActive() {
 		return collectDebugResults;
 	}
 	
@@ -96,7 +96,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * 
 	 * @return
 	 */
-	public boolean continueCollectDebugResults() {
+	protected boolean continueCollectDebugResults() {
 		if(this.maxDebugLogSize == -1 || this.comparatorLog.size() < this.maxDebugLogSize){
 			return true;
 		}
@@ -120,7 +120,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * 
 	 * @return
 	 */
-	public HashMap<Attribute, Attribute> getResultToComparatorLog() {
+	protected HashMap<Attribute, Attribute> getResultToComparatorLog() {
 		return resultToComparatorLog;
 	}
 
@@ -151,7 +151,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	/**
 	 * Initialize Debug Matching Results.
 	 */
-	public void initializeMatchingResults() {
+	protected void initializeMatchingResults() {
 		this.comparatorLog = new FusibleHashedDataSet<Record, Attribute>();
 		this.comparatorLogShort = new FusibleHashedDataSet<Record, Attribute>();
 		this.headerDebugResults = new LinkedList<Attribute>();
@@ -211,7 +211,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param comparator
 	 *            The comparator for which the log`s schema shall be enhanced.
 	 */
-	public void addComparatorToLog(Comparator<RecordType, SchemaElementType> comparator) {
+	protected void addComparatorToLog(Comparator<RecordType, SchemaElementType> comparator) {
 
 		// 4 fix attributes as defined in initialiseMatchingResults().
 		int position = (this.comparatorLog.getSchema().size() - 4) / ComparatorLogger.COMPARATORLOG.length;
@@ -242,7 +242,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 *            short debug log entry.
 	 * @return New debug results record.
 	 */
-	public Record initializeDebugRecord(RecordType record1, RecordType record2, int position) {
+	protected Record initializeDebugRecord(RecordType record1, RecordType record2, int position) {
 
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		if (position != -1) {
@@ -267,7 +267,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 *            Comparator's position
 	 * @return Filled debug record.
 	 */
-	public Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comparator, int position) {
+	protected Record fillDebugRecord(Record debug, Comparator<RecordType, SchemaElementType> comparator, int position) {
 		ComparatorLogger compLog = comparator.getComparisonLog();
 		if (compLog != null) {
 			for (Attribute att : ComparatorLogger.COMPARATORLOG) {
@@ -306,7 +306,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param position
 	 *            Position of the corresponding comparator
 	 */
-	public void addDebugRecordShort(RecordType record1, RecordType record2,
+	protected void addDebugRecordShort(RecordType record1, RecordType record2,
 			Comparator<RecordType, SchemaElementType> comparator, int position) {
 		Record debug = initializeDebugRecord(record1, record2, position);
 		ComparatorLogger compLog = comparator.getComparisonLog();
@@ -338,7 +338,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param similarity
 	 *            Similarity value
 	 */
-	public void fillSimilarity(RecordType record1, RecordType record2, double similarity) {
+	protected void fillSimilarity(RecordType record1, RecordType record2, double similarity) {
 		String identifier = record1.getIdentifier() + "-" + record2.getIdentifier();
 		Record debug = this.comparatorLog.getRecord(identifier);
 		if(debug != null){
@@ -353,7 +353,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 * @param debugGoldstandard	can be used to annotate the debug results log with matching information from a goldstandard
 	 */
-	public void collectDebugData(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
+	public void activateDebugReport(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
 		if(filePath != null){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
@@ -368,8 +368,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param filePath	describes the filePath to the debug results log.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
-	public void collectDebugData(String filePath, int maxSize){
-		this.collectDebugData(filePath, maxSize, null);
+	public void activateDebugReport(String filePath, int maxSize){
+		this.activateDebugReport(filePath, maxSize, null);
 	}
 
 	/**
@@ -382,7 +382,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * @param similarity
 	 *            Similarity value
 	 */
-	public void fillSimilarity(Record debug, Double similarity) {
+	protected void fillSimilarity(Record debug, Double similarity) {
 		if (similarity != null) {
 			debug.setValue(TOTALSIMILARITY, Double.toString(similarity));
 		}

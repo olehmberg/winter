@@ -176,7 +176,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator) {
 		comparators.add(comparator);
-		if (this.isCollectDebugResults()) {
+		if (this.isDebugReportActive()) {
 			comparator.setComparisonLog(new ComparatorLogger(comparator.getClass().getName()));
 			addComparatorToLog(comparator);
 		}
@@ -392,7 +392,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				this.getClass().getSimpleName());
 
 		Record debug = null;
-		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			debug = initializeDebugRecord(record1, record2, -1);
 		}
 
@@ -434,13 +434,13 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			}
 			model.setValue(att, Double.toString(similarity));
 
-			if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
 				addDebugRecordShort(record1, record2, comp, i);
 			}
 		}
 
-		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			fillSimilarity(debug, null);
 		}
 
@@ -492,7 +492,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				double[] distribution = this.classifier.distributionForInstance(matchInstances.firstInstance());
 				int positiveClassIndex = matchInstances.attribute(matchInstances.classIndex()).indexOfValue("1");
 				double matchConfidence = distribution[positiveClassIndex];
-				if (this.isCollectDebugResults()) {
+				if (this.isDebugReportActive()) {
 					fillSimilarity(record1, record2, matchConfidence);
 				}
 				return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence,

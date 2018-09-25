@@ -87,7 +87,7 @@ public class Restaurants_IdentityResolution_Main {
 				0.7);
 		
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000);
+		matchingRule.activateDebugReport("usecase/restaurant/output/debugResultsWekaMatchingRule.csv", 1000);
 		
 		// add comparators
 		matchingRule.addComparator(new RecordComparatorJaccard(Restaurant.NAME, Restaurant.NAME, 0.3, true),0.4);

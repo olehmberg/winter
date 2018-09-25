@@ -99,7 +99,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		String tree = "SimpleLogistic"; // new instance of tree
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.7, tree, options);
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
+		matchingRule.activateDebugReport("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());

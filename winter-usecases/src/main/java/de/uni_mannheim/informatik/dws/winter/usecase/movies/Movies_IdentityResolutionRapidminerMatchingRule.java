@@ -86,7 +86,7 @@ public class Movies_IdentityResolutionRapidminerMatchingRule {
 
 		WekaMatchingRule<Movie, Attribute> matchingRule = new WekaMatchingRule<>(0.5);
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
+		matchingRule.activateDebugReport("usecase/movie/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 
 		// add comparators
 		matchingRule.addComparator(new MovieTitleComparatorEqual());

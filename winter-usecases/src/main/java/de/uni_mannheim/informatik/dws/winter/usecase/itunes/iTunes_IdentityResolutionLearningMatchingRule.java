@@ -119,7 +119,7 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
 
 		// Collect debug results
-		matchingRule.collectDebugData("usecase/itunes/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
+		matchingRule.activateDebugReport("usecase/itunes/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));

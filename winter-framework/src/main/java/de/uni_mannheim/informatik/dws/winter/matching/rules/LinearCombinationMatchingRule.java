@@ -93,7 +93,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight) throws Exception {
 		if (weight > 0.0) {
 			comparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(comparator, weight));
-			if (this.isCollectDebugResults()) {
+			if (this.isDebugReportActive()) {
 				comparator.setComparisonLog(new ComparatorLogger(comparator.getClass().getName()));
 				addComparatorToLog(comparator);
 			}
@@ -125,7 +125,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// double similarity = compare(record1, record2, null);
 		double sum = 0.0;
 		Record debug = null;
-		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			debug = initializeDebugRecord(record1, record2, -1);
 		}
 		for (int i = 0; i < comparators.size(); i++) {
@@ -140,7 +140,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			double weight = pair.getSecond();
 			sum += (similarity * weight);
 
-			if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
 				addDebugRecordShort(record1, record2, comp, i);
 			}
@@ -150,7 +150,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// if a normalised score in the range [0,1] is desired, users should
 		// call normaliseWeights()
 		double similarity = offset + sum;
-		if (this.isCollectDebugResults() && this.continueCollectDebugResults()) {
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			fillSimilarity(debug, similarity);
 		}
 
