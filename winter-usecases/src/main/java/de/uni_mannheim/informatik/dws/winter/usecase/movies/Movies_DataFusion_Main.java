@@ -119,7 +119,7 @@ public class Movies_DataFusion_Main {
 		DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
 		
 		// collect debug results
-		strategy.collectDebugData("usecase/movie/output/debugResultsDatafusion.csv", 100);
+		strategy.activateDebugReport("usecase/movie/output/debugResultsDatafusion.csv", 100);
 		
 		// add attribute fusers
 		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());

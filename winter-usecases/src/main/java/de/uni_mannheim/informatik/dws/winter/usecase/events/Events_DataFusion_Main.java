@@ -153,7 +153,7 @@ public class Events_DataFusion_Main {
 		DataFusionStrategy<Event, Attribute> strategy = new DataFusionStrategy<>(new EventXMLReader());
 		
 		// write debug results to file
-		strategy.collectDebugData("usecase/events/output/resultsDatafusion.csv", 1000);
+		strategy.activateDebugReport("usecase/events/output/resultsDatafusion.csv", 1000);
 
 //				new EventFactory(dateTimeFormatter, filterFrom, fromDate, filterTo, toDate, applyKeywordSearch, keyword));
 

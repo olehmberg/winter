@@ -41,9 +41,36 @@ public class AttributeFusionLogger extends Record implements Serializable {
 		this.setValue(FUSEDVALUE, fusedValue);
 	}
 
+	public String getAttributeName() {
+		return this.getValue(ATTRIBUTE_NAME);
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.setValue(ATTRIBUTE_NAME, attributeName);
+	}
+
+	public String getConsistency() {
+		return this.getValue(CONSISTENCY);
+	}
+
+	public void setConsistency(Double consistency) {
+		this.setValue(CONSISTENCY, Double.toString(consistency));
+	}
+
+	public String getIsCorrect() {
+		return this.getValue(IS_CORRECT);
+	}
+
+	public void setIsCorrect(boolean isCorrect) {
+		this.setValue(IS_CORRECT, Boolean.toString(isCorrect));
+	}
+
 	public final static Attribute VALUEIDS = new Attribute("ValueIDS");
+	public final static Attribute ATTRIBUTE_NAME = new Attribute("AttributeName");
 	public final static Attribute VALUES = new Attribute("Values");
 	public final static Attribute FUSEDVALUE = new Attribute("FusedValue");
+	public final static Attribute CONSISTENCY = new Attribute("Consistency");
+	public final static Attribute IS_CORRECT = new Attribute("IsCorrect");
 
 	/**
 	 * Check whether a specific attribute exists.
@@ -56,8 +83,8 @@ public class AttributeFusionLogger extends Record implements Serializable {
 			return getValues() != null && !getValues().isEmpty();
 		else if (attribute == FUSEDVALUE)
 			return getFusedValue() != null && !getFusedValue().isEmpty();
-		else
-			return false;
+		else 
+			return super.hasValue(attribute);
 	}
 
 	@Override

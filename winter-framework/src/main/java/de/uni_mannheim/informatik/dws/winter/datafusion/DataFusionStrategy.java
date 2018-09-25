@@ -22,6 +22,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
@@ -52,6 +53,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	private FusibleHashedDataSet<Record, Attribute> debugFusionResults;
 	private boolean collectDebugResults = false;
 	private List<Attribute> headerDebugResults;
+	private DataSet<RecordType, SchemaElementType> goldStandardForDebug;
 	
 	private String filePathDebugResults;
 	private int	maxDebugLogSize;
@@ -63,7 +65,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Check whether debug flag is set.
 	 * @return	true/false for debug flag
 	 */
-	public boolean isCollectDebugResults() {
+	public boolean isDebugReportActive() {
 		return collectDebugResults;
 	}
 
@@ -79,17 +81,13 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	}
 	
 	/**
-	 * Continue to collect debug results if result log shorter than maxDebugLogSize
+	 * Activates the collection of debug results
 	 * 
-	 * @return
+	 * @param filePath	describes the filePath to the debug results log.
+	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
-	public boolean continueCollectDebugResults() {
-		if(this.debugFusionResults.size() < this.maxDebugLogSize){
-			return true;
-		}
-		else{
-			return false;
-		}
+	public void activateDebugReport(String filePath, int maxSize){
+		activateDebugReport(filePath, maxSize, null);
 	}
 	
 	/**
@@ -98,14 +96,14 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * @param filePath	describes the filePath to the debug results log.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
-	public void collectDebugData(String filePath, int maxSize){
+	public void activateDebugReport(String filePath, int maxSize, DataSet<RecordType, SchemaElementType> goldStandard){
 		if(filePath != null){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
+			this.goldStandardForDebug = goldStandard;
 			this.setCollectDebugResults(true);
 		}
 	}
-	
 
 	/**
 	 * @return the evaluationRules
@@ -169,7 +167,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		for (AttributeFusionTask<RecordType, SchemaElementType> t : getAttributeFusers(group, schemaCorrespondences)) {
 			t.execute(group, fusedRecord);
 			if(this.collectDebugResults){
-				fillFusionLog();
+				fillFusionLog(t, group, schemaCorrespondences, fusedRecord);
 			}
 		}
 
@@ -261,7 +259,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
 	 */
-	public void writeDebugDataFusionResultsToFile(){
+	protected void writeDebugDataFusionResultsToFile(){
 		if(this.debugFusionResults != null){
 		try {
 			new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults), this.debugFusionResults, this.headerDebugResults);
@@ -278,10 +276,16 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	/**
 	 * Initialize Debug Data Fusion
 	 */
-	public void initializeFusionResults() {
+	protected void initializeFusionResults() {
 		this.debugFusionResults = new FusibleHashedDataSet<Record, Attribute>();
 		this.headerDebugResults = new LinkedList<Attribute>();
 		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.ATTRIBUTE_NAME);
+		this.headerDebugResults.add(AttributeFusionLogger.ATTRIBUTE_NAME);
+
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.CONSISTENCY);
+		this.headerDebugResults.add(AttributeFusionLogger.CONSISTENCY);
+
 		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUEIDS);
 		this.headerDebugResults.add(AttributeFusionLogger.VALUEIDS);
 		
@@ -291,17 +295,38 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		this.debugFusionResults.addAttribute(AttributeFusionLogger.FUSEDVALUE);
 		this.headerDebugResults.add(AttributeFusionLogger.FUSEDVALUE);
 		
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.IS_CORRECT);
+		this.headerDebugResults.add(AttributeFusionLogger.IS_CORRECT);
 	}
 	
 	/**
 	 * Add log entry to debug results log.
 	 */
-	public void fillFusionLog(){
-		for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
+	protected void fillFusionLog(AttributeFusionTask<RecordType, SchemaElementType> t, RecordGroup<RecordType, SchemaElementType> group, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences, RecordType fusedRecord){
+		//for(AttributeFuser<RecordType, SchemaElementType> attFuser : this.attributeFusers.values()){
+			AttributeFuser<RecordType, SchemaElementType> attFuser = t.getFuser();
 			if(attFuser.getFusionLog() != null && (this.maxDebugLogSize == -1 || this.debugFusionResults.size() < this.maxDebugLogSize)){
-				this.debugFusionResults.add(attFuser.getFusionLog());
+				AttributeFusionLogger record = attFuser.getFusionLog();
+				record.setAttributeName(t.getSchemaElement().getIdentifier());
+				Double consistency = attFuser.getConsistency(group, t.getEvaluationRule(), schemaCorrespondences, t.getSchemaElement());
+				if(consistency!=null) {
+					record.setConsistency(consistency);
+				}
+				if(goldStandardForDebug!=null) {
+					RecordType fusedInGs = null;
+					for(RecordType inputRecord : group.getRecords()) {
+						fusedInGs = goldStandardForDebug.getRecord(inputRecord.getIdentifier());
+						if(fusedInGs!=null) {
+							break;
+						}
+					}
+					if(fusedInGs!=null) {
+						record.setIsCorrect(t.getEvaluationRule().isEqual(fusedRecord, fusedInGs, t.getSchemaElement()));
+					}
+				}
+				this.debugFusionResults.add(record);
 			}
-		}
+		//}
 	}
 	
 

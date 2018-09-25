@@ -11,19 +11,29 @@
  */
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Fusible;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.ProgressReporter;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Executer class to run the data fusion based on a selected
@@ -82,7 +92,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 			}
 		}
 		
-		if(strategy.isCollectDebugResults()){
+		if(strategy.isDebugReportActive()){
 			strategy.writeDebugDataFusionResultsToFile();
 		}
 
@@ -151,6 +161,55 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 		return result;
 	}
 
+/**
+	 * Calculates the consistencies of the record groups in the
+	 * given correspondence set according to the data fusion strategy
+	 * 
+	 * @param correspondences	correspondences between the records
+	 * @param schemaCorrespondences	correspondences between the schema elements
+	 * @return A map with the attribute consistency values ("attribute" -&gt; consistency)
+	 */
+	public Set<Pair<RecordGroup<RecordType, SchemaElementType>,Double>> getRecordGroupConsistencies(
+			CorrespondenceSet<RecordType, SchemaElementType> correspondences,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences) {
+		Map<String, Double> consistencySums = new HashMap<>(); // = sum of consistency values
+		Map<String, Integer> consistencyCounts = new HashMap<>(); // = number of instances
+
+		ProgressReporter progress = new ProgressReporter(correspondences.getRecordGroups().size(), "Calculating consistencies");
+		
+		// changed to calculation as follows:
+		// degree of consistency per instance = percentage of most frequent value
+		// consistency = average of degree of consistency per instance
+		
+		Set<Pair<RecordGroup<RecordType, SchemaElementType>,Double>> result = new HashSet<>();
+		
+		for (RecordGroup<RecordType, SchemaElementType> clu : correspondences.getRecordGroups()) {
+
+			Map<String, Double> values = strategy
+					.getAttributeConsistency(clu, schemaCorrespondences);
+
+			double count=0.0, sum=0.0;
+
+			for (String att : values.keySet()) {
+				Double consistencyValue = values.get(att);
+				
+				if(consistencyValue!=null) {
+					count++;
+					sum+=consistencyValue;
+				}
+			}
+
+			double consistency = sum / count;
+
+			result.add(new Pair<>(clu, consistency));
+
+			progress.incrementProgress();
+			progress.report();
+		}
+
+		return result;
+	}
+
 	/**
 	 * Calculates the consistencies of the attributes of the records in the
 	 * given correspondence set according to the data fusion strategy and prints
@@ -168,5 +227,32 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 			logger.info(String.format("\t%s: %.2f", att,
 					consistencies.get(att)));
 		}
+	}
+
+	public void writeRecordGroupsByConsistency(
+		File path,
+		CorrespondenceSet<RecordType, SchemaElementType> correspondences,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences
+	) throws IOException {
+		Set<Pair<RecordGroup<RecordType, SchemaElementType>, Double>> consistencies = getRecordGroupConsistencies(
+				correspondences, schemaCorrespondences);
+
+		BufferedWriter w = new BufferedWriter(new FileWriter(path));
+
+		for(Pair<RecordGroup<RecordType, SchemaElementType>, Double> p : Q.sort(consistencies, new Comparator<Pair<RecordGroup<RecordType, SchemaElementType>, Double>>() {
+
+					@Override
+					public int compare(Pair<RecordGroup<RecordType, SchemaElementType>, Double> o1,
+							Pair<RecordGroup<RecordType, SchemaElementType>, Double> o2) {
+						return -Double.compare(o1.getSecond(), o2.getSecond());
+					}
+				})) {
+			w.write(String.format("%s\n", StringUtils.join(new String[] {
+				StringUtils.join(p.getFirst().getRecordIds(), "+"),
+				Double.toString(p.getSecond())
+			}, ",")));
+		}
+
+		w.close();
 	}
 }

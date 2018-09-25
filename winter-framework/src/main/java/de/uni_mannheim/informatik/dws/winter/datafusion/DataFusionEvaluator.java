@@ -96,7 +96,7 @@ public class DataFusionEvaluator<RecordType extends Matchable & Fusible<SchemaEl
 								attributeCount.get(fusionTask.getSchemaElement()) + 1);
 					} else {
 						logger.trace(String.format(
-								" %s <> %s",
+								"Error in '%s': %s <> %s", fusionTask.getSchemaElement().getIdentifier(),
 								fused.toString(), record.toString()));
 					}
 				}
