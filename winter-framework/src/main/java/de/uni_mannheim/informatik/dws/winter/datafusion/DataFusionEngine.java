@@ -244,7 +244,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 					@Override
 					public int compare(Pair<RecordGroup<RecordType, SchemaElementType>, Double> o1,
 							Pair<RecordGroup<RecordType, SchemaElementType>, Double> o2) {
-						return -Double.compare(o1.getSecond(), o2.getSecond());
+						return Double.compare(o1.getSecond(), o2.getSecond());
 					}
 				})) {
 			w.write(String.format("%s\n", StringUtils.join(new String[] {
