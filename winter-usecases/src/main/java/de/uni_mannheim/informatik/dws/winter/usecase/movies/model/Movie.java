@@ -170,7 +170,7 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("[Movie: %s / %s / %s]", getTitle(),
+		return String.format("[Movie %s: %s / %s / %s]", getIdentifier(), getTitle(),
 				getDirector(), getDate().toString());
 	}
 
