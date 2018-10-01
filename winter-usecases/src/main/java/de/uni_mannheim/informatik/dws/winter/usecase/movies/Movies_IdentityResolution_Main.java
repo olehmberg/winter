@@ -79,7 +79,7 @@ public class Movies_IdentityResolution_Main {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
+				"usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 		
 		// create a matching rule
 		LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(

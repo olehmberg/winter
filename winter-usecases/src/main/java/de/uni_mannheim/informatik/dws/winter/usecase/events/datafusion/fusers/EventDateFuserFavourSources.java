@@ -29,7 +29,7 @@ public class EventDateFuserFavourSources extends AttributeValueFuser<DateTime, E
     }
 
     @Override
-    protected DateTime getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public DateTime getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         if (record.getDates().size()>0) {
             for(DateTime date : record.getDates()) {
                     return date;

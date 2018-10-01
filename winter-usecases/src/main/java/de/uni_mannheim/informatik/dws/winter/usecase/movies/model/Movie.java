@@ -68,7 +68,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 	}
 
 	public void setDirector(String director) {
-		this.director = director;
+		if(director!=null && director.isEmpty()) {
+			//  replace empty string with 'null'
+			director = null;
+		} else {
+			this.director = director;
+		}
 	}
 
 	public LocalDateTime getDate() {

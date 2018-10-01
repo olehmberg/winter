@@ -90,7 +90,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		// load the gold standard (training set)
 		MatchingGoldStandard gsTraining = new MatchingGoldStandard();
-		gsTraining.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+		gsTraining.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_training.csv"));
 
 		// create a matching rule + provide classifier, options + Feature
 		// Selection --> Comparators / Standard
@@ -135,7 +135,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_v2.csv"));
+		gsTest.loadFromCSVFile(new File("usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 
 		// evaluate your result
 		MatchingEvaluator<Movie, Attribute> evaluator = new MatchingEvaluator<Movie, Attribute>();
