@@ -93,6 +93,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	private boolean backwardSelection = false;
 	private AttributeSelection fs;
 	private boolean balanceTrainingData = false;
+	private int randomSeed = -1;
 
 	public final String trainingSet = "trainingSet";
 	public final String matchSet = "matchSet";
@@ -229,6 +230,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 				if (balanceTrainingData) {
 					Resample filter = new Resample();
+					if(randomSeed!=-1) filter.setRandomSeed(randomSeed);
 					filter.setBiasToUniformClass(1.0);
 					filter.setInputFormat(trainingData);
 					filter.setSampleSizePercent(100);
@@ -252,6 +254,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 				if (balanceTrainingData) {
 					Resample filter = new Resample();
+					if(randomSeed!=-1) filter.setRandomSeed(randomSeed);
 					filter.setBiasToUniformClass(1.0);
 					filter.setInputFormat(trainingData);
 					filter.setSampleSizePercent(100);
@@ -689,6 +692,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 	public void setBalanceTrainingData(boolean balanceTrainingData) {
 		this.balanceTrainingData = balanceTrainingData;
+	}
+
+	public void setRandomSeed(int randomSeed) {
+		this.randomSeed = randomSeed;
 	}
 
 	public String getModelDescription() {
