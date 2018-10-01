@@ -65,12 +65,23 @@ public class AttributeFusionLogger extends Record implements Serializable {
 		this.setValue(IS_CORRECT, Boolean.toString(isCorrect));
 	}
 
+	public String getCorrectValue() {
+		return this.getValue(CORRECT_VALUE);
+	}
+
+	public void setCorrectValue(Object value) {
+		if(value!=null) {
+			this.setValue(CORRECT_VALUE, value.toString());
+		}
+	}
+
 	public final static Attribute VALUEIDS = new Attribute("ValueIDS");
 	public final static Attribute ATTRIBUTE_NAME = new Attribute("AttributeName");
 	public final static Attribute VALUES = new Attribute("Values");
 	public final static Attribute FUSEDVALUE = new Attribute("FusedValue");
 	public final static Attribute CONSISTENCY = new Attribute("Consistency");
 	public final static Attribute IS_CORRECT = new Attribute("IsCorrect");
+	public final static Attribute CORRECT_VALUE = new Attribute("CorrectValue");
 
 	/**
 	 * Check whether a specific attribute exists.

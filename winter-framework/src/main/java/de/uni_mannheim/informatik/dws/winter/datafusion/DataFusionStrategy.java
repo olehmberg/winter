@@ -297,6 +297,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 		
 		this.debugFusionResults.addAttribute(AttributeFusionLogger.IS_CORRECT);
 		this.headerDebugResults.add(AttributeFusionLogger.IS_CORRECT);
+
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.CORRECT_VALUE);
+		this.headerDebugResults.add(AttributeFusionLogger.CORRECT_VALUE);
 	}
 	
 	/**
@@ -322,6 +325,11 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 					}
 					if(fusedInGs!=null) {
 						record.setIsCorrect(t.getEvaluationRule().isEqual(fusedRecord, fusedInGs, t.getSchemaElement()));
+						if(attFuser instanceof AttributeValueFuser) {
+							AttributeValueFuser avf = (AttributeValueFuser)attFuser;
+							Object value = avf.getValue(fusedInGs, null);
+							record.setCorrectValue(value);
+						}
 					}
 				}
 				this.debugFusionResults.add(record);

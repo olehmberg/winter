@@ -76,7 +76,7 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 	 * @param correspondence	the necessary correspondence
 	 * @return The value to fuse
 	 */
-	protected abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
+	public abstract ValueType getValue(RecordType record, Correspondence<SchemaElementType, Matchable> correspondence);
 	
 	@Override
 	public Double getConsistency(RecordGroup<RecordType, SchemaElementType> group,

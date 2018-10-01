@@ -44,7 +44,7 @@ public class ActorsFuserMostRecent extends
 	}
 
 	@Override
-	protected List<Actor> getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
+	public List<Actor> getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getActors();
 	}
 

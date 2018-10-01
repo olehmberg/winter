@@ -30,7 +30,7 @@ public class EventCoordinatesFuserAll extends AttributeValueFuser<List<Pair<Doub
     }
 
     @Override
-    protected List<Pair<Double, Double>> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public List<Pair<Double, Double>> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         return record.getCoordinates();
     }
 

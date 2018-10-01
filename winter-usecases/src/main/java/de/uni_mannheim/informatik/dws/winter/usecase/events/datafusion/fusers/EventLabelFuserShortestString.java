@@ -41,7 +41,7 @@ public class EventLabelFuserShortestString extends
     }
 
     @Override
-    protected String getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public String getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         String labels = "";
         for (String label : record.getLabels()) {
             labels += label + ",";
