@@ -41,6 +41,8 @@ public class WebTablesRowContentDetector implements RowContentDetector {
 				}
 				if (empty) {
 					emptyRows = rowIdx;
+					// break;
+				} else {
 					break;
 				}
 			}
@@ -56,6 +58,8 @@ public class WebTablesRowContentDetector implements RowContentDetector {
 				}
 				if (empty) {
 					emptyRows = rowIdx;
+					// break;
+				} else {
 					break;
 				}
 			}

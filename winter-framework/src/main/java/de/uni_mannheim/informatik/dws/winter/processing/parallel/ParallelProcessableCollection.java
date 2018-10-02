@@ -13,12 +13,12 @@ package de.uni_mannheim.informatik.dws.winter.processing.parallel;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
@@ -100,26 +100,52 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		new Parallel<RecordType>().tryForeach(get(), (r)->action.execute(r));
 	}
 	
+	public Collection<Collection<RecordType>> partitionRecords() {
+		// create more partitions than available threads so we can compensate for partitions which create less workload than others (so no thread runs idle)
+		int numPartitions = (Runtime.getRuntime().availableProcessors() * 10);		
+		numPartitions = Math.min(size(), numPartitions);
+
+		List<Collection<RecordType>> partitions = new LinkedList<>();
+		for(int i = 0; i < numPartitions; i++) {
+			partitions.add(new LinkedList<>());
+		}
+		int pIdx = 0;
+
+		Iterator<RecordType> it = get().iterator();
+		
+		while(it.hasNext()) {
+			partitions.get(pIdx++).add(it.next());
+			
+			if(pIdx==numPartitions) {
+				pIdx=0;
+			}
+		}
+		
+		return partitions;
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.processing.DataProcessingEngine#transform(de.uni_mannheim.informatik.wdi.model.BasicCollection, de.uni_mannheim.informatik.wdi.processing.RecordMapper)
 	 */
 	@Override
 	public <OutputRecordType> Processable<OutputRecordType> map(final RecordMapper<RecordType, OutputRecordType> transformation) {
-		final ProcessableCollector<OutputRecordType> resultCollector = new ProcessableCollector<>();
+		final ProcessableCollector<OutputRecordType> resultCollector = new ThreadSafeProcessableCollector<>();
 		
 		resultCollector.setResult(createProcessable((OutputRecordType)null));
 		
 		resultCollector.initialise();
 		
-		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
+		new Parallel<Collection<RecordType>>().tryForeach(partitionRecords(), new Consumer<Collection<RecordType>>() {
 
 			@Override
-			public void execute(RecordType parameter) {
-				transformation.mapRecord(parameter, resultCollector);
+			public void execute(Collection<RecordType> parameter) {
+				for(RecordType r : parameter) {
+					transformation.mapRecord(r, resultCollector);
+				}
 			}
 			
-		});
-		
+		}, String.format("ParallelProcessableCollection.map: %d elements", size()));
+
 		resultCollector.finalise();
 		
 		return resultCollector.getResult();
@@ -136,13 +162,15 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		
 		groupCollector.initialise();
 		
-		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
+		new Parallel<Collection<RecordType>>().tryForeach(partitionRecords(), new Consumer<Collection<RecordType>>() {
 
 			@Override
-			public void execute(RecordType parameter) {
-				groupBy.mapRecordToKey(parameter, groupCollector);
+			public void execute(Collection<RecordType> parameter) {
+				for(RecordType r : parameter) {
+					groupBy.mapRecordToKey(r, groupCollector);
+				}
 			}
-		});
+		}, String.format("ParallelProcessableCollection.group: %d elements", size()));
 		
 		groupCollector.finalise();
 		
@@ -162,13 +190,15 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		aggregateCollector.setAggregator(aggregator);
 		aggregateCollector.initialise();
 		
-		new Parallel<RecordType>().tryForeach(get(), new Consumer<RecordType>() {
+		new Parallel<Collection<RecordType>>().tryForeach(partitionRecords(), new Consumer<Collection<RecordType>>() {
 
 			@Override
-			public void execute(RecordType parameter) {
-				groupBy.mapRecordToKey(parameter, aggregateCollector);
+			public void execute(Collection<RecordType> parameter) {
+				for(RecordType record : parameter) {
+					groupBy.mapRecordToKey(record, aggregateCollector);
+				}
 			}
-		});
+		}, String.format("ParallelProcessableCollection.aggregate: %d elements", size()));
 		
 		aggregateCollector.finalise();
 		
@@ -181,29 +211,46 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 	@Override
 	protected <KeyType, ElementType> Map<KeyType, List<ElementType>> hashRecords(Processable<ElementType> dataset,
 			final Function<KeyType, ElementType> hash) {
-		final ConcurrentHashMap<KeyType, List<ElementType>> hashMap = new ConcurrentHashMap<>(dataset.size());
 		
-		new Parallel<ElementType>().tryForeach(dataset.get(), new Consumer<ElementType>() {
-
-			@Override
-			public void execute(ElementType record) {
-				KeyType key = hash.execute(record);
-				
-				if(key!=null) {
-					hashMap.putIfAbsent(key, Collections.synchronizedList(new LinkedList<ElementType>()));
-					
-					List<ElementType> records = hashMap.get(key);
-					
-					records.add(record);
-				}
-			}
-		});
+		Processable<Group<KeyType, ElementType>> hashed = dataset.group((ElementType record, DataIterator<Pair<KeyType, ElementType>> resultCollector) -> resultCollector.next(new Pair<>(hash.execute(record), record)));
 		
-		for(KeyType key : hashMap.keySet()) {
-			hashMap.put(key, new ArrayList<>(hashMap.get(key)));
+		Map<KeyType, List<ElementType>> hashMap = new HashMap<>();
+		
+		for(Group<KeyType, ElementType> group : hashed.get()) {
+			hashMap.put(group.getKey(), new ArrayList<>(group.getRecords().get()));
 		}
 		
 		return hashMap;
+	}
+	
+	@Override
+	public <KeyType, RecordType2> Processable<Pair<RecordType, RecordType2>> join(Processable<RecordType2> dataset2,
+			Function<KeyType, RecordType> joinKeyGenerator1, Function<KeyType, RecordType2> joinKeyGenerator2) {
+		
+		// partition this dataset into num_processors partitions
+		final Map<KeyType, List<RecordType2>> joinKeys2 = hashRecords(dataset2, joinKeyGenerator2);
+		
+		Processable<Pair<RecordType, RecordType2>> result = map(new RecordMapper<RecordType, Pair<RecordType, RecordType2>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void mapRecord(RecordType record, DataIterator<Pair<RecordType, RecordType2>> resultCollector) {
+				
+				KeyType thisKey = joinKeyGenerator1.execute(record);
+				List<RecordType2> matches = joinKeys2.get(thisKey);
+				
+				if(matches!=null) {
+					
+					for(RecordType2 r2 : matches) {
+						resultCollector.next(new Pair<>(record, r2));
+					}
+					
+				}	
+			}
+		});
+		
+		return result;
 	}
 	
 	@Override
@@ -282,4 +329,6 @@ public class ParallelProcessableCollection<RecordType> extends ProcessableCollec
 		
 		return collector.getResult();
 	}
+	
+	
 }

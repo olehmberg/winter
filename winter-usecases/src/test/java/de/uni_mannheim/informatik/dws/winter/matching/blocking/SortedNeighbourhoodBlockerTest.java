@@ -25,6 +25,8 @@ import javax.xml.xpath.XPathExpressionException;
 
 import junit.framework.TestCase;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.SortedNeighbourhoodBlocker;
@@ -38,7 +40,9 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 
 public class SortedNeighbourhoodBlockerTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	private DataSet<Movie, Attribute> generateDS1() {
 		DataSet<Movie, Attribute> ds = new HashedDataSet<>();
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -92,15 +96,15 @@ public class SortedNeighbourhoodBlockerTest extends TestCase {
 
 		MatchingGoldStandard gs = new MatchingGoldStandard();
 		gs.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+				"usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 		
 		Processable<Correspondence<Movie, Attribute>> pairs = blocker.runBlocking(ds, ds2, null);
 
-		System.out.println("Pairs: " + pairs.size());
-		System.out.println("Reduction Rate: " + blocker.getReductionRatio());
+		logger.info("Pairs: " + pairs.size());
+		logger.info("Reduction Rate: " + blocker.getReductionRatio());
 
 		for (Correspondence<Movie, Attribute> p : pairs.get()) {
-			System.out.println(p.getFirstRecord().getIdentifier() + " | "
+			logger.info(p.getFirstRecord().getIdentifier() + " | "
 					+ p.getSecondRecord().getIdentifier());
 		}
 		assertEquals(4, pairs.size());

@@ -16,8 +16,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVMatchableReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * 
@@ -31,6 +34,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 	private int idIndex = -1;
 	private Map<String, Attribute> attributeMapping;
+	private Attribute[] attributes = null;
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	/**
 	 * 
@@ -53,6 +58,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 	public CSVRecordReader(int idColumnIndex, Map<String, Attribute> attributeMapping) {
 		this.idIndex = idColumnIndex;
 		this.attributeMapping = attributeMapping;
+		this.attributes = null;
 	}
 
 	/*
@@ -67,12 +73,10 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 		Set<String> ids = new HashSet<>();
 
-		Attribute[] attributes = null;
-		
 		if (rowNumber == 0) {
 
 			attributes = new Attribute[values.length];
-			
+
 			for (int i = 0; i < values.length; i++) {
 				String v = values[i];
 				String attributeId = String.format("%s_Col%d", file.getName(), i);
@@ -81,7 +85,7 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 					a = new Attribute(attributeId, file.getAbsolutePath());
 				} else {
 					a = this.attributeMapping.get(v);
-					if(a == null){
+					if (a == null) {
 						a = new Attribute(attributeId, file.getAbsolutePath());
 					}
 				}
@@ -100,8 +104,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 
 				if (ids.contains(id)) {
 					String replacementId = String.format("%s_%d", file.getName(), rowNumber);
-					System.err.println(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id,
-							rowNumber, replacementId));
+					logger.error(String.format("Id '%s' (line %d) already exists, using '%s' instead!", id, rowNumber,
+							replacementId));
 					id = replacementId;
 				}
 
@@ -113,8 +117,8 @@ public class CSVRecordReader extends CSVMatchableReader<Record, Attribute> {
 			for (int i = 0; i < values.length; i++) {
 				Attribute a;
 				String v = values[i];
-				
-				if(attributes!=null && attributes.length>i) {
+
+				if (attributes != null && attributes.length > i) {
 					a = attributes[i];
 				} else {
 					String attributeId = String.format("%s_Col%d", file.getName(), i);

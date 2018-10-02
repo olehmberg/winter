@@ -21,12 +21,17 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVReader;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
+import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
  * Represent a correspondence. Contains two Records and their similarity
@@ -39,6 +44,8 @@ import de.uni_mannheim.informatik.dws.winter.utils.graph.Graph;
  * @param <RecordType>
  */
 public class Correspondence<RecordType extends Matchable, CausalType extends Matchable> implements Serializable  {
+	
+	private static final Logger logger = WinterLogManager.getLogger();
 
 	public static class BySimilarityComparator<RecordType extends Matchable, CausalType extends Matchable> implements Comparator<Correspondence<RecordType, CausalType>> {
 
@@ -101,6 +108,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 	private RecordType firstRecord;
 	private RecordType secondRecord;
 	private double similarityScore;
+	private Object provenance;
 
 	/**
 	 * 
@@ -153,6 +161,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		this.similarityScore = similarityScore;
 	}
 	
+	public Object getProvenance() {
+		return provenance;
+	}
+	public void setProvenance(Object provenance) {
+		this.provenance = provenance;
+	}
+	
 	public Correspondence() {
 		
 	}
@@ -179,6 +194,19 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		this.causalCorrespondences = correspondences;
 	}
 
+	public Correspondence(
+			RecordType first, 
+			RecordType second,
+			double similarityScore, 
+			Processable<Correspondence<CausalType, Matchable>> correspondences,
+			Object provenance) {
+		firstRecord = first;
+		secondRecord = second;
+		this.similarityScore = similarityScore;
+		this.causalCorrespondences = correspondences;
+		this.provenance = provenance;
+	}
+	
 	public String getIdentifiers() {
 		return String.format("%s/%s", getFirstRecord().getIdentifier(), getSecondRecord().getIdentifier());
 	}
@@ -330,13 +358,35 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		 */
 		@Override
 		public String getProvenance() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
 		public RecordId(String identifier) {
 			this.identifier = identifier;
 		}
+
+		@Override
+		public String toString() {
+			return identifier;
+		}
+
+		@Override
+		public int hashCode() {
+			return identifier.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof RecordId) {
+				return identifier.equals(((RecordId)obj).getIdentifier());
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	public static <RecordType extends Matchable> void writeToCsv(File location, Processable<Correspondence<RecordType, Matchable>> correspondences) throws IOException {
+		new CSVCorrespondenceFormatter().writeCSV(location, correspondences);
 	}
 	
 	public static Processable<Correspondence<RecordId, RecordId>> loadFromCsv(File location) throws IOException {
@@ -356,13 +406,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 				try {
 					similarityScore = Double.parseDouble(sim);
 				} catch(Exception ex) {
-					System.err.println(ex.getMessage());
+					logger.error(ex.getMessage());
 				}
 				
 				Correspondence<RecordId, RecordId> cor = new Correspondence<RecordId, RecordId>(new RecordId(id1), new RecordId(id2), similarityScore, null);
 				correspondences.add(cor);
 			} else {
-				System.err.println(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
+				logger.error(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
 			}
 		}
 		
@@ -392,13 +442,13 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 				try {
 					similarityScore = Double.parseDouble(sim);
 				} catch(Exception ex) {
-					System.err.println(ex.getMessage());
+					logger.error(ex.getMessage());
 				}
 				
 				Correspondence<RecordType, CorrespondenceType> cor = new Correspondence<RecordType, CorrespondenceType>(leftData.getRecord(id1), rightData.getRecord(id2), similarityScore, null);
 				correspondences.add(cor);
 			} else {
-				System.err.println(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
+				logger.error(String.format("Invalid format: \"%s\"", StringUtils.join(values, "\",\"")));
 			}
 		}
 		
@@ -426,7 +476,7 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		if(correspondences==null) {
 			return null;
 		} else {
-			Processable<Correspondence<RecordType, Matchable>> result = new ProcessableCollection<>();
+			Processable<Correspondence<RecordType, Matchable>> result = correspondences.createProcessable((Correspondence<RecordType, Matchable>)null);
 			for(CorType cor : correspondences.get()) {
 				
 				Correspondence<RecordType, Matchable> simple = new Correspondence<RecordType, Matchable>(cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore(), toMatchable2(cor.getCausalCorrespondences()));
@@ -504,4 +554,11 @@ public class Correspondence<RecordType extends Matchable, CausalType extends Mat
 		return clusterer.createResult().keySet();
 	}
 	
+	public static <T extends Matchable, U extends Matchable> Distribution<Integer> getLHSFrequencyDistribution(Collection<Correspondence<T, U>> correspondences) {
+		return Distribution.fromCollection(Q.project(Q.group(correspondences, (c)->c.getFirstRecord()).entrySet(), (g)->g.getValue().size()));
+	}
+
+	public static <T extends Matchable, U extends Matchable> Distribution<Integer> getRHSFrequencyDistribution(Collection<Correspondence<T, U>> correspondences) {
+		return Distribution.fromCollection(Q.project(Q.group(correspondences, (c)->c.getSecondRecord()).entrySet(), (g)->g.getValue().size()));
+	}
 }

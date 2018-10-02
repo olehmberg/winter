@@ -11,115 +11,368 @@
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
-<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<movie>
-     <id>actors_16</id>
-     <title>The Song of Bernadette</title>
-     <director>Henry King</director>
-     <date>1943-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Jennifer Jones</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-     <id>actors_82</id>
-     <title>A Free Soul</title>
-     <director>Clarence Brown</director>
-     <date>1931-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Norma Shearer</name>
-       </actor>
-       <actor>
-         <name>Lionel Barrymore</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-	 <id>actors_116</id>
-     <title>Cat Ballou</title>
-     <director/>
-     <date>1965-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Lee Marvin</name>
-       </actor>
-       <actor>
-         <name>Jane Fonda</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-	 <id>actors_103</id>
-     <title>High Noon</title>
-     <director>Fred Zinnemann</director>
-     <date>1952-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Gary Cooper</name>
-       </actor>
-       <actor>
-         <name>Katy Jurado</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-	 <id>actors_75</id>
-     <title>Monster's Ball</title>
-     <director/>
-     <date>2002-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Halle Berry</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-     <id>actors_130</id>
-     <title>Ghandi</title>
-     <director>Richard Attenborough</director>
-     <date>1983-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Ben Kingsley</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-     <id>actors_11</id>
-     <title>Jezebel</title>
-     <director/>
-     <date>1938-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Fay Bainter</name>
-       </actor>
-       <actor>
-         <name>Bette Davis</name>
-       </actor>
-     </actors>
-   </movie>
-   <movie>
-	 <id>actors_24</id>
-     <title>Streetcar Named Desire, a</title>
-     <director>Elia Kazan</director>
-     <date>1952-01-01T00:00:00.000+01:00</date>
-     <actors>
-       <actor>
-         <name>Kim Hunter</name>
-       </actor>
-       <actor>
-         <name>Vivien Leigh</name>
-       </actor>
-       <actor>
-         <name>Marlon Brando</name>
-       </actor>
-       <actor>
-         <name>Karl Malden</name>
-       </actor>
-     </actors>
-   </movie>
-
+<movies>
+  <movie>
+		<id>academy_awards_1880</id>
+		<title>One Flew over the Cuckoo's Nest</title>
+		<director>
+			<name>Milos Forman</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Jack Nicholson</name>
+			</actor>
+			<actor>
+				<name>Brad Dourif</name>
+			</actor>
+			<actor>
+				<name>Louise Fletcher</name>
+			</actor>
+		</actors>
+		<date>1975-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3624</id>
+		<title>Gaslight</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Charles Boyer</name>
+			</actor>
+			<actor>
+				<name>Ingrid Bergman</name>
+			</actor>
+			<actor>
+				<name>Angela Lansbury</name>
+			</actor>
+		</actors>
+		<date>1944-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3548</id>
+		<title>Mildred Pierce</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Joan Crawford</name>
+			</actor>
+			<actor>
+				<name>Eve Arden</name>
+			</actor>
+			<actor>
+				<name>Ann Blyth</name>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4146</id>
+		<title>Jezebel</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Bette Davis</name>
+			</actor>
+			<actor>
+				<name>Fay Bainter</name>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3423</id>
+		<title>The Farmer's Daughter</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Charles Bickford</name>
+			</actor>
+			<actor>
+				<name>Loretta Young</name>
+			</actor>
+		</actors>
+		<date>1947-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3713</id>
+		<title>Watch on the Rhine</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Paul Lukas</name>
+			</actor>
+			<actor>
+				<name>Lucile Watson</name>
+			</actor>
+		</actors>
+		<date>1943-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_1430</id>
+		<title>Amadeus</title>
+		<director>
+			<name>Milos Forman</name>
+		</director>
+		<actors>
+			<actor>
+				<name>F. Murray Abraham</name>
+			</actor>
+			<actor>
+				<name>Tom Hulce</name>
+			</actor>
+		</actors>
+		<date>1984-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3059</id>
+		<title>Stalag 17</title>
+		<director>
+			<name>Billy Wilder</name>
+		</director>
+		<actors>
+			<actor>
+				<name>William Holden</name>
+			</actor>
+			<actor>
+				<name>Robert Strauss</name>
+			</actor>
+		</actors>
+		<date>1953-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4080</id>
+		<title>Goodbye, Mr. Chips</title>
+		<director>
+			<name>Sam Wood</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Robert Donat</name>
+			</actor>
+			<actor>
+				<name>Greer Garson</name>
+			</actor>
+		</actors>
+		<date>1939-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3366</id>
+		<title>Hamlet</title>
+		<director>
+			<name>Laurence Olivier</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Laurence Olivier</name>
+			</actor>
+			<actor>
+				<name>Jean Simmons</name>
+			</actor>
+		</actors>
+		<date>1948-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4015</id>
+		<title>The Philadelphia Story</title>
+		<director>
+			<name>George Cukor</name>
+		</director>
+		<actors>
+			<actor>
+				<name>James Stewart</name>
+			</actor>
+			<actor>
+				<name>Katharine Hepburn</name>
+			</actor>
+			<actor>
+				<name>Ruth Hussey</name>
+			</actor>
+		</actors>
+		<date>1940-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3186</id>
+		<title>The African Queen</title>
+		<director>
+			<name>John Huston</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Humphrey Bogart</name>
+			</actor>
+			<actor>
+				<name>Katharine Hepburn</name>
+			</actor>
+		</actors>
+		<date>1951-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4469</id>
+		<title>A Free Soul</title>
+		<director>
+			<name>Clarence Brown</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Lionel Barrymore</name>
+			</actor>
+			<actor>
+				<name>Norma Shearer</name>
+			</actor>
+		</actors>
+		<date>1931-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3816</id>
+		<title>Mrs. Miniver</title>
+		<director>
+			<name>William Wyler</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Walter Pidgeon</name>
+			</actor>
+			<actor>
+				<name>Henry Travers</name>
+			</actor>
+			<actor>
+				<name>Greer Garson</name>
+			</actor>
+			<actor>
+				<name>Dame May Whitty</name>
+			</actor>
+			<actor>
+				<name>Teresa Wright</name>
+			</actor>
+		</actors>
+		<date>1942-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3910</id>
+		<title>Sergeant York</title>
+		<director>
+			<name>Howard Hawks</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Gary Cooper</name>
+			</actor>
+			<actor>
+				<name>Walter Brennan</name>
+			</actor>
+			<actor>
+				<name>Margaret Wycherly</name>
+			</actor>
+		</actors>
+		<date>1941-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3363</id>
+		<title>Johnny Belinda</title>
+		<director>
+			<name>Jean Negulesco</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Lew Ayres</name>
+			</actor>
+			<actor>
+				<name>Charles Bickford</name>
+			</actor>
+			<actor>
+				<name>Jane Wyman</name>
+			</actor>
+			<actor>
+				<name>Agnes Moorehead</name>
+			</actor>
+		</actors>
+		<date>1948-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3813</id>
+		<title>Yankee Doodle Dandy</title>
+		<director>
+			<name>Michael Curtiz</name>
+		</director>
+		<actors>
+			<actor>
+				<name>James Cagney</name>
+			</actor>
+			<actor>
+				<name>Walter Huston</name>
+			</actor>
+		</actors>
+		<date>1942-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4270</id>
+		<title>The Great Ziegfeld</title>
+		<director>
+			<name>Robert Z. Leonard</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Luise Rainer</name>
+			</actor>
+		</actors>
+		<date>1936-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_3480</id>
+		<title>The Best Years of Our Lives</title>
+		<director>
+			<name>William Wyler</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Fredric March</name>
+			</actor>
+			<actor>
+				<name>Harold Russell</name>
+			</actor>
+		</actors>
+		<date>1946-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+  <movie>
+		<id>academy_awards_4081</id>
+		<title>Gone with the Wind</title>
+		<director>
+			<name>Victor Fleming</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Clark Gable</name>
+			</actor>
+			<actor>
+				<name>Vivien Leigh</name>
+			</actor>
+			<actor>
+				<name>Olivia de Havilland</name>
+			</actor>
+			<actor>
+				<name>Hattie McDaniel</name>
+			</actor>
+		</actors>
+		<date>1939-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
 </movies>

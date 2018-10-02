@@ -13,9 +13,11 @@ package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-
+import java.util.LinkedList;
+import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import de.uni_mannheim.informatik.dws.winter.webtables.detectors.RowContentDetector;
@@ -130,13 +132,28 @@ public abstract class TableParser {
 				Object[] values = new Object[tContent[rowIdx].length];
 				for (int i = 0; i < rowData.length && i < values.length; i++) {
 					if (rowData[i] != null && !rowData[i].trim().isEmpty()) {
-						values[i] = stringNormalizer.normaliseValue(rowData[i], false);
 
-						if (((String) values[i]).equalsIgnoreCase(StringNormalizer.nullValue)) {
-							values[i] = null;
+						if(ListHandler.checkIfList(rowData[i])) {
+							List<String> listValues = new LinkedList<>();
+							for(String v : ListHandler.splitList(rowData[i])) {
+								v = stringNormalizer.normaliseValue(rowData[i], false);
+								
+								if (!((String) v).equalsIgnoreCase(StringNormalizer.nullValue)) {
+								} else {
+									listValues.add(v);
+								}
+							}
+							values[i] = listValues.toArray();
 						} else {
-							values[i] = values[i];
+							values[i] = stringNormalizer.normaliseValue(rowData[i], false);
+							
+							if (((String) values[i]).equalsIgnoreCase(StringNormalizer.nullValue)) {
+								values[i] = null;
+							} else {
+								values[i] = values[i];
+							}
 						}
+
 					}
 				}
 				

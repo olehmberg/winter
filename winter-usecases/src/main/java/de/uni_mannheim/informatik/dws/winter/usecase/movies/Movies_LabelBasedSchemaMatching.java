@@ -13,6 +13,8 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -22,6 +24,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.CSVRecordReader;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.LabelComparatorJaccard;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * 
@@ -31,7 +34,22 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  *
  */
 public class Movies_LabelBasedSchemaMatching {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 		
 		// load data
@@ -47,7 +65,7 @@ public class Movies_LabelBasedSchemaMatching {
 		
 		// print results
 		for(Correspondence<Attribute, Attribute> cor : correspondences.get()) {
-			System.out.println(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
+			logger.info(String.format("[%s]'%s' <-> [%s]'%s' (%.4f)",
 					cor.getFirstRecord().getIdentifier(),
 					cor.getFirstRecord().getName(), 
 					cor.getSecondRecord().getIdentifier(),

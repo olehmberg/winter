@@ -53,7 +53,7 @@ public class StandardBlockerTest extends TestCase {
 
 		MatchingGoldStandard gs = new MatchingGoldStandard();
 		gs.loadFromCSVFile(new File(
-				"usecase/movie/goldstandard/gs_academy_awards_2_actors.csv"));
+				"usecase/movie/goldstandard/gs_academy_awards_2_actors_test.csv"));
 
 		Processable<Correspondence<Movie, Attribute>> pairs = blocker.runBlocking(ds, ds2, null);
 		
@@ -67,7 +67,7 @@ public class StandardBlockerTest extends TestCase {
 		}
 
 		// check if all examples from the gold standard were in the pairs
-		MatchingEvaluator<Movie, Attribute> eval = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Movie, Attribute> eval = new MatchingEvaluator<>();
 
 		Performance perf = eval.evaluateMatching(correspondences, gs);
 

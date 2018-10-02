@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
@@ -26,7 +29,9 @@ import junit.framework.TestCase;
  *
  */
 public class RDFRecordReaderTest extends TestCase {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.model.io.RDFMatchableReader#loadFromRDF(java.io.File, java.lang.String, de.uni_mannheim.informatik.dws.winter.model.DataSet)}.
 	 * @throws IOException 
@@ -56,13 +61,13 @@ public class RDFRecordReaderTest extends TestCase {
 		attributeNames.add("city_name");
 		attributeNames.add("category");
 		attributeNames.add("phone");
-		System.out.println("Attributes:");
+		logger.info("Attributes:");
 		for(Attribute a : ds.getSchema().get()) {
-			System.out.println(String.format("\t%s", a.getName()));
+			logger.info(String.format("\t%s", a.getName()));
 		}
 		assertEquals(attributeNames, new HashSet<>(Q.project(ds.getSchema().get(), (a)->a.getName())));
 		
-		System.out.println("Records:");
+		logger.info("Records:");
 		for(Record rec : ds.get()) {
 			StringBuilder sb = new StringBuilder();
 			for(Attribute a : ds.getSchema().get()) {
@@ -71,7 +76,7 @@ public class RDFRecordReaderTest extends TestCase {
 				}
 				sb.append(rec.getValue(a));
 			}
-			System.out.println(String.format("\t%s", sb.toString()));
+			logger.info(String.format("\t%s", sb.toString()));
 		}
 	}
 

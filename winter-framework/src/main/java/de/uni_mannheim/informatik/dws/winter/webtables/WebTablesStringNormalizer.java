@@ -88,13 +88,13 @@ public class WebTablesStringNormalizer {
 		columnName = columnName.replaceAll("\\.", "");
 		columnName = columnName.replaceAll("\\$", "");
 		// clean the values from additional strings
-		if (columnName.contains("/")) {
-			columnName = columnName.substring(0, columnName.indexOf("/"));
-		}
+		// if (columnName.contains("/")) {
+		// 	columnName = columnName.substring(0, columnName.indexOf("/"));
+		// }
 
-		if (columnName.contains("\\")) {
-			columnName = columnName.substring(0, columnName.indexOf("\\"));
-		}
+		// if (columnName.contains("\\")) {
+		// 	columnName = columnName.substring(0, columnName.indexOf("\\"));
+		// }
 		if (possibleNullValues.contains(columnName)) {
 			columnName = nullValue;
 		}

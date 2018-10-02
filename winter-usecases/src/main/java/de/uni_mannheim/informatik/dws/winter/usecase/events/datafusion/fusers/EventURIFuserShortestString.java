@@ -44,7 +44,7 @@ public class EventURIFuserShortestString extends
     }
 
     @Override
-    protected String getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public String getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         String uris = "";
         for (String uri : record.getUris()) {
             uris += uri + ",";

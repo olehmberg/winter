@@ -19,6 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -122,6 +123,19 @@ public class MatchingEngineTest extends TestCase {
 					Correspondence<Movie, Matchable> schemaCorrespondences) {
 				return record1.getIdentifier().equals(record2.getIdentifier()) ? 1.0 : 0.0;
 			}
+
+			@Override
+			public ComparatorLogger getComparisonLog() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void setComparisonLog(ComparatorLogger comparatorLog) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		};
 		rule.addComparator(comp, 1.0);
 		
@@ -150,6 +164,16 @@ public class MatchingEngineTest extends TestCase {
 			@Override
 			public double getReductionRatio() {
 				return 0;
+			}
+
+			@Override
+			public boolean isMeasureBlockSizes() {
+				return false;
+			}
+
+			@Override
+			public void writeDebugBlockingResultsToFile() {
+				
 			}
 		};
 		

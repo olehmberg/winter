@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -29,7 +32,9 @@ import junit.framework.TestCase;
  *
  */
 public class ValueBasedBlockerTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.matching.blockers.ValueBasedBlocker#runBlocking(de.uni_mannheim.informatik.dws.winter.model.DataSet, de.uni_mannheim.informatik.dws.winter.model.DataSet, de.uni_mannheim.informatik.dws.winter.processing.Processable)}.
 	 */
@@ -76,7 +81,7 @@ public class ValueBasedBlockerTest extends TestCase {
 		Processable<Correspondence<Attribute, MatchableValue>> correspondences = algo.getResult();
 		
 		for(Correspondence<Attribute, MatchableValue> cor : correspondences.get()) {
-			System.out.println(String.format("%s <-> %s (%.6f)", cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));
+			logger.info(String.format("%s <-> %s (%.6f)", cor.getFirstRecord(), cor.getSecondRecord(), cor.getSimilarityScore()));
 		}
 		
 		Correspondence<Attribute, MatchableValue> cor = Q.firstOrDefault(correspondences.get());

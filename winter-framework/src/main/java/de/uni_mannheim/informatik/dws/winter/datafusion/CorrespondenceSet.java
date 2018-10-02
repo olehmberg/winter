@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import de.uni_mannheim.informatik.dws.winter.clustering.ConnectedComponentClusterer;
@@ -31,6 +33,7 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
 import de.uni_mannheim.informatik.dws.winter.model.Triple;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -47,6 +50,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 	private Map<String, RecordGroup<RecordType, SchemaElementType>> recordIndex;
 
 	private RecordGroupFactory<RecordType, SchemaElementType> groupFactory;
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	public CorrespondenceSet() {
 		groups = new LinkedList<>();
@@ -81,12 +85,12 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 		while ((values = reader.readNext()) != null) {
 			// check if the ids exist in the provided datasets
 			if (first.getRecord(values[0]) == null) {
-				System.err.println(String.format(
+				logger.error(String.format(
 						"Record %s not found in first dataset", values[0]));
 				continue;
 			}
 			if (second.getRecord(values[1]) == null) {
-				System.err.println(String.format(
+				logger.error(String.format(
 						"Record %s not found in second dataset", values[0]));
 				continue;
 			}
@@ -166,7 +170,7 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 		reader.close();
 		
 		if (skipped>0) {
-			System.err.println(String.format("Skipped %,d records (not found in provided dataset)", skipped));
+			logger.error(String.format("Skipped %,d records (not found in provided dataset)", skipped));
 		}
 	}
 	
@@ -262,23 +266,14 @@ public class CorrespondenceSet<RecordType extends Matchable & Fusible<SchemaElem
 
 			sizeDist.put(size, ++count);
 		}
-		System.out.println("Group Size Distribtion of " + groups.size() + " groups:");
-		System.out.println("	Group Size | Frequency ");
-		System.out.println("	———————————————————————");
+		logger.info("Group Size Distribtion of " + groups.size() + " groups:");
+		logger.info("\tGroup Size \t| Frequency ");
+		logger.info("\t————————————————————————————");
 
 		for (int size : Q.sort(sizeDist.keySet())) {
 			String sizeStr = Integer.toString(size);
-			System.out.print("	");
-			for (int i = 0; i < 10 - sizeStr.length(); i++) {
-				System.out.print(" ");
-			}
-			System.out.print(sizeStr);
-			System.out.print(" |");
 			String countStr = Integer.toString(sizeDist.get(size));
-			for (int i = 0; i < 10 - countStr.length(); i++) {
-				System.out.print(" ");
-			}
-			System.out.println(countStr);
+			logger.info("\t\t" + sizeStr + "\t| \t" + countStr);
 		}
 
 	}

@@ -34,7 +34,7 @@ public class EventURIFuserAll extends
     }
 
     @Override
-    protected List<String> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public List<String> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         return record.getUris();
     }
 

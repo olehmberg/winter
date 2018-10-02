@@ -10,7 +10,7 @@ The WInte.r framework [5] provides methods for end-to-end data integration. The 
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
-**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As an alternative to acquaint yourself with the framework, you can also have a look at the code examples in our [Wiki](../../wiki)!
+**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [WInte.r Tutorial](../../wiki/Movies-use-case) or have a look at the code examples in our [Wiki](../../wiki)! 
 
 ## Using WInte.r
 
@@ -27,7 +27,7 @@ You can include the WInte.r framework via the following Maven dependency:
 <dependency>
 	<groupId>de.uni_mannheim.informatik.dws</groupId>
 	<artifactId>winter</artifactId>
-	<version>1.2</version>
+	<version>1.3</version>
 </dependency>
 ```
 
@@ -40,7 +40,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 
 **Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
 
-**Pre-processing**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as:
+**[Pre-processing](../../wiki/DataNormalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as: 
 -	Data type detection
 -	Unit of measurement normalization
 -	Header detection
@@ -51,7 +51,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 -	Instance-based schema matching
 -	Duplicate-based schema matching
 
-**[Identity Resolution](../../wiki/IdentityResolution)**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
+**[Identity Resolution](../../wiki/IdentityResolution)**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Beside of manually defining identity resolution methods, WInte.r also allows you to [learn matching rules](../../wiki/Learning-Matching-Rules) from known correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods: 
 -	Blocking by single/multiple blocking key(s)
 -	Sorted-Neighbourhood Method
 -	Token-based identity resolution
@@ -72,7 +72,7 @@ The WInte.r framework is used to integrate data from multiple sources within the
 
 Many web sites provide data in the form of HTML tables. Millions of such data tables have been extracted from the [CommonCrawl](http://commoncrawl.org/) web corpus by the [Web Data Commons](http://webdatacommons.org/webtables/) project [3]. Data from these tables can be used to fill missing values in large cross-domain knowledge bases such as DBpedia [2]. An example of how pre-defined building blocks from the WInte.r framework are combined into an advanced, use-case specific integration method is the T2K Match algorithm [1]. The algorithm is optimized to match millions of Web tables against a central knowledge base describing millions of instances belonging to hundreds of different classes  (such a people or locations) [2]. The full source code of the algorithm, which includes advanced matching methods that combine schema matching and identity resolution, is available in the [WInte.r T2K Match project](https://github.com/olehmberg/T2KMatch).
 
-**Preprocessing for large-scale Matching: Stitching Web Tables for Improving Matching Quality**
+**Pre-processing for large-scale Matching: Stitching Web Tables for Improving Matching Quality**
 
 Tables on web pages ("web tables") cover a diversity of topics and can be a source of information for different tasks such as knowledge base augmentation or the ad-hoc extension of datasets. However, to use this information, the tables must first be integrated, either with each other or into existing data sources. The challenges that matching methods for this purpose have to overcome are the high heterogeneity and the small size of the tables.
 To counter these problems, web tables from the same web site can be stitched before running any of the existing matching systems. This means that web tables are combined based on a schema mapping, which results in fewer and larger stitched tables [4].
@@ -80,11 +80,11 @@ The source code of the stitching method is available in the [Web Tables Stitchin
 
 **Data Search for Data Mining (DS4DM)**
 
-Analysts increasingly have the problem that they know that some data which they need for a project is available somewhere on the Web or in the corporate intranet, but they are unable to find the data. The goal of the ['Data Search for Data Mining' (DS4DM) project](http://ds4dm.de/) is to extend the data mining platform Rapidminer with data search and data integration functionalities which enable analysts to find relevant data in potentially very large data corpora, and to semi-automatically integrate the discovered data with existing local data.
+Analysts increasingly have the problem that they know that some data which they need for a project is available somewhere on the Web or in the corporate intranet, but they are unable to find the data. The goal of the ['Data Search for Data Mining' (DS4DM) project](http://ds4dm.de/) is to extend the data mining platform RapidMiner with data search and data integration functionalities which enable analysts to find relevant data in potentially very large data corpora, and to semi-automatically integrate the discovered data with existing local data.
 
 ## Contact
 
-If you have any questions, please refer to the [Wiki](../../wiki) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
+If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/Movies-use-case), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
 
 ## License
 

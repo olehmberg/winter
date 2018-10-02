@@ -31,7 +31,7 @@ public class EventDateFuserRandom extends AttributeValueFuser<DateTime, Event, A
     }
 
     @Override
-    protected DateTime getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public DateTime getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         if (record.getDates().size()>0) {
             int randomItem = new Random().nextInt(record.getDates().size());
             int i = 0;

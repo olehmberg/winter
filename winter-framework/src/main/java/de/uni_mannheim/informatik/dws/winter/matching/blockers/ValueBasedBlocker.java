@@ -14,6 +14,8 @@ package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -21,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.LeftIdentityPair;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Function;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
@@ -29,6 +32,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.DistributionAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.StringConcatenationAggregator;
 import de.uni_mannheim.informatik.dws.winter.utils.Distribution;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 /**
@@ -45,7 +49,9 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	implements Blocker<RecordType, SchemaElementType, BlockedType, MatchableValue>,
 	SymmetricBlocker<RecordType, SchemaElementType, BlockedType, MatchableValue>
 {
-
+	
+	private static final Logger logger = WinterLogManager.getLogger();
+	
 	protected class Block extends LeftIdentityPair<String, Distribution<Pair<BlockedType, Processable<Correspondence<MatchableValue, Matchable>>>>> {
 		private static final long serialVersionUID = 1L;
 
@@ -68,16 +74,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 	
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> blockingFunction;
 	private BlockingKeyGenerator<RecordType, MatchableValue, BlockedType> secondBlockingFunction;
-
-	private boolean measureBlockSizes = false;
 	private boolean considerDuplicateValues = false;
-	
-	/**
-	 * @param measureBlockSizes the measureBlockSizes to set
-	 */
-	public void setMeasureBlockSizes(boolean measureBlockSizes) {
-		this.measureBlockSizes = measureBlockSizes;
-	}
 	
 	/**
 	 * if set to true, all duplicate blocking key values will count towards the similarity score
@@ -175,7 +172,7 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 		// join the datasets via their blocking keys
 		Processable<Pair<Block,Block>> blockedData = grouped1.join(grouped2, new BlockJoinKeyGenerator());
 		
-		if(measureBlockSizes) {			
+		if(this.isMeasureBlockSizes()) {			
 			// calculate block size distribution
 			Processable<Pair<Integer, Distribution<Integer>>> aggregated = blockedData.aggregate(
 				(Pair<Block, Block> record,
@@ -194,8 +191,8 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 				});
 			Distribution<Integer> dist = Q.firstOrDefault(aggregated.get()).getSecond();
 			
-			System.out.println("[ValueBasedBlocker] Block size distribution:");
-			System.out.println(dist.format());
+			logger.info("Block size distribution:");
+			logger.info(dist.format());
 
 			// determine frequent blocking key values
 			Processable<Pair<Integer, String>> blockValues = blockedData.aggregate(
@@ -207,9 +204,18 @@ public class ValueBasedBlocker<RecordType extends Matchable, SchemaElementType e
 					, new StringConcatenationAggregator<>(","))
 					.sort((p)->p.getFirst(), false);
 			
-			System.out.println("50 most-frequent blocking key values:");
-			for(Pair<Integer, String> value : blockValues.take(50).get()) {
-				System.out.println(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
+			this.initializeBlockingResults();
+			int result_id = 0;
+			
+			logger.info("Blocking key values:");
+			for(Pair<Integer, String> value : blockValues.get()) {
+				Record model = new Record(Integer.toString(result_id));
+				model.setValue(AbstractBlocker.blockingKeyValue, value.getFirst().toString());
+				model.setValue(AbstractBlocker.frequency, value.getFirst().toString());
+				result_id += 1;
+				this.appendBlockingResult(model);
+				
+				logger.info(String.format("\t%d\t%s", value.getFirst(), value.getSecond()));
 			}
 
 		}

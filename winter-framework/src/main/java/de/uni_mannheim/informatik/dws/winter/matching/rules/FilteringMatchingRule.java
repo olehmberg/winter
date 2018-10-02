@@ -21,43 +21,57 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
- * @param <RecordType>	the type of records that are matched with this rule
- * @param <SchemaElementType>	the type of schema elements that are used in the schema of RecordType
+ * @param <RecordType>
+ *            the type of records that are matched with this rule
+ * @param <SchemaElementType>
+ *            the type of schema elements that are used in the schema of
+ *            RecordType
  */
-public abstract class FilteringMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable> extends MatchingRule<RecordType, SchemaElementType> {
+public abstract class FilteringMatchingRule<RecordType extends Matchable, SchemaElementType extends Matchable>
+		extends MatchingRule<RecordType, SchemaElementType> {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param finalThreshold	the similarity threshold of this rule
+	 * @param finalThreshold
+	 *            the similarity threshold of this rule
 	 */
 	public FilteringMatchingRule(double finalThreshold) {
 		super(finalThreshold);
 	}
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.processing.RecordKeyValueMapper#mapRecord(java.lang.Object, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.uni_mannheim.informatik.wdi.processing.RecordKeyValueMapper#mapRecord(
+	 * java.lang.Object,
+	 * de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
 	 */
 	@Override
 	public void mapRecord(Correspondence<RecordType, SchemaElementType> record,
 			DataIterator<Correspondence<RecordType, SchemaElementType>> resultCollector) {
-		Correspondence<RecordType, SchemaElementType> cor = apply(record.getFirstRecord(), record.getSecondRecord(), record.getCausalCorrespondences());
-		
-		if(cor!=null && cor.getSimilarityScore()>0.0 && cor.getSimilarityScore()>=getFinalThreshold()) {
+		Correspondence<RecordType, SchemaElementType> cor = apply(record.getFirstRecord(), record.getSecondRecord(),
+				record.getCausalCorrespondences());
+
+		if (cor != null && cor.getSimilarityScore() > 0.0 && cor.getSimilarityScore() >= getFinalThreshold()) {
 			resultCollector.next(cor);
 		}
 	}
-	
+
 	/**
-	 * applies rule to the combination of first and second record and returns the correspondence between them if satisfies the criteria  
+	 * applies rule to the combination of first and second record and returns
+	 * the correspondence between them if satisfies the criteria
+	 * 
 	 * @param record1
-	 * 			the first record (must not be null)
+	 *            the first record (must not be null)
 	 * @param record2
-	 * 			the second record (must not be null)
-	 * @param schemaCorrespondences 
-	 * 			the schema correspondences between the first and the second records
+	 *            the second record (must not be null)
+	 * @param schemaCorrespondences
+	 *            the schema correspondences between the first and the second
+	 *            records
 	 * @return the correspondence between the first and the second records
 	 */
-	public abstract Correspondence<RecordType, SchemaElementType> apply(RecordType record1,
-			RecordType record2, Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences); 
+	public abstract Correspondence<RecordType, SchemaElementType> apply(RecordType record1, RecordType record2,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences);
 }

@@ -20,6 +20,7 @@ de.uni_mannheim.informatik.dws.winter.model
 de.uni_mannheim.informatik.dws.winter.model.defaultmodel
 de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking
 de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators
+de.uni_mannheim.informatik.dws.winter.model.defaultmodel.preprocessing
 de.uni_mannheim.informatik.dws.winter.model.io
 de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes
 de.uni_mannheim.informatik.dws.winter.preprocessing.units
@@ -38,6 +39,7 @@ de.uni_mannheim.informatik.dws.winter.utils.graph
 de.uni_mannheim.informatik.dws.winter.utils.mining
 de.uni_mannheim.informatik.dws.winter.utils.parallel
 de.uni_mannheim.informatik.dws.winter.utils.query
+de.uni_mannheim.informatik.dws.winter.utils.weka
 de.uni_mannheim.informatik.dws.winter.webtables
 de.uni_mannheim.informatik.dws.winter.webtables.app
 de.uni_mannheim.informatik.dws.winter.webtables.detectors
@@ -46,4 +48,5 @@ de.uni_mannheim.informatik.dws.winter.webtables.features
 de.uni_mannheim.informatik.dws.winter.webtables.lod
 de.uni_mannheim.informatik.dws.winter.webtables.parsers
 de.uni_mannheim.informatik.dws.winter.webtables.parsers.specialised.uri
+de.uni_mannheim.informatik.dws.winter.webtables.preprocessing
 de.uni_mannheim.informatik.dws.winter.webtables.writers

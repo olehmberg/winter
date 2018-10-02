@@ -34,6 +34,12 @@ public class ActorXMLFormatter extends XMLFormatter<Actor> {
 		Element actor = doc.createElement("actor");
 
 		actor.appendChild(createTextElement("name", record.getName(), doc));
+		if(record.getBirthplace()!=null) {
+			actor.appendChild(createTextElement("birthplace", record.getBirthplace(), doc));
+		}
+		if(record.getBirthday()!=null) {
+			actor.appendChild(createTextElement("birthday", record.getBirthday().toString(), doc));
+		}
 
 		return actor;
 	}

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -41,6 +43,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.I
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.identityresolution.RecordComparatorJaccardWithBrackets;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.Song;
 import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a identity resolution task by using learning matching rules,
@@ -51,7 +54,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.itunes.model.iTunesSong;
  */
 
 public class iTunes_IdentityResolutionLearningMatchingRule {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 		// loading data
 		Map<String, Attribute> columnMappingITunes = new HashMap<>();
@@ -99,6 +117,9 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		options[0] = ""; 
 		String tree = "J48"; // new instance of tree
 		WekaMatchingRule<Record, Attribute> matchingRule = new WekaMatchingRule<>(0.8, tree, options);
+
+		// Collect debug results
+		matchingRule.activateDebugReport("usecase/itunes/output/debugResultsWekaMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators - Name
 		matchingRule.addComparator(new RecordComparatorLevenshtein(Song.ARTIST, iTunesSong.ARTIST));
@@ -157,13 +178,18 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Record, Attribute> blocker = new StandardRecordBlocker<>(new ITunesBlockingKeyByArtistTitleGenerator());
-
+		// Write Debug Results to file
+		blocker.collectBlockSizeData("usecase/itunes/output/debugResultsBlocking.csv", 100);
+		
 		// learning Matching rule
 		RuleLearner<Record, Attribute> learner = new RuleLearner<>();
 		learner.learnMatchingRule(dataSong, dataITunes, null, matchingRule, gsTraining);
 
 		// Store Matching Rule
-		matchingRule.storeModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
+		matchingRule.exportModel(new File("usecase/itunes/matchingRule/itunesMatchingModel.model"));
+		
+		// Store Training Data
+		matchingRule.exportTrainingData(dataITunes, dataSong, gsTraining, new File("usecase/itunes/matchingRule/itunesTrainingData.csv"));
 
 		// Initialize Matching Engine
 		MatchingEngine<Record, Attribute> engine = new MatchingEngine<>();
@@ -179,15 +205,22 @@ public class iTunes_IdentityResolutionLearningMatchingRule {
 		// load the gold standard (test set)
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File("usecase/itunes/goldstandard/gs_iTunes_test.csv"));
-
+		
 		// evaluate your result
-		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>(true);
+		MatchingEvaluator<Record, Attribute> evaluator = new MatchingEvaluator<>();
 		Performance perfTest = evaluator.evaluateMatching(correspondences.get(), gsTest);
+		
+		//evaluate learned classifier
+		logger.info(matchingRule.getClassifier().toString());
 
 		// print the evaluation result
-		System.out.println("DBPedia Song <-> iTunes");
-		System.out.println(String.format("Precision: %.4f\nRecall: %.4f\nF1: %.4f", perfTest.getPrecision(),
-				perfTest.getRecall(), perfTest.getF1()));
+		logger.info("DBPedia Song <-> iTunes");
+		logger.info(String.format(
+				"Precision: %.4f",perfTest.getPrecision()));
+		logger.info(String.format(
+				"Recall: %.4f",	perfTest.getRecall()));
+		logger.info(String.format(
+				"F1: %.4f",perfTest.getF1()));
 
 	}
 }

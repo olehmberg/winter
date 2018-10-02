@@ -25,6 +25,8 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
@@ -37,6 +39,8 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
 import junit.framework.TestCase;
 
 public class DataSetTest extends TestCase {
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	public void testLoadFromXML() throws XPathExpressionException, ParserConfigurationException, SAXException, IOException {
 		HashedDataSet<Movie, Attribute> ds = new HashedDataSet<>();
@@ -47,7 +51,7 @@ public class DataSetTest extends TestCase {
 		
 		HashMap<String, Movie> movies = new HashMap<>();
 		for(Movie movie : ds.get()) {
-			System.out.println(String.format("[%s] %s", movie.getIdentifier(), movie.getTitle()));
+			logger.trace(String.format("[%s] %s", movie.getIdentifier(), movie.getTitle()));
 			movies.put(movie.getIdentifier(), movie);
 		}
 		

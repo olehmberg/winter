@@ -41,8 +41,8 @@ public class Movies_toCSV {
 		new MovieXMLReader().loadFromXML(new File("usecase/movie/input/greatest_scifi.xml"), "/movies/movie", data2);
 		
 		// write data
-		new MovieCSVFormatter().writeCSV(new File("usecase/movie/input/movie_list.csv"), data1);
-		new MovieCSVFormatter().writeCSV(new File("usecase/movie/input/greatest_scifi.csv"), data2);
+		new MovieCSVFormatter().writeCSV(new File("usecase/movie/input/movie_list.csv"), data1, null);
+		new MovieCSVFormatter().writeCSV(new File("usecase/movie/input/greatest_scifi.csv"), data2, null);
 	}
 	
 }

@@ -42,7 +42,7 @@ public class DateFuserMostRecent extends AttributeValueFuser<LocalDateTime, Movi
 	}
 
 	@Override
-	protected LocalDateTime getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
+	public LocalDateTime getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getDate();
 	}
 

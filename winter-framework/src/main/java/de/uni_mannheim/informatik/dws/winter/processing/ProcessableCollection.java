@@ -61,6 +61,13 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		elements.add(element);
 	}
 	
+	@Override
+	public void addAll(Collection<RecordType> elements) {
+		if(elements!=null && elements.size()>0) {
+			this.elements.addAll(elements);
+		}
+	}
+	
 	public Collection<RecordType> get() {
 		return elements;
 	}
@@ -197,6 +204,19 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 		resultCollector.finalise();
 		
 		return resultCollector.getResult();
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.uni_mannheim.informatik.dws.winter.processing.Processable#map(de.uni_mannheim.informatik.dws.winter.processing.Function)
+	 */
+	@Override
+	public <OutputRecordType> Processable<OutputRecordType> map(Function<OutputRecordType, RecordType> transformation) {
+		return map((RecordType record, DataIterator<OutputRecordType> resultCollector) -> {
+			OutputRecordType result = transformation.execute(record);
+			if(result!=null) {
+				resultCollector.next(result);
+			}
+		});
 	}
 	
 	/**
@@ -355,27 +375,28 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 			Function<KeyType, RecordType> joinKeyGenerator1, 
 			Function<KeyType, RecordType2> joinKeyGenerator2) {
 		
-		Processable<Pair<RecordType, RecordType2>> result = createProcessable((Pair<RecordType, RecordType2>)null);
+		// Processable<Pair<RecordType, RecordType2>> result = createProcessable((Pair<RecordType, RecordType2>)null);
 		
-		Map<KeyType, List<RecordType>> joinKeys1 = hashRecords(this, joinKeyGenerator1);
+		// Map<KeyType, List<RecordType>> joinKeys1 = hashRecords(this, joinKeyGenerator1);
 		Map<KeyType, List<RecordType2>> joinKeys2 = hashRecords(dataset2, joinKeyGenerator2);
 	
-		for(KeyType key1 : joinKeys1.keySet()) {
-			List<RecordType> block = joinKeys1.get(key1);
-			List<RecordType2> block2 = joinKeys2.get(key1);
-			
-			for(RecordType r1 : block) {
+		Processable<Pair<RecordType, RecordType2>> result = map(new RecordMapper<RecordType, Pair<RecordType, RecordType2>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void mapRecord(RecordType r1, DataIterator<Pair<RecordType, RecordType2>> resultCollector) {
+				List<RecordType2> block = joinKeys2.get(joinKeyGenerator1.execute(r1));
 				
-				if(block2!=null) {
-					for(RecordType2 r2 : block2) {
-						result.add(new Pair<>(r1, r2));
+				if(block!=null) {
+					for(RecordType2 r2 : block) {
+						resultCollector.next(new Pair<>(r1, r2));
 					}
 				} else {
-					result.add(new Pair<>(r1, (RecordType2)null));
+					resultCollector.next(new Pair<>(r1, null));
 				}
 			}
-			
-		}
+		});
 		
 		return result;
 	}
@@ -574,14 +595,16 @@ public class ProcessableCollection<RecordType> implements Processable<RecordType
 	append(Processable<RecordType> data2) {
 		Processable<RecordType> result = createProcessable((RecordType)null);
 		
-		for(RecordType r : get()) {
-			result.add(r);
-		}
+		result.addAll(get());
+//		for(RecordType r : get()) {
+//			result.add(r);
+//		}
 		
 		if(data2!=null) {
-			for(RecordType r : data2.get()) {
-				result.add(r);
-			}
+//			for(RecordType r : data2.get()) {
+//				result.add(r);
+//			}
+			result.addAll(data2.get());
 		}
 
 		return result;

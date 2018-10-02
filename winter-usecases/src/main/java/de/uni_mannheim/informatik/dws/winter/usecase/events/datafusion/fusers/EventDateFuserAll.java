@@ -31,7 +31,7 @@ public class EventDateFuserAll extends AttributeValueFuser<List<DateTime>, Event
     }
 
     @Override
-    protected List<DateTime> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
+    public List<DateTime> getValue(Event record, Correspondence<Attribute, Matchable> correspondence) {
         return record.getDates();
     }
 

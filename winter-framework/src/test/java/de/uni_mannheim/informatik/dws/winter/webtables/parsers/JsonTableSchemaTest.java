@@ -11,6 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema;
 import junit.framework.TestCase;
 
@@ -19,7 +22,9 @@ import junit.framework.TestCase;
  *
  */
 public class JsonTableSchemaTest extends TestCase {
-
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema#transposeRelation()}.
 	 */
@@ -36,16 +41,16 @@ public class JsonTableSchemaTest extends TestCase {
 		
 		for(int row = 0; row < 3; row++) {
 			for(int col = 0; col < 2; col++) {
-				System.out.print(original[col][row] + " | ");
+				logger.info(original[col][row] + " | ");
 			}
-			System.out.println();
+			logger.info("");
 		}
-		System.out.println();
+		logger.info("");
 		for(int row = 0; row < 2; row++) {
 			for(int col = 0; col < 3; col++) {
-				System.out.print(s.getRelation()[col][row] + " | ");
+				logger.info(s.getRelation()[col][row] + " | ");
 			}
-			System.out.println();
+			logger.info("");
 		}
 	}
 

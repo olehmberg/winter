@@ -11,6 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables;
 
+import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -34,8 +36,8 @@ public class TableSchema implements Serializable {
 	private ArrayList<TableColumn> columns;
 	private HashMap<String, TableColumn> columnsById;
 	
-	private Map<Collection<TableColumn>, Collection<TableColumn>> functionalDependencies;
-	private Collection<Set<TableColumn>> candidateKeys;
+	private Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies;
+	private Set<Set<TableColumn>> candidateKeys;
 	
 	public TableSchema() {
 		columns = new ArrayList<>();
@@ -69,7 +71,7 @@ public class TableSchema implements Serializable {
 	 * Removes a column. Does not update the table rows to conform to the new schema!
 	 * @param column
 	 */
-	protected void removeColumn(TableColumn column) {
+	public void removeColumn(TableColumn column) {
 		// remove column by index instead of id (unfortunately, the LodCsv-Tables contain multiple columns with the same URI, which is also their id)
 		Iterator<TableColumn> colIt = columns.iterator();
 		while(colIt.hasNext()) {
@@ -77,18 +79,62 @@ public class TableSchema implements Serializable {
 				colIt.remove();
 			}
 		}
-		
-		// re-create column-by-id lookup
-		columnsById.clear();
-		
+
+		// remove the columns from the FDs
+		Set<Entry<Set<TableColumn>, Set<TableColumn>>> oldMap = functionalDependencies.entrySet();
+		functionalDependencies = new HashMap<>();
+		for(Entry<Set<TableColumn>, Set<TableColumn>> e : oldMap) {
+			// if a column was removed, also update the FDs
+			Set<TableColumn> det = new HashSet<>(Q.where(e.getKey(), (c)->columns.contains(c)));
+			Set<TableColumn> dep = new HashSet<>(Q.where(e.getValue(), (c)->columns.contains(c)));
+			functionalDependencies.put(det, dep);
+		}
+
+		// update candidate keys
+		Set<Set<TableColumn>> oldKeys = candidateKeys;
+		candidateKeys = new HashSet<>();
+		for(Set<TableColumn> key : oldKeys) {
+			candidateKeys.add(new HashSet<>(Q.where(key, (c)->columns.contains(c))));
+		}
+
+		// update column indices		
 		for(TableColumn c: columns) {
 			if(c.getColumnIndex()>column.getColumnIndex()) {
 				c.setColumnIndex(c.getColumnIndex()-1);
 			}
-			columnsById.put(c.getIdentifier(), c);
 		}
+
+		updateIdentifiers();
 	}
 	
+	/**
+	 * Re-builds all HashMaps and HashSets that use the column identifiers to reflect changes
+	 */
+	protected void updateIdentifiers() {
+		// update columns by id
+		columnsById.clear();
+		for(TableColumn c: columns) {
+			c.updateIdentifier();
+			columnsById.put(c.getIdentifier(), c);
+		}
+
+		// update functional dependencies: update the hash values by re-inserting all data into a new HashMap
+		Set<Entry<Set<TableColumn>, Set<TableColumn>>> oldMap = functionalDependencies.entrySet();
+		functionalDependencies = new HashMap<>();
+		for(Entry<Set<TableColumn>, Set<TableColumn>> e : oldMap) {
+			Set<TableColumn> det = new HashSet<>(e.getKey());
+			Set<TableColumn> dep = new HashSet<>(e.getValue());
+			functionalDependencies.put(det, dep);
+		}
+
+		// update candidate keys
+		Set<Set<TableColumn>> oldKeys = candidateKeys;
+		candidateKeys = new HashSet<>();
+		for(Set<TableColumn> key : oldKeys) {
+			candidateKeys.add(new HashSet<>(key));
+		}
+	}
+
 	public TableColumn get(int index) {
 		return columns.get(index);
 	}
@@ -174,7 +220,7 @@ public class TableSchema implements Serializable {
 	/**
 	 * @return the functionalDependencies
 	 */
-	public Map<Collection<TableColumn>, Collection<TableColumn>> getFunctionalDependencies() {
+	public Map<Set<TableColumn>, Set<TableColumn>> getFunctionalDependencies() {
 		return functionalDependencies;
 	}
 	
@@ -182,7 +228,7 @@ public class TableSchema implements Serializable {
 	 * @param functionalDependencies the functionalDependencies to set
 	 */
 	public void setFunctionalDependencies(
-			Map<Collection<TableColumn>, Collection<TableColumn>> functionalDependencies) {
+			Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies) {
 		this.functionalDependencies = functionalDependencies;
 	}
 	
@@ -197,7 +243,7 @@ public class TableSchema implements Serializable {
 	 * @param candidateKeys the candidateKeys to set
 	 */
 	public void setCandidateKeys(
-			Collection<Set<TableColumn>> candidateKeys) {
+		Set<Set<TableColumn>> candidateKeys) {
 		this.candidateKeys = candidateKeys;
 	}
 }

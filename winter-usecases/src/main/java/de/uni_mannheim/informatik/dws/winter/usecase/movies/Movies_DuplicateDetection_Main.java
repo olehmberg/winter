@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
@@ -30,6 +32,7 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.M
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
  * Class containing the standard setup to perform a duplicate detection task,
@@ -40,7 +43,22 @@ import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader
  * 
  */
 public class Movies_DuplicateDetection_Main {
+	
+	/*
+	 * Logging Options:
+	 * 		default: 	level INFO	- console
+	 * 		trace:		level TRACE     - console
+	 * 		infoFile:	level INFO	- console/file
+	 * 		traceFile:	level TRACE	- console/file
+	 *  
+	 * To set the log level to trace and write the log to winter.log and console, 
+	 * activate the "traceFile" logger as follows:
+	 *     private static final Logger logger = WinterLogManager.activateLogger("traceFile");
+	 *
+	 */
 
+	private static final Logger logger = WinterLogManager.activateLogger("default");
+	
 	public static void main(String[] args) throws Exception {
 
 		// define the matching rule
@@ -93,8 +111,8 @@ public class Movies_DuplicateDetection_Main {
 
 		// print the correspondences
 		for (Correspondence<Movie, Attribute> correspondence : correspondences) {
-			System.out.println(String
-					.format("%s,%s,|\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
+			logger.info(String
+					.format("%s,%s |\t\t%.2f\t[%s] %s (%s) <--> [%s] %s (%s)",
 							correspondence.getFirstRecord().getIdentifier(),
 							correspondence.getSecondRecord().getIdentifier(),
 							correspondence.getSimilarityScore(),

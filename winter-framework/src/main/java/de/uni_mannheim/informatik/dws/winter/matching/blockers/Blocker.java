@@ -23,30 +23,38 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  * @param <RecordType>
- * 			The type of Records in the input dataset(s)
+ *            The type of Records in the input dataset(s)
  * @param <SchemaElementType>
- * 			The type of Schema Elements in the input dataset(s)
+ *            The type of Schema Elements in the input dataset(s)
  * @param <BlockedType>
- * 			The type of Records in the Correspondences (Pairs) that are the result of the blocking
+ *            The type of Records in the Correspondences (Pairs) that are the
+ *            result of the blocking
  * @param <CorrespondenceType>
- * 			The type of Records in the causes of the Correspondences (Pairs) that are the result of the blocking
+ *            The type of Records in the causes of the Correspondences (Pairs)
+ *            that are the result of the blocking
  */
 public interface Blocker<RecordType extends Matchable, SchemaElementType extends Matchable, BlockedType extends Matchable, CorrespondenceType extends Matchable> {
 
 	/**
-	 * Gives the possible candidates for the correspondences between the first and second data sets.
+	 * Gives the possible candidates for the correspondences between the first
+	 * and second data sets.
+	 * 
 	 * @param dataset1
-	 * 			the first data set (must not be null)
+	 *            the first data set (must not be null)
 	 * @param dataset2
-	 * 			the second data set (must not be null)
+	 *            the second data set (must not be null)
 	 * @param schemaCorrespondences
-	 * 			schema correspondences between the first and second data sets (must not be null)
+	 *            schema correspondences between the first and second data sets
+	 *            (must not be null)
 	 * @return the blocked pairs between the first and second data sets.
 	 */
 	Processable<Correspondence<BlockedType, CorrespondenceType>> runBlocking(
-			DataSet<RecordType, SchemaElementType> dataset1, 
-			DataSet<RecordType, SchemaElementType> dataset2, 
+			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
 			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences);
-	
+
 	double getReductionRatio();
+	
+	boolean isMeasureBlockSizes();
+	
+	void writeDebugBlockingResultsToFile();
 }

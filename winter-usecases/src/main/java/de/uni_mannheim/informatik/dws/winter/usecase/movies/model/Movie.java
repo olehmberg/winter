@@ -68,7 +68,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 	}
 
 	public void setDirector(String director) {
-		this.director = director;
+		if(director!=null && director.isEmpty()) {
+			//  replace empty string with 'null'
+			director = null;
+		} else {
+			this.director = director;
+		}
 	}
 
 	public LocalDateTime getDate() {
@@ -170,7 +175,7 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("[Movie: %s / %s / %s]", getTitle(),
+		return String.format("[Movie %s: %s / %s / %s]", getIdentifier(), getTitle(),
 				getDirector(), getDate().toString());
 	}
 

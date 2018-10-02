@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import de.uni_mannheim.informatik.dws.winter.webtables.ListHandler;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableColumn;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
@@ -77,7 +78,17 @@ public class CSVTableWriter implements TableWriter {
             	Object value = r.get(c.getColumnIndex());
             	
             	if(value!=null) {
-            		values.add(value.toString());
+					if(value.getClass().isArray()) {
+						List<String> listValues = new LinkedList<>();
+						for(Object v : (Object[])value) {
+							if(v!=null) {
+								listValues.add(v.toString());
+							}
+						}
+						values.add(ListHandler.formatList(listValues));
+					} else {
+						values.add(value.toString());
+					}
             	} else {
             		values.add(null);
             	}

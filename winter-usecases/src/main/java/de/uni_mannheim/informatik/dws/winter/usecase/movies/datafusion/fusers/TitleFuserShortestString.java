@@ -53,7 +53,7 @@ public class TitleFuserShortestString extends
 	}
 
 	@Override
-	protected String getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
+	public String getValue(Movie record, Correspondence<Attribute, Matchable> correspondence) {
 		return record.getTitle();
 	}
 
