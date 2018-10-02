@@ -10,7 +10,7 @@ The WInte.r framework [5] provides methods for end-to-end data integration. The 
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
-**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As an alternative to acquaint yourself with the framework, you can also have a look at the code examples in our [Wiki](../../wiki)!
+**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [Winte.r Tutorial](../../wiki/Movies-use-case) or have a look at the code examples in our [Wiki](../../wiki)!
 
 ## Using WInte.r
 
@@ -40,7 +40,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 
 **Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
 
-**Pre-processing**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as:
+**Pre-processing(../../wiki/DataNormalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as:
 -	Data type detection
 -	Unit of measurement normalization
 -	Header detection
@@ -51,7 +51,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 -	Instance-based schema matching
 -	Duplicate-based schema matching
 
-**[Identity Resolution](../../wiki/IdentityResolution)**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
+**[Identity Resolution](../../wiki/IdentityResolution)**: Identity resolution methods (also known as data matching or record linkage methods) identify records that describe the same real-world entity. The pre-implemented identity resolution methods can be applied to a single dataset for duplicate detection or to multiple datasets in order to find record-level correspondences. Beside of manually defining identity resolution methods, WInte.r also allows you to [learn matching rules](../../wiki/Learning-Matching-Rules) from known correspondences. Identity resolution methods rely on blocking (also called indexing) in order to reduce the number of record comparisons. WInte.r provides following pre-implemented blocking and identity resolution methods:
 -	Blocking by single/multiple blocking key(s)
 -	Sorted-Neighbourhood Method
 -	Token-based identity resolution
@@ -84,7 +84,7 @@ Analysts increasingly have the problem that they know that some data which they 
 
 ## Contact
 
-If you have any questions, please refer to the [Wiki](../../wiki) and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
+If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/Movies-use-case), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de
 
 ## License
 
