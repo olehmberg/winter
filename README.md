@@ -10,7 +10,7 @@ The WInte.r framework [5] provides methods for end-to-end data integration. The 
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
-**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [WInte.r Tutorial](../../wiki/Movies-use-case) or have a look at the code examples in our [Wiki](../../wiki)! 
+**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [WInte.r Tutorial](../../wiki/WInte.r-Tutorial) or have a look at the code examples in our [Wiki](../../wiki)! 
 
 ## Using WInte.r
 
@@ -84,7 +84,7 @@ Analysts increasingly have the problem that they know that some data which they 
 
 ## Contact
 
-If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/Movies-use-case), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
+If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/WInte.r-Tutorial), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
 
 ## License
 
