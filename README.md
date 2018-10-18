@@ -40,7 +40,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 
 **Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
 
-**[Pre-processing](../../wiki/DataNormalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as: 
+**[Pre-processing](../../wiki/Data-Normalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as: 
 -	Data type detection
 -	Unit of measurement normalization
 -	Header detection
