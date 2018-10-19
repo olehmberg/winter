@@ -169,9 +169,9 @@ public class ShowTableData extends Executable {
 						s,
 						Integer.toString(t.getRows().size()),
 						Integer.toString(t.getColumns().size()),
-						t.getContext().getUrl(),
-						t.getContext().getPageTitle(),
-						t.getContext().getTableTitle(),
+						t.getContext()==null ? "" : t.getContext().getUrl(),
+						t.getContext()==null ? "" : t.getContext().getPageTitle(),
+						t.getContext()==null ? "" : t.getContext().getTableTitle(),
 						Integer.toString(getOriginalTables(t).size()),
 						t.getSubjectColumn()!=null ? "" : Integer.toString(t.getSubjectColumn().getColumnIndex())
 				});
