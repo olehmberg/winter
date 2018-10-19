@@ -173,7 +173,7 @@ public class ShowTableData extends Executable {
 						t.getContext()==null ? "" : t.getContext().getPageTitle(),
 						t.getContext()==null ? "" : t.getContext().getTableTitle(),
 						Integer.toString(getOriginalTables(t).size()),
-						t.getSubjectColumn()!=null ? "" : Integer.toString(t.getSubjectColumn().getColumnIndex())
+						t.getSubjectColumn()==null ? "" : Integer.toString(t.getSubjectColumn().getColumnIndex())
 				});
 			} else if(listColumnIds) {
 				// list the columns in the table
