@@ -69,37 +69,42 @@ public class WebTablesStringNormalizer {
 	 * @return the normalised string
 	 */
 	public static String normaliseHeader(String columnName) {
-		columnName = StringEscapeUtils.unescapeJava(columnName);
-		columnName = columnName.replace("\"", "");
-		columnName = columnName.replace("|", " ");
-		columnName = columnName.replace(",", "");
-		columnName = columnName.replace("{", "");
-		columnName = columnName.replace("}", "");
-		columnName = columnName.replaceAll("\n", "");
+		if(columnName==null)
+		{
+			return "";
+		} else {
+			columnName = StringEscapeUtils.unescapeJava(columnName);
+			columnName = columnName.replace("\"", "");
+			columnName = columnName.replace("|", " ");
+			columnName = columnName.replace(",", "");
+			columnName = columnName.replace("{", "");
+			columnName = columnName.replace("}", "");
+			columnName = columnName.replaceAll("\n", "");
 
-		columnName = columnName.replace("&nbsp;", " ");
-		columnName = columnName.replace("&nbsp", " ");
-		columnName = columnName.replace("nbsp", " ");
-		columnName = columnName.replaceAll("<.*>", "");
+			columnName = columnName.replace("&nbsp;", " ");
+			columnName = columnName.replace("&nbsp", " ");
+			columnName = columnName.replace("nbsp", " ");
+			columnName = columnName.replaceAll("<.*>", "");
 
-		columnName = columnName.toLowerCase();
-		columnName = columnName.trim();
+			columnName = columnName.toLowerCase();
+			columnName = columnName.trim();
 
-		columnName = columnName.replaceAll("\\.", "");
-		columnName = columnName.replaceAll("\\$", "");
-		// clean the values from additional strings
-		// if (columnName.contains("/")) {
-		// 	columnName = columnName.substring(0, columnName.indexOf("/"));
-		// }
+			columnName = columnName.replaceAll("\\.", "");
+			columnName = columnName.replaceAll("\\$", "");
+			// clean the values from additional strings
+			// if (columnName.contains("/")) {
+			// 	columnName = columnName.substring(0, columnName.indexOf("/"));
+			// }
 
-		// if (columnName.contains("\\")) {
-		// 	columnName = columnName.substring(0, columnName.indexOf("\\"));
-		// }
-		if (possibleNullValues.contains(columnName)) {
-			columnName = nullValue;
+			// if (columnName.contains("\\")) {
+			// 	columnName = columnName.substring(0, columnName.indexOf("\\"));
+			// }
+			if (possibleNullValues.contains(columnName)) {
+				columnName = nullValue;
+			}
+			
+			return columnName;
 		}
-		
-		return columnName;
 	}
 
 	private static final Pattern bracketsPattern = Pattern.compile("\\(.*\\)");
