@@ -10,7 +10,7 @@ The WInte.r framework [5] provides methods for end-to-end data integration. The 
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
-**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [WInte.r Tutorial](../../wiki/Movies-use-case) or have a look at the code examples in our [Wiki](../../wiki)! 
+**Quick Start**: The section below provides an overview of the functionality of the WInte.r framework. As alternatives to acquaint yourself with the framework, you can also read the [WInte.r Tutorial](../../wiki/WInte.r-Tutorial) or have a look at the code examples in our [Wiki](../../wiki)! 
 
 ## Using WInte.r
 
@@ -40,7 +40,7 @@ The WInte.r framework covers all central steps of the data integration process, 
 
 **Data Loading**: WInte.r provides readers for standard data formats such as CSV, XML and JSON. In addition, WInte.r offers a specialized JSON format for representing tabular data from the Web together with meta-information about the origin and context of the data, as used by the [Web Data Commons (WDC) Web Tables Corpora](http://www.webdatacommons.org/webtables/index.html).
 
-**[Pre-processing](../../wiki/DataNormalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as: 
+**[Pre-processing](../../wiki/Data-Normalisation)**: During pre-processing you prepare your data for the methods that you are going to apply later on in the integration process. WInte.r WebTables provides you with specialized pre-processing methods for tabular data, such as: 
 -	Data type detection
 -	Unit of measurement normalization
 -	Header detection
@@ -84,7 +84,7 @@ Analysts increasingly have the problem that they know that some data which they 
 
 ## Contact
 
-If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/Movies-use-case), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
+If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/WInte.r-Tutorial), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
 
 ## License
 
