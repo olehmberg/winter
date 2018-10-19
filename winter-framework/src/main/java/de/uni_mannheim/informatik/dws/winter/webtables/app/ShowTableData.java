@@ -132,140 +132,145 @@ public class ShowTableData extends Executable {
 				f = new File(dir,s);
 			}
 			
-			if(s.endsWith("json")) {
-				t = p.parseTable(f);
-			} else if(s.endsWith("csv")) {
-				t = csvP.parseTable(f);
-			} else {
-				logger.error(String.format("Unknown table format '%s' (must be .json or .csv)", f.getName()));
-				continue;
-			}
-			
-			if(applyPreprocessing) {
-				new TableDisambiguationExtractor().extractDisambiguations(Q.toList(t));
-				new TableNumberingExtractor().extractNumbering(Q.toList(t));
-			}
-			
-			if(convertValues) {
-				t.convertValues();
-			}
-
-			// update the table if requested
-			if(detectKey) {
-				t.identifySubjectColumn(0.3,true);
-				logger.error(String.format("* Detected Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
-			}
-			if(keyColumnIndex!=null) {
-				logger.error(String.format("* Setting Entity-Label Column: %s", t.getSchema().get(keyColumnIndex)));
-				t.setSubjectColumnIndex(keyColumnIndex);
-			}
-			if(update) {
-				w.write(t, f);
-			}
-			
-			if(createCSV) {
-				// create a csv file with the table meta data
-				csvW.writeNext(new String[] {
-						s,
-						Integer.toString(t.getRows().size()),
-						Integer.toString(t.getColumns().size()),
-						t.getContext()==null ? "" : t.getContext().getUrl(),
-						t.getContext()==null ? "" : t.getContext().getPageTitle(),
-						t.getContext()==null ? "" : t.getContext().getTableTitle(),
-						Integer.toString(getOriginalTables(t).size()),
-						t.getSubjectColumn()==null ? "" : Integer.toString(t.getSubjectColumn().getColumnIndex())
-				});
-			} else if(listColumnIds) {
-				// list the columns in the table
-				for(TableColumn c : t.getColumns()) {
-					if(!showHeader) {
-						System.out.println(c.getIdentifier());
-					} else {
-						System.out.println(c.toString());
-					}
-				}
-			} else {
-				// print the table meta data in human readable format
-
-				TableContext ctx = t.getContext();
-				
-				System.out.println(String.format("*** Table %s ***", s));
-				if(ctx!=null) {
-					System.out.println(String.format("* URL: %s", ctx.getUrl()));
-					System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
-					System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
-				}
-				System.out.println(String.format("* # Columns: %d", t.getColumns().size()));
-				System.out.println(String.format("* # Rows: %d", t.getRows().size()));
-				System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
-				System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
-
-				if(showProvenanceInfo) {
-					// collect all provenance data
-					Set<String> provenance = getOriginalTables(t);
-					
-					if(provenance.size()>0) {
-						System.out.println("Provenance:");
-						System.out.println(String.format("\t%s", 
-								StringUtils.join(Q.sort(provenance), ",")
-								));
-					} else {
-						System.out.println("Table has no provenance data attached.");
-					}
+			try {
+				if(s.endsWith("json")) {
+					t = p.parseTable(f);
+				} else if(s.endsWith("csv")) {
+					t = csvP.parseTable(f);
+				} else {
+					logger.error(String.format("Unknown table format '%s' (must be .json or .csv)", f.getName()));
+					continue;
 				}
 				
-				if(showDependencyInfo) {
-					
-					if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
-						System.out.println("*** Functional Dependencies ***");
-						for(Collection<TableColumn> det : t.getSchema().getFunctionalDependencies().keySet()) {
-							Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
-							System.out.println(
-									String.format(
-											"{%s}->{%s}", 
-											StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
-											StringUtils.join(Q.project(dep, new TableColumn.ColumnHeaderProjection()), ",")));
-						}
-					}
-					if(t.getSchema().getCandidateKeys()!=null && t.getSchema().getCandidateKeys().size()>0) {
-						System.out.println("*** Candidate Keys ***");
-						for(Collection<TableColumn> candidateKey : t.getSchema().getCandidateKeys()) {
-							System.out.println(
-									String.format("{%s}", StringUtils.join(Q.project(candidateKey, new TableColumn.ColumnHeaderProjection()), ",")));
-						}
-					}
+				if(applyPreprocessing) {
+					new TableDisambiguationExtractor().extractDisambiguations(Q.toList(t));
+					new TableNumberingExtractor().extractNumbering(Q.toList(t));
+				}
+				
+				if(convertValues) {
+					t.convertValues();
 				}
 
-				if(showData) {
-					System.out.println(t.getSchema().format(columnWidth));
-					System.out.println(t.getSchema().formatDataTypes(columnWidth));
-					
-					int maxRows = Math.min(numRows, t.getRows().size());
-					
-					if(maxRows==0) {
-						maxRows = t.getRows().size();
-					}
-					
-					for(int i = 0; i < maxRows; i++) {
-						TableRow r = t.getRows().get(i);
-						if(showProvenanceInfo) {
-							System.out.println(StringUtils.join(r.getProvenance(), " / "));
+				// update the table if requested
+				if(detectKey) {
+					t.identifySubjectColumn(0.3,true);
+					logger.error(String.format("* Detected Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
+				}
+				if(keyColumnIndex!=null) {
+					logger.error(String.format("* Setting Entity-Label Column: %s", t.getSchema().get(keyColumnIndex)));
+					t.setSubjectColumnIndex(keyColumnIndex);
+				}
+				if(update) {
+					w.write(t, f);
+				}
+				
+				if(createCSV) {
+					// create a csv file with the table meta data
+					csvW.writeNext(new String[] {
+							s,
+							Integer.toString(t.getRows().size()),
+							Integer.toString(t.getColumns().size()),
+							t.getContext()==null ? "" : t.getContext().getUrl(),
+							t.getContext()==null ? "" : t.getContext().getPageTitle(),
+							t.getContext()==null ? "" : t.getContext().getTableTitle(),
+							Integer.toString(getOriginalTables(t).size()),
+							t.getSubjectColumn()==null ? "" : Integer.toString(t.getSubjectColumn().getColumnIndex())
+					});
+				} else if(listColumnIds) {
+					// list the columns in the table
+					for(TableColumn c : t.getColumns()) {
+						if(!showHeader) {
+							System.out.println(c.getIdentifier());
+						} else {
+							System.out.println(c.toString());
 						}
-						System.out.println(r.format(columnWidth));
 					}
 				} else {
-					System.out.println(StringUtils.join(Q.project(t.getColumns(), 
-							new Func<String, TableColumn>() {
-	
-								@Override
-								public String invoke(TableColumn in) {
-									return String.format("%s (%s)", in.getHeader(), in.getDataType());
-								}}
-							), ", "));
+					// print the table meta data in human readable format
+
+					TableContext ctx = t.getContext();
+					
+					System.out.println(String.format("*** Table %s ***", s));
+					if(ctx!=null) {
+						System.out.println(String.format("* URL: %s", ctx.getUrl()));
+						System.out.println(String.format("* Title: %s", ctx.getPageTitle()));
+						System.out.println(String.format("* Heading: %s", ctx.getTableTitle()));
+					}
+					System.out.println(String.format("* # Columns: %d", t.getColumns().size()));
+					System.out.println(String.format("* # Rows: %d", t.getRows().size()));
+					System.out.println(String.format("* Created from %d original tables", getOriginalTables(t).size()));
+					System.out.println(String.format("* Entity-Label Column: %s", t.getSubjectColumn()==null ? "?" : t.getSubjectColumn().getHeader()));
+
+					if(showProvenanceInfo) {
+						// collect all provenance data
+						Set<String> provenance = getOriginalTables(t);
+						
+						if(provenance.size()>0) {
+							System.out.println("Provenance:");
+							System.out.println(String.format("\t%s", 
+									StringUtils.join(Q.sort(provenance), ",")
+									));
+						} else {
+							System.out.println("Table has no provenance data attached.");
+						}
+					}
+					
+					if(showDependencyInfo) {
+						
+						if(t.getSchema().getFunctionalDependencies()!=null && t.getSchema().getFunctionalDependencies().size()>0) {
+							System.out.println("*** Functional Dependencies ***");
+							for(Collection<TableColumn> det : t.getSchema().getFunctionalDependencies().keySet()) {
+								Collection<TableColumn> dep = t.getSchema().getFunctionalDependencies().get(det);
+								System.out.println(
+										String.format(
+												"{%s}->{%s}", 
+												StringUtils.join(Q.project(det, new TableColumn.ColumnHeaderProjection()), ","),
+												StringUtils.join(Q.project(dep, new TableColumn.ColumnHeaderProjection()), ",")));
+							}
+						}
+						if(t.getSchema().getCandidateKeys()!=null && t.getSchema().getCandidateKeys().size()>0) {
+							System.out.println("*** Candidate Keys ***");
+							for(Collection<TableColumn> candidateKey : t.getSchema().getCandidateKeys()) {
+								System.out.println(
+										String.format("{%s}", StringUtils.join(Q.project(candidateKey, new TableColumn.ColumnHeaderProjection()), ",")));
+							}
+						}
+					}
+
+					if(showData) {
+						System.out.println(t.getSchema().format(columnWidth));
+						System.out.println(t.getSchema().formatDataTypes(columnWidth));
+						
+						int maxRows = Math.min(numRows, t.getRows().size());
+						
+						if(maxRows==0) {
+							maxRows = t.getRows().size();
+						}
+						
+						for(int i = 0; i < maxRows; i++) {
+							TableRow r = t.getRows().get(i);
+							if(showProvenanceInfo) {
+								System.out.println(StringUtils.join(r.getProvenance(), " / "));
+							}
+							System.out.println(r.format(columnWidth));
+						}
+					} else {
+						System.out.println(StringUtils.join(Q.project(t.getColumns(), 
+								new Func<String, TableColumn>() {
+		
+									@Override
+									public String invoke(TableColumn in) {
+										return String.format("%s (%s)", in.getHeader(), in.getDataType());
+									}}
+								), ", "));
+					}
+				
+					prg.incrementProgress();
+					prg.report();
 				}
-			
-				prg.incrementProgress();
-				prg.report();
+			} catch(Exception e) {
+				System.err.println(String.format("Cannot process table '%s'!",f));
+				e.printStackTrace();
 			}
 		}
 		
