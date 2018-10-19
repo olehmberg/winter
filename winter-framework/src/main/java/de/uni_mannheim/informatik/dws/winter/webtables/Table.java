@@ -386,7 +386,10 @@ public class Table implements Serializable {
 							if (nullValues == true && r.get(i) != null)
 								nullValues = false;
 							if(ListHandler.isArray(r.get(i))) {
-								column[rowCounter] = (String) ((Object[])r.get(i))[0];
+								Object[] array = ((Object[])r.get(i));
+								if(array.length>0) {
+									column[rowCounter] = (String) array[0];
+								}
 							} else {
 								column[rowCounter] = (String) r.get(i);
 							}
