@@ -52,7 +52,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.RecordComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -413,18 +412,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 
 			double similarity = comp.compare(record1, record2, schemaCorrespondence);
 
-			String attribute1 = "";
-			String attribute2 = "";
-			try {
-				attribute1 = ((RecordComparator) comp).getAttributeRecord1().toString();
-				attribute2 = ((RecordComparator) comp).getAttributeRecord2().toString();
-
-			} catch (ClassCastException e) {
-				// Not possible to add attribute names
-				// e.printStackTrace();
-			}
-
-			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2).trim();
+			String name = String.format("[%d] %s", i, comp.getName(schemaCorrespondence)).trim();
 			Attribute att = null;
 			for (Attribute elem : features.getSchema().get()) {
 				if (elem.toString().equals(name)) {
@@ -476,7 +464,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			logger.error("Please initialise a classifier!");
 			return null;
 		} else {
-			FeatureVectorDataSet matchSet = this.initialiseFeatures();
+			FeatureVectorDataSet matchSet = this.initialiseFeatures(record1, record2, schemaCorrespondences);
 			Record matchRecord = generateFeatures(record1, record2, schemaCorrespondences, matchSet);
 
 			// transform entry for classification.
@@ -637,29 +625,21 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	 * Create a new FeatureVectorDataSet with the corresponding features, which
 	 * result from the added comparators.
 	 * 
-	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule#initialiseFeatures()
+	 * @see de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule#initialiseFeatures(Matchable, Matchable, Processable)
 	 */
 
 	@Override
-	public FeatureVectorDataSet initialiseFeatures() {
+	public FeatureVectorDataSet initialiseFeatures(RecordType record1, RecordType record2, Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences) {
 		FeatureVectorDataSet result = new FeatureVectorDataSet();
 		// create one feature per comparator
 		for (int i = 0; i < comparators.size(); i++) {
 
 			Comparator<RecordType, SchemaElementType> comp = comparators.get(i);
 
-			String attribute1 = "";
-			String attribute2 = "";
-			try {
-				attribute1 = ((RecordComparator) comp).getAttributeRecord1().toString();
-				attribute2 = ((RecordComparator) comp).getAttributeRecord2().toString();
-
-			} catch (ClassCastException e) {
-				// Not possible to add attribute names
-				// e.printStackTrace();
-			}
-
-			String name = String.format("[%d] %s %s %s", i, getComparatorName(comp), attribute1, attribute2).trim();
+			@SuppressWarnings("unchecked")
+			Correspondence<SchemaElementType, Matchable> schemaCorrespondence = getCorrespondenceForComparator((Processable<Correspondence<SchemaElementType, Matchable>>) schemaCorrespondences, record1, record2, comp);
+			
+			String name = String.format("[%d] %s", i, comp.getName(schemaCorrespondence)).trim();
 
 			Attribute att = new Attribute(name);
 			result.addAttribute(att);
@@ -668,10 +648,6 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 		// Add label to feature
 		result.addAttribute(FeatureVectorDataSet.ATTRIBUTE_LABEL);
 		return result;
-	}
-
-	protected String getComparatorName(Comparator<RecordType, SchemaElementType> comp) {
-		return comp.getClass().getSimpleName();
 	}
 
 	public boolean isForwardSelection() {

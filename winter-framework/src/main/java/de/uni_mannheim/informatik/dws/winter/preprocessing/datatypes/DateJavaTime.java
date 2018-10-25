@@ -64,7 +64,8 @@ public class DateJavaTime {
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\.\\d{2}$", Pattern.CASE_INSENSITIVE), "MM.yy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "MM-yy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{2}$", Pattern.CASE_INSENSITIVE), "MM/yy"));
-		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{1,2}-\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy-MM-dd"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$", Pattern.CASE_INSENSITIVE), "yyyy-MM-dd"));
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{1}-\\d{1}$", Pattern.CASE_INSENSITIVE), "yyyy-M-d"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE), "MM/dd/yyyy"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}/\\d{1,2}/\\d{1,2}$", Pattern.CASE_INSENSITIVE), "yyyy/MM/dd"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", Pattern.CASE_INSENSITIVE), "dd MMM yyyy"));
@@ -136,7 +137,10 @@ public class DateJavaTime {
 				Pattern.CASE_INSENSITIVE), "yyyy-MM-dd'T'HH:mm:ssXXX"));
 		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}Z$", Pattern.CASE_INSENSITIVE),
 				"yyyy-MM-dd'T'HH:mm:ssXXX"));
-
+		
+		DATE_FORMAT_REGEXPS.add(new Pair<>(Pattern.compile("^\\+\\d{4}-\\d{2}-\\d{1,2}T\\d{1,2}:\\d{2}:\\d{2}Z$", Pattern.CASE_INSENSITIVE),
+				"'+'yyyy-MM-dd'T'HH:mm:ssXXX"));
+		// +1936-11-30T00:00:00Z
 		// put("^\\d{2}$", "yy");
 	}
 

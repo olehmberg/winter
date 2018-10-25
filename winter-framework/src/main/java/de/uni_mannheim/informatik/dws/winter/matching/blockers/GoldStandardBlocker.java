@@ -19,7 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
@@ -65,21 +65,21 @@ public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType
 			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
 			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 
-		ProcessableCollection<Correspondence<RecordType, CorrespondenceType>> result = new ProcessableCollection<Correspondence<RecordType, CorrespondenceType>>();
+		ParallelProcessableCollection<Correspondence<RecordType, CorrespondenceType>> result = new ParallelProcessableCollection<Correspondence<RecordType, CorrespondenceType>>();
 
 		for (Pair<String, String> positivePair : this.goldstandard.getPositiveExamples()) {
 			RecordType record1 = dataset1.getRecord(positivePair.getFirst());
 			if (record1 != null) {
 				RecordType record2 = dataset2.getRecord(positivePair.getSecond());
 				if (record2 != null) {
-					result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, null));
+					result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, schemaCorrespondences));
 				}
 			} else {
 				record1 = dataset1.getRecord(positivePair.getSecond());
 				if (record1 != null) {
 					RecordType record2 = dataset2.getRecord(positivePair.getFirst());
 					if (record2 != null) {
-						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, null));
+						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, schemaCorrespondences));
 					}
 				}
 			}
@@ -90,14 +90,14 @@ public class GoldStandardBlocker<RecordType extends Matchable, SchemaElementType
 			if (record1 != null) {
 				RecordType record2 = dataset2.getRecord(negativePair.getSecond());
 				if (record2 != null) {
-					result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, null));
+					result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, schemaCorrespondences));
 				}
 			} else {
 				record1 = dataset1.getRecord(negativePair.getSecond());
 				if (record1 != null) {
 					RecordType record2 = dataset2.getRecord(negativePair.getFirst());
 					if (record2 != null) {
-						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, null));
+						result.add(new Correspondence<RecordType, CorrespondenceType>(record1, record2, 1.0, schemaCorrespondences));
 					}
 				}
 			}

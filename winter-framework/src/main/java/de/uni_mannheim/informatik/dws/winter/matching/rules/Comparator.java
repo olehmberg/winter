@@ -85,5 +85,12 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 	default void setComparisonLog(ComparatorLogger comparatorLog) 
 	{
 	}
-
+	
+	/**
+	 * Return the comparator's name
+	 */
+	default String getName(Correspondence<SchemaElementType, Matchable> schemaCorrespondence) 
+	{
+		return this.getClass().getSimpleName();
+	}
 }
