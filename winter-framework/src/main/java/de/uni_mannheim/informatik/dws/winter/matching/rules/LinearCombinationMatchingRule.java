@@ -240,7 +240,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public FeatureVectorDataSet initialiseFeatures() {
+	public FeatureVectorDataSet initialiseFeatures(RecordType record1, RecordType record2, Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences) {
 		FeatureVectorDataSet features = new FeatureVectorDataSet();
 		
 		for (int i = 0; i < comparators.size(); i++) {

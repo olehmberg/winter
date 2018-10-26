@@ -24,7 +24,13 @@ public class TypeConverterTest extends TestCase {
         TypeConverter tc = new TypeConverter();
 
         assertEquals(1.0,tc.typeValue("1", DataType.numeric, null));
-
+        
+        assertEquals("1936-01-01T00:00", tc.typeValue("1936-01-01", DataType.date, null).toString());
+        assertEquals("1936-11-30T00:00", tc.typeValue("+1936-11-30T00:00:00Z", DataType.date, null).toString());
+        
+        assertEquals("1939-05-05T00:00", tc.typeValue("1939-5-5", DataType.date, null).toString());
+        assertEquals("1939-01-01T00:00", tc.typeValue("1939", DataType.date, null).toString());
+        
         String value = "1.5 million";
         assertEquals(1500000.0,tc.typeValue(value, DataType.numeric, UnitParser.checkUnit(value)));
 
