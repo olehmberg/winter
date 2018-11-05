@@ -1,47 +1,58 @@
 package de.uni_mannheim.informatik.dws.winter.matching.rules;
 
-import java.io.Serializable;
+import java.util.concurrent.ConcurrentHashMap;
 
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 
-public class ComparatorLogger extends Record implements Serializable {
+/**
+ * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
+ *
+ *	Logs the comparison logs per comparator and per thread if logging is activated.
+ *
+ */
+public class ComparatorLogger {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	public ComparatorLogger(String identifier) {
-		super(identifier);
+	private ConcurrentHashMap<Long,Record> comparatatorLogPerThread = new ConcurrentHashMap<Long, Record>();
+	
+	public void initialise(){
+		 Thread currThread = Thread.currentThread();
+		 comparatatorLogPerThread.put(currThread.getId(), new Record(Long.toString(currThread.getId())));
 	}
 
 	public String getComparatorName() {
-		return this.getValue(COMPARATORNAME);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		return currRecord.getValue(COMPARATORNAME);
 	}
 
 	public void setComparatorName(String comparatorName) {
-		this.setValue(COMPARATORNAME, comparatorName);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(COMPARATORNAME, comparatorName);
 	}
 
 	public String getRecord1Value() {
-		return this.getValue(RECORD1VALUE);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		return currRecord.getValue(RECORD1VALUE);
 	}
 
 	public void setRecord1Value(String record1Value) {
-		this.setValue(RECORD1VALUE, record1Value);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(RECORD1VALUE, record1Value);
 	}
 
 	public String getRecord2Value() {
-		return this.getValue(RECORD2VALUE);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		return currRecord.getValue(RECORD2VALUE);
 	}
 
 	public void setRecord2Value(String record2Value) {
-		this.setValue(RECORD2VALUE, record2Value);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(RECORD2VALUE, record2Value);
 	}
 
 	public String getRecord1PreprocessedValue() {
-		String Record1PreprocessedValue = this.getValue(RECORD1PREPROCESSEDVALUE);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		String Record1PreprocessedValue = currRecord.getValue(RECORD1PREPROCESSEDVALUE);
 		if (Record1PreprocessedValue == null) {
 			return getRecord1Value();
 		}
@@ -49,11 +60,13 @@ public class ComparatorLogger extends Record implements Serializable {
 	}
 
 	public void setRecord1PreprocessedValue(String record1PreprocessedValue) {
-		this.setValue(RECORD1PREPROCESSEDVALUE, record1PreprocessedValue);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(RECORD1PREPROCESSEDVALUE, record1PreprocessedValue);
 	}
 
 	public String getRecord2PreprocessedValue() {
-		String Record2PreprocessedValue = this.getValue(RECORD2PREPROCESSEDVALUE);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		String Record2PreprocessedValue = currRecord.getValue(RECORD2PREPROCESSEDVALUE);
 		if (Record2PreprocessedValue == null) {
 			return getRecord2Value();
 		}
@@ -61,27 +74,37 @@ public class ComparatorLogger extends Record implements Serializable {
 	}
 
 	public void setRecord2PreprocessedValue(String record2PreprocessedValue) {
-		this.setValue(RECORD2PREPROCESSEDVALUE, record2PreprocessedValue);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(RECORD2PREPROCESSEDVALUE, record2PreprocessedValue);
 	}
 
 	public String getSimilarity() {
-		return this.getValue(SIMILARITY);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		return currRecord.getValue(SIMILARITY);
 	}
 
 	public void setSimilarity(String similarity) {
-		this.setValue(SIMILARITY, similarity);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(SIMILARITY, similarity);
 	}
 
 	public String getPostprocessedSimilarity() {
-		String postprocessedSimilarity = this.getValue(POSTPROCESSEDSIMILARITY);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		String postprocessedSimilarity = currRecord.getValue(POSTPROCESSEDSIMILARITY);
 		if (postprocessedSimilarity == null) {
 			return getSimilarity();
 		}
-		return this.getValue(POSTPROCESSEDSIMILARITY);
+		return postprocessedSimilarity;
 	}
 
 	public void setPostprocessedSimilarity(String postprocessedSimilarity) {
-		this.setValue(POSTPROCESSEDSIMILARITY, postprocessedSimilarity);
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		currRecord.setValue(POSTPROCESSEDSIMILARITY, postprocessedSimilarity);
+	}
+	
+	public String getValue(Attribute attribute) {
+		Record currRecord = comparatatorLogPerThread.get(Thread.currentThread().getId());
+		return currRecord.getValue(attribute);
 	}
 
 	public static final Attribute COMPARATORNAME = new Attribute("comparatorName");
@@ -95,7 +118,7 @@ public class ComparatorLogger extends Record implements Serializable {
 	public static final Attribute[] COMPARATORLOG = { COMPARATORNAME, RECORD1VALUE, RECORD2VALUE,
 			RECORD1PREPROCESSEDVALUE, RECORD2PREPROCESSEDVALUE, SIMILARITY, POSTPROCESSEDSIMILARITY };
 
-	@Override
+
 	public boolean hasValue(Attribute attribute) {
 		if (attribute == COMPARATORNAME)
 			return getComparatorName() != null && !getComparatorName().isEmpty();

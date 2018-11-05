@@ -177,7 +177,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator) {
 		comparators.add(comparator);
 		if (this.isDebugReportActive()) {
-			comparator.setComparisonLog(new ComparatorLogger(comparator.getClass().getName()));
+			comparator.setComparisonLog(new ComparatorLogger());
 			addComparatorToLog(comparator);
 		}
 	}
@@ -409,7 +409,10 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			if (schemaCorrespondences != null) {
 				schemaCorrespondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
 			}
-
+			
+			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+				comp.getComparisonLog().initialise();
+			}
 			double similarity = comp.compare(record1, record2, schemaCorrespondence);
 
 			String name = String.format("[%d] %s", i, comp.getName(schemaCorrespondence)).trim();
