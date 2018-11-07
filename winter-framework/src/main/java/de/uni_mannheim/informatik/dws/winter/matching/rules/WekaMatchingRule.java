@@ -410,7 +410,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				schemaCorrespondence = getCorrespondenceForComparator(schemaCorrespondences, record1, record2, comp);
 			}
 			
-			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+			if (this.isDebugReportActive()) {
 				comp.getComparisonLog().initialise();
 			}
 			double similarity = comp.compare(record1, record2, schemaCorrespondence);
