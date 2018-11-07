@@ -136,7 +136,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(
 					schemaCorrespondences, record1, record2, comp);
 			
-			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+			if (this.isDebugReportActive()) {
 				comp.getComparisonLog().initialise();
 			}
 			
