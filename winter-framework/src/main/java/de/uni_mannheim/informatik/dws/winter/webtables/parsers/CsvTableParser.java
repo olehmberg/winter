@@ -150,31 +150,34 @@ public class CsvTableParser extends TableParser {
 
 		// close CSV Reader
 		int[] emptyRowCount		=	getRowContentDetector().detectEmptyHeaderRows(tableContent, false);
+		if(emptyRowCount==null) emptyRowCount = new int[] {};
 		int[] headerRowCount 	= 	getTableHeaderDetector().detectTableHeader(tableContent, emptyRowCount);
 
 		int colIdx = 0;
 		// set the header, if possible
 		if (headerRowCount != null) {
 
-			for (String columnName : tableContent[headerRowCount[0]]) {
-				TableColumn c = new TableColumn(colIdx, table);
+			if(tableContent.length > headerRowCount[0]) {
+				for (String columnName : tableContent[headerRowCount[0]]) {
+					TableColumn c = new TableColumn(colIdx, table);
 
-				String header = columnName;
-				if (isCleanHeader()) {
-					header = this.getStringNormalizer().normaliseHeader(header);
+					String header = columnName;
+					if (isCleanHeader()) {
+						header = this.getStringNormalizer().normaliseHeader(header);
+					}
+					c.setHeader(header);
+
+					if (tm.getDataType(colIdx) != null) {
+						c.setDataType((DataType) tm.getDataType(colIdx));
+						typesAlreadyDetected = true;
+					} else {
+						c.setDataType(DataType.unknown);
+					}
+
+					table.addColumn(c);
+
+					colIdx++;
 				}
-				c.setHeader(header);
-
-				if (tm.getDataType(colIdx) != null) {
-					c.setDataType((DataType) tm.getDataType(colIdx));
-					typesAlreadyDetected = true;
-				} else {
-					c.setDataType(DataType.unknown);
-				}
-
-				table.addColumn(c);
-
-				colIdx++;
 			}
 
 		}

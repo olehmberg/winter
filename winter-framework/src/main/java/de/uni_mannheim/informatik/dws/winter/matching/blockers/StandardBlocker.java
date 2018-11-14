@@ -92,7 +92,15 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	public void setDeduplicatePairs(boolean deduplicatePairs) {
 		this.deduplicatePairs = deduplicatePairs;
 	}
-
+	
+	/**
+	 * Returns the blocking function
+	 * @return
+	 */
+	public BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> getBlockingFunction(){
+		return this.blockingFunction;
+	}
+	
 	public StandardBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction) {
 		this.blockingFunction = blockingFunction;
 		this.secondBlockingFunction = blockingFunction;

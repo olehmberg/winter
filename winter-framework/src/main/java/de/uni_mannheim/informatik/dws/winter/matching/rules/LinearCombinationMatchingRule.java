@@ -94,7 +94,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		if (weight > 0.0) {
 			comparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(comparator, weight));
 			if (this.isDebugReportActive()) {
-				comparator.setComparisonLog(new ComparatorLogger(comparator.getClass().getName()));
+				comparator.setComparisonLog(new ComparatorLogger());
 				addComparatorToLog(comparator);
 			}
 		} else {
@@ -135,7 +135,11 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 
 			Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(
 					schemaCorrespondences, record1, record2, comp);
-
+			
+			if (this.isDebugReportActive()) {
+				comp.getComparisonLog().initialise();
+			}
+			
 			double similarity = comp.compare(record1, record2, correspondence);
 			double weight = pair.getSecond();
 			sum += (similarity * weight);
@@ -240,7 +244,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	}
 
 	@Override
-	public FeatureVectorDataSet initialiseFeatures() {
+	public FeatureVectorDataSet initialiseFeatures(RecordType record1, RecordType record2, Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences) {
 		FeatureVectorDataSet features = new FeatureVectorDataSet();
 		
 		for (int i = 0; i < comparators.size(); i++) {

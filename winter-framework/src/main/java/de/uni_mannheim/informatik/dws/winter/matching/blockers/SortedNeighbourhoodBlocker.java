@@ -247,4 +247,8 @@ public class SortedNeighbourhoodBlocker<RecordType extends Matchable, SchemaElem
 		calculatePerformance(dataset1, dataset2, result);
 		return result;
 	}
+
+	public BlockingKeyGenerator<RecordType, CorrespondenceType, RecordType> getBlockingFunction() {
+		return blockingFunction;
+	}
 }

@@ -127,7 +127,7 @@ public class RuleLearner<RecordType extends Matchable, SchemaElementType extends
 			Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences) {
 		LocalDateTime start = LocalDateTime.now();
 
-		FeatureVectorDataSet result = rule.initialiseFeatures();
+		FeatureVectorDataSet result = rule.initialiseFeatures(dataset1.getRandomRecord(), dataset2.getRandomRecord(), schemaCorrespondences);
 
 		goldStandard.printBalanceReport();
 

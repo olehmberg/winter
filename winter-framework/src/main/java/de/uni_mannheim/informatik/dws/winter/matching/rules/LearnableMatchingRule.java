@@ -47,7 +47,7 @@ public interface LearnableMatchingRule<RecordType extends Matchable, SchemaEleme
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences,
 			FeatureVectorDataSet features);
 
-	FeatureVectorDataSet initialiseFeatures();
+	FeatureVectorDataSet initialiseFeatures(RecordType record1, RecordType record2, Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences);
 
 	Performance learnParameters(FeatureVectorDataSet features);
 	

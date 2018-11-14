@@ -192,7 +192,11 @@ public class TypeGuesser implements TypeDetector {
 		
 		// majority vote for type
 //		Object type = MapUtils.max(typeCount);
-		Object type = Q.max(typeVotes, (p)->p.getSecond()).getFirst();
+		Pair<Object, Integer> maxPair = Q.max(typeVotes, (p) -> p.getSecond());
+		Object type = null;
+		if(maxPair!=null) {
+			type = maxPair.getFirst();
+		}
 		if (type == null) {
 			type = DataType.string;
 		}
