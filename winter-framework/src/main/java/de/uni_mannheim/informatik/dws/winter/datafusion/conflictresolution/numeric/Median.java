@@ -54,7 +54,7 @@ public class Median<RecordType extends Matchable & Fusible<SchemaElementType>, S
 
 			return new FusedValue<>((median1 + median2) / 2.0);
 		} else {
-			int middle = list.size() / 2;
+			int middle = (list.size() + 1) / 2;
 
 			return new FusedValue<>(list.get(middle - 1));
 		}
