@@ -83,9 +83,7 @@ public class GeneralisedStringJaccard extends SimilarityMeasure<String>  {
         }
         
         // run Set-based similarity function
-        GeneralisedJaccard<String> j = new GeneralisedJaccard<>();        
-        j.setInnerSimilarityThreshold(getInnerThreshold());
-        j.setInnerSimilarity(getInnerFunction());
+        GeneralisedJaccard<String> j = new GeneralisedJaccard<>(getInnerFunction(), getInnerThreshold());
         double sim = j.calculate(f, s);
         
         return sim >= getJaccardThreshold() ? sim : 0.0;
