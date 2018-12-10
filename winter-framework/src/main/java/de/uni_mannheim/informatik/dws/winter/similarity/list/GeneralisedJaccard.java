@@ -14,6 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.similarity.list;
 
 import de.uni_mannheim.informatik.dws.winter.matrices.SimilarityMatrix;
 import de.uni_mannheim.informatik.dws.winter.matrices.matcher.BestChoiceMatching;
+import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
 /**
  * Jaccard similarity with an inner similarity function for token comparisons.
@@ -21,9 +22,14 @@ import de.uni_mannheim.informatik.dws.winter.matrices.matcher.BestChoiceMatching
  *
  * @param <T>
  */
-public class GeneralisedJaccard<T extends Comparable<T>> extends ComplexSetSimilarity<T> {
+public class GeneralisedJaccard<T extends Comparable<? super T>> extends ComplexSetSimilarity<T> {
 
 	private static final long serialVersionUID = 1L;
+
+    public GeneralisedJaccard(SimilarityMeasure<T> innerSimilarity, double innerSimilarityThreshold) {
+		setInnerSimilarity(innerSimilarity);
+		setInnerSimilarityThreshold(innerSimilarityThreshold);
+	}
 
 	@Override
 	protected Double aggregateSimilarity(SimilarityMatrix<T> matrix) {
@@ -38,5 +44,4 @@ public class GeneralisedJaccard<T extends Comparable<T>> extends ComplexSetSimil
         
         return fuzzyMatching / (firstLength + secondLength - fuzzyMatching);
 	}
-
 }
