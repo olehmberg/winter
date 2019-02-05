@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.preprocessing.datatypes;
 
 import java.text.ParseException;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Quantity;
 import de.uni_mannheim.informatik.dws.winter.preprocessing.units.Unit;

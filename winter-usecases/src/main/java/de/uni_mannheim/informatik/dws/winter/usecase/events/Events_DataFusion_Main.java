@@ -30,7 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import org.xml.sax.SAXException;
 
 //import de.uni_mannheim.informatik.dws.winter.usecase.events.model.EventFactory;

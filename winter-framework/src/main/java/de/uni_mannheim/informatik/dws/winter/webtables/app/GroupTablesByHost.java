@@ -24,7 +24,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
 

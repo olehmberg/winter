@@ -11,8 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching.blockers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.CorrespondenceAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.InstanceBasedSchemaMatchingAlgorithm;
@@ -24,6 +23,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.blocking.DefaultAttributeValueGenerator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import junit.framework.TestCase;
 
@@ -33,7 +33,7 @@ import junit.framework.TestCase;
  */
 public class ValueBasedBlockerTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.matching.blockers.ValueBasedBlocker#runBlocking(de.uni_mannheim.informatik.dws.winter.model.DataSet, de.uni_mannheim.informatik.dws.winter.model.DataSet, de.uni_mannheim.informatik.dws.winter.processing.Processable)}.

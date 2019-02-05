@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LearnableMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;

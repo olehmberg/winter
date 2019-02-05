@@ -15,11 +15,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import org.junit.Test;
 
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table.ConflictHandling;
 import junit.framework.TestCase;
@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  */
  public class TableTest extends TestCase {
 	 
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	 
 	private Table getTestTable() {
 		
