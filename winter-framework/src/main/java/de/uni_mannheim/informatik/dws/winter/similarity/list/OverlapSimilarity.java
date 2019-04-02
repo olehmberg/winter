@@ -11,7 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.similarity.list;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
@@ -29,19 +31,26 @@ public class OverlapSimilarity extends SimilarityMeasure<List<String>> {
 	@Override
 	public double calculate(List<String> first, List<String> second) {
 
-		int min = Math.min(first.size(), second.size());
+		Set<String> firstSet = new HashSet<>(first);
+		Set<String> secondSet = new HashSet<>(second);
+
+		int min = Math.min(firstSet.size(), secondSet.size());
 		int matches = 0;
 
-		for (String s1 : first) {
-			for (String s2 : second) {
-				if (s1.equals(s2)) {
-					matches++;
-					continue;
+		if(min==0) {
+			return 1.0;
+		} else {
+			for (String s1 : firstSet) {
+				for (String s2 : secondSet) {
+					if (s1.equals(s2)) {
+						matches++;
+						continue;
+					}
 				}
 			}
-		}
 
-		return (double) matches / (double) min;
+			return (double) matches / (double) min;
+		}
 	}
 
 }

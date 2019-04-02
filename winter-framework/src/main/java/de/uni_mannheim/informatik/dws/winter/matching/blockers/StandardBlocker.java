@@ -63,6 +63,9 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	private double blockFilterRatio = 1.0;
 	private int maxBlockPairSize = 0;
 	private boolean deduplicatePairs = true;
+	private boolean cacheBlocks = false;
+	private Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped1;
+	private Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped2;
 
 	private static final Logger logger = WinterLogManager.getLogger();
 	
@@ -100,7 +103,30 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 	public BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> getBlockingFunction(){
 		return this.blockingFunction;
 	}
-	
+
+	/**
+	 * Specifies that blocks should be cached. The cache can be cleared with the resetCache() method.
+	 * 
+	 * @param cacheBlocks the cacheBlocks to set
+	 */
+	public void setCacheBlocks(boolean cacheBlocks) {
+		this.cacheBlocks = cacheBlocks;
+	}
+
+	/**
+	 * Resets the cache if cacheBlocks == true
+	 * @param dataset1 if true, resets the cache for the first dataset
+	 * @param dataset2 if true, resets the cache for the second dataset
+	 */
+	public void resetCache(boolean dataset1, boolean dataset2) {
+		if(dataset1) {
+			grouped1 = null;
+		}
+		if(dataset2) {
+			grouped2 = null;
+		}
+	}
+
 	public StandardBlocker(BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction) {
 		this.blockingFunction = blockingFunction;
 		this.secondBlockingFunction = blockingFunction;
@@ -139,56 +165,69 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
 			Processable<Correspondence<CorrespondenceType, Matchable>> schemaCorrespondences) {
 
-		// combine the datasets with the schema correspondences
-		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds1 = combineDataWithCorrespondences(
-				dataset1, schemaCorrespondences,
-				(r, c) -> c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(), r)));
-		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds2 = combineDataWithCorrespondences(
+		// Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped1 = this.grouped1;
+		// Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped2 = this.grouped2;
+
+		if(!cacheBlocks || grouped1==null) {
+			logger.trace(String.format("Creating blocking key values for dataset1: %d records", dataset1.size()));
+
+			// combine the datasets with the schema correspondences
+			Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds1 = combineDataWithCorrespondences(
+					dataset1, schemaCorrespondences,
+					(r, c) -> c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(), r)));
+			
+
+			// if we group the records by blocking key, we can obtain duplicates for
+			// BlockedType if it is different from RecordType and multiple records
+			// generated the same blocking key for BlockedType
+			// so we aggregate the results to get a unique set of BlockedType
+			// elements (using the DistributionAggregator)
+
+			// create the blocking keys for the first data set
+			// results in pairs of [blocking key], distribution of correspondences
+			grouped1 = ds1
+					.aggregate(blockingFunction,
+							new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
+
+								private static final long serialVersionUID = 1L;
+
+								@Override
+								public Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> getInnerKey(
+										Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> record) {
+									// change the pairs such that they are
+									// considered equal if the first element is
+									// equal (ignoring the second element)
+									return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
+								}
+
+							});
+		}
+
+		if(!cacheBlocks || grouped2==null) {
+			logger.trace(String.format("Creating blocking key values for dataset2: %d records", dataset2.size()));
+
+			// combine the datasets with the schema correspondences
+			Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds2 = combineDataWithCorrespondences(
 				dataset2, schemaCorrespondences,
 				(r, c) -> c.next(new Pair<>(r.getSecondRecord().getDataSourceIdentifier(), r)));
+			// create the blocking keys for the second data set
+			grouped2 = ds2
+					.aggregate(secondBlockingFunction,
+							new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
 
-		// if we group the records by blocking key, we can obtain duplicates for
-		// BlockedType if it is different from RecordType and multiple records
-		// generated the same blocking key for BlockedType
-		// so we aggregate the results to get a unique set of BlockedType
-		// elements (using the DistributionAggregator)
+								private static final long serialVersionUID = 1L;
 
-		// create the blocking keys for the first data set
-		// results in pairs of [blocking key], distribution of correspondences
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped1 = ds1
-				.aggregate(blockingFunction,
-						new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
+								@Override
+								public Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> getInnerKey(
+										Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> record) {
+									// change the pairs such that they are
+									// considered equal if the first element is
+									// equal (ignoring the second element)
+									return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
+								}
 
-							private static final long serialVersionUID = 1L;
-
-							@Override
-							public Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> getInnerKey(
-									Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> record) {
-								// change the pairs such that they are
-								// considered equal if the first element is
-								// equal (ignoring the second element)
-								return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
-							}
-
-						});
-
-		// create the blocking keys for the second data set
-		Processable<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>> grouped2 = ds2
-				.aggregate(secondBlockingFunction,
-						new DistributionAggregator<String, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>, Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>() {
-
-							private static final long serialVersionUID = 1L;
-
-							@Override
-							public Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> getInnerKey(
-									Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>> record) {
-								// change the pairs such that they are
-								// considered equal if the first element is
-								// equal (ignoring the second element)
-								return new LeftIdentityPair<>(record.getFirst(), record.getSecond());
-							}
-
-						});
+							});
+		}
 
 		if (this.isMeasureBlockSizes()) {
 			logger.info(String.format("created %d blocking keys for first dataset", grouped1.size()));
@@ -196,6 +235,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		}
 
 		// join the datasets via their blocking keys
+		logger.trace(String.format("Joining blocking key values: %d x %d blocks", grouped1.size(), grouped2.size()));
 		Processable<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>> blockedData = grouped1
 				.join(grouped2, new PairFirstJoinKeyGenerator<>());
 
@@ -294,6 +334,7 @@ public class StandardBlocker<RecordType extends Matchable, SchemaElementType ext
 		}
 
 		// transform the blocks into pairs of records
+		logger.trace(String.format("Creating candidate record pairs from %d blocks", blockedData.size()));
 		Processable<Correspondence<BlockedType, CorrespondenceType>> result = blockedData.map(
 				new RecordMapper<Pair<Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>, Pair<String, Distribution<Pair<BlockedType, Processable<Correspondence<CorrespondenceType, Matchable>>>>>>, Correspondence<BlockedType, CorrespondenceType>>() {
 					private static final long serialVersionUID = 1L;
