@@ -11,8 +11,11 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,15 +26,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// import de.hpi.isg.pyro.algorithms.Pyro;
 import de.metanome.algorithm_integration.AlgorithmExecutionException;
 import de.metanome.algorithm_integration.ColumnIdentifier;
 import de.metanome.algorithm_integration.input.RelationalInputGenerator;
 import de.metanome.algorithm_integration.result_receiver.ColumnNameMismatchException;
 import de.metanome.algorithm_integration.result_receiver.CouldNotReceiveResultException;
 import de.metanome.algorithm_integration.result_receiver.FunctionalDependencyResultReceiver;
+// import de.metanome.algorithm_integration.result_receiver.UniqueColumnCombinationResultReceiver;
 import de.metanome.algorithm_integration.results.FunctionalDependency;
+// import de.metanome.algorithm_integration.results.UniqueColumnCombination;
 import de.metanome.algorithms.hyfd.HyFD;
-import de.metanome.algorithms.tane.TaneAlgorithm;
+// import de.metanome.algorithms.tane.TaneAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.utils.StringUtils;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -217,102 +223,149 @@ public class FunctionalDependencyDiscovery {
 
 	}
 
-public static void calculateApproximateFunctionalDependencies(Collection<Table> tables, File csvLocation, double errorThreshold) throws Exception {
-		PrintStream tmp = new PrintStream(new File("TANE.out"));
-		final PrintStream out = System.out;
-		
-		try {
-			// calculate functional dependencies
-			CSVTableWriter csvWriter = new CSVTableWriter();
-			for(Table t : tables) {
-				out.println(String.format("[calculateApproximateFunctionalDependencies] calculating functional dependencies for table #%d %s {%s}", 
-						t.getTableId(),
-						t.getPath(),
-						StringUtils.join(Q.project(t.getColumns(), new TableColumn.ColumnHeaderProjection()), ",")));
-				
-				File tableAsCsv = csvWriter.write(t, new File(csvLocation, t.getPath()));
-				
-				System.setOut(tmp);
-				
-				Map<Set<TableColumn>, Set<TableColumn>> fds = calculateApproximateFunctionalDependencies(t, tableAsCsv, errorThreshold);
-				t.getSchema().setFunctionalDependencies(fds);
-				Set<Set<TableColumn>> candidateKeys = listCandidateKeys(t);
-				
-				
-				
-				if(candidateKeys.size()==0) {
-					candidateKeys.add(new HashSet<>(t.getColumns()));
-				}
-				t.getSchema().setCandidateKeys(candidateKeys);
-			}
-		} catch(AlgorithmExecutionException e) {
-			throw new Exception(e.getMessage());
-		} finally {
-			System.setOut(out);
-		}
-		
-	}
+	public static File taneRoot = null;
 
-	public static Map<Set<TableColumn>, Set<TableColumn>> calculateApproximateFunctionalDependencies(final Table t, File tableAsCsv, double errorThreshold) throws Exception {
-		TaneAlgorithm tane = new TaneAlgorithm();
-		tane.setErrorThreshold(errorThreshold);
-		
-		final Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies = new HashMap<>();
-		
-		try {
-			RelationalInputGenerator input = new WebTableFileInputGenerator(tableAsCsv);
-			tane.setRelationalInputConfigurationValue(TaneAlgorithm.INPUT_TAG, input);
-			tane.setResultReceiver(new FunctionalDependencyResultReceiver() {
-				
-				@Override
-				public void receiveResult(FunctionalDependency arg0)
-						throws CouldNotReceiveResultException, ColumnNameMismatchException {
-					
-					synchronized (this) {
-						
-					
+	public static void calculateApproximateFunctionalDependencies(Collection<Table> tables, File csvLocation, double errorThreshold) throws Exception {
+		CSVTableWriter csvWriter = new CSVTableWriter();
+		File taneDataLocation = new File(taneRoot, "original");
+		File taneDescriptionLocation = new File(taneRoot, "descriptions");
+		// File taneExec = new File(taneLocation, "bin/taneg3");
+		// File tanePrepare = new File(taneLocation, "bin/select.perl");
+		for(Table t : tables) {
+			System.out.println(String.format("[calculateApproximateFunctionalDependencies] calculating functional dependencies for table #%d %s {%s}", 
+					t.getTableId(),
+					t.getPath(),
+					StringUtils.join(Q.project(t.getColumns(), new TableColumn.ColumnHeaderProjection()), ",")));
+
+			// write file
+			// File tableAsCsv = csvWriter.write(t, new File(taneDataLocation, t.getPath()));
+			File tableAsCsv = new File(taneDataLocation, t.getPath());
+			BufferedWriter w = new BufferedWriter(new FileWriter(tableAsCsv));
+			for(TableRow r : t.getRows()) {
+				Object[] values = r.getValueArray();
+				for(int i = 0; i < values.length; i++) {
+					Object o = values[i];
+					if(i>0) {
+						w.write(",");
+					}
+					if(o!=null) {
+						w.write(o.toString().replace(",", ""));
+					}
+				}
+				w.write("\n");
+			}
+			w.close();
+
+			// write description
+			String descriptionFileName = t.getPath() + ".dsc";
+			File description = new File(taneDescriptionLocation, descriptionFileName);
+			w = new BufferedWriter(new FileWriter(description));
+			w.write("Umask = 007\n");
+			w.write(String.format("DataIn = ../original/%s\n", tableAsCsv.getName()));
+			w.write("RemoveDuplicates = OFF\nAttributesOut = $BASENAME.atr\nStandardOut = ../data/$BASENAME.dat\nSavnikFlachOut = ../data/$BASENAME.rel\nNOOFDUPLICATES=1\n");
+			w.close();
+
+			// prepare dataset
+			String cmd = "../bin/select.perl ../descriptions/" + descriptionFileName;
+			System.out.println(String.format("%s$ %s", taneDataLocation.getAbsolutePath(), cmd));
+			Process p = Runtime.getRuntime().exec(cmd, null, taneDataLocation);
+			String line = null;
+			BufferedReader r = null;
+			r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while((line = r.readLine()) != null) {
+				System.out.println(line);
+			}
+			r.close();
+			r = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			while((line = r.readLine()) != null) {
+				System.out.println(line);
+			}
+			r.close();
+			
+			// run tane
+			String nameWithoutExtension = t.getPath().replaceAll("\\..{3,4}$", "");
+			File dataLocation = new File(taneRoot, "data/" + nameWithoutExtension + ".dat");
+			cmd = String.format("./bin/taneg3 11 %d %d %s %f", t.getRows().size(), t.getColumns().size(), dataLocation.getAbsolutePath(), errorThreshold);
+			System.out.println(String.format("%s$ %s", taneRoot.getAbsolutePath(), cmd));
+			p = Runtime.getRuntime().exec(cmd, null, taneRoot);
+
+			Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies = new HashMap<>();
+			Set<Set<TableColumn>> keys = new HashSet<>();
+			r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			while((line = r.readLine()) != null) {
+				System.out.println(line);
+				// FDs lines always start with a number or ->
+				String[] values = line.split("\\s");
+				boolean isFdLine = false;
+
+				if(line.startsWith("->")) {
+					isFdLine = true;
+				} else {
+					try {
+						Integer.parseInt(values[0]);
+						isFdLine = true;
+					} catch(NumberFormatException ex) { isFdLine = false; }
+				}
+
+				if(isFdLine) {
 					Set<TableColumn> det = new HashSet<>();
-					
-					// identify determinant
-					for(ColumnIdentifier ci : arg0.getDeterminant().getColumnIdentifiers()) {						    		
-						Integer colIdx = Integer.parseInt(ci.getColumnIdentifier());
-				
-						det.add(t.getSchema().get(colIdx));
+					TableColumn dep = null;
+
+					boolean depStart = false;
+					for(int i = 0; i < values.length; i++) {
+						if(depStart) {
+							int idx = Integer.parseInt(values[i]) - 1;
+							dep = t.getSchema().get(idx);
+							break;
+						} else {
+							if("->".equals(values[i])) {
+								depStart = true;
+							} else {
+								int idx = Integer.parseInt(values[i]) - 1;
+								det.add(t.getSchema().get(idx));
+							}
+						}
 					}
 
-					// add dependant
-					Set<TableColumn> dep = null;
+					Set<TableColumn> mergedDep = null;
 					// check if we already have a dependency with the same determinant
 					if(functionalDependencies.containsKey(det)) {
 						// if so, we add the dependent to the existing dependency
-						dep = functionalDependencies.get(det);
+						mergedDep = functionalDependencies.get(det);
 					} 
-					if(dep==null) {
+					if(mergedDep==null) {
 						// otherwise, we create a new dependency
-						dep = new HashSet<>();
-						functionalDependencies.put(det, dep);
+						mergedDep = new HashSet<>();
+						functionalDependencies.put(det, mergedDep);
 					}
-					Integer colIdx = Integer.parseInt(arg0.getDependant().getColumnIdentifier());
-					dep.add(t.getSchema().get(colIdx));
+					mergedDep.add(dep);
 					
+					System.out.println(String.format("{%s}->{%s}",
+						StringUtils.join(Q.project(det, (c)->c.getHeader()), ","),
+						StringUtils.join(Q.project(mergedDep, (c)->c.getHeader()), ",")
+					));
+
+					if(line.contains("key")) {
+						keys.add(det);
 					}
 				}
-				
-				@Override
-				public Boolean acceptedResult(FunctionalDependency arg0) {
-					return true;
-				}
-			});
+			}
+			r.close();
+			r = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			while((line = r.readLine()) != null) {
+				System.out.println(line);
+			}
+			r.close();
 			
-			tane.execute();
-		} catch(AlgorithmExecutionException e) {
-			throw new Exception(e.getMessage());
+			t.getSchema().setFunctionalDependencies(functionalDependencies);
+			t.getSchema().setCandidateKeys(keys);
 		}
-		
-		return functionalDependencies;
+	}
+	public static Map<Set<TableColumn>, Set<TableColumn>> calculateFunctionalDependencies(final Table t, File tableAsCsv) throws Exception {
+		return calculateFunctionalDependencies(t, tableAsCsv, null);
 	}
 
-public static Map<Set<TableColumn>, Set<TableColumn>> calculateFunctionalDependencies(final Table t, File tableAsCsv) throws Exception {
+	public static Map<Set<TableColumn>, Set<TableColumn>> calculateFunctionalDependencies(final Table t, File tableAsCsv, final Set<Pair<Set<TableColumn>, Set<TableColumn>>> fds) throws Exception {
 		HyFD dep = new HyFD();
 		dep.setBooleanConfigurationValue(HyFD.Identifier.VALIDATE_PARALLEL.name(), true);
 		final Map<Set<TableColumn>, Set<TableColumn>> functionalDependencies = new HashMap<>();
@@ -327,32 +380,32 @@ public static Map<Set<TableColumn>, Set<TableColumn>> calculateFunctionalDepende
 						throws CouldNotReceiveResultException, ColumnNameMismatchException {
 					
 					synchronized (this) {
+						Set<TableColumn> det = new HashSet<>();
 						
+						// identify determinant
+						for(ColumnIdentifier ci : arg0.getDeterminant().getColumnIdentifiers()) {						    		
+							Integer colIdx = Integer.parseInt(ci.getColumnIdentifier());
 					
-					Set<TableColumn> det = new HashSet<>();
-					
-					// identify determinant
-					for(ColumnIdentifier ci : arg0.getDeterminant().getColumnIdentifiers()) {						    		
-						Integer colIdx = Integer.parseInt(ci.getColumnIdentifier());
-				
-						det.add(t.getSchema().get(colIdx));
-					}
+							det.add(t.getSchema().get(colIdx));
+						}
 
-					// add dependant
-					Set<TableColumn> dep = null;
-					// check if we already have a dependency with the same determinant
-					if(functionalDependencies.containsKey(det)) {
-						// if so, we add the dependent to the existing dependency
-						dep = functionalDependencies.get(det);
-					} 
-					if(dep==null) {
-						// otherwise, we create a new dependency
-						dep = new HashSet<>();
-						functionalDependencies.put(det, dep);
-					}
-					Integer colIdx = Integer.parseInt(arg0.getDependant().getColumnIdentifier());
-					dep.add(t.getSchema().get(colIdx));
-					
+						// add dependant
+						Set<TableColumn> dep = null;
+						// check if we already have a dependency with the same determinant
+						if(functionalDependencies.containsKey(det)) {
+							// if so, we add the dependent to the existing dependency
+							dep = functionalDependencies.get(det);
+						} 
+						if(dep==null) {
+							// otherwise, we create a new dependency
+							dep = new HashSet<>();
+							functionalDependencies.put(det, dep);
+						}
+						Integer colIdx = Integer.parseInt(arg0.getDependant().getColumnIdentifier());
+						dep.add(t.getSchema().get(colIdx));
+						if(fds!=null) {
+							fds.add(new Pair<>(det, dep));
+						}
 					}
 				}
 				
