@@ -217,8 +217,8 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		int position = (this.comparatorLog.getSchema().size() - 4) / ComparatorLogger.COMPARATORLOG.length;
 
 		for (Attribute att : ComparatorLogger.COMPARATORLOG) {
-			String schemaIdentifier = Integer.toString(position) + '-' + comparator.getClass().getSimpleName() + '-'
-					+ att.getIdentifier();
+			String schemaIdentifier = String.format("[%d] %s %s", position, comparator.getName(null).trim(), att.getIdentifier());
+			
 			Attribute schemaAttribute = new Attribute(schemaIdentifier);
 			this.resultToComparatorLog.put(schemaAttribute, att);
 			this.comparatorToResultLog.put(schemaIdentifier, schemaAttribute);
@@ -271,8 +271,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		ComparatorLogger compLog = comparator.getComparisonLog();
 		if (compLog != null) {
 			for (Attribute att : ComparatorLogger.COMPARATORLOG) {
-				String identifier = Integer.toString(position) + '-' + comparator.getClass().getSimpleName() + '-'
-						+ att.getIdentifier();
+				String identifier = String.format("[%d] %s %s", position, comparator.getName(null).trim(), att.getIdentifier());
 				Attribute schemaAtt = comparatorToResultLog.get(identifier);
 
 				if (att == ComparatorLogger.RECORD1PREPROCESSEDVALUE) {
