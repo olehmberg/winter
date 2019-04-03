@@ -317,10 +317,10 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 				}
 				if(goldStandardForDebug!=null) {
 					RecordType fusedInGs = null;
-					for(RecordType inputRecord : group.getRecords()) {
-						fusedInGs = goldStandardForDebug.getRecord(inputRecord.getIdentifier());
-						if(fusedInGs!=null) {
-							break;
+					for (RecordType recordGs : goldStandardForDebug.get()) {
+						if(recordGs.getIdentifier().equals(fusedRecord.getIdentifier())){
+								fusedInGs = recordGs;
+								break;
 						}
 					}
 					if(fusedInGs!=null) {
