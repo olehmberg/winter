@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 /**
  * This class can be used to log and observe the progress of a method.

@@ -11,9 +11,9 @@
  */
 package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema;
 import junit.framework.TestCase;
 
@@ -23,7 +23,7 @@ import junit.framework.TestCase;
  */
 public class JsonTableSchemaTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.parsers.JsonTableSchema#transposeRelation()}.
