@@ -11,7 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKCorrespondencesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;

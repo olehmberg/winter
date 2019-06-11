@@ -1,6 +1,6 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.events.dataanalysis;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;

@@ -11,12 +11,16 @@
  */
 package de.uni_mannheim.informatik.dws.winter.matching;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -32,10 +36,9 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
- * @param <RecordType>
- *            the type of records between which the correspondences exist
- * @param <SchemaElementType>
- *            the type of the causal correspondences
+ * @param <RecordType> the type of records between which the correspondences
+ *        exist
+ * @param <SchemaElementType> the type of the causal correspondences
  */
 public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType extends Matchable> {
 
@@ -47,10 +50,8 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 	/**
 	 * Evaluates the given correspondences against the gold standard
 	 * 
-	 * @param correspondences
-	 *            the correspondences to evaluate
-	 * @param goldStandard
-	 *            the gold standard
+	 * @param correspondences the correspondences to evaluate
+	 * @param goldStandard    the gold standard
 	 * @return the result of the evaluation
 	 */
 	public Performance evaluateMatching(Processable<Correspondence<RecordType, SchemaElementType>> correspondences,
@@ -61,10 +62,8 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 	/**
 	 * Evaluates the given correspondences against the gold standard
 	 * 
-	 * @param correspondences
-	 *            the correspondences to evaluate
-	 * @param goldStandard
-	 *            the gold standard
+	 * @param correspondences the correspondences to evaluate
+	 * @param goldStandard    the gold standard
 	 * @return the result of the evaluation
 	 */
 	public Performance evaluateMatching(Collection<Correspondence<RecordType, SchemaElementType>> correspondences,
@@ -114,6 +113,59 @@ public class MatchingEvaluator<RecordType extends Matchable, SchemaElementType e
 		}
 
 		return new Performance(correct, matched, correct_max);
+	}
+
+	public void writeEvaluation(File f, Processable<Correspondence<RecordType, SchemaElementType>> correspondences,
+		MatchingGoldStandard goldStandard) throws IOException {
+			writeEvaluation(f, correspondences.get(), goldStandard);
+	}
+
+	public void writeEvaluation(File f, Collection<Correspondence<RecordType, SchemaElementType>> correspondences,
+			MatchingGoldStandard goldStandard) throws IOException {
+		BufferedWriter w = new BufferedWriter(new FileWriter(f));
+
+		// keep a list of all unmatched positives for later output
+		List<Pair<String, String>> positives = new ArrayList<>(goldStandard.getPositiveExamples());
+
+		for (Correspondence<RecordType, SchemaElementType> correspondence : correspondences) {
+			if (goldStandard.containsPositive(correspondence.getFirstRecord(), correspondence.getSecondRecord())) {
+				w.write(String.format("%s,%s,%s,%b\n", 
+					correspondence.getFirstRecord().getIdentifier(),
+					correspondence.getSecondRecord().getIdentifier(),
+					Double.toString(correspondence.getSimilarityScore()),
+					true));
+
+				// remove pair from positives
+				Iterator<Pair<String, String>> it = positives.iterator();
+				while (it.hasNext()) {
+					Pair<String, String> p = it.next();
+					String id1 = correspondence.getFirstRecord().getIdentifier();
+					String id2 = correspondence.getSecondRecord().getIdentifier();
+
+					if (p.getFirst().equals(id1) && p.getSecond().equals(id2)
+							|| p.getFirst().equals(id2) && p.getSecond().equals(id1)) {
+						it.remove();
+					}
+				}
+			} else if (goldStandard.isComplete() || goldStandard.containsNegative(correspondence.getFirstRecord(),
+					correspondence.getSecondRecord())) {
+				w.write(String.format("%s,%s,%s,%b\n", 
+					correspondence.getFirstRecord().getIdentifier(),
+					correspondence.getSecondRecord().getIdentifier(),
+					Double.toString(correspondence.getSimilarityScore()),
+					false));
+
+			}
+		}
+
+		// print all missing positive examples
+		for (Pair<String, String> p : positives) {
+			w.write(String.format("%s,%s,0.0,missing\n", 
+					p.getFirst(),
+					p.getSecond()));
+		}
+
+		w.close();
 	}
 
 }

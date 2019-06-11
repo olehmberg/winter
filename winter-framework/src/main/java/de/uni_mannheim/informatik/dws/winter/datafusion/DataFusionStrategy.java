@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -317,10 +317,10 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 				}
 				if(goldStandardForDebug!=null) {
 					RecordType fusedInGs = null;
-					for(RecordType inputRecord : group.getRecords()) {
-						fusedInGs = goldStandardForDebug.getRecord(inputRecord.getIdentifier());
-						if(fusedInGs!=null) {
-							break;
+					for (RecordType recordGs : goldStandardForDebug.get()) {
+						if(recordGs.getIdentifier().equals(fusedRecord.getIdentifier())){
+								fusedInGs = recordGs;
+								break;
 						}
 					}
 					if(fusedInGs!=null) {

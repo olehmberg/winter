@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.interfaces.MatchingAlgorithm.Matching;
 import org.jgrapht.alg.matching.MaximumWeightBipartiteMatching;

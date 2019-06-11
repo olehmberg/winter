@@ -4,7 +4,7 @@
 
   <groupId>de.uni_mannheim.informatik.dws.winter</groupId>
   <artifactId>metanome_integration</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>metanome_integration</name>
@@ -43,13 +43,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>de.uni_mannheim.informatik.dws</groupId>
       <artifactId>winter</artifactId>
-      <version>1.3</version>
+      <version>1.3.2</version>
     </dependency>
 		<dependency>
 			<!-- use this option when building: -Xss10M -->
@@ -62,11 +62,6 @@
 			<artifactId>algorithm_integration</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
-    <dependency>
-      <groupId>de.metanome.algorithms.tane</groupId>
-      <artifactId>TANE-approximate</artifactId>
-      <version>1.0</version>
-    </dependency>
     <dependency>
 			<groupId>de.metanome.algorithms.hyfd</groupId>
 			<artifactId>HyFD</artifactId>

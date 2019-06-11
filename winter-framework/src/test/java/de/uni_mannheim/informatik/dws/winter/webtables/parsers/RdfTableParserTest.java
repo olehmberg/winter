@@ -12,10 +12,9 @@
 package de.uni_mannheim.informatik.dws.winter.webtables.parsers;
 
 import java.io.File;
+import org.slf4j.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.webtables.Table;
 import de.uni_mannheim.informatik.dws.winter.webtables.TableRow;
 import junit.framework.TestCase;
@@ -26,7 +25,7 @@ import junit.framework.TestCase;
  */
 public class RdfTableParserTest extends TestCase {
 	
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = WinterLogManager.getLogger();
 	
 	/**
 	 * Test method for {@link de.uni_mannheim.informatik.dws.winter.webtables.parsers.RdfTableParser#parseTable(java.io.File)}.

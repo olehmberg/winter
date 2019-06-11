@@ -11,8 +11,8 @@
  */
 package de.uni_mannheim.informatik.dws.winter.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Logging class for the winter framework based on log4j2.
@@ -38,7 +38,7 @@ public class WinterLogManager {
 	 */
 	public static Logger getLogger() {
 		if (WinterLogManager.logger == null) {
-			WinterLogManager.logger = LogManager.getRootLogger();
+			WinterLogManager.logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 		}
 		return WinterLogManager.logger;
 	}
@@ -52,7 +52,7 @@ public class WinterLogManager {
 			WinterLogManager.setLogger(null);
 		}
 		else{
-			setLogger(LogManager.getLogger(name));
+			setLogger(LoggerFactory.getLogger(name));
 		}
 		return getLogger();
 	}
@@ -62,7 +62,7 @@ public class WinterLogManager {
 	 * @return  explicitly defined logger.
 	 */
 	public static Logger getLogger(String name) {
-		return LogManager.getLogger(name);
+		return LoggerFactory.getLogger(name);
 	}
 	
 	/**

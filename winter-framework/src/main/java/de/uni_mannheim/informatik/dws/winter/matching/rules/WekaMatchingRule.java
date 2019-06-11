@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -68,6 +68,7 @@ import weka.core.Utils;
 import weka.core.pmml.PMMLFactory;
 import weka.filters.Filter;
 import weka.filters.supervised.instance.Resample;
+import weka.filters.unsupervised.attribute.Remove;
 
 /**
  * Class that creates and applies a matching Rule based on supervised learning
@@ -477,7 +478,11 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 			// reduce dimensions if feature subset selection was applied before.
 			if ((this.backwardSelection || this.forwardSelection) && this.fs != null)
 				try {
-					matchInstances = this.fs.reduceDimensionality(matchInstances);
+					Remove removeFilter = new Remove();
+					removeFilter.setAttributeIndicesArray(this.fs.selectedAttributes());
+					removeFilter.setInvertSelection(true);
+					removeFilter.setInputFormat(matchInstances);
+					matchInstances = Filter.useFilter(matchInstances, removeFilter);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -492,6 +497,7 @@ public class WekaMatchingRule<RecordType extends Matchable, SchemaElementType ex
 				return new Correspondence<RecordType, SchemaElementType>(record1, record2, matchConfidence,
 						schemaCorrespondences);
 
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(String.format("Classifier Exception for Record '%s': %s",

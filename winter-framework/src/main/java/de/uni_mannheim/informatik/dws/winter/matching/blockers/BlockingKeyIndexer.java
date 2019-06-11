@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -35,6 +35,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.RecordKeyValueMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.CountAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.SetAggregator;
 import de.uni_mannheim.informatik.dws.winter.processing.aggregators.SumDoubleAggregator;
+import de.uni_mannheim.informatik.dws.winter.processing.parallel.ParallelProcessableCollection;
 import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceSimilarity;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
@@ -121,14 +122,40 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		BinaryTermOccurrences, TermFrequencies, TFIDF
 	}
 
+	public enum DocumentFrequencyCounter {
+		Dataset1, Dataset2, Both, Preset
+	}
+
 	private VectorCreationMethod vectorCreationMethod;
 	private double similarityThreshold;
+	private DocumentFrequencyCounter documentFrequencyCounter = DocumentFrequencyCounter.Both;
+	private Processable<Pair<String, Double>> inverseDocumentFrequencies;
 
 	/**
 	 * @return the similarityFunction
 	 */
 	public VectorSpaceSimilarity getSimilarityFunction() {
 		return similarityFunction;
+	}
+
+	/**
+	 * @param documentFrequencyCounter the documentFrequencyCounter to set
+	 */
+	public void setDocumentFrequencyCounter(DocumentFrequencyCounter documentFrequencyCounter) {
+		this.documentFrequencyCounter = documentFrequencyCounter;
+	}
+
+	/**
+	 * @return the inverseDocumentFrequencies
+	 */
+	public Processable<Pair<String, Double>> getInverseDocumentFrequencies() {
+		return inverseDocumentFrequencies;
+	}
+	/**
+	 * @param inverseDocumentFrequencies the inverseDocumentFrequencies to set
+	 */
+	public void setInverseDocumentFrequencies(Processable<Pair<String, Double>> inverseDocumentFrequencies) {
+		this.inverseDocumentFrequencies = inverseDocumentFrequencies;
 	}
 
 	// public BlockingKeyIndexer(BlockingKeyGenerator<RecordType,
@@ -148,6 +175,32 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		this.similarityFunction = similarityFunction;
 		this.vectorCreationMethod = vectorCreationMethod;
 		this.similarityThreshold = similarityThreshold;
+	}
+
+	public Processable<Pair<String, Double>> calculateInverseDocumentFrequencies(
+		DataSet<RecordType, SchemaElementType> dataset, 
+		BlockingKeyGenerator<RecordType, CorrespondenceType, BlockedType> blockingFunction) {
+
+		DocumentFrequencyCounter documentFrequencyCounter = DocumentFrequencyCounter.Dataset1;
+
+		Processable<Pair<RecordType, Processable<Correspondence<CorrespondenceType, Matchable>>>> ds = combineDataWithCorrespondences(
+			dataset, null,
+			(r, c) -> c.next(new Pair<>(r.getFirstRecord().getDataSourceIdentifier(), r)));
+
+		logger.info("Creating blocking key value vectors");
+		Processable<Pair<BlockedType, BlockingVector>> vectors1 = createBlockingVectors(ds, blockingFunction);
+
+		logger.info("Creating inverted index");
+		Processable<Block> blocks1 = createInvertedIndex(vectors1);
+
+		logger.info("Calculating TFIDF vectors");
+		// update blocking key value vectors to TF-IDF weights
+
+		Processable<Pair<String, Double>> documentFrequencies = createDocumentFrequencies(blocks1, new ParallelProcessableCollection<Block>(), documentFrequencyCounter);
+		int documentCount = getDocumentCount(vectors1, new ParallelProcessableCollection<Pair<BlockedType, BlockingVector>>(), documentFrequencyCounter);
+		Processable<Pair<String, Double>> inverseDocumentFrequencies = createIDF(documentFrequencies, documentCount);
+
+		return inverseDocumentFrequencies;
 	}
 
 	/*
@@ -184,10 +237,17 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 		if (vectorCreationMethod == VectorCreationMethod.TFIDF) {
 			logger.info("Calculating TFIDF vectors");
 			// update blocking key value vectors to TF-IDF weights
-			Processable<Pair<String, Double>> documentFrequencies = createDocumentFrequencies(blocks1, blocks2);
-			int documentCount = vectors1.size() + vectors2.size();
-			vectors1 = createTFIDFVectors(vectors1, documentFrequencies, documentCount);
-			vectors2 = createTFIDFVectors(vectors2, documentFrequencies, documentCount);
+
+			if(documentFrequencyCounter!=DocumentFrequencyCounter.Preset || inverseDocumentFrequencies==null) {
+				Processable<Pair<String, Double>> documentFrequencies = createDocumentFrequencies(blocks1, blocks2, documentFrequencyCounter);
+				int documentCount = getDocumentCount(vectors1, vectors2, documentFrequencyCounter);
+				inverseDocumentFrequencies = createIDF(documentFrequencies, documentCount);
+			}
+
+			vectors1 = createTFIDFVectors(vectors1, inverseDocumentFrequencies);
+			vectors2 = createTFIDFVectors(vectors2, inverseDocumentFrequencies);
+			// vectors1 = createTFIDFVectors(vectors1, documentFrequencies, documentCount);
+			// vectors2 = createTFIDFVectors(vectors2, documentFrequencies, documentCount);
 		}
 
 		// create pairs (contains duplicates)
@@ -441,7 +501,7 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 	}
 
 	protected Processable<Pair<String, Double>> createDocumentFrequencies(Processable<Block> blocks1,
-			Processable<Block> blocks2) {
+			Processable<Block> blocks2, DocumentFrequencyCounter documentFrequencyCounter) {
 
 		// calculate document frequencies
 		Processable<Pair<String, Double>> df1 = blocks1
@@ -456,17 +516,47 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 					resultCollector.next(new Pair<>(record.getFirst(), (double) record.getSecond().size()));
 				});
 
-		return df1.append(df2)
-				.aggregate((Pair<String, Double> record, DataIterator<Pair<String, Double>> resultCollector) -> {
-					resultCollector.next(record);
-				}, new SumDoubleAggregator<>());
+		Processable<Pair<String, Double>> df = null;
+
+		switch(documentFrequencyCounter) {
+			case Dataset1:
+				df = df1;
+				break;
+			case Dataset2:
+				df = df2;
+				break;
+			default:
+				df = df1.append(df2);
+		}
+
+		return df
+			.aggregate((Pair<String, Double> record, DataIterator<Pair<String, Double>> resultCollector) -> {
+				resultCollector.next(record);
+			}, new SumDoubleAggregator<>());
+	}
+
+	protected int getDocumentCount(Processable<Pair<BlockedType, BlockingVector>> vectors1, Processable<Pair<BlockedType, BlockingVector>> vectors2, DocumentFrequencyCounter documentFrequencyCounter) {
+		switch(documentFrequencyCounter) {
+			case Dataset1:
+				return vectors1.size();
+			case Dataset2:
+				return vectors2.size();
+			default:
+				return vectors1.size() + vectors2.size();
+		}
+	}
+
+	protected Processable<Pair<String, Double>> createIDF(Processable<Pair<String, Double>> documentFrequencies, int documentCount) {
+		return documentFrequencies.map((f)->new Pair<String, Double>(f.getFirst(), Math.log(documentCount / f.getSecond())));
 	}
 
 	protected Processable<Pair<BlockedType, BlockingVector>> createTFIDFVectors(
 			Processable<Pair<BlockedType, BlockingVector>> vectors,
-			Processable<Pair<String, Double>> documentFrequencies, int documentCount) {
+			// Processable<Pair<String, Double>> documentFrequencies, int documentCount) {
+			Processable<Pair<String, Double>> inverseDocumentFrequencies) {
 
-		Map<String, Double> dfMap = Q.map(documentFrequencies.get(), (p) -> p.getFirst(), (p) -> p.getSecond());
+		// Map<String, Double> dfMap = Q.map(documentFrequencies.get(), (p) -> p.getFirst(), (p) -> p.getSecond());
+		Map<String, Double> idfMap = Q.map(inverseDocumentFrequencies.get(), (p) -> p.getFirst(), (p) -> p.getSecond());
 
 		return vectors.map((
 				Pair<BlockedType, BlockingKeyIndexer<RecordType, SchemaElementType, BlockedType, CorrespondenceType>.BlockingVector> record,
@@ -475,18 +565,16 @@ public class BlockingKeyIndexer<RecordType extends Matchable, SchemaElementType 
 			BlockingVector tfIdfVector = new BlockingVector();
 
 			for (String s : tfVector.keySet()) {
-				// Pair<Double, Processable<Correspondence<CorrespondenceType,
-				// Matchable>>> p = tfVector.get(s);
 				Double tfScore = tfVector.get(s);
-				;
 
-				double df = dfMap.get(s);
-				// double tfScore = p.getFirst();
-				double tfIdfScore = tfScore * Math.log(documentCount / df);
+				// double df = dfMap.get(s);
+				// double tfIdfScore = tfScore * Math.log(documentCount / df);
+				Double idf = idfMap.get(s);
+				if(idf==null) {
+					idf = 0.0;
+				}
+				double tfIdfScore = tfScore * idf;
 
-				// p = new Pair<Double,
-				// Processable<Correspondence<CorrespondenceType,Matchable>>>(tfIdfScore,
-				// p.getSecond());
 				tfIdfVector.put(s, tfIdfScore);
 			}
 

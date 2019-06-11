@@ -1,0 +1,133 @@
+[INFO ] 2019-02-05 17:24:03.615 [de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader] - Loading 4580 elements from academy_awards.xml
+[INFO ] 2019-02-05 17:24:03.817 [de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader] - Loading 151 elements from actors.xml
+[INFO ] 2019-02-05 17:24:03.826 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - The gold standard has 362 examples
+[INFO ] 2019-02-05 17:24:03.827 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - 	103 positive examples (28.45%)
+[INFO ] 2019-02-05 17:24:03.828 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - 	259 negative examples (71.55%)
+[WARN ] 2019-02-05 17:24:03.828 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - The gold standard contains duplicate negative examples!
+[WARN ] 2019-02-05 17:24:04.078 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - The gold standard is imbalanced!
+[INFO ] 2019-02-05 17:24:04.079 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner] - Starting GenerateFeatures
+[INFO ] 2019-02-05 17:24:04.293 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner] - GenerateFeatures finished after 0:00:00.217; created 335 examples.
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - 
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Results
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - 
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - 
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Correctly Classified Instances         333               99.403  %
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Incorrectly Classified Instances         2                0.597  %
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Kappa statistic                          0.986 
+[INFO ] 2019-02-05 17:24:05.889 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Mean absolute error                      0.0228
+[INFO ] 2019-02-05 17:24:05.890 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Root mean squared error                  0.0789
+[INFO ] 2019-02-05 17:24:05.890 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Relative absolute error                  5.355  %
+[INFO ] 2019-02-05 17:24:05.890 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Root relative squared error             17.1044 %
+[INFO ] 2019-02-05 17:24:05.890 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Total Number of Instances              335     
+[INFO ] 2019-02-05 17:24:05.896 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - === Detailed Accuracy By Class ===
+[INFO ] 2019-02-05 17:24:05.896 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - 
+[INFO ] 2019-02-05 17:24:05.896 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -                  TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+[INFO ] 2019-02-05 17:24:05.896 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -                  0.990    0.004    0.990      0.990    0.990      0.986    0.999     0.998     1
+[INFO ] 2019-02-05 17:24:05.896 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -                  0.996    0.010    0.996      0.996    0.996      0.986    0.999     1.000     0
+[INFO ] 2019-02-05 17:24:05.897 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - Weighted Avg.    0.994    0.008    0.994      0.994    0.994      0.986    0.999     0.999     
+[INFO ] 2019-02-05 17:24:05.897 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - === Confusion Matrix ===
+[INFO ] 2019-02-05 17:24:05.897 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] - 
+[INFO ] 2019-02-05 17:24:05.897 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -    a   b   <-- classified as
+[INFO ] 2019-02-05 17:24:05.897 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -  102   1 |   a = 1
+[INFO ] 2019-02-05 17:24:05.898 [de.uni_mannheim.informatik.dws.winter.matching.rules.WekaMatchingRule] -    1 231 |   b = 0
+[INFO ] 2019-02-05 17:24:05.929 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm] - Starting Identity Resolution
+[INFO ] 2019-02-05 17:24:05.929 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm] - Blocking 4,580 x 151 elements
+[INFO ] 2019-02-05 17:24:05.971 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - created 10 blocking keys for first dataset
+[INFO ] 2019-02-05 17:24:05.971 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - created 9 blocking keys for second dataset
+[INFO ] 2019-02-05 17:24:05.972 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - created 9 blocks from blocking keys
+[TRACE] 2019-02-05 17:24:05.973 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - Block size distribution:
+[TRACE] 2019-02-05 17:24:05.974 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - Frequency      Element
+1              180
+1              6552
+1              8220
+1              9234
+1              9595
+1              10659
+1              11380
+1              11487
+1              15600
+
+[TRACE] 2019-02-05 17:24:05.976 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - Blocking key values:
+[TRACE] 2019-02-05 17:24:05.976 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - BlockingKeyValue	Frequency
+[TRACE] 2019-02-05 17:24:05.977 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 194			15600
+[TRACE] 2019-02-05 17:24:05.977 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 196			11487
+[TRACE] 2019-02-05 17:24:05.977 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 195			11380
+[TRACE] 2019-02-05 17:24:05.977 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 199			10659
+[TRACE] 2019-02-05 17:24:05.978 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 198			9595
+[TRACE] 2019-02-05 17:24:05.978 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 197			9234
+[TRACE] 2019-02-05 17:24:05.978 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 193			8220
+[TRACE] 2019-02-05 17:24:05.978 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 200			6552
+[TRACE] 2019-02-05 17:24:05.978 [de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardBlocker] - 192			180
+[INFO ] 2019-02-05 17:24:06.517 [de.uni_mannheim.informatik.dws.winter.matching.blockers.AbstractBlocker] - Debug results written to file: usecase/movie/output/debugResultsBlocking.csv
+[INFO ] 2019-02-05 17:24:06.518 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm] - Matching 4,580 x 151 elements; 82,907 blocked pairs (reduction ratio: 0.8801194366523034)
+[INFO ] 2019-02-05 17:24:11.222 [de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleBasedMatchingAlgorithm] - Identity Resolution finished after 0:00:05.293; found 130 correspondences.
+[INFO ] 2019-02-05 17:24:11.352 [de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule] - Debug results written to file: usecase/movie/output/debugResultsMatchingRule.csv
+[INFO ] 2019-02-05 17:24:11.390 [de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule] - Debug results written to file: usecase/movie/output/debugResultsMatchingRule.csv_short
+[INFO ] 2019-02-05 17:24:11.412 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - The gold standard has 3347 examples
+[INFO ] 2019-02-05 17:24:11.412 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - 	47 positive examples (1.40%)
+[INFO ] 2019-02-05 17:24:11.412 [de.uni_mannheim.informatik.dws.winter.model.MatchingGoldStandard] - 	3300 negative examples (98.60%)
+[TRACE] 2019-02-05 17:24:11.414 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2566,actors_113,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.414 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1776,actors_51,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.414 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2334,actors_39,0.9656331001953636
+[TRACE] 2019-02-05 17:24:11.414 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2288,actors_40,0.9699838953593278
+[TRACE] 2019-02-05 17:24:11.414 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1995,actors_47,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4270,actors_9,0.7724530004560685
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3187,actors_24,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_503,actors_148,0.9838804869719046
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1272,actors_135,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3813,actors_93,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2141,actors_44,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.415 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2625,actors_34,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4399,actors_6,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1541,actors_56,0.9652848661452536
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4397,actors_85,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1430,actors_132,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4444,actors_83,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.416 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4442,actors_84,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4446,actors_5,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_723,actors_71,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4140,actors_89,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3244,actors_101,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3488,actors_19,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3252,actors_23,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1880,actors_126,0.9274873169894717
+[TRACE] 2019-02-05 17:24:11.417 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2040,actors_46,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_4475,actors_4,0.960321482075255
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3423,actors_20,0.9682543324749658
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2844,actors_30,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_910,actors_68,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2892,actors_29,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1392,actors_59,0.8557518790927942
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1633,actors_54,0.9682543324749658
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_3713,actors_94,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.418 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_1943,actors_48,0.905276487825495
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2620,actors_112,0.8220820473993201
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [correct] academy_awards_2686,actors_33,0.9746417547827767
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_4529,actors_2
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_4500,actors_3
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_618,actors_73
+[TRACE] 2019-02-05 17:24:11.419 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_4520,actors_80
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_4491,actors_81
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_3300,actors_100
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_2732,actors_110
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_2187,actors_120
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_902,actors_141
+[TRACE] 2019-02-05 17:24:11.420 [de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator] - [missing] academy_awards_608,actors_146
+[INFO ] 2019-02-05 17:24:11.421 [de.uni_mannheim.informatik.dws.winter.usecase.movies.Movies_IdentityResolutionLearningMatchingRule] - SimpleLogistic:
+
+Class 0 :
+-4.57 + 
+[[6] MovieTitleComparatorLevenshtein] * 2.43 +
+[[2] MovieDateComparator10Years] * 2.31 +
+[[7] MovieTitleComparatorJaccard] * 1.89
+
+Class 1 :
+4.57 + 
+[[6] MovieTitleComparatorLevenshtein] * -2.43 +
+[[2] MovieDateComparator10Years] * -2.31 +
+[[7] MovieTitleComparatorJaccard] * -1.89
+
+[INFO ] 2019-02-05 17:24:11.421 [de.uni_mannheim.informatik.dws.winter.usecase.movies.Movies_IdentityResolutionLearningMatchingRule] - Academy Awards <-> Actors
+[INFO ] 2019-02-05 17:24:11.421 [de.uni_mannheim.informatik.dws.winter.usecase.movies.Movies_IdentityResolutionLearningMatchingRule] - Precision: 1.0000
+[INFO ] 2019-02-05 17:24:11.421 [de.uni_mannheim.informatik.dws.winter.usecase.movies.Movies_IdentityResolutionLearningMatchingRule] - Recall: 0.7872
+[INFO ] 2019-02-05 17:24:11.421 [de.uni_mannheim.informatik.dws.winter.usecase.movies.Movies_IdentityResolutionLearningMatchingRule] - F1: 0.8810
