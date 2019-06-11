@@ -41,8 +41,8 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 			Collection<FusibleValue<List<ValueType>, RecordType, SchemaElementType>> values) {
 		// determine the intersection of values
 		
-		if(values.size() == 0){
-			return null;
+		if(values==null || values.size() == 0){
+			return new FusedValue<>(new LinkedList<>());
 		}
 		Set<ValueType> allValues = null;
 
@@ -52,7 +52,11 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 				allValues = new HashSet<>();
 				allValues.addAll(value.getValue());
 			} else {
-				allValues.retainAll(value.getValue());
+				if(value.getValue()==null) {
+					allValues.clear();
+				} else {
+					allValues.retainAll(value.getValue());
+				}
 			}
 
 		}
@@ -63,10 +67,12 @@ public class Intersection<ValueType, RecordType extends Matchable & Fusible<Sche
 		// list the original records that contributed to this intersection
 		for (FusibleValue<List<ValueType>, RecordType, SchemaElementType> value : values) {
 
-			for (ValueType v : value.getValue()) {
-				if (allValues.contains(v)) {
-					fused.addOriginalRecord(value);
-					break;
+			if(value.getValue()!=null) {
+				for (ValueType v : value.getValue()) {
+					if (allValues.contains(v)) {
+						fused.addOriginalRecord(value);
+						break;
+					}
 				}
 			}
 
