@@ -422,11 +422,13 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 */
 	protected void addGoldstandardToDebugResults(){
 		if (this.comparatorLog != null && this.comparatorLogShort != null && debugGoldStandard != null) {
+			Boolean no_debug_record_found = true;
 			for(Pair<String, String> pair: this.debugGoldStandard.getPositiveExamples()){
 				String identifier = pair.getFirst()+ "-" + pair.getSecond();
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){
 					debug.setValue(ATTRIBUTE_IS_MATCH, "1");
+					no_debug_record_found = false;
 				}
 			}
 			
@@ -435,8 +437,15 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 				Record debug = this.comparatorLog.getRecord(identifier);
 				if(debug != null){
 					debug.setValue(ATTRIBUTE_IS_MATCH, "0");
+					no_debug_record_found = false;
 				}
 			}
+
+			if(no_debug_record_found){
+				logger.warn("No corresponding record for the Debug Log found in the Goldstandard!");
+				logger.warn("Please align the order of Data Sets in Goldstandard and Matching Rule!");
+			}
+
 		}
 	}
 
