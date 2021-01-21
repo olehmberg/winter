@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>academy_awards_1880</id>
+		<title>One Flew over the Cuckoo's Nest</title>
+		<director>
+			<name>Milos Forman</name>
+		</director>
+		<actors>
+			<actor>
+				<name>Jack Nicholson</name>
+			</actor>
+			<actor>
+				<name>Brad Dourif</name>
+			</actor>
+			<actor>
+				<name>Louise Fletcher</name>
+			</actor>
+		</actors>
+		<date>1975-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>academy_awards_3423</id>
+		<title>The Farmer's Daughter</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Charles Bickford</name>
+			</actor>
+			<actor>
+				<name>Loretta Young</name>
+			</actor>
+		</actors>
+		<date>1947-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>academy_awards_3548</id>
+		<title>Mildred Pierce</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Joan Crawford</name>
+			</actor>
+			<actor>
+				<name>Eve Arden</name>
+			</actor>
+			<actor>
+				<name>Ann Blyth</name>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>academy_awards_3624</id>
+		<title>Gaslight</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Charles Boyer</name>
+			</actor>
+			<actor>
+				<name>Ingrid Bergman</name>
+			</actor>
+			<actor>
+				<name>Angela Lansbury</name>
+			</actor>
+		</actors>
+		<date>1944-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+	<movie>
+		<id>academy_awards_4146</id>
+		<title>Jezebel</title>
+		<director/>
+		<actors>
+			<actor>
+				<name>Bette Davis</name>
+			</actor>
+			<actor>
+				<name>Fay Bainter</name>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+		<oscar>yes</oscar>
+	</movie>
+</movies>

@@ -115,11 +115,15 @@ public class Movies_DataFusion_Main {
 		// write group size distribution
 		correspondences.printGroupSizeDistribution();
 
+		// load the gold standard
+		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
+		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
+
 		// define the fusion strategy
 		DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
 		
 		// collect debug results
-		strategy.activateDebugReport("usecase/movie/output/debugResultsDatafusion.csv", 100);
+		strategy.activateDebugReport("usecase/movie/output/debugResultsDatafusion.csv", 100, gs);
 		
 		// add attribute fusers
 		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());
@@ -139,10 +143,6 @@ public class Movies_DataFusion_Main {
 
 		// write the result
 		new MovieXMLFormatter().writeXML(new File("usecase/movie/output/fused.xml"), fusedDataSet);
-
-		// load the gold standard
-		DataSet<Movie, Attribute> gs = new FusibleHashedDataSet<>();
-		new MovieXMLReader().loadFromXML(new File("usecase/movie/goldstandard/fused.xml"), "/movies/movie", gs);
 		
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(

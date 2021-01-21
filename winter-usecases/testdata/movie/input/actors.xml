@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<movies xsi:noNamespaceSchemaLocation="C:/Users/Oliver/Documents/Lehre/WEBDAT~1/USECAS~1/movies/target.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<movie>
+		<id>actors_10</id>
+		<title>The Good Earth</title>
+		<actors>
+			<actor>
+				<name>Luise Rainer</name>
+				<birthday>1910-01-01</birthday>
+				<birthplace>Germany</birthplace>
+			</actor>
+		</actors>
+		<date>1938-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_11</id>
+		<title>Jezebel</title>
+		<actors>
+			<actor>
+				<name>Bette Davis</name>
+				<birthday>1908-01-01</birthday>
+				<birthplace>Massachusetts</birthplace>
+			</actor>
+			<actor>
+				<name>Johnny Depp</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>India</birthplace>
+			</actor>
+		</actors>
+		<date>1939-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_16</id>
+		<title>Song of Bernadette</title>
+		<actors>
+			<actor>
+				<name>Jennifer Jones</name>
+				<birthday>1919-01-01</birthday>
+				<birthplace>Oklahoma</birthplace>
+			</actor>
+		</actors>
+		<date>1944-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_17</id>
+		<title>Gaslight</title>
+		<actors>
+			<actor>
+				<name>Ingrid Bergman</name>
+				<birthday>1915-01-01</birthday>
+				<birthplace>Sweden</birthplace>
+			</actor>
+		</actors>
+		<date>1945-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_18</id>
+		<title>Mildred Pierce</title>
+		<actors>
+			<actor>
+				<name>Joan Crawford</name>
+				<birthday>1912-01-01</birthday>
+				<birthplace>Texas</birthplace>
+			</actor>
+		</actors>
+		<date>1946-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_19</id>
+		<title>To Each His Own</title>
+		<actors>
+			<actor>
+				<name>Olivia de Havilland</name>
+				<birthday>1916-01-01</birthday>
+				<birthplace>Japan</birthplace>
+			</actor>
+		</actors>
+		<date>1947-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_20</id>
+		<title>The Farmer�s Daughter</title>
+		<actors>
+			<actor>
+				<name>Loretta Young</name>
+				<birthday>1913-01-01</birthday>
+				<birthplace>Utah</birthplace>
+			</actor>
+		</actors>
+		<date>1948-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_49</id>
+		<title>One Flew Over The Cockoo�s Nes</title>
+		<actors>
+			<actor>
+				<name>Louise Fletcher</name>
+				<birthday>1934-01-01</birthday>
+				<birthplace>Alabama</birthplace>
+			</actor>
+		</actors>
+		<date>1976-01-01</date>
+	</movie>
+	<movie>
+		<id>actors_126</id>
+		<title>One Flew Over The Cuckoo's Nes</title>
+		<actors>
+			<actor>
+				<name>Jack Nicholson</name>
+				<birthday>1937-01-01</birthday>
+				<birthplace>New York</birthplace>
+			</actor>
+		</actors>
+		<date>1976-01-01</date>
+	</movie>
+</movies>

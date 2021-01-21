@@ -32,6 +32,10 @@ public class ListHandler {
 	}
 
 	public static String formatList(List<String> values) {
+		return formatList(values, "|");
+	}
+
+	public static String formatList(List<String> values, String separator) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("{");
@@ -39,10 +43,10 @@ public class ListHandler {
 		for (int i = 0; i < values.size(); i++) {
 			if (values.get(i) != null) {
 				if (i != 0) {
-					sb.append("|");
+					sb.append(separator);
 				}
 
-				sb.append(values.get(i).replace("|", ""));
+				sb.append(values.get(i).replace(separator, ""));
 			}
 		}
 

@@ -12,6 +12,7 @@
 package de.uni_mannheim.informatik.dws.winter.model;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 /**
  * Wrapper for a value during the data fusion process
@@ -82,4 +83,12 @@ public class FusibleValue<ValueType, RecordType extends Matchable & Fusible<Sche
 		return dataset.getDate();
 	}
 
+	/**
+	 *
+	 * Internal comparators to sort Fusible Values by for instance Record Identifier
+	 */
+	public static class Comparators {
+		public static final Comparator<FusibleValue> RECORDIDENTIFIER =
+				(FusibleValue o1, FusibleValue o2) -> o1.getRecord().getIdentifier().compareTo(o2.getRecord().getIdentifier());
+	}
 }

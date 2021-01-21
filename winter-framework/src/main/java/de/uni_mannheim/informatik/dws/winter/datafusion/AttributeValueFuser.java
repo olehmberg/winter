@@ -11,12 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.datafusion;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.slf4j.Logger;
 
@@ -175,13 +170,15 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 			
 			List<String> listIdentifiers = new LinkedList<String>();
 			List<String> listValues = new LinkedList<String>();
-			
+
+			Collections.sort(fusableValues, FusibleValue.Comparators.RECORDIDENTIFIER);
+
 			for(int i = 0; i < fusableValues.size(); i++){
 				listIdentifiers.add(fusableValues.get(i).getRecord().getIdentifier().toString());
 				listValues.add(fusableValues.get(i).getValue().toString());
 			}
-			
-			String identifiers = schemaElement.getIdentifier() + "-" + ListHandler.formatList(listIdentifiers);
+
+			String identifiers = schemaElement.getIdentifier() + "-" + ListHandler.formatList(listIdentifiers, "+");
 			String values = ListHandler.formatList(listValues);
 			
 			String fusedValue = fusedValueInstance.getValue().toString();

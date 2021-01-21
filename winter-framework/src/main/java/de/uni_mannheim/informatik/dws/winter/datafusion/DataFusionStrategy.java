@@ -19,16 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import de.uni_mannheim.informatik.dws.winter.model.*;
 import org.slf4j.Logger;
 
-import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.DataSet;
-import de.uni_mannheim.informatik.dws.winter.model.Fusible;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.Matchable;
-import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
@@ -103,6 +96,13 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 			this.goldStandardForDebug = goldStandard;
 			this.setCollectDebugResults(true);
 		}
+	}
+
+	/**
+	 * Return the Debug Fusion Results (Values of the Debug Report)
+	 */
+	public HashedDataSet<Record, Attribute> getDebugFusionResults(){
+		return this.debugFusionResults;
 	}
 
 	/**
@@ -318,9 +318,22 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 				if(goldStandardForDebug!=null) {
 					RecordType fusedInGs = null;
 					for (RecordType recordGs : goldStandardForDebug.get()) {
+						// Check for record with fused Record ID in Goldstandard
 						if(recordGs.getIdentifier().equals(fusedRecord.getIdentifier())){
 								fusedInGs = recordGs;
 								break;
+						}
+						else{
+							// Check for record with one Record ID from the group of Input Records in Goldstandard
+							for(String inputRecordId: group.getRecordIds()){
+								if(recordGs.getIdentifier().equals(inputRecordId)){
+									fusedInGs = recordGs;
+									break;
+								}
+							}
+							if(fusedInGs != null){
+								break;
+							}
 						}
 					}
 					if(fusedInGs!=null) {
