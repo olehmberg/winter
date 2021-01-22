@@ -37,6 +37,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.MatchableValue;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators.DummyComparator;
 import de.uni_mannheim.informatik.dws.winter.processing.FlattenAggregationResultMapper;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
@@ -161,6 +162,42 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		algorithm.run();
 
 		return algorithm.getResult();
+
+	}
+
+	/**
+	 * Runs blocking on the given data sets using the provided
+	 * blocker. Using a dummy matching rule all blocked pairs are matched.
+	 *
+	 * @param dataset1
+	 *            The first data set
+	 * @param dataset2
+	 *            The second data set
+	 * @param schemaCorrespondences
+	 *            (Optional) Schema correspondences between the data sets that
+	 *            tell the matching rule which attribute combinations to
+	 *            compare.
+	 * @param blocker
+	 *            The {@link AbstractBlocker} that generates the pairs, which
+	 *            are then matched by the dummy {@link MatchingRule}.
+	 * @return A list of correspondences
+	 */
+	public Processable<Correspondence<RecordType, SchemaElementType>> runBlocking(
+			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
+			Processable<? extends Correspondence<SchemaElementType, ? extends Matchable>> schemaCorrespondences,
+			Blocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
+
+		// Dummy matching rule, which matches all pairs after blocking
+		LinearCombinationMatchingRule<RecordType, SchemaElementType> rule = new LinearCombinationMatchingRule<>(
+				0.0);
+		try {
+			rule.addComparator(new DummyComparator(),
+					1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return runIdentityResolution(dataset1, dataset2, schemaCorrespondences, rule, blocker);
 
 	}
 

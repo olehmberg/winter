@@ -61,6 +61,22 @@ public class MatchingEngineTest extends TestCase {
 		engine.runIdentityResolution(ds, ds2, null, rule, blocker);
 	}
 
+	public void testRunBlocking() throws Exception {
+		HashedDataSet<Movie, Attribute> ds = new HashedDataSet<>();
+		File sourceFile1 = new File("usecase/movie/input/actors.xml");
+		new MovieXMLReader().loadFromXML(sourceFile1, "/movies/movie", ds);
+
+		HashedDataSet<Movie, Attribute> ds2 = new HashedDataSet<>();
+		File sourceFile2 = new File("usecase/movie/input/academy_awards.xml");
+		new MovieXMLReader().loadFromXML(sourceFile2, "/movies/movie", ds2);
+
+		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(
+				new StaticBlockingKeyGenerator<Movie, Attribute>());
+		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
+
+		engine.runBlocking(ds, ds2, null, blocker);
+	}
+
 	public void testRunDeduplication() throws Exception {
 		HashedDataSet<Movie, Attribute> ds = new HashedDataSet<>();
 		File sourceFile1 = new File("usecase/movie/input/actors.xml");
