@@ -44,17 +44,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>3rd party</id>
-			<url>https://breda.informatik.uni-mannheim.de/nexus/content/repositories/thirdparty/</url>
-		</repository>
-		<repository>
-			<id>snapshots-repo</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -66,7 +55,7 @@
 		<dependency>
 			<groupId>de.uni_mannheim.informatik.dws</groupId>
 			<artifactId>winter</artifactId>
-			<version>1.3.2</version>
+			<version>1.4.1</version>
 		</dependency>
 	</dependencies>
 </project>

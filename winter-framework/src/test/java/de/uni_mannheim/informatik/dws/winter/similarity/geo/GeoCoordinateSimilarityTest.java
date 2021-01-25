@@ -18,25 +18,25 @@ import junit.framework.TestCase;
 public class GeoCoordinateSimilarityTest extends TestCase {
 
 
-	public void testCalculateDateTimeDateTime() {
+    public void testCalculateDateTimeDateTime() {
 
-		// Initialise similarity measure
-		GeoCoordinateSimilarity sim = new GeoCoordinateSimilarity(10);
+        // Initialise similarity measure
+        GeoCoordinateSimilarity sim = new GeoCoordinateSimilarity(10);
 
-		// Setup
-		Pair<Double,Double> uni_mannheim_1 = new Pair(49.4765830937, 8.45880983142);
-		Pair<Double,Double> uni_mannheim_2 = new Pair(49.4833125,8.4626238);
-		Pair<Double,Double> wasserturm_mannheim = new Pair(49.483752,8.476682);
-		Pair<Double,Double> uni_heidelberg = new Pair(49.406165042, 8.703830518);
+        // Setup
+        Pair<Double, Double> uni_mannheim_1 = new Pair<Double, Double>(49.4765830937, 8.45880983142);
+        Pair<Double, Double> uni_mannheim_2 = new Pair<Double, Double>(49.4833125, 8.4626238);
+        Pair<Double, Double> wasserturm_mannheim = new Pair<Double, Double>(49.483752, 8.476682);
+        Pair<Double, Double> uni_heidelberg = new Pair<Double, Double>(49.406165042, 8.703830518);
 
-		// Test
-		assertEquals(1.0, sim.calculate(uni_mannheim_1, uni_mannheim_1));
-		assertEquals(1.0, sim.calculate(uni_mannheim_2, uni_mannheim_2));
-		assertTrue(0.9 < sim.calculate(uni_mannheim_1, uni_mannheim_2));
-		assertTrue(0.8 < sim.calculate(uni_mannheim_1, wasserturm_mannheim));
-		assertTrue(0.8 < sim.calculate(uni_mannheim_2, wasserturm_mannheim));
-		assertEquals(0.0, sim.calculate(uni_mannheim_1, uni_heidelberg));
-		assertEquals(0.0, sim.calculate(uni_mannheim_2, uni_heidelberg));
-	}
+        // Test
+        assertEquals(1.0, sim.calculate(uni_mannheim_1, uni_mannheim_1));
+        assertEquals(1.0, sim.calculate(uni_mannheim_2, uni_mannheim_2));
+        assertTrue(0.9 < sim.calculate(uni_mannheim_1, uni_mannheim_2));
+        assertTrue(0.8 < sim.calculate(uni_mannheim_1, wasserturm_mannheim));
+        assertTrue(0.8 < sim.calculate(uni_mannheim_2, wasserturm_mannheim));
+        assertEquals(0.0, sim.calculate(uni_mannheim_1, uni_heidelberg));
+        assertEquals(0.0, sim.calculate(uni_mannheim_2, uni_heidelberg));
+    }
 
 }
