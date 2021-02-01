@@ -17,13 +17,13 @@ public class AttributeFusionLogger extends Record implements Serializable {
 		super(identifier);
 	}
 
-	public String getValueIDS() {
-		return this.getValue(VALUEIDS);
-	}
+	public String getValueIDS() { return this.getValue(VALUEIDS); }
 
-	public void setValueIDS(String valueIDS) {
-		this.setValue(VALUEIDS, valueIDS);
-	}
+	public void setValueIDS(String valueIDS) { this.setValue(VALUEIDS, valueIDS); }
+
+	public String getRecordIDS() { return this.getValue(RECORDIDS); }
+
+	public void setRecordIDS(String recordIDS) { this.setValue(RECORDIDS, recordIDS); }
 
 	public String getValues() {
 		return this.getValue(VALUES);
@@ -76,6 +76,7 @@ public class AttributeFusionLogger extends Record implements Serializable {
 	}
 
 	public final static Attribute VALUEIDS = new Attribute("ValueIDS");
+	public final static Attribute RECORDIDS = new Attribute("RecordIDS");
 	public final static Attribute ATTRIBUTE_NAME = new Attribute("AttributeName");
 	public final static Attribute VALUES = new Attribute("Values");
 	public final static Attribute FUSEDVALUE = new Attribute("FusedValue");
@@ -90,6 +91,8 @@ public class AttributeFusionLogger extends Record implements Serializable {
 	public boolean hasValue(Attribute attribute) {
 		if (attribute == VALUEIDS)
 			return getValueIDS() != null && !getValueIDS().isEmpty();
+		else if (attribute == RECORDIDS)
+			return getRecordIDS() != null && !getValues().isEmpty();
 		else if (attribute == VALUES)
 			return getValues() != null && !getValues().isEmpty();
 		else if (attribute == FUSEDVALUE)

@@ -13,11 +13,7 @@ package de.uni_mannheim.informatik.dws.winter.datafusion;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import de.uni_mannheim.informatik.dws.winter.model.*;
 import org.slf4j.Logger;
@@ -255,7 +251,105 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 		return consistencies;
 	}
-	
+
+	/**
+	 * Calculate data fusion debug results on record level and write them to file
+	 * if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
+	 * @param fusedDataSet: Fused data set
+	 */
+	protected void calculateRecordLevelDebugResultsAndWriteToFile(FusibleDataSet<RecordType, SchemaElementType> fusedDataSet){
+		if(this.debugFusionResults != null) {
+			FusibleHashedDataSet<Record, Attribute> debugFusionResultsRecordLevel = new FusibleHashedDataSet<Record, Attribute>();
+			List<Attribute> headerDebugResultsRecordLevel = new LinkedList<Attribute>();
+
+			// Initialise Attributes
+			Attribute attributeRecordIDS = new Attribute("RecordIDS");
+			debugFusionResultsRecordLevel.addAttribute(attributeRecordIDS);
+			headerDebugResultsRecordLevel.add(attributeRecordIDS);
+
+			Attribute attributeAvgConsistency = new Attribute("AverageConsistency");
+			debugFusionResultsRecordLevel.addAttribute(attributeAvgConsistency);
+			headerDebugResultsRecordLevel.add(attributeAvgConsistency);
+
+			Set<String> attributeSet = new HashSet<String>();
+			HashMap<String, Attribute> attributeHashMap = new HashMap<String, Attribute>();
+			Set<String> recordsIDSet = new HashSet<String>();
+
+			for (Record record : this.debugFusionResults.get()){
+				String attributeName = record.getValue(AttributeFusionLogger.ATTRIBUTE_NAME);
+				if(!attributeSet.contains(attributeName)){
+					attributeSet.add(attributeName);
+					Attribute attributeConsistency = new Attribute(attributeName + "-Consistency");
+					debugFusionResultsRecordLevel.addAttribute(attributeConsistency);
+					headerDebugResultsRecordLevel.add(attributeConsistency);
+					attributeHashMap.put(attributeName + "-Consistency", attributeConsistency);
+
+					Attribute attributeValues = new Attribute(attributeName + "-Values");
+					debugFusionResultsRecordLevel.addAttribute(attributeValues);
+					headerDebugResultsRecordLevel.add(attributeValues);
+					attributeHashMap.put(attributeName + "-Values", attributeValues);
+				}
+				recordsIDSet.add(record.getValue(AttributeFusionLogger.RECORDIDS));
+			}
+
+			// Generate Record Level Debug Record
+			for (String recordIDs: recordsIDSet){
+
+				//Use original ID to initialize new debug record with full list of identifiers
+				String [] originalIDS = recordIDs.split("\\+");
+				RecordType fusedRecord = fusedDataSet.getRecord(originalIDS[0]);
+				String fusedRecordIdentifier = fusedRecord.getIdentifier();
+
+				Record record = debugFusionResultsRecordLevel.getRecord(fusedRecordIdentifier);
+				if (record == null){
+					record = new Record(fusedRecord.getIdentifier());
+					record.setValue(attributeRecordIDS, fusedRecord.getIdentifier());
+				}
+
+				for (String attributeName: attributeSet){
+					String recordIdentifier = attributeName + "-{" + recordIDs + "}";
+					Record debugRecord = this.debugFusionResults.getRecord(recordIdentifier);
+					if(debugRecord != null){
+						Attribute attributeConsistency = attributeHashMap.get(attributeName + "-Consistency");
+						String consistency = debugRecord.getValue(AttributeFusionLogger.CONSISTENCY);
+						record.setValue(attributeConsistency, consistency);
+
+						Attribute attributeValues = attributeHashMap.get(attributeName + "-Values");
+						String values = debugRecord.getValue(AttributeFusionLogger.VALUES);
+						record.setValue(attributeValues, values);
+					}
+				}
+				debugFusionResultsRecordLevel.add(record);
+			}
+
+			//Update Attribute consistencies
+			for(Record debugRecord: debugFusionResultsRecordLevel.get()){
+				double sumConsistencies = 0;
+				int countAttributes = 0;
+				for (String attributeName: attributeSet){
+					Attribute attributeConsistency = attributeHashMap.get(attributeName + "-Consistency");
+					String consistency = debugRecord.getValue(attributeConsistency);
+					if (consistency != null){
+						sumConsistencies = sumConsistencies + Double.parseDouble(consistency);
+						countAttributes++;
+					}
+				}
+				double avgConsistency = sumConsistencies/countAttributes;
+				debugRecord.setValue(attributeAvgConsistency, Double.toString(avgConsistency));
+			}
+
+
+			// UPDATE write to file part once new ds is generated
+			String debugReportfilePath = this.filePathDebugResults.replace(".csv", "_recordLevel.csv");
+			try {
+				new RecordCSVFormatter().writeCSV(new File(debugReportfilePath), debugFusionResultsRecordLevel, headerDebugResultsRecordLevel);
+				logger.info("Debug results on record level written to file: " + debugReportfilePath);
+			} catch (IOException e) {
+				logger.error("Debug results on record level could not be written to file: " + debugReportfilePath);
+			}
+		}
+	}
+
 	/**
 	 * Write data fusion debug results to file if logging was enabled via {@link #setCollectDebugResults(boolean) setCollectDebugResults}
 	 */
@@ -288,6 +382,9 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUEIDS);
 		this.headerDebugResults.add(AttributeFusionLogger.VALUEIDS);
+
+		this.debugFusionResults.addAttribute(AttributeFusionLogger.RECORDIDS);
+		this.headerDebugResults.add(AttributeFusionLogger.RECORDIDS);
 		
 		this.debugFusionResults.addAttribute(AttributeFusionLogger.VALUES);
 		this.headerDebugResults.add(AttributeFusionLogger.VALUES);
