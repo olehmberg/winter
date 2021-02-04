@@ -27,7 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.FlattenAggregatedCorrespondencesRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;

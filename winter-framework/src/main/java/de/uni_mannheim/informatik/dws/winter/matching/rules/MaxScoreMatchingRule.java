@@ -51,7 +51,7 @@ public class MaxScoreMatchingRule<RecordType extends Matchable, SchemaElementTyp
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator#compare(
+	 * de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator#compare(
 	 * de.uni_mannheim.informatik.dws.winter.model.Matchable,
 	 * de.uni_mannheim.informatik.dws.winter.model.Matchable,
 	 * de.uni_mannheim.informatik.dws.winter.model.Correspondence)

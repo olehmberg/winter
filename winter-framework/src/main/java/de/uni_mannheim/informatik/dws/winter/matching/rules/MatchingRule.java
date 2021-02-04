@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -103,6 +105,15 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		else{
 			return false;
 		}
+	}
+
+	/**
+	 * Return the generated comparator log
+	 *
+	 * @return
+	 */
+	public FusibleHashedDataSet<Record, Attribute> getComparatorLog(){
+		return this.comparatorLog;
 	}
 
 	/**

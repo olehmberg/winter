@@ -13,44 +13,69 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingValueComparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.similarity.date.YearSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- * {@link Comparator} for {@link Movie}s based on the {@link Movie#getDate()}
- * value, with a maximal difference of 2 years.
+ * {@link Comparator} for {@link Movie}s based on the
+ * {@link Movie#getDirector()} values, and their null value similarity.
+ * If either of the {@link Movie#getDirector()} values is null, the similarity is 0.
  * 
  * @author Oliver Lehmberg (oli@dwslab.de)
+ * @author Robert Meusel (robert@dwslab.de)
+ * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  */
-public class MovieDateComparator2Years implements Comparator<Movie, Attribute> {
+public class MovieDirectorComparatorMissingValue implements MissingValueComparator<Movie, Attribute> {
 
 	private static final long serialVersionUID = 1L;
-	private YearSimilarity sim = new YearSimilarity(2);
 	
 	private ComparatorLogger comparisonLog;
+	private List<Comparator<Movie, Attribute>> penalisedComparators;
+	private double penalty = 0.0;
+
+	public MovieDirectorComparatorMissingValue(){
+		this.penalisedComparators = new LinkedList<>();
+	}
+
+	public MovieDirectorComparatorMissingValue(double penalty){
+		this.penalisedComparators = new LinkedList<>();
+		this.penalty = penalty;
+	}
 
 	@Override
 	public double compare(
 			Movie record1,
 			Movie record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
-    	
-    	double similarity = sim.calculate(record1.getDate(), record2.getDate());
-    	
-		if(this.comparisonLog != null){
-			this.comparisonLog.setComparatorName(getClass().getName());
 		
-			this.comparisonLog.setRecord1Value(record1.getDate().toString());
-			this.comparisonLog.setRecord2Value(record2.getDate().toString());
-    	
+		String s1 = record1.getDirector();
+		String s2 = record2.getDirector();
+
+		// calculate similarity
+		if (this.comparisonLog != null) {
+			this.comparisonLog.setComparatorName(getClass().getName());
+
+			this.comparisonLog.setRecord1Value(s1);
+			this.comparisonLog.setRecord2Value(s2);
+		}
+		double similarity = 0.0;
+
+		if (s1 == null || s2 == null) {
+			similarity = 1.0;
+		}
+
+		if (this.comparisonLog != null) {
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
 		}
-		return similarity;
 
+		return similarity;
 	}
 
 	@Override
@@ -63,4 +88,18 @@ public class MovieDateComparator2Years implements Comparator<Movie, Attribute> {
 		this.comparisonLog = comparatorLog;
 	}
 
+	@Override
+	public List<Comparator<Movie, Attribute>> getPenalisedComparators() {
+		return this.penalisedComparators;
+	}
+
+	@Override
+	public void addPenalisedComparator(Comparator<Movie, Attribute> comparator) {
+		this.penalisedComparators.add(comparator);
+	}
+
+	@Override
+	public Double getPenalty() {
+		return this.penalty;
+	}
 }

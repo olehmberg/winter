@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
 import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -41,16 +42,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByDecadeGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByYearGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator2Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
@@ -108,6 +99,7 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		matchingRule.addComparator(new MovieDirectorComparatorJaccard());
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein());
 		matchingRule.addComparator(new MovieDirectorComparatorLowerCaseJaccard());
+		matchingRule.addComparator(new MovieDirectorComparatorMissingValue());
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein());
 		matchingRule.addComparator(new MovieTitleComparatorJaccard());
 
