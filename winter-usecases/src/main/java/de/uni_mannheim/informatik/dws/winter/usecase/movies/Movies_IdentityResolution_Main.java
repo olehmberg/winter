@@ -13,9 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
 
-
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
-
 import java.util.*;
 
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
@@ -87,16 +84,8 @@ public class Movies_IdentityResolution_Main {
 //		matchingRule.addComparator((m1, m2, c) -> new YearSimilarity(10).calculate(m1.getDate(), m2.getDate()), 0.2);
 
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
-		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.7);
+		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
 
-		MovieDirectorComparatorJaccard movieDirectorComparatorJaccard = new MovieDirectorComparatorJaccard();
-
-		matchingRule.addComparator(movieDirectorComparatorJaccard, 0.1);
-		MovieDirectorComparatorMissingValue movieDirectorComparatorMissingValue = new MovieDirectorComparatorMissingValue(0.05);
-		movieDirectorComparatorMissingValue.addPenalisedComparator(movieDirectorComparatorJaccard);
-
-		matchingRule.addComparator(movieDirectorComparatorMissingValue, 0.0);
-		
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
 		//Write debug results to file:
