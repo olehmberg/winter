@@ -20,6 +20,7 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,13 +35,12 @@ public class RecordComparatorMissingValue extends RecordComparator implements Mi
 	private static final long serialVersionUID = 1L;
 
 	private ComparatorLogger comparisonLog;
-	private final List<Comparator<Record, Attribute>> penalisedComparators;
-	private final double penalty;
+	private List<Comparator<Record, Attribute>> penalisedComparators;
+	private double penalty;
 
-	public RecordComparatorMissingValue(Attribute attributeRecord1, Attribute attributeRecord2,
-										List<Comparator<Record, Attribute>> penalisedComparators, double penalty) {
+	public RecordComparatorMissingValue(Attribute attributeRecord1, Attribute attributeRecord2, double penalty) {
 		super(attributeRecord1, attributeRecord2);
-		this.penalisedComparators = penalisedComparators;
+		this.penalisedComparators = new LinkedList<>();
 		this.penalty = penalty;
 	}
 
