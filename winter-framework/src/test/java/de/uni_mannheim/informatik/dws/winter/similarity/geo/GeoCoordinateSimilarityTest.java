@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 public class GeoCoordinateSimilarityTest extends TestCase {
 
 
-    public void testCalculateDateTimeDateTime() {
+    public void testCalculateGeoCoordinateSimilarity() {
 
         // Initialise similarity measure
         GeoCoordinateSimilarity sim = new GeoCoordinateSimilarity(10);
@@ -30,6 +30,8 @@ public class GeoCoordinateSimilarityTest extends TestCase {
         Pair<Double, Double> uni_heidelberg = new Pair<Double, Double>(49.406165042, 8.703830518);
 
         // Test
+        assertEquals(0.0, sim.calculate(null, null));
+        assertEquals(0.0, sim.calculate(null, uni_mannheim_1));
         assertEquals(1.0, sim.calculate(uni_mannheim_1, uni_mannheim_1));
         assertEquals(1.0, sim.calculate(uni_mannheim_2, uni_mannheim_2));
         assertTrue(0.9 < sim.calculate(uni_mannheim_1, uni_mannheim_2));
