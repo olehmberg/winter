@@ -111,13 +111,7 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		rule4.activateDebugReport("test/output.csv", 1000);
 		rule4.addComparator(new MovieTitleComparatorLevenshtein(), 0.1);
 		rule4.addComparator(new MovieDateComparator10Years(), 0.8);
-
-		MovieDirectorComparatorLevenshtein movieDirectorComparatorLevenshtein = new MovieDirectorComparatorLevenshtein();
-		rule4.addComparator(movieDirectorComparatorLevenshtein, 0.1);
-
-		MovieDirectorComparatorMissingValue movieDirectorComparatorMissingValue = new MovieDirectorComparatorMissingValue(0.15);
-		movieDirectorComparatorMissingValue.addPenalisedComparator(movieDirectorComparatorLevenshtein);
-		rule4.addComparator(movieDirectorComparatorMissingValue, 0.0);
+		rule4.addComparator(new MovieDirectorComparatorMissingValueLevenshtein(0.15), 0.1);
 
 
 //		assertNotNull(rule3.apply(movie1, movie3, null));
@@ -141,14 +135,15 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		FusibleHashedDataSet<Record, Attribute> comperatorLog = rule4.getComparatorLog();
 		assertEquals(3, comperatorLog.size());
 		Attribute totalSimilarity = comperatorLog.getAttribute("TotalSimilarity");
-		Attribute missingValueSimilarity = comperatorLog.getAttribute("[3] MovieDirectorComparatorMissingValue similarity");
+		Attribute missingValueSimilarity = comperatorLog.getAttribute("[2] MovieDirectorComparatorMissingValueLevenshtein similarity");
 
 		Record movie1Movie4 = comperatorLog.getRecord("movie1-movie4");
+		assertNotNull(missingValueSimilarity);
 		assertEquals("0.85", movie1Movie4.getValue(totalSimilarity));
-		assertEquals("1.0", movie1Movie4.getValue(missingValueSimilarity));
+		assertEquals("-1.0", movie1Movie4.getValue(missingValueSimilarity));
 
 		Record movie1Movie3 = comperatorLog.getRecord("movie1-movie3");
-		assertEquals("0.0", movie1Movie3.getValue(missingValueSimilarity));
+		assertTrue(Double.parseDouble(movie1Movie3.getValue(missingValueSimilarity)) > 0.0);
 	}
 
 }

@@ -99,7 +99,6 @@ public class Movies_IdentityResolutionLearningMatchingRule {
 		matchingRule.addComparator(new MovieDirectorComparatorJaccard());
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein());
 		matchingRule.addComparator(new MovieDirectorComparatorLowerCaseJaccard());
-		matchingRule.addComparator(new MovieDirectorComparatorMissingValue());
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein());
 		matchingRule.addComparator(new MovieTitleComparatorJaccard());
 

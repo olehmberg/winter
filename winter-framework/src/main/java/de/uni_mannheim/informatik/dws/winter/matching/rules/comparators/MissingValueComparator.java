@@ -32,18 +32,6 @@ public interface MissingValueComparator<RecordType extends Matchable, SchemaElem
         extends Comparator<RecordType, SchemaElementType>{
 
     /**
-     * Returns a list of penalised comparators
-     * @return List of penalised comparators
-     */
-    List<Comparator<RecordType, SchemaElementType>> getPenalisedComparators();
-
-    /**
-     * Add a penalised Comparator
-     * @param comparator This comparator can be penalised if a null value is detected.
-     */
-    void addPenalisedComparator(Comparator<RecordType, SchemaElementType> comparator);
-
-    /**
      * Returns a penalty value
      * @return Penalty value
      */

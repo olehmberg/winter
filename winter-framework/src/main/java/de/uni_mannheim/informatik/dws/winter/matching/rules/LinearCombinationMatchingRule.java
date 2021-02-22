@@ -95,10 +95,10 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * @param weight
 	 *            the weight (a double value larger than 0)
 	 * @throws Exception
-	 *             Throws an exception if the weight is below 0.0
+	 *             Throws an exception if the weight is below or equal to 0.0
 	 */
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight) throws Exception {
-		if (weight >= 0.0) {
+		if (weight > 0.0) {
 			comparators.add(new Pair<>(comparator, weight));
 
 			if (this.isDebugReportActive()) {
@@ -111,7 +111,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			}
 
 		} else {
-			throw new Exception("Weight cannot be smaller than 0");
+			throw new Exception("Weight has to be greater than 0");
 		}
 	}
 
@@ -158,10 +158,10 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(
 						schemaCorrespondences, record1, record2, missingValueComp);
 				double similarity = missingValueComp.compare(record1, record2, correspondence);
-				//Only get active if the comparator return 1 --> at least one of the compared values is null
-				if (similarity == 1.0){
+				//Only get active if the comparator return -1 --> at least one of the compared values is null
+				if (similarity == -1.0){
 					penaltyScore = penaltyScore + missingValueComp.getPenalty();
-					excludedComparators.addAll(missingValueComp.getPenalisedComparators());
+					excludedComparators.add(missingValueComp);
 				}
 			}
 
@@ -191,17 +191,16 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				comp.getComparisonLog().initialise();
 			}
 
-			double similarity = 0;
-			if (!excludedComparators.contains(comp)){
-				similarity = comp.compare(record1, record2, correspondence);
-			}
+			double similarity = comp.compare(record1, record2, correspondence);
 
 			double weight = pair.getSecond();
 
 			if (excludedComparators.size() > 0){
 				weight = weight + (weight/newTotalWeights) * redistributedWeights;
 			}
-			sum += (similarity * weight);
+			if (!excludedComparators.contains(comp)) {
+				sum += (similarity * weight);
+			}
 
 			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);

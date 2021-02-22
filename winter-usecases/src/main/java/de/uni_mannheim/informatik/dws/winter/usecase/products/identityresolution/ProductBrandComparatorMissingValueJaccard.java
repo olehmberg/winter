@@ -9,7 +9,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
+package de.uni_mannheim.informatik.dws.winter.usecase.products.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
@@ -17,46 +17,42 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingV
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
+import de.uni_mannheim.informatik.dws.winter.usecase.products.model.Product;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * {@link Comparator} for {@link Movie}s based on the
- * {@link Movie#getDirector()} values, and their null value similarity.
- * If either of the {@link Movie#getDirector()} values is null, the similarity is 0.
- * 
- * @author Oliver Lehmberg (oli@dwslab.de)
- * @author Robert Meusel (robert@dwslab.de)
+ * {@link Product#getBrand()} values, and their null value similarity.
+ * If either of the {@link Product#getBrand()} ()} values is null, the similarity is 0.
+ *
  * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  */
-public class MovieDirectorComparatorMissingValue implements MissingValueComparator<Movie, Attribute> {
+public class ProductBrandComparatorMissingValueJaccard implements MissingValueComparator<Product, Attribute> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private ComparatorLogger comparisonLog;
-	private List<Comparator<Movie, Attribute>> penalisedComparators;
+	private TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 	private double penalty = 0.0;
 
-	public MovieDirectorComparatorMissingValue(){
-		this.penalisedComparators = new LinkedList<>();
-	}
-
-	public MovieDirectorComparatorMissingValue(double penalty){
-		this.penalisedComparators = new LinkedList<>();
+	public ProductBrandComparatorMissingValueJaccard(double penalty){
 		this.penalty = penalty;
+
 	}
 
 	@Override
 	public double compare(
-			Movie record1,
-			Movie record2,
+			Product record1,
+			Product record2,
 			Correspondence<Attribute, Matchable> schemaCorrespondences) {
 		
-		String s1 = record1.getDirector();
-		String s2 = record2.getDirector();
+		String s1 = record1.getBrand();
+		String s2 = record2.getBrand();
 
 		// calculate similarity
 		if (this.comparisonLog != null) {
@@ -68,7 +64,10 @@ public class MovieDirectorComparatorMissingValue implements MissingValueComparat
 		double similarity = 0.0;
 
 		if (s1 == null || s2 == null) {
-			similarity = 1.0;
+			similarity = -1.0;
+		}
+		else {
+			similarity = sim.calculate(s1, s2);
 		}
 
 		if (this.comparisonLog != null) {
@@ -86,16 +85,6 @@ public class MovieDirectorComparatorMissingValue implements MissingValueComparat
 	@Override
 	public void setComparisonLog(ComparatorLogger comparatorLog) {
 		this.comparisonLog = comparatorLog;
-	}
-
-	@Override
-	public List<Comparator<Movie, Attribute>> getPenalisedComparators() {
-		return this.penalisedComparators;
-	}
-
-	@Override
-	public void addPenalisedComparator(Comparator<Movie, Attribute> comparator) {
-		this.penalisedComparators.add(comparator);
 	}
 
 	@Override

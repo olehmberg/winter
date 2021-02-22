@@ -75,14 +75,9 @@ public class Products_IdentityResolution_Main {
 		matchingRule.addComparator(new ProductTitleComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.5);
 		matchingRule.addComparator(new ProductDescriptionComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.1);
 
-		// Use missing Value Comparator on the Brand to neutralise the ProductBrandComparatorJaccard
+		// Use missing Value Comparator on Brand to neutralise the ProductBrandComparatorJaccard
 		// if the Brand value of either record is missing.
-		ProductBrandComparatorJaccard productBrandComparatorJaccard = new ProductBrandComparatorJaccard();
-		ProductBrandComparatorMissingValue productBrandComparatorMissingValue = new ProductBrandComparatorMissingValue(0.1);
-		productBrandComparatorMissingValue.addPenalisedComparator(productBrandComparatorJaccard);
-
-		matchingRule.addComparator(productBrandComparatorJaccard,0.20);
-		matchingRule.addComparator(productBrandComparatorMissingValue,0.0);
+		matchingRule.addComparator(new ProductBrandComparatorMissingValueJaccard(0.1),0.2);
 
 		// create a blocker (blocking strategy)
 		BlockingKeyIndexer<Product, Attribute, Product, Attribute>  blocker = new BlockingKeyIndexer<>(

@@ -26,22 +26,27 @@ import java.util.List;
 /**
  * {@link Comparator} for {@link Record}s based on the {@link Attribute} values,
  * and their {@link TokenizingJaccardSimilarity} similarity.
+ * If one of the provided values is null, the out of range value -1 is returned by the compare method.
  * 
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorMissingValue extends RecordComparator implements MissingValueComparator<Record, Attribute> {
+public class RecordComparatorMissingValueJaccard extends StringComparator implements MissingValueComparator<Record, Attribute> {
 
 	private static final long serialVersionUID = 1L;
+	private TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
 	private ComparatorLogger comparisonLog;
-	private List<Comparator<Record, Attribute>> penalisedComparators;
 	private double penalty;
+	private double threshold;
+	private boolean squared;
 
-	public RecordComparatorMissingValue(Attribute attributeRecord1, Attribute attributeRecord2, double penalty) {
+	public RecordComparatorMissingValueJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold,
+										boolean squared, double penalty) {
 		super(attributeRecord1, attributeRecord2);
-		this.penalisedComparators = new LinkedList<>();
 		this.penalty = penalty;
+		this.threshold = threshold;
+		this.squared = squared;
 	}
 
 	@Override
@@ -57,14 +62,35 @@ public class RecordComparatorMissingValue extends RecordComparator implements Mi
 			this.comparisonLog.setRecord1Value(s1);
 			this.comparisonLog.setRecord2Value(s2);
 		}
-		double similarity = 0.0;
 
 		if (s1 == null || s2 == null) {
-			similarity = 1.0;
+			return 0.0;
 		}
+
+		s1 = preprocess(s1);
+		s2 = preprocess(s2);
+
+		if (this.comparisonLog != null) {
+			this.comparisonLog.setRecord1PreprocessedValue(s1);
+			this.comparisonLog.setRecord2PreprocessedValue(s2);
+		}
+
+		// calculate similarity
+		double similarity = sim.calculate(s1, s2);
 
 		if (this.comparisonLog != null) {
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
+		}
+
+		// postprocessing
+		if (similarity <= this.threshold) {
+			similarity = 0;
+		}
+		if (squared)
+			similarity *= similarity;
+
+		if (this.comparisonLog != null) {
+			this.comparisonLog.setPostprocessedSimilarity(Double.toString(similarity));
 		}
 
 		return similarity;
@@ -78,16 +104,6 @@ public class RecordComparatorMissingValue extends RecordComparator implements Mi
 	@Override
 	public void setComparisonLog(ComparatorLogger comparatorLog) {
 		this.comparisonLog = comparatorLog;
-	}
-
-	@Override
-	public List<Comparator<Record, Attribute>> getPenalisedComparators() {
-		return penalisedComparators;
-	}
-
-	@Override
-	public void addPenalisedComparator(Comparator<Record, Attribute> comparator) {
-		this.penalisedComparators.add(comparator);
 	}
 
 	@Override
