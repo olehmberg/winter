@@ -14,7 +14,7 @@ package de.uni_mannheim.informatik.dws.winter.usecase.products;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.BlockingKeyIndexer;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRuleWithPenalty;
 import de.uni_mannheim.informatik.dws.winter.model.*;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
@@ -65,19 +65,19 @@ public class Products_IdentityResolution_Main {
 				"usecase/product/goldstandard/gs_products_training.csv"));
 
 		// create a matching rule
-		LinearCombinationMatchingRule<Product, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
+		LinearCombinationMatchingRuleWithPenalty<Product, Attribute> matchingRule = new LinearCombinationMatchingRuleWithPenalty<>(
 				0.5);
 		matchingRule.activateDebugReport("usecase/product/output/debugResultsMatchingRule.csv", 1000, gsTest);
 
 		// add comparators
-		matchingRule.addComparator(new ProductTitleComparatorJaccard(),0.2);
+		matchingRule.addComparator(new ProductTitleComparatorJaccard(),0.2, 0.0);
 		// Provide the full data sets as input for the TF-IDF comparators to generate a complete inverted index for all included tokens
-		matchingRule.addComparator(new ProductTitleComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.5);
-		matchingRule.addComparator(new ProductDescriptionComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.1);
+		matchingRule.addComparator(new ProductTitleComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.5, 0.0);
+		matchingRule.addComparator(new ProductDescriptionComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.1, 0.0);
 
 		// Use missing Value Comparator on Brand to neutralise the ProductBrandComparatorJaccard
 		// if the Brand value of either record is missing.
-		matchingRule.addComparator(new ProductBrandComparatorMissingValueJaccard(0.1),0.2);
+		matchingRule.addComparator(new ProductBrandComparatorMissingValueJaccard(),0.2, 0.1);
 
 		// create a blocker (blocking strategy)
 		BlockingKeyIndexer<Product, Attribute, Product, Attribute>  blocker = new BlockingKeyIndexer<>(

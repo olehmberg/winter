@@ -55,6 +55,21 @@ public interface Comparator<RecordType extends Matchable, SchemaElementType exte
 			Correspondence<SchemaElementType, Matchable> schemaCorrespondence);
 
 	/**
+	 * Check if one of the compared record values contains a missing value
+	 *
+	 * @param record1
+	 *            the first record (must not be null)
+	 * @param record2
+	 *            the second record (must not be null)
+	 * @param schemaCorrespondence
+	 *            A schema correspondence between two record1 and record2 (can
+	 *            be null)
+	 * @return boolean value for missing value of the records
+	 */
+	default boolean hasMissingValue(RecordType record1, RecordType record2,
+				   Correspondence<SchemaElementType, Matchable> schemaCorrespondence) { return false; };
+
+	/**
 	 * @return Returns the schema element which is the first argument to this
 	 *         comparator and determines which value of the first record to
 	 *         compare.

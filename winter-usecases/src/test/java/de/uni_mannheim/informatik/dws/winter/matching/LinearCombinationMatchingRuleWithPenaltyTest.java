@@ -12,29 +12,27 @@
 
 package de.uni_mannheim.informatik.dws.winter.matching;
 
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRuleWithPenalty;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorMissingValueLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import junit.framework.TestCase;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Locale;
 
-import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
-import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.processing.ProcessableCollection;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-
-public class LinearCombinationMatchingRuleTest extends TestCase {
+public class LinearCombinationMatchingRuleWithPenaltyTest extends TestCase {
 
 	public void testApply() throws Exception {
 		Movie movie1 = new Movie("movie1", "test");
@@ -64,9 +62,9 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		movie4.setDate(LocalDateTime.parse("1977-05-25", formatter));
 		
 		Processable<Correspondence<Movie, Attribute>> correspondences;
-		
-		LinearCombinationMatchingRule<Movie, Attribute> rule1 = new LinearCombinationMatchingRule<>(0.0, 1.0);
-		rule1.addComparator(new MovieTitleComparatorLevenshtein(), 1.0);
+
+		LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule1 = new LinearCombinationMatchingRuleWithPenalty<>(0.0, 1.0);
+		rule1.addComparator(new MovieTitleComparatorLevenshtein(), 1.0, 0.0);
 //		assertNotNull(rule1.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
@@ -77,10 +75,10 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
 		correspondences = correspondences.map(rule1);
 		assertEquals(0, correspondences.size());
-		
-		LinearCombinationMatchingRule<Movie, Attribute> rule2 = new LinearCombinationMatchingRule<>(0.0, 0.9);
-		rule2.addComparator(new MovieTitleComparatorLevenshtein(), 0.1);
-		rule2.addComparator(new MovieDirectorComparatorLevenshtein(), 0.9);
+
+		LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule2 = new LinearCombinationMatchingRuleWithPenalty<>(0.0, 0.9);
+		rule2.addComparator(new MovieTitleComparatorLevenshtein(), 0.1, 0.0);
+		rule2.addComparator(new MovieDirectorComparatorLevenshtein(), 0.9, 0.0);
 //		assertNotNull(rule2.apply(movie2, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie2, movie3, 1.0, null));
@@ -91,11 +89,11 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		correspondences.add(new Correspondence<>(movie1, movie2, 1.0, null));
 		correspondences = correspondences.map(rule2);
 		assertEquals(0, correspondences.size());
-		
-		LinearCombinationMatchingRule<Movie, Attribute> rule3 = new LinearCombinationMatchingRule<>(0.0, 0.8);
-		rule3.addComparator(new MovieTitleComparatorLevenshtein(), 0.1);
-		rule3.addComparator(new MovieDirectorComparatorLevenshtein(), 0.1);
-		rule3.addComparator(new MovieDateComparator10Years(), 0.8);
+
+		LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule3 = new LinearCombinationMatchingRuleWithPenalty<>(0.0, 0.8);
+		rule3.addComparator(new MovieTitleComparatorLevenshtein(), 0.1, 0.0);
+		rule3.addComparator(new MovieDirectorComparatorLevenshtein(), 0.1, 0.0);
+		rule3.addComparator(new MovieDateComparator10Years(), 0.8, 0.0);
 //		assertNotNull(rule3.apply(movie1, movie3, null));
 		correspondences = new ProcessableCollection<>();
 		correspondences.add(new Correspondence<>(movie1, movie3, 1.0, null));
@@ -107,11 +105,11 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		correspondences = correspondences.map(rule3);
 		assertEquals(0, correspondences.size());
 
-		LinearCombinationMatchingRule<Movie, Attribute> rule4 = new LinearCombinationMatchingRule<>(0.0, 0.8);
+		LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule4 = new LinearCombinationMatchingRuleWithPenalty<>(0.0, 0.8);
 		rule4.activateDebugReport("test/output.csv", 1000);
-		rule4.addComparator(new MovieTitleComparatorLevenshtein(), 0.1);
-		rule4.addComparator(new MovieDateComparator10Years(), 0.8);
-		rule4.addComparator(new MovieDirectorComparatorMissingValueLevenshtein(), 0.1);
+		rule4.addComparator(new MovieTitleComparatorLevenshtein(), 0.1, 0.0);
+		rule4.addComparator(new MovieDateComparator10Years(), 0.8, 0.0);
+		rule4.addComparator(new MovieDirectorComparatorMissingValueLevenshtein(), 0.1, 0.15);
 
 
 //		assertNotNull(rule3.apply(movie1, movie3, null));
@@ -129,7 +127,7 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 		correspondences.add(new Correspondence<>(movie1, movie4, 1.0, null));
 		correspondences = correspondences.map(rule4);
 		assertEquals(1, correspondences.size());
-		assertEquals(0.9, correspondences.get().iterator().next().getSimilarityScore());
+		assertEquals(0.85, correspondences.get().iterator().next().getSimilarityScore());
 
 		// Check debug log entries
 		FusibleHashedDataSet<Record, Attribute> comperatorLog = rule4.getComparatorLog();
@@ -139,7 +137,7 @@ public class LinearCombinationMatchingRuleTest extends TestCase {
 
 		Record movie1Movie4 = comperatorLog.getRecord("movie1-movie4");
 		assertNotNull(missingValueSimilarity);
-		assertEquals("0.9", movie1Movie4.getValue(totalSimilarity));
+		assertEquals("0.85", movie1Movie4.getValue(totalSimilarity));
 		assertEquals("MissingValue", movie1Movie4.getValue(missingValueSimilarity));
 
 		Record movie1Movie3 = comperatorLog.getRecord("movie1-movie3");

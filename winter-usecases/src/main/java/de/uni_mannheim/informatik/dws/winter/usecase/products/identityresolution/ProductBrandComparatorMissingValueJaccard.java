@@ -13,16 +13,12 @@ package de.uni_mannheim.informatik.dws.winter.usecase.products.identityresolutio
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingValueComparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.products.model.Product;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * {@link Comparator} for {@link Movie}s based on the
@@ -32,18 +28,12 @@ import java.util.List;
  * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  */
-public class ProductBrandComparatorMissingValueJaccard implements MissingValueComparator<Product, Attribute> {
+public class ProductBrandComparatorMissingValueJaccard implements Comparator<Product, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 
 	private ComparatorLogger comparisonLog;
 	private TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
-	private double penalty = 0.0;
-
-	public ProductBrandComparatorMissingValueJaccard(double penalty){
-		this.penalty = penalty;
-
-	}
 
 	@Override
 	public double compare(
@@ -55,23 +45,19 @@ public class ProductBrandComparatorMissingValueJaccard implements MissingValueCo
 		String s2 = record2.getBrand();
 
 		// calculate similarity
+		double similarity = sim.calculate(s1, s2);
+
 		if (this.comparisonLog != null) {
 			this.comparisonLog.setComparatorName(getClass().getName());
 
 			this.comparisonLog.setRecord1Value(s1);
 			this.comparisonLog.setRecord2Value(s2);
-		}
-		double similarity = 0.0;
 
-		if (s1 == null || s2 == null) {
-			similarity = -1.0;
-		}
-		else {
-			similarity = sim.calculate(s1, s2);
-		}
-
-		if (this.comparisonLog != null) {
-			this.comparisonLog.setSimilarity(Double.toString(similarity));
+			String logSimilarity = Double.toString(similarity);
+			if(hasMissingValue(record1, record2, schemaCorrespondences)){
+				logSimilarity = "MissingValue";
+			}
+			this.comparisonLog.setSimilarity(logSimilarity);
 		}
 
 		return similarity;
@@ -88,7 +74,10 @@ public class ProductBrandComparatorMissingValueJaccard implements MissingValueCo
 	}
 
 	@Override
-	public Double getPenalty() {
-		return this.penalty;
+	public boolean hasMissingValue(Product record1, Product record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		String s1 = record1.getBrand();
+		String s2 = record2.getBrand();
+
+		return s1 == null || s2 == null;
 	}
 }

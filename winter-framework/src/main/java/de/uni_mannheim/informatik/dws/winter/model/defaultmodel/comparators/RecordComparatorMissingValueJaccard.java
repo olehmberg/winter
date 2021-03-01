@@ -13,15 +13,11 @@ package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingValueComparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 import de.uni_mannheim.informatik.dws.winter.similarity.string.TokenizingJaccardSimilarity;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * {@link Comparator} for {@link Record}s based on the {@link Attribute} values,
@@ -31,20 +27,18 @@ import java.util.List;
  * @author Alexander Brinkmann (albrinkm@mail.uni-mannheim.de)
  * 
  */
-public class RecordComparatorMissingValueJaccard extends StringComparator implements MissingValueComparator<Record, Attribute> {
+public class RecordComparatorMissingValueJaccard extends StringComparator implements Comparator<Record, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 	private TokenizingJaccardSimilarity sim = new TokenizingJaccardSimilarity();
 
 	private ComparatorLogger comparisonLog;
-	private double penalty;
 	private double threshold;
 	private boolean squared;
 
 	public RecordComparatorMissingValueJaccard(Attribute attributeRecord1, Attribute attributeRecord2, double threshold,
-										boolean squared, double penalty) {
+										boolean squared) {
 		super(attributeRecord1, attributeRecord2);
-		this.penalty = penalty;
 		this.threshold = threshold;
 		this.squared = squared;
 	}
@@ -107,7 +101,10 @@ public class RecordComparatorMissingValueJaccard extends StringComparator implem
 	}
 
 	@Override
-	public Double getPenalty() {
-		return penalty;
+	public boolean hasMissingValue(Record record1, Record record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		String s1 = record1.getValue(this.getAttributeRecord1());
+		String s2 = record2.getValue(this.getAttributeRecord2());
+
+		return s1 == null || s2 == null;
 	}
 }

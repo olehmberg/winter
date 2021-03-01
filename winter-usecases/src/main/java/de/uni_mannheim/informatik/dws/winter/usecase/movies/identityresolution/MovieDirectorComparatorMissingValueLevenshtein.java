@@ -13,7 +13,6 @@ package de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingValueComparator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
@@ -33,17 +32,12 @@ import java.util.List;
  * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  */
-public class MovieDirectorComparatorMissingValueLevenshtein implements MissingValueComparator<Movie, Attribute> {
+public class MovieDirectorComparatorMissingValueLevenshtein implements Comparator<Movie, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity sim = new LevenshteinSimilarity();
 	
 	private ComparatorLogger comparisonLog;
-	private double penalty = 0.0;
-
-	public MovieDirectorComparatorMissingValueLevenshtein(double penalty){
-		this.penalty = penalty;
-	}
 
 	@Override
 	public double compare(
@@ -54,14 +48,7 @@ public class MovieDirectorComparatorMissingValueLevenshtein implements MissingVa
 		String s1 = record1.getDirector();
 		String s2 = record2.getDirector();
 
-		double similarity = 0.0;
-
-		if (s1 == null || s2 == null) {
-			similarity = -1.0;
-		}
-		else {
-			similarity = sim.calculate(s1, s2);
-		}
+		double similarity = sim.calculate(s1, s2);
 
 
 		if(this.comparisonLog != null){
@@ -70,7 +57,11 @@ public class MovieDirectorComparatorMissingValueLevenshtein implements MissingVa
 			this.comparisonLog.setRecord1Value(s1);
 			this.comparisonLog.setRecord2Value(s2);
 
-			this.comparisonLog.setSimilarity(Double.toString(similarity));
+			String logSimilarity = Double.toString(similarity);
+			if(hasMissingValue(record1, record2, schemaCorrespondences)){
+					logSimilarity = "MissingValue";
+			}
+			this.comparisonLog.setSimilarity(logSimilarity);
 		}
 		return similarity;
 	}
@@ -85,9 +76,12 @@ public class MovieDirectorComparatorMissingValueLevenshtein implements MissingVa
 		this.comparisonLog = comparatorLog;
 	}
 
-
 	@Override
-	public Double getPenalty() {
-		return this.penalty;
+	public boolean hasMissingValue(Movie record1, Movie record2, Correspondence<Attribute, Matchable> schemaCorrespondence) {
+		String s1 = record1.getDirector();
+		String s2 = record2.getDirector();
+
+		return s1 == null || s2 == null;
+
 	}
 }

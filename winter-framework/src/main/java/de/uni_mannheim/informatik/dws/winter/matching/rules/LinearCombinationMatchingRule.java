@@ -18,7 +18,6 @@ import java.util.List;
 
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.MissingValueComparator;
 import org.apache.commons.lang.StringUtils;
 
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;
@@ -55,7 +54,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 
 	private static final long serialVersionUID = 1L;
 	private List<Pair<Comparator<RecordType, SchemaElementType>, Double>> comparators;
-	private List<MissingValueComparator<RecordType, SchemaElementType>> missingValueComparators;
 	private double offset;
 
 	/**
@@ -67,8 +65,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 */
 	public LinearCombinationMatchingRule(double finalThreshold) {
 		super(finalThreshold);
-		this.comparators = new LinkedList<>();
-		this.missingValueComparators = new LinkedList<>();
+		comparators = new LinkedList<>();
 	}
 
 	/**
@@ -83,8 +80,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	public LinearCombinationMatchingRule(double offset, double finalThreshold) {
 		this(finalThreshold);
 		this.offset = offset;
-		this.comparators = new LinkedList<>();
-		this.missingValueComparators = new LinkedList<>();
 	}
 
 	/**
@@ -95,23 +90,17 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 	 * @param weight
 	 *            the weight (a double value larger than 0)
 	 * @throws Exception
-	 *             Throws an exception if the weight is below or equal to 0.0
+	 *             Throws an exception if the weight is equal to or below 0.0
 	 */
 	public void addComparator(Comparator<RecordType, SchemaElementType> comparator, double weight) throws Exception {
 		if (weight > 0.0) {
-			comparators.add(new Pair<>(comparator, weight));
-
+			comparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(comparator, weight));
 			if (this.isDebugReportActive()) {
 				comparator.setComparisonLog(new ComparatorLogger());
 				addComparatorToLog(comparator);
 			}
-
-			if (comparator instanceof MissingValueComparator){
-				this.missingValueComparators.add((MissingValueComparator<RecordType, SchemaElementType>) comparator);
-			}
-
 		} else {
-			throw new Exception("Weight has to be greater than 0");
+			throw new Exception("Weight cannot be 0.0 or smaller");
 		}
 	}
 
@@ -125,7 +114,7 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		}
 		List<Pair<Comparator<RecordType, SchemaElementType>, Double>> normComparators = new LinkedList<>();
 		for (Pair<Comparator<RecordType, SchemaElementType>, Double> pair : comparators) {
-			normComparators.add(new Pair<>(pair.getFirst(),
+			normComparators.add(new Pair<Comparator<RecordType, SchemaElementType>, Double>(pair.getFirst(),
 					(pair.getSecond() / sum)));
 		}
 		comparators = normComparators;
@@ -141,46 +130,8 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			debug = initializeDebugRecord(record1, record2, -1);
 		}
-
-		// Check for Comparators that don't need to be considered due to missing values
-		List<Comparator<RecordType, SchemaElementType>> excludedComparators = new LinkedList<>();
-		double penaltyScore = 0.0;
-		double redistributedWeights = 0.0;
-		double newTotalWeights = 0.0;
-		if(this.missingValueComparators.size() > 0){
-			for(int i = 0; i < missingValueComparators.size(); i++) {
-				MissingValueComparator<RecordType, SchemaElementType> missingValueComp = missingValueComparators.get(i);
-
-				if (this.isDebugReportActive()) {
-					missingValueComp.getComparisonLog().initialise();
-				}
-
-				Correspondence<SchemaElementType, Matchable> correspondence = getCorrespondenceForComparator(
-						schemaCorrespondences, record1, record2, missingValueComp);
-				double similarity = missingValueComp.compare(record1, record2, correspondence);
-				//Only get active if the comparator return -1 --> at least one of the compared values is null
-				if (similarity == -1.0){
-					penaltyScore = penaltyScore + missingValueComp.getPenalty();
-					excludedComparators.add(missingValueComp);
-				}
-			}
-
-			for (Pair<Comparator<RecordType, SchemaElementType>, Double> pair : this.comparators) {
-				Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
-				double weight = pair.getSecond();
-
-				if (excludedComparators.contains(comp)) {
-					redistributedWeights = redistributedWeights + weight;
-				}
-				else{
-					newTotalWeights = newTotalWeights + weight;
-				}
-			}
-
-		}
-
-		for (int i = 0; i < this.comparators.size(); i++) {
-			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = this.comparators.get(i);
+		for (int i = 0; i < comparators.size(); i++) {
+			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
 
 			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
 
@@ -190,17 +141,10 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 			if (this.isDebugReportActive()) {
 				comp.getComparisonLog().initialise();
 			}
-
+			
 			double similarity = comp.compare(record1, record2, correspondence);
-
 			double weight = pair.getSecond();
-
-			if (excludedComparators.size() > 0){
-				weight = weight + (weight/newTotalWeights) * redistributedWeights;
-			}
-			if (!excludedComparators.contains(comp)) {
-				sum += (similarity * weight);
-			}
+			sum += (similarity * weight);
 
 			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 				debug = fillDebugRecord(debug, comp, i);
@@ -211,13 +155,13 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		// do not normalise the sum of weights
 		// if a normalised score in the range [0,1] is desired, users should
 		// call normaliseWeights()
-		double similarity = this.offset + sum - penaltyScore;
+		double similarity = offset + sum;
 		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
 			fillSimilarity(debug, similarity);
 		}
 
 		// if (similarity >= getFinalThreshold() && similarity > 0.0) {
-		return new Correspondence<>(record1, record2, similarity, schemaCorrespondences);
+		return new Correspondence<RecordType, SchemaElementType>(record1, record2, similarity, schemaCorrespondences);
 		// } else {
 		// return null;
 		// }
@@ -244,20 +188,11 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		Record model = new Record(String.format("%s-%s", record1.getIdentifier(), record2.getIdentifier()),
 				this.getClass().getSimpleName());
 
-		double sum = 0.0;
-		Record debug = null;
-		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
-			debug = initializeDebugRecord(record1, record2, -1);
-		}
 
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
 
 			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
-
-			if (this.isDebugReportActive()) {
-				comp.getComparisonLog().initialise();
-			}
 
 			double similarity = comp.compare(record1, record2, null);
 
@@ -272,19 +207,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				att = new Attribute(name);
 			}
 			model.setValue(att, Double.toString(similarity));
-
-			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
-				debug = fillDebugRecord(debug, comp, i);
-				addDebugRecordShort(record1, record2, comp, i);
-			}
-		}
-
-		// do not normalise the sum of weights
-		// if a normalised score in the range [0,1] is desired, users should
-		// call normaliseWeights()
-		double similarity = offset + sum;
-		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
-			fillSimilarity(debug, similarity);
 		}
 
 		return model;
@@ -358,8 +280,6 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				(DataSet<Record, Attribute>) dataset2, goldStandard, (LearnableMatchingRule<Record, Attribute>) this,
 				null);
 		new RecordCSVFormatter().writeCSV(file, features, null);
-
-		writeDebugMatchingResultsToFile();
 
 	}
 }
