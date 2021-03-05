@@ -19,6 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.similarity.string.TFIDFCosineSimilarity;
 import de.uni_mannheim.informatik.dws.winter.similarity.vectorspace.VectorSpaceCosineSimilarity;
 import de.uni_mannheim.informatik.dws.winter.usecase.products.model.Product;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
@@ -36,23 +37,14 @@ public class ProductDescriptionComparatorTFIDFCosine implements Comparator<Produ
 	private static final long serialVersionUID = 1L;
 
 	private ComparatorLogger comparisonLog;
-	private Processable<Correspondence<Product, Attribute>> correspondences;
-	private static final Logger logger = WinterLogManager.activateLogger("default");
+	private TFIDFCosineSimilarity tfidfCosineSimilarity;
+
 
 	public ProductDescriptionComparatorTFIDFCosine(HashedDataSet<Product, Attribute> dataProductsLeft,
-                                                   HashedDataSet<Product, Attribute> dataProductsRight,
-                                                   Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences){
+                                                   HashedDataSet<Product, Attribute> dataProductsRight){
 
-		logger.info("Calculate TF-IDF score of all correspondences");
-
-		BlockingKeyIndexer<Product, Attribute, Product, Attribute> blockingKeyIndexer = new BlockingKeyIndexer<>(
-				new ProductBlockingKeyByDescriptionGenerator(),
-				new ProductBlockingKeyByDescriptionGenerator(), new VectorSpaceCosineSimilarity(),
-				BlockingKeyIndexer.VectorCreationMethod.TFIDF, 0.1);
-
-		this.correspondences = blockingKeyIndexer
-				.runBlocking(dataProductsLeft, dataProductsRight, schemaCorrespondences);
-
+		this.tfidfCosineSimilarity = new TFIDFCosineSimilarity(dataProductsLeft, dataProductsRight,
+											new ProductTokenGeneratorByDescription());
 	}
 
 	@Override
@@ -64,15 +56,7 @@ public class ProductDescriptionComparatorTFIDFCosine implements Comparator<Produ
 		String s1 = record1.getDescription();
 		String s2 = record2.getDescription();
 
-		Correspondence<Product, Attribute> cor = this.correspondences
-				.where((c)->(c.getFirstRecord().equals(record1)))
-				.where((c)->(c.getSecondRecord().equals(record2))).firstOrNull();
-
-		double similarity = 0.0;
-
-		if (cor != null){
-			similarity = cor.getSimilarityScore();
-		}
+		double similarity = tfidfCosineSimilarity.calculate(s1, s2);
     	
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
@@ -84,10 +68,6 @@ public class ProductDescriptionComparatorTFIDFCosine implements Comparator<Produ
 		}
 		
 		return similarity;
-	}
-
-	public void initialiseIndices(){
-
 	}
 
 	@Override

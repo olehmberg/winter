@@ -70,10 +70,9 @@ public class Products_IdentityResolution_Main {
 		matchingRule.activateDebugReport("usecase/product/output/debugResultsMatchingRule.csv", 1000, gsTest);
 
 		// add comparators
-		matchingRule.addComparator(new ProductTitleComparatorJaccard(),0.2, 0.0);
+		matchingRule.addComparator(new ProductTitleComparatorJaccard(),0.5, 0.0);
 		// Provide the full data sets as input for the TF-IDF comparators to generate a complete inverted index for all included tokens
-		matchingRule.addComparator(new ProductTitleComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.5, 0.0);
-		matchingRule.addComparator(new ProductDescriptionComparatorTFIDFCosine(dataProductsLeft, dataProductsRight, null), 0.1, 0.0);
+		matchingRule.addComparator(new ProductDescriptionComparatorTFIDFCosine(dataProductsLeft, dataProductsRight), 0.3, 0.0);
 
 		// Use missing Value Comparator on Brand to neutralise the ProductBrandComparatorJaccard
 		// if the Brand value of either record is missing.
@@ -81,8 +80,8 @@ public class Products_IdentityResolution_Main {
 
 		// create a blocker (blocking strategy)
 		BlockingKeyIndexer<Product, Attribute, Product, Attribute>  blocker = new BlockingKeyIndexer<>(
-				new ProductBlockingKeyByTitleGenerator(),
-				new ProductBlockingKeyByTitleGenerator(), new VectorSpaceCosineSimilarity(),
+				new ProductTokenGeneratorByTitle(),
+				new ProductTokenGeneratorByTitle(), new VectorSpaceCosineSimilarity(),
 				BlockingKeyIndexer.VectorCreationMethod.TFIDF, 0.2);
 		//Write debug results to file:
 		blocker.collectBlockSizeData("usecase/product/output/debugResultsBlocking.csv", 100);

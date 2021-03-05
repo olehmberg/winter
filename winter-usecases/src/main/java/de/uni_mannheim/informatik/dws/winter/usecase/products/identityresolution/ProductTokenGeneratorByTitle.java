@@ -13,45 +13,40 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.products.identityresolution;
 
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
-import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.RecordBlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
+import de.uni_mannheim.informatik.dws.winter.similarity.string.generator.TokenGenerator;
 import de.uni_mannheim.informatik.dws.winter.usecase.products.model.Product;
 
 /**
- * {@link BlockingKeyGenerator} for {@link Product}s, which generates  blocking
+ * {@link TokenGenerator} for {@link Product}s, which generates  blocking
  * key values based on the description split by white space.
  * 
  * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  */
-public class ProductBlockingKeyByDescriptionGenerator extends
-		RecordBlockingKeyGenerator<Product, Attribute> {
+public class ProductTokenGeneratorByTitle extends
+		TokenGenerator<Product, Attribute> {
 
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see de.uni_mannheim.informatik.wdi.matching.blocking.generators.BlockingKeyGenerator#generateBlockingKeys(de.uni_mannheim.informatik.wdi.model.Matchable, de.uni_mannheim.informatik.wdi.model.Result, de.uni_mannheim.informatik.wdi.processing.DatasetIterator)
-	 */
-	@Override
-	public void generateBlockingKeys(Product record, Processable<Correspondence<Attribute, Matchable>> correspondences,
-									 DataIterator<Pair<String, Product>> resultCollector) {
-		String[] descriptionTokens = record.getDescription().split(" ");
-		int consideredTokens = 5;
 
-		for(int i=0;i < consideredTokens;i++){
-			if(descriptionTokens.length > i){
-				String token = descriptionTokens[i];
-				resultCollector.next(new Pair<>(token, record));
-			}
-			else {
-				break;
-			}
+	@Override
+	public void generateTokens(Product record, Processable<Correspondence<Attribute, Matchable>> correspondences, DataIterator<Pair<String, Product>> resultCollector) {
+		String[] descriptionTokens = tokenizeString(record.getTitle());
+
+		for (String token : descriptionTokens) {
+			resultCollector.next(new Pair<>(token, record));
 		}
+	}
+
+	@Override
+	public String[] tokenizeString(String value) {
+		return value.split(" ");
 	}
 
 }
