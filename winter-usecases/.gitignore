@@ -3,9 +3,11 @@
 .project
 *.classpath
 /usecase/movie/output/
+/usecase/product/output/
 /usecase/restaurant/output/
 /usecase/itunes/output/
 winter.iml
 .idea/
 /testdata/out/
 .factorypath
+/logs/
