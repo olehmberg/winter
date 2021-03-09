@@ -31,10 +31,12 @@ import java.util.List;
 /**
  * A {@link MatchingRule} that is defined by a weighted linear combination of
  * attribute similarities.
+ * In combination with the hasMissingValue of the {@link Comparator} missing values
+ * can be penalised and the weights of the {@link Comparator} are redistributed.
  * 
  * Does not make use of schema correspondences
  * 
- * @author Oliver Lehmberg (oli@dwslab.de)
+ * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
  * 
  * @param <RecordType>
  *            the type of records that are matched with this rule
@@ -84,6 +86,8 @@ public class LinearCombinationMatchingRuleWithPenalty<RecordType extends Matchab
 	 *            the comparator
 	 * @param weight
 	 *            the weight (a double value larger than 0)
+	 * @param penalty
+	 * 			  the penalty of the comparator that is applied if one of the compared values is missing.
 	 * @throws Exception
 	 *             Throws an exception if the weight is below or equal to 0.0
 	 */
