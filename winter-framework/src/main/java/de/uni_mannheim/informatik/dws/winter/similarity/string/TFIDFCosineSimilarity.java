@@ -68,12 +68,11 @@ public class TFIDFCosineSimilarity<RecordType extends Matchable, SchemaElementTy
 		Collections.addAll(uniqueTokens, tokens1);
 		Collections.addAll(uniqueTokens, tokens2);
 
-		HashMap<String, Integer> termFrequencies = new HashMap<>();
-		termFrequencies = this.tfidfGenerator.calculateTermFrequencies(tokens1, termFrequencies);
-		termFrequencies = this.tfidfGenerator.calculateTermFrequencies(tokens2, termFrequencies);
+		HashMap<String, Double> termFrequencies1 = this.tfidfGenerator.calculateTermFrequencies(tokens1);
+		HashMap<String, Double> termFrequencies2 = this.tfidfGenerator.calculateTermFrequencies(tokens2);
 
-		HashMap<String, Double> tfIDF1 = this.tfidfGenerator.calculateTFIDFScores(tokens1, termFrequencies);
-		HashMap<String, Double> tfIDF2 = this.tfidfGenerator.calculateTFIDFScores(tokens2, termFrequencies);
+		HashMap<String, Double> tfIDF1 = this.tfidfGenerator.calculateTFIDFScores(termFrequencies1);
+		HashMap<String, Double> tfIDF2 = this.tfidfGenerator.calculateTFIDFScores(termFrequencies2);
 
 		double score = 0;
 

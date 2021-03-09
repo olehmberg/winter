@@ -45,9 +45,10 @@ public class TFIDFGenerator<RecordType extends Matchable, SchemaElementType exte
         inverseDocumentFrequencies.foreach((c) -> this.inverseDocumentFrequencies.put(c.getFirst(), c.getSecond()));
     }
 
-    public HashMap<String, Integer> calculateTermFrequencies(String[] tokens, HashMap<String, Integer> termFrequencies){
+    public HashMap<String, Double> calculateTermFrequencies(String[] tokens){
+        HashMap<String, Double> termFrequencies = new HashMap<>();
         for (String token: tokens){
-            int count = 0;
+            double count = 0;
             if(termFrequencies.containsKey(token)){
                 count = termFrequencies.get(token);
             }
@@ -58,13 +59,13 @@ public class TFIDFGenerator<RecordType extends Matchable, SchemaElementType exte
         return termFrequencies;
     }
 
-    public HashMap<String, Double> calculateTFIDFScores(String[] tokens, HashMap<String, Integer> termFrequencies){
+    public HashMap<String, Double> calculateTFIDFScores(HashMap<String, Double> termFrequencies){
         HashMap<String, Double> tfIDF = new HashMap<>();
-        for (String token: tokens){
-            int count = 0;
+        for (String token: termFrequencies.keySet()){
+            double count = 0;
             double idfCount = 0;
 
-            if(termFrequencies.containsKey(token) && this.inverseDocumentFrequencies.containsKey(token)){
+            if(this.inverseDocumentFrequencies.containsKey(token)){
                 count = termFrequencies.get(token);
                 idfCount = this.inverseDocumentFrequencies.get(token);
             }
