@@ -4,7 +4,7 @@
 
   <groupId>de.uni_mannheim.informatik.dws</groupId>
   <artifactId>winter-usecases</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>winter-usecases</name>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>de.uni_mannheim.informatik.dws.winter</groupId>
 			<artifactId>winter-framework</artifactId>
-			<version>1.4.1</version>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 </project>

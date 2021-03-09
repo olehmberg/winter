@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.uni_mannheim.informatik.dws.winter</groupId>
 	<artifactId>winter-framework</artifactId>
-	<version>1.4.1</version>
+	<version>1.4</version>
 	<name>WInte.r</name>
 	<url>https://github.com/olehmberg/winter</url>
 
