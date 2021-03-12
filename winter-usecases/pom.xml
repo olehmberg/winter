@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>de.uni_mannheim.informatik.dws.winter</groupId>
 			<artifactId>winter-framework</artifactId>
-			<version>1.4</version>
+			<version>1.4-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
