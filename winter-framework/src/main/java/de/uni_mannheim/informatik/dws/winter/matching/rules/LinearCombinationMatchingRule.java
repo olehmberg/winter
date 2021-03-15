@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import org.apache.commons.lang.StringUtils;
 
 import de.uni_mannheim.informatik.dws.winter.matching.algorithms.RuleLearner;

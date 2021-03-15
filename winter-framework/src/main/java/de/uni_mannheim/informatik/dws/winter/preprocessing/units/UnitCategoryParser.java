@@ -371,8 +371,7 @@ public class UnitCategoryParser {
 
 	private static UnitCategory initialiseUnitCategory(Path filePath) {
 
-		String[] filePathParts = filePath.toString().split("\\\\");
-		String simpleFileName = filePathParts[filePathParts.length - 1];
+		String simpleFileName = filePath.getFileName().toString();
 		simpleFileName = simpleFileName.replace(".txt", "");
 
 		UnitCategory unitCategory = new UnitCategory(simpleFileName);

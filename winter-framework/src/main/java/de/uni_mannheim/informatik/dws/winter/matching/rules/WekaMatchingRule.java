@@ -32,6 +32,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.dom4j.Document;

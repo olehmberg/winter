@@ -1,4 +1,4 @@
-package de.uni_mannheim.informatik.dws.winter.matching.rules;
+package de.uni_mannheim.informatik.dws.winter.matching.rules.comparators;
 
 import java.util.concurrent.ConcurrentHashMap;
 

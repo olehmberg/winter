@@ -14,12 +14,11 @@ package de.uni_mannheim.informatik.dws.winter.matching;
 
 import java.io.File;
 
-import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.Blocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.StaticBlockingKeyGenerator;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
@@ -59,6 +58,22 @@ public class MatchingEngineTest extends TestCase {
 		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
 
 		engine.runIdentityResolution(ds, ds2, null, rule, blocker);
+	}
+
+	public void testRunBlocking() throws Exception {
+		HashedDataSet<Movie, Attribute> ds = new HashedDataSet<>();
+		File sourceFile1 = new File("usecase/movie/input/actors.xml");
+		new MovieXMLReader().loadFromXML(sourceFile1, "/movies/movie", ds);
+
+		HashedDataSet<Movie, Attribute> ds2 = new HashedDataSet<>();
+		File sourceFile2 = new File("usecase/movie/input/academy_awards.xml");
+		new MovieXMLReader().loadFromXML(sourceFile2, "/movies/movie", ds2);
+
+		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(
+				new StaticBlockingKeyGenerator<Movie, Attribute>());
+		MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
+
+		engine.runBlocking(ds, ds2, null, blocker);
 	}
 
 	public void testRunDeduplication() throws Exception {

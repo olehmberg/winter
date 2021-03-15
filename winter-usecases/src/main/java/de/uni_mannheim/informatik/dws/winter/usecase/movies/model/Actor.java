@@ -77,7 +77,7 @@ public class Actor extends AbstractRecord<Attribute> implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -95,6 +95,18 @@ public class Actor extends AbstractRecord<Attribute> implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString(java.lang.Object)
+	 */
+	@Override
+	public String toString() {
+
+		return String.format("[Actor %s: %s / %s / %s]", getIdentifier(), getName(),
+				getBirthday(), getBirthplace());
 	}
 
 	public static final Attribute NAME = new Attribute("Name");

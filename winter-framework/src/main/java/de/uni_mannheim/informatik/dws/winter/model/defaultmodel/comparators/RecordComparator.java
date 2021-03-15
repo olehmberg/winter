@@ -11,7 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.winter.model.defaultmodel.comparators;
 
-import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Record;
 

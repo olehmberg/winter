@@ -27,7 +27,7 @@ import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.SymmetricBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.generators.BlockingKeyGenerator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.AggregateByFirstRecordRule;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.FlattenAggregatedCorrespondencesRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.MatchingRule;
@@ -161,6 +161,32 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 		algorithm.run();
 
 		return algorithm.getResult();
+
+	}
+
+	/**
+	 * Runs blocking on the given data sets using the provided
+	 * blocker. Using a dummy matching rule all blocked pairs are matched.
+	 *
+	 * @param dataset1
+	 *            The first data set
+	 * @param dataset2
+	 *            The second data set
+	 * @param schemaCorrespondences
+	 *            (Optional) Schema correspondences between the data sets that
+	 *            tell the matching rule which attribute combinations to
+	 *            compare.
+	 * @param blocker
+	 *            The {@link AbstractBlocker} that generates the pairs, which
+	 *            are then matched by the dummy {@link MatchingRule}.
+	 * @return A list of correspondences
+	 */
+	public Processable<Correspondence<RecordType, SchemaElementType>> runBlocking(
+			DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2,
+			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences,
+			Blocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
+
+		return blocker.runBlocking(dataset1, dataset2, schemaCorrespondences);
 
 	}
 

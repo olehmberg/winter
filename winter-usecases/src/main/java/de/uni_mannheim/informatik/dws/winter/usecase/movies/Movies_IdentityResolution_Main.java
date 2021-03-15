@@ -12,11 +12,10 @@
 package de.uni_mannheim.informatik.dws.winter.usecase.movies;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
+import java.util.*;
+
+import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
 import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -34,12 +33,6 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByDecadeGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByYearGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
@@ -92,7 +85,7 @@ public class Movies_IdentityResolution_Main {
 
 		matchingRule.addComparator(new MovieDirectorComparatorLevenshtein(), 0.2);
 		matchingRule.addComparator(new MovieTitleComparatorLevenshtein(), 0.8);
-		
+
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new MovieBlockingKeyByDecadeGenerator());
 		//Write debug results to file:
@@ -276,7 +269,7 @@ public class Movies_IdentityResolution_Main {
 			List<Correspondence<Movie, Attribute>> correspondences) {
 		// sort the correspondences
 		Collections.sort(correspondences,
-				new Comparator<Correspondence<Movie, Attribute>>() {
+				new java.util.Comparator<Correspondence<Movie, Attribute>>() {
 
 					@Override
 					public int compare(Correspondence<Movie, Attribute> o1,

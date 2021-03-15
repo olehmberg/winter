@@ -94,6 +94,7 @@ public class DataFusionEngine<RecordType extends Matchable & Fusible<SchemaEleme
 		
 		if(strategy.isDebugReportActive()){
 			strategy.writeDebugDataFusionResultsToFile();
+			strategy.calculateRecordLevelDebugResultsAndWriteToFile(fusedDataSet);
 		}
 
 		return fusedDataSet;

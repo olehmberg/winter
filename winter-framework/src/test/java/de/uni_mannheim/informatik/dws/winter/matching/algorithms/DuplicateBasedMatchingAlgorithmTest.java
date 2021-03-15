@@ -16,9 +16,8 @@ import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.TopKVotesAggregator;
 import de.uni_mannheim.informatik.dws.winter.matching.aggregators.VotingAggregator;
-import de.uni_mannheim.informatik.dws.winter.matching.algorithms.DuplicateBasedMatchingAlgorithm;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoSchemaBlocker;
-import de.uni_mannheim.informatik.dws.winter.matching.rules.ComparatorLogger;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.VotingMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;

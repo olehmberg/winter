@@ -17,17 +17,10 @@ The WInte.r framework [5] provides methods for end-to-end data integration. The 
 You can include the WInte.r framework via the following Maven dependency:
 
 ```xml
-<repositories>
-	<repository>
-		<id>releases</id>
-		<url>https://breda.informatik.uni-mannheim.de/nexus/content/repositories/releases/</url>
-	</repository>
-</repositories>
-
 <dependency>
-	<groupId>de.uni_mannheim.informatik.dws</groupId>
-	<artifactId>winter</artifactId>
-	<version>1.3.2</version>
+    <groupId>de.uni_mannheim.informatik.dws.winter</groupId>
+    <artifactId>winter-framework</artifactId>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -66,7 +59,7 @@ WInte.r can be used out-of-the-box to integrate data from multiple data sources.
 
 **Integration of Multiple Data Sources: Building a Movie Dataset**
 
-The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](http://dws.informatik.uni-mannheim.de/en/teaching/courses-for-master-candidates/ie670webdataintegration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of movie data from multiple Web data sources. In addition, student teams use the WInte.r framework to integrate data about different topics as part of the projects that they conduct during the course.
+The WInte.r framework is used to integrate data from multiple sources within the [Web Data Integration](https://www.uni-mannheim.de/dws/teaching/course-details/courses-for-master-candidates/ie-670-web-data-integration/) course offered by [Professor Bizer](http://dws.informatik.uni-mannheim.de/bizer) at the University of Mannheim. The basic case study in this course is the integration of product data from multiple Web data sources. In addition, student teams use the WInte.r framework to integrate data about different topics as part of the projects that they conduct during the course.
 
 **Integration of Large Numbers of Data Sources: Augmenting the DBpedia Knowledge base with Web Table Data**
 
@@ -84,7 +77,7 @@ Analysts increasingly have the problem that they know that some data which they 
 
 ## Contact
 
-If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/WInte.r-Tutorial), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact oli [at] informatik [dot] uni-mannheim [dot] de 
+If you have any questions, please refer to the  [Winte.r Tutorial](../../wiki/WInte.r-Tutorial), [Wiki](../../wiki), and the [JavaDoc](https://olehmberg.github.io/winter/javadoc/) first. For further information contact alex [dot] brinkmann [at] informatik [dot] uni-mannheim [dot] de 
 
 ## License
 

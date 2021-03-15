@@ -117,10 +117,13 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 		
 		// use the blocker to generate pairs
 		Processable<Correspondence<RecordType, CorrespondenceType>> allPairs = runBlocking(getDataset1(), getDataset2(), getCorrespondences());
-		
+
+		LocalDateTime afterBlocking = LocalDateTime.now();
+
 		logger.info(String
-						.format("Matching %,d x %,d elements; %,d blocked pairs (reduction ratio: %s)",
+						.format("Matching %,d x %,d elements after %s; %,d blocked pairs (reduction ratio: %s)",
 								getDataset1().size(), getDataset2().size(),
+								DurationFormatUtils.formatDurationHMS(Duration.between(start, afterBlocking).toMillis()),
 								allPairs.size(), Double.toString(getReductionRatio())));
 		
 		// compare the pairs using the matching rule
