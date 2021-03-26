@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.uni-mannheim.informatik.dws.winter</groupId>
 	<artifactId>winter-framework</artifactId>
-	<version>1.4</version>
+	<version>1.4.1</version>
 	<name>WInte.r</name>
 	<description>WInte.r is a Java framework for end-to-end data integration. The WInte.r framework implements well-known methods for data pre-processing, schema matching, identity resolution, data fusion, and result evaluation. </description>
 	<url>https://github.com/olehmberg/winter</url>
