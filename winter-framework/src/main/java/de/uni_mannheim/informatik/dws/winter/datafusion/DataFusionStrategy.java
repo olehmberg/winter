@@ -73,6 +73,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Activates the collection of debug results
 	 * 
 	 * @param filePath	describes the filePath to the debug results log.
+	 *                  The file type of the debug result log has to be csv.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
 	public void activateDebugReport(String filePath, int maxSize){
@@ -83,14 +84,21 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 	 * Activates the collection of debug results
 	 * 
 	 * @param filePath	describes the filePath to the debug results log.
+	 *                  The file type of the debug result log has to be csv.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
 	public void activateDebugReport(String filePath, int maxSize, DataSet<RecordType, SchemaElementType> goldStandard){
-		if(filePath != null){
+		if(filePath != null && filePath.endsWith(".csv")){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.goldStandardForDebug = goldStandard;
 			this.setCollectDebugResults(true);
+
+			logger.info("Activated Debug Report.");
+		}
+		else{
+			logger.error("Failed to activate Debug Report.");
+			logger.error("Please provide a valid path to a .csv file!");
 		}
 	}
 
@@ -340,7 +348,7 @@ public class DataFusionStrategy<RecordType extends Matchable & Fusible<SchemaEle
 
 
 			// UPDATE write to file part once new ds is generated
-			String debugReportfilePath = this.filePathDebugResults.replace(".csv", "_recordLevel.csv");
+			String debugReportfilePath = this.filePathDebugResults.replaceAll(".csv$", "_recordLevel.csv");
 			try {
 				new RecordCSVFormatter().writeCSV(new File(debugReportfilePath), debugFusionResultsRecordLevel, headerDebugResultsRecordLevel);
 				logger.info("Debug results on record level written to file: " + debugReportfilePath);
