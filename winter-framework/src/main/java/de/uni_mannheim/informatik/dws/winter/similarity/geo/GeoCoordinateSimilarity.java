@@ -15,8 +15,9 @@ import de.uni_mannheim.informatik.dws.winter.model.Pair;
 import de.uni_mannheim.informatik.dws.winter.similarity.SimilarityMeasure;
 
 /**
- * {@link SimilarityMeasure}, that calculates the similarity of two geo coordinates,
- * based on the distance in km between them. The similarity is 0 if the distance
+ * {@link SimilarityMeasure} that calculates the similarity of two geo coordinates
+ * based on the distance in km between them. The haversine formula is used to set
+ * the geo coordinates into context. The similarity is 0 if the distance
  * exceeds the maximum distance.
  * 
  * @author Alexander Brinkmann (alex.brinkmann@informatik.uni-mannheim.de)
