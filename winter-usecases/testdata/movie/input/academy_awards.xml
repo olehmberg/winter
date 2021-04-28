@@ -87,14 +87,6 @@
 		<id>academy_awards_4146</id>
 		<title>Jezebel</title>
 		<director/>
-		<actors>
-			<actor>
-				<name>Bette Davis</name>
-			</actor>
-			<actor>
-				<name>Fay Bainter</name>
-			</actor>
-		</actors>
 		<date>1938-01-01</date>
 		<oscar>yes</oscar>
 	</movie>
