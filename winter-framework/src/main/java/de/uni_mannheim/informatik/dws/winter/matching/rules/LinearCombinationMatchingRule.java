@@ -188,11 +188,20 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 		Record model = new Record(String.format("%s-%s", record1.getIdentifier(), record2.getIdentifier()),
 				this.getClass().getSimpleName());
 
+		double sum = 0.0;
+		Record debug = null;
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+			debug = initializeDebugRecord(record1, record2, -1);
+		}
 
 		for (int i = 0; i < comparators.size(); i++) {
 			Pair<Comparator<RecordType, SchemaElementType>, Double> pair = comparators.get(i);
 
 			Comparator<RecordType, SchemaElementType> comp = pair.getFirst();
+
+			if (this.isDebugReportActive()) {
+				comp.getComparisonLog().initialise();
+			}
 
 			double similarity = comp.compare(record1, record2, null);
 
@@ -207,6 +216,17 @@ public class LinearCombinationMatchingRule<RecordType extends Matchable, SchemaE
 				att = new Attribute(name);
 			}
 			model.setValue(att, Double.toString(similarity));
+
+			if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+				debug = fillDebugRecord(debug, comp, i);
+				addDebugRecordShort(record1, record2, comp, i);
+			}
+
+		}
+
+		double similarity = offset + sum;
+		if (this.isDebugReportActive() && this.continueCollectDebugResults()) {
+			fillSimilarity(debug, similarity);
 		}
 
 		return model;
