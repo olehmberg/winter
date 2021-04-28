@@ -92,10 +92,31 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	public Processable<Correspondence<RecordType, CorrespondenceType>> getResult() {
 		return result;
 	}
-	
-	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(DataSet<RecordType, SchemaElementType> dataset1, DataSet<RecordType, SchemaElementType> dataset2, Processable<Correspondence<CorrespondenceType, Matchable>> correspondences) {
+
+	public void runBlocking(){
+		this.result = runBlocking(getDataset1(), getDataset2(), getCorrespondences());
+	}
+
+	public Processable<Correspondence<RecordType, CorrespondenceType>> runBlocking(
+			DataSet<RecordType, SchemaElementType> dataset1,
+			DataSet<RecordType, SchemaElementType> dataset2,
+			Processable<Correspondence<CorrespondenceType, Matchable>> correspondences) {
+
+		LocalDateTime start = LocalDateTime.now();
+
+		logger.info(String.format("Starting %s", getTaskName()));
+
+		logger.info(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
+
 		Processable<Correspondence<RecordType, CorrespondenceType>> pairs = blocker.runBlocking(getDataset1(),
 				getDataset2(), getCorrespondences());
+
+		LocalDateTime afterBlocking = LocalDateTime.now();
+		logger.info(String
+				.format("Matching %,d x %,d elements after %s; %,d blocked pairs (reduction ratio: %s)",
+						getDataset1().size(), getDataset2().size(),
+						DurationFormatUtils.formatDurationHMS(Duration.between(start, afterBlocking).toMillis()),
+						pairs.size(), Double.toString(getReductionRatio())));
 
 		if(blocker.isMeasureBlockSizes()){
 			blocker.writeDebugBlockingResultsToFile();
@@ -110,21 +131,9 @@ public class RuleBasedMatchingAlgorithm<RecordType extends Matchable, SchemaElem
 	
 	public void run() {
 		LocalDateTime start = LocalDateTime.now();
-
-		logger.info(String.format("Starting %s", getTaskName()));
-
-		logger.info(String.format("Blocking %,d x %,d elements", getDataset1().size(), getDataset2().size()));
 		
 		// use the blocker to generate pairs
 		Processable<Correspondence<RecordType, CorrespondenceType>> allPairs = runBlocking(getDataset1(), getDataset2(), getCorrespondences());
-
-		LocalDateTime afterBlocking = LocalDateTime.now();
-
-		logger.info(String
-						.format("Matching %,d x %,d elements after %s; %,d blocked pairs (reduction ratio: %s)",
-								getDataset1().size(), getDataset2().size(),
-								DurationFormatUtils.formatDurationHMS(Duration.between(start, afterBlocking).toMillis()),
-								allPairs.size(), Double.toString(getReductionRatio())));
 		
 		// compare the pairs using the matching rule
 		Processable<Correspondence<RecordType, CorrespondenceType>> result = allPairs.map(rule);
