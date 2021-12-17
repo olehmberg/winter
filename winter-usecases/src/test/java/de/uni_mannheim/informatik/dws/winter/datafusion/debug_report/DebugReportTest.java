@@ -115,6 +115,14 @@ public class DebugReportTest extends TestCase {
         assertEquals("true", record1.getIsCorrect());
         assertEquals("Milos Forman", record1.getCorrectValue());
 
+        AttributeFusionLogger record2 = (AttributeFusionLogger) fusionDebugReport.getRecord("Actors-{actors_11+academy_awards_4146}");
+        assertNotNull(record2);
+        assertEquals("Actors", record2.getAttributeName());
+        assertEquals("{}", record2.getValues());
+        assertEquals("[]", record2.getFusedValue());
+        assertEquals("false", record2.getIsCorrect());
+        assertEquals("[[Actor null: Bette Davis / null / null], [Actor null: Fay Bainter / null / null]]", record2.getCorrectValue());
+
 
     }
 }

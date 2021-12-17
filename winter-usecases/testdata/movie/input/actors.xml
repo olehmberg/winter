@@ -27,18 +27,6 @@
 	<movie>
 		<id>actors_11</id>
 		<title>Jezebel</title>
-		<actors>
-			<actor>
-				<name>Bette Davis</name>
-				<birthday>1908-01-01</birthday>
-				<birthplace>Massachusetts</birthplace>
-			</actor>
-			<actor>
-				<name>Johnny Depp</name>
-				<birthday>1913-01-01</birthday>
-				<birthplace>India</birthplace>
-			</actor>
-		</actors>
 		<date>1939-01-01</date>
 	</movie>
 	<movie>

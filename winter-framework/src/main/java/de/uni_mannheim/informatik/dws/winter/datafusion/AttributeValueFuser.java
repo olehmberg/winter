@@ -171,13 +171,18 @@ public abstract class AttributeValueFuser<ValueType, RecordType extends Matchabl
 			List<String> listIdentifiers = new LinkedList<String>();
 			List<String> listValues = new LinkedList<String>();
 
-			Collections.sort(fusableValues, FusibleValue.Comparators.RECORDIDENTIFIER);
+			if(fusableValues.size() > 0){
 
-			for(int i = 0; i < fusableValues.size(); i++){
-				listIdentifiers.add(fusableValues.get(i).getRecord().getIdentifier().toString());
-				listValues.add(fusableValues.get(i).getValue().toString());
+				Collections.sort(fusableValues, FusibleValue.Comparators.RECORDIDENTIFIER);
+
+				for(int i = 0; i < fusableValues.size(); i++){
+					listIdentifiers.add(fusableValues.get(i).getRecord().getIdentifier().toString());
+					listValues.add(fusableValues.get(i).getValue().toString());
+				}
 			}
-
+			else{
+				listIdentifiers.addAll(group.getRecordIds());
+			}
 			String recordIdentifiers = StringUtils.join(listIdentifiers, '+');
 
 			String valueIdentifier = schemaElement.getIdentifier() + "-{" +  recordIdentifiers + "}";

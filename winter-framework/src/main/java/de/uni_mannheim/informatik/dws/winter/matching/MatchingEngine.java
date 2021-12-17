@@ -186,7 +186,13 @@ public class MatchingEngine<RecordType extends Matchable, SchemaElementType exte
 			Processable<Correspondence<SchemaElementType, Matchable>> schemaCorrespondences,
 			Blocker<RecordType, SchemaElementType, RecordType, SchemaElementType> blocker) {
 
-		return blocker.runBlocking(dataset1, dataset2, schemaCorrespondences);
+		RuleBasedMatchingAlgorithm<RecordType, SchemaElementType, SchemaElementType> algorithm = new RuleBasedMatchingAlgorithm<>(
+				dataset1, dataset2, Correspondence.toMatchable(schemaCorrespondences), null, blocker);
+		algorithm.setTaskName("Blocking");
+
+		algorithm.runBlocking();
+
+		return algorithm.getResult();
 
 	}
 

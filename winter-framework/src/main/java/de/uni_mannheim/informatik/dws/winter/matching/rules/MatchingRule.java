@@ -360,15 +360,22 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * Activates the collection of debug results
 	 * 
 	 * @param filePath	describes the filePath to the debug results log.
+	 *                  The file type of the debug result log has to be csv.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 * @param debugGoldstandard	can be used to annotate the debug results log with matching information from a goldstandard
 	 */
 	public void activateDebugReport(String filePath, int maxSize, MatchingGoldStandard debugGoldstandard){
-		if(filePath != null){
+		if(filePath != null && filePath.endsWith(".csv")){
 			this.filePathDebugResults = filePath;
 			this.maxDebugLogSize = maxSize;
 			this.setCollectDebugResults(true);
 			this.debugGoldStandard = debugGoldstandard;
+
+			logger.info("Activated Debug Report.");
+		}
+		else{
+			logger.error("Failed to activate Debug Report.");
+			logger.error("Please provide a valid path to a .csv file!");
 		}
 	}
 	
@@ -376,6 +383,7 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 	 * Activates the collection of debug results
 	 * 
 	 * @param filePath	describes the filePath to the debug results log.
+	 *                  The file type of the debug result log has to be csv.
 	 * @param maxSize	describes the maximum size of the debug results log.
 	 */
 	public void activateDebugReport(String filePath, int maxSize){
@@ -409,15 +417,25 @@ public abstract class MatchingRule<RecordType extends Matchable, SchemaElementTy
 		if(this.debugGoldStandard != null){
 			addGoldstandardToDebugResults();
 		}
-		if (this.comparatorLog != null && this.comparatorLogShort != null  && this.filePathDebugResults != null) {
+		if (this.comparatorLog != null && this.comparatorLogShort != null
+				&& this.filePathDebugResults != null && this.filePathDebugResults.endsWith(".csv")) {
 			try {
 				new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults), this.comparatorLog, this.headerDebugResults);
 			logger.info("Debug results written to file: " + this.filePathDebugResults);
-			new RecordCSVFormatter().writeCSV(new File(this.filePathDebugResults + "_short"), this.comparatorLogShort,
-					this.headerDebugResultsShort);
-			logger.info("Debug results written to file: " + this.filePathDebugResults + "_short");
+
+
 			} catch (IOException e) {
 				logger.error("Debug results could not be written to file: " + this.filePathDebugResults);
+			}
+
+			String filePathShortDebugResults = this.filePathDebugResults.replaceAll(".csv$", "_short.csv");
+
+			try{
+				new RecordCSVFormatter().writeCSV(new File(filePathShortDebugResults), this.comparatorLogShort,
+					this.headerDebugResultsShort);
+				logger.info("Short debug results written to file: " + filePathShortDebugResults);
+			} catch (IOException e) {
+				logger.error("Short debug results could not be written to file: " + filePathShortDebugResults);
 			}
 		} else {
 			logger.error("No debug results found!");
